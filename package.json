@@ -23,5 +23,9 @@
     "react-navigation": "^2.17.0",
     "styled-components": "^3.4.9",
     "typescript": "^3.1.1"
+  },
+  "devDependencies": {
+    "@types/expo": "^27.0.13",
+    "@types/expo__vector-icons": "^6.2.3"
   }
 }
