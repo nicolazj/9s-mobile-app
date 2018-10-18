@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Platform, StatusBar, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import App from './src/nav/App';

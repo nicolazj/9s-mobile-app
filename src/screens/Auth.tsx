@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { View, Text, Button, AsyncStorage } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
@@ -14,14 +14,18 @@ export default class Auth extends React.Component<Props> {
     username: 'nicolas.jiang@9spokes.com',
     password: 'Qwer1234',
   };
+  componentDidMount() {
+    this.onPress();
+  }
   onPress = async () => {
-    console.log('sign in');
-    const userClient = await client.login(this.state);
-    const userInfo = await userClient.user.me();
-    await AsyncStorage.setItem('userId', userInfo.userId);
-    this.props.navigation.navigate('Main');
-
-    console.log(userInfo);
+    const user = await client.login(this.state);
+    if (client.user) {
+      const companies = await client.user.company.list();
+      if (companies.length === 1) {
+        await client.auth(companies[0].companyUuid);
+      }
+    }
+    await this.props.navigation.navigate('Main');
   };
 
   render() {

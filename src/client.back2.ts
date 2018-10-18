@@ -16,17 +16,14 @@ interface Connection {
   status: string;
 }
 
-const Client = ({
-  baseURL,
-  tenantId,
-  appKey,
-  appSecret,
-}: {
+interface ClientConfig {
   baseURL: string;
   tenantId: string;
   appKey: string;
   appSecret: string;
-}) => {
+}
+
+const Client = ({ baseURL, tenantId, appKey, appSecret }: ClientConfig) => {
   const instance = axios.create({
     baseURL,
   });
@@ -76,6 +73,46 @@ const Client = ({
       return {
         data,
         user,
+        service: {
+          list: async () => {
+            const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/services `, {
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+                'X-API-Version': 3,
+              },
+            });
+            const {
+              _embedded: { services },
+            } = r.data;
+            return services;
+          },
+          get: async (appKey: string) => {
+            const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/services/${appKey} `, {
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+                'X-API-Version': 3,
+              },
+            });
+            const {
+              _embedded: { service },
+            } = r.data;
+            return service;
+          },
+        },
+        spoke: {
+          get: async (type: string) => {
+            const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/spokes/types/${type}`, {
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+                'X-API-Version': 3,
+              },
+            });
+            const {
+              _embedded: { spokes },
+            } = r.data;
+            return spokes;
+          },
+        },
       };
     },
   };
