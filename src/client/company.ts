@@ -1,10 +1,11 @@
 import qs from 'qs';
 import axios from 'axios';
-import { ClientConfig, CompanyAuth, Connection, Workflow } from '../types';
+import { ClientConfig, CompanyAuth, Connection, Workflow, UserAuth } from '../types';
 
-export default (config: ClientConfig, companyAuth: CompanyAuth) => {
+export default (config: ClientConfig, userAuth: UserAuth, companyAuth: CompanyAuth) => {
   const { baseURL, tenantId } = config;
   const { access_token, companyUuid } = companyAuth;
+  const { userId } = userAuth;
   const instance = axios.create({
     baseURL,
   });
@@ -23,6 +24,15 @@ export default (config: ClientConfig, companyAuth: CompanyAuth) => {
       });
     },
     widget: {
+      list: async () => {
+        const r = await instance.get(`/widget/tenants/${tenantId}/users/${userId}/companies/${companyUuid}/widgets`, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            'X-API-Version': 3,
+          },
+        });
+        return r.data;
+      },
       deleteByAppKey: async (appKey: string) => {
         const r = await instance.delete(
           `/widget/tenants/${tenantId}/users/${userId}/companies/${companyUuid}/widgets?appKey=${appKey}`,
