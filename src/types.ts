@@ -1,5 +1,3 @@
-import { isDate } from 'util';
-
 export interface ClientConfig {
   baseURL: string;
   tenantId: string;

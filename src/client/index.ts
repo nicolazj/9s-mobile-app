@@ -69,7 +69,7 @@ class APIClient {
     return this.userAuth ? user(this.config, this.userAuth) : null;
   }
   get company() {
-    return this.companyAuth ? company(this.config, this.companyAuth) : null;
+    return this.userAuth && this.companyAuth ? company(this.config, this.userAuth, this.companyAuth) : null;
   }
 }
 

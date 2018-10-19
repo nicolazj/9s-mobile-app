@@ -1,7 +1,8 @@
+import { Entity } from './types';
 class Lock<T> {
   private resolve?: (value?: T | PromiseLike<T> | undefined) => void;
   hold() {
-    return new Promise<T>((resolve, reject) => {
+    return new Promise<T>(resolve => {
       this.resolve = resolve;
     });
   }
@@ -10,4 +11,4 @@ class Lock<T> {
   }
 }
 
-export default new Lock();
+export default new Lock<Entity>();

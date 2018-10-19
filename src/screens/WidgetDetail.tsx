@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, SectionList, Button, ActivityIndicator } from 'react-native';
 import { AuthSession } from 'expo';
 import client from '../client';
-import { App, Entity, Workflow, Activity } from '../types';
+import { App, Entity, Workflow, Activity, ACTIVITY_TYPES } from '../types';
 import { NavigationScreenProp } from 'react-navigation';
 
 import Lock from '../Lock';
@@ -54,49 +54,50 @@ export default class WidgetDetail extends React.Component<Props, State> {
         let act: Activity | undefined;
         while (((act = activities.shift()), act)) {
           for (let step of act.steps) {
-            console.log('doing', act.type, step);
-            if (act.type === 'remove-connection') {
-              const arr = step.href.split('/');
-              await company.connection.delete(arr[arr.length - 1]);
-            } else if (act.type === 'initiate-connection') {
-              if (connection) {
-                console.log('connection exists');
-              } else {
-                try {
-                  connection = await company.connection.create(appKey);
-                  console.log('connection', connection);
-                } catch (err) {
-                  console.log(err);
+            console.log('doing', act, step);
+
+            switch (act.type) {
+              case ACTIVITY_TYPES.INITIATE_CONNECTION:
+                if (connection) {
+                  console.log('connection exists');
+                } else {
+                  try {
+                    connection = await company.connection.create(appKey);
+                    console.log('connection', connection);
+                  } catch (err) {
+                    console.log(err);
+                  }
                 }
-              }
-            } else if (act.type === 'redirect-user-agent') {
-              let redirectUrl = AuthSession.getRedirectUrl();
-              console.log('redirectUrl', redirectUrl);
-              authResult = await AuthSession.startAsync({
-                authUrl: step.href,
-              });
-              // console.log(authResult);
-            } else if (act.type === 'submit-entity') {
-              const entity = await Lock.hold();
-              console.log('select entity', entity);
-              if (connection) {
-                const r = await company.entities.put(connection.id, { _embedded: { selectedEntity: entity.id } });
-              }
-            } else if (act.type === 'get-available-entities') {
-              if (connection) {
-                const entities = await company.entities.list(connection.id);
-                this.setState({ entities });
-                console.log('entities====', entities);
-              }
-            } else if (act.type === 'submit-authorization') {
-              if (connection && authResult && 'params' in authResult) {
-                const r = await company.connection.sendAuth(connection.id, {
-                  ...authResult.params,
-                  callback: step.id,
-                  serviceID: appKey,
+              case ACTIVITY_TYPES.REMOVE_CONNECTION:
+                const arr = step.href.split('/');
+                await company.connection.delete(arr[arr.length - 1]);
+              case ACTIVITY_TYPES.REDIRECT_USER_AGENT:
+                let redirectUrl = AuthSession.getRedirectUrl();
+                console.log('redirectUrl', redirectUrl);
+                authResult = await AuthSession.startAsync({
+                  authUrl: step.href,
                 });
-              }
+              case ACTIVITY_TYPES.SUBMIT_ENTITY:
+                const entity = await Lock.hold();
+                console.log('select entity', entity);
+                if (connection) {
+                  const r = await company.entities.put(connection.id, { _embedded: { selectedEntity: entity.id } });
+                }
+              case ACTIVITY_TYPES.GET_AVAILABLE_ENTITIES:
+                if (connection) {
+                  const entities = await company.entities.list(connection.id);
+                  this.setState({ entities });
+                }
+              case ACTIVITY_TYPES.SUBMIT_AUTHORIZATION:
+                if (connection && authResult && 'params' in authResult) {
+                  const r = await company.connection.sendAuth(connection.id, {
+                    ...authResult.params,
+                    callback: step.id,
+                    serviceID: appKey,
+                  });
+                }
             }
+
             const r = await company.workflow.update(workflow.id, act.id, step.id);
 
             activities = activities.concat(r.activities);
