@@ -3,7 +3,7 @@ import { Platform, StatusBar, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import App from './src/nav/App';
 import { Container } from './src/primitives';
-
+import auth from './src/states/Auth';
 interface Props {
   skipLoadingScreen: boolean;
 }
@@ -34,6 +34,7 @@ export default class extends React.Component<Props> {
 
   _loadResourcesAsync = () => {
     return Promise.all([
+      auth.rehydrate(),
       Asset.loadAsync([
         // require('./assets/images/icon.png'),
         // require('./assets/images/splash.png'),

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, ActivityIndicator, StatusBar, AsyncStorage } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
-
+import auth from '../states/Auth';
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
@@ -15,11 +15,9 @@ export default class AuthLoadingScreen extends React.Component<Props> {
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
     try {
-      await AsyncStorage.clear();
-      const userId = await AsyncStorage.getItem('userId');
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
-      this.props.navigation.navigate(userId ? 'Main' : 'Auth');
+      const loggedIn = auth.state && auth.state.userId;
+
+      this.props.navigation.navigate(loggedIn ? 'Main' : 'Auth');
     } catch (err) {
       console.log('err', err);
     }

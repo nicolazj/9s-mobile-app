@@ -4,6 +4,7 @@ import { NavigationScreenProp } from 'react-navigation';
 
 import { Center, TextInput } from '../primitives';
 import client from '../client';
+import auth from '../states/Auth';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
@@ -14,18 +15,19 @@ export default class Auth extends React.Component<Props> {
     username: 'nicolas.jiang@9spokes.com',
     password: 'Qwer1234',
   };
-  componentDidMount() {
-    this.onPress();
-  }
+  componentDidMount() {}
   onPress = async () => {
-    const user = await client.login(this.state);
-    if (client.user) {
+    try {
+      const user = await client.login(this.state);
+      await auth.setUser(user);
       const companies = await client.user.company.list();
       if (companies.length === 1) {
-        await client.auth(companies[0].companyUuid);
+        await client.user.company.auth(companies[0].companyUuid);
       }
+      await this.props.navigation.navigate('Main');
+    } catch (err) {
+      console.log('err', JSON.stringify(err, null, 2));
     }
-    await this.props.navigation.navigate('Main');
   };
 
   render() {

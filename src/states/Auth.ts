@@ -1,5 +1,6 @@
 import { Container } from 'unstated';
-
+import jwt from 'jwt-decode';
+import { AsyncStorage } from 'react-native';
 export interface UserAuth {
   access_token: string;
   expires_in: number;
@@ -25,4 +26,23 @@ interface State {
   userId: UserId;
   companyUuid: CompanyUuid;
 }
-export class Auth extends Container<State> {}
+export class Auth extends Container<State> {
+  setUser(userAuth: UserAuth) {
+    const { openid } = userAuth;
+    const { sub: userId } = jwt(openid);
+    return this.setState({ userAuth, userId });
+  }
+  async rehydrate() {
+    let serialState = await AsyncStorage.getItem('auth');
+    if (serialState) {
+      let incomingState = JSON.parse(serialState);
+      this.setState(incomingState as State);
+    }
+
+    this.subscribe(() => {
+      AsyncStorage.setItem('auth', JSON.stringify(this.state));
+    });
+  }
+}
+
+export default new Auth();

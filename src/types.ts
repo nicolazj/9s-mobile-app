@@ -12,6 +12,12 @@ export interface User {
   userId: string;
   userName: string;
 }
+export interface Company {
+  companyName: string;
+  companyUuid: string;
+  industryUuid: String;
+}
+
 export interface UserAuth {
   access_token: string;
   expires_in: number;

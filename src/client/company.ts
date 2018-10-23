@@ -1,14 +1,12 @@
 import qs from 'qs';
-import axios from 'axios';
-import { ClientConfig, CompanyAuth, Connection, Workflow, UserAuth } from '../types';
+import { AxiosInstance } from 'axios';
+import { Auth } from '../states/Auth';
+import { ClientConfig, Connection, Workflow } from '../types';
 
-export default (config: ClientConfig, userAuth: UserAuth, companyAuth: CompanyAuth) => {
+export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
   const { baseURL, tenantId } = config;
-  const { access_token, companyUuid } = companyAuth;
-  const { userId } = userAuth;
-  const instance = axios.create({
-    baseURL,
-  });
+  const { userId, companyUuid, companyAuth } = auth.state;
+  const { access_token } = companyAuth;
 
   return {
     send: async (url: string, method: string, data: any) => {

@@ -1,25 +1,18 @@
+import { AxiosInstance } from 'axios';
 import qs from 'qs';
-import axios from 'axios';
-import { ClientConfig, UserAuth } from '../types';
-
-interface Company {
-  companyName: string;
-  companyUuid: string;
-  industryUuid: String;
-}
-
-export default (config: ClientConfig, userAuth: UserAuth) => {
-  const { appKey, appSecret, baseURL, tenantId } = config;
-  const { access_token, userId } = userAuth;
-  const instance = axios.create({
-    baseURL,
-  });
+import { Buffer } from 'buffer';
+import { ClientConfig, Company } from '../types';
+import { Auth, CompanyAuth } from '../states/Auth';
+export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
+  const { tenantId, appKey, appSecret } = config;
+  const { access_token, openid } = auth.state.userAuth;
+  const { userId } = auth.state;
 
   return {
     widget: {
       config: {
         list: async () => {
-          const r = await instance.get('/widget/tenants/00000000-0000-0005-5555-555555555555/widget-configs', {
+          const r = await instance.get(`/widget/tenants/${tenantId}/widget-configs`, {
             headers: {
               Authorization: `Bearer ${access_token}`,
               'X-API-Version': 3,
@@ -29,15 +22,12 @@ export default (config: ClientConfig, userAuth: UserAuth) => {
           return r.data;
         },
         get: async (widget_key: string) => {
-          const r = await instance.get(
-            `/widget/tenants/00000000-0000-0005-5555-555555555555/widget-configs/${widget_key}`,
-            {
-              headers: {
-                Authorization: `Bearer ${access_token}`,
-                'X-API-Version': 3,
-              },
-            }
-          );
+          const r = await instance.get(`/widget/tenants/${tenantId}/widget-configs/${widget_key}`, {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              'X-API-Version': 3,
+            },
+          });
         },
       },
     },
@@ -107,6 +97,23 @@ export default (config: ClientConfig, userAuth: UserAuth) => {
       },
     },
     company: {
+      auth: async (companyUuid: string) => {
+        const r = await instance.post(
+          `/authentication/tenants/${tenantId}/token?grant_type=token-exchange`,
+          qs.stringify({
+            context: companyUuid,
+            subject_token: openid,
+            subject_token_type: 'openid',
+          }),
+          {
+            headers: {
+              Authorization: `Basic ${Buffer.from(`${appKey}:${appSecret}`).toString('base64')}`,
+            },
+          }
+        );
+        const { data } = r;
+        return data as CompanyAuth;
+      },
       list: async () => {
         const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${userId}/companies`, {
           data: null, // needed for this endpoint
@@ -119,7 +126,7 @@ export default (config: ClientConfig, userAuth: UserAuth) => {
           _embedded: { companies },
         } = r.data;
 
-        return companies as [Company];
+        return companies as Company[];
       },
     },
   };
