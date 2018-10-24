@@ -1,47 +1,57 @@
 import * as React from 'react';
-import { View, Text, Button, AsyncStorage } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-import { Center, TextInput } from '../primitives';
-import client from '../client';
+import { Center, TextInput, SafeArea, FormTitle } from '../primitives';
+import agent from '../agent';
 import auth from '../states/Auth';
+import { LoginPayload } from '../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
 export default class Auth extends React.Component<Props> {
-  state = {
-    username: 'nicolas.jiang@9spokes.com',
-    password: 'Qwer1234',
-  };
-  componentDidMount() {}
-  onPress = async () => {
+  onPress = async (values: LoginPayload) => {
     try {
-      const user = await client.login(this.state);
+      const user = await agent.basic.login(values);
+
       await auth.setUser(user);
-      const companies = await client.user.company.list();
+      const companies = await agent.user.company.list();
       if (companies.length === 1) {
-        await client.user.company.auth(companies[0].companyUuid);
+        await agent.user.exchange(companies[0].companyUuid);
       }
       await this.props.navigation.navigate('Main');
-    } catch (err) {
-      console.log('err', JSON.stringify(err, null, 2));
-    }
+    } catch (err) {}
   };
 
   render() {
     return (
-      <Center>
-        <Text>Login</Text>
-        <TextInput onChangeText={username => this.setState({ username })} value={this.state.username} />
-        <TextInput
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-          secureTextEntry={true}
-        />
-        <Button title="Sign in" onPress={this.onPress} />
-      </Center>
+      <SafeArea>
+        <Formik
+          initialValues={{
+            username: 'nicolas.jiang@9spokes.com',
+            password: 'Qwer1234',
+          }}
+          validationSchema={Yup.object().shape({
+            username: Yup.string().required('Required'),
+          })}
+          onSubmit={this.onPress}>
+          {({ handleChange, handleSubmit, values, errors, touched }) => (
+            <Center>
+              <FormTitle>Login</FormTitle>
+
+              <TextInput onChangeText={handleChange('username')} value={values.username} />
+
+              {errors.username && touched.username && <Text style={{ textAlign: 'left' }}>{errors.username}</Text>}
+              <TextInput onChangeText={handleChange('password')} value={values.password} secureTextEntry={true} />
+              <Button title="Sign in" onPress={handleSubmit} />
+            </Center>
+          )}
+        </Formik>
+      </SafeArea>
     );
   }
 }

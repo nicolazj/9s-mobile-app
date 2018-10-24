@@ -32,6 +32,9 @@ export class Auth extends Container<State> {
     const { sub: userId } = jwt(openid);
     return this.setState({ userAuth, userId });
   }
+  isLoggedIn() {
+    return this.state && this.state.userId;
+  }
   async rehydrate() {
     let serialState = await AsyncStorage.getItem('auth');
     if (serialState) {

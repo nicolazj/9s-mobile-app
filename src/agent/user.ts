@@ -1,14 +1,30 @@
 import { AxiosInstance } from 'axios';
 import qs from 'qs';
-import { Buffer } from 'buffer';
 import { ClientConfig, Company } from '../types';
 import { Auth, CompanyAuth } from '../states/Auth';
 export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
-  const { tenantId, appKey, appSecret } = config;
+  const { tenantId, basicAuthToken } = config;
   const { access_token, openid } = auth.state.userAuth;
   const { userId } = auth.state;
 
   return {
+    exchange: async (companyUuid: string) => {
+      const r = await instance.post(
+        `/authentication/tenants/${tenantId}/token?grant_type=token-exchange`,
+        qs.stringify({
+          context: companyUuid,
+          subject_token: openid,
+          subject_token_type: 'openid',
+        }),
+        {
+          headers: {
+            Authorization: `Basic ${basicAuthToken}`,
+          },
+        }
+      );
+      const { data } = r;
+      return data as CompanyAuth;
+    },
     widget: {
       config: {
         list: async () => {
@@ -97,23 +113,6 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       },
     },
     company: {
-      auth: async (companyUuid: string) => {
-        const r = await instance.post(
-          `/authentication/tenants/${tenantId}/token?grant_type=token-exchange`,
-          qs.stringify({
-            context: companyUuid,
-            subject_token: openid,
-            subject_token_type: 'openid',
-          }),
-          {
-            headers: {
-              Authorization: `Basic ${Buffer.from(`${appKey}:${appSecret}`).toString('base64')}`,
-            },
-          }
-        );
-        const { data } = r;
-        return data as CompanyAuth;
-      },
       list: async () => {
         const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${userId}/companies`, {
           data: null, // needed for this endpoint

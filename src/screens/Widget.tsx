@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, SectionList, Button } from 'react-native';
-import client from '../client';
+import agent from '../agent';
 import { Spoke } from '../types';
 import { NavigationScreenProp } from 'react-navigation';
 
@@ -16,10 +16,8 @@ export default class Widget extends React.Component<Props, State> {
     spokes: [],
   };
   async componentDidMount() {
-    if (client.user) {
-      const spokes = await client.user.spoke.get('mobile');
-      this.setState({ spokes });
-    }
+    const spokes = await agent.user.spoke.get('mobile');
+    this.setState({ spokes });
   }
   onPress(item: string) {
     this.props.navigation.push('WidgetDetail', { appKey: item });

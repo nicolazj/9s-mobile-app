@@ -9,7 +9,7 @@ import WidgetDetail from '../screens/WidgetDetail';
 import SettingsScreen from '../screens/Settings';
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  Home: { screen: HomeScreen, navigationOptions: { title: '123' } },
 });
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
