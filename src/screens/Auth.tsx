@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 
-import { Center, TextInput, SafeArea, FormTitle } from '../primitives';
+import { Center, SafeArea, FormTitle, Content, Button } from '../primitives';
+import { TextInput } from '../form';
 import agent from '../agent';
 import auth from '../states/Auth';
 import { LoginPayload } from '../types';
@@ -15,6 +16,7 @@ interface Props {
 
 export default class Auth extends React.Component<Props> {
   onPress = async (values: LoginPayload) => {
+    console.log(values);
     try {
       const user = await agent.basic.login(values);
 
@@ -30,27 +32,29 @@ export default class Auth extends React.Component<Props> {
   render() {
     return (
       <SafeArea>
-        <Formik
-          initialValues={{
-            username: 'nicolas.jiang@9spokes.com',
-            password: 'Qwer1234',
-          }}
-          validationSchema={Yup.object().shape({
-            username: Yup.string().required('Required'),
-          })}
-          onSubmit={this.onPress}>
-          {({ handleChange, handleSubmit, values, errors, touched }) => (
-            <Center>
-              <FormTitle>Login</FormTitle>
+        <Content>
+          <Formik
+            initialValues={{
+              username: 'nicolas.jiang@9spokes.com',
+              password: 'Qwer1234',
+            }}
+            validationSchema={Yup.object().shape({
+              username: Yup.string().required('Required'),
+              password: Yup.string().required('Required'),
+            })}
+            onSubmit={this.onPress}>
+            {({ handleChange, handleSubmit, values, errors, touched }) => (
+              <Center>
+                <FormTitle>Login</FormTitle>
+                <Field name="username" component={TextInput} placeholder="Email" />
 
-              <TextInput onChangeText={handleChange('username')} value={values.username} />
+                <Field name="password" component={TextInput} placeholder="Password" />
 
-              {errors.username && touched.username && <Text style={{ textAlign: 'left' }}>{errors.username}</Text>}
-              <TextInput onChangeText={handleChange('password')} value={values.password} secureTextEntry={true} />
-              <Button title="Sign in" onPress={handleSubmit} />
-            </Center>
-          )}
-        </Formik>
+                <Button title="Sign in" onPress={handleSubmit} />
+              </Center>
+            )}
+          </Formik>
+        </Content>
       </SafeArea>
     );
   }
