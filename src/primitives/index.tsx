@@ -1,12 +1,12 @@
-import { View, Text as Text_, TextInput as TextInput_, SafeAreaView } from 'react-native';
+import { View, Text as Text_, TextInput as TextInput_, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import { human } from 'react-native-typography';
 import { Styles } from 'styled-components';
 import styled from '../styled';
-
+import { r } from '../ratio';
 import Button_ from './button';
 
 export const Text = styled(Text_)`
-  font-size: 12px;
+  font-size: ${r(12)}px;
 `;
 
 export const Container = styled(View)`
@@ -25,30 +25,39 @@ export const Center = styled(VCenter)`
 export const SafeArea = styled(SafeAreaView)`
   flex: 1;
 `;
+
+export const KeyboardAvoiding = styled(KeyboardAvoidingView).attrs({ behavior: 'padding', enabled: true })`
+  flex: 1;
+`;
 export const TextInput = styled(TextInput_).attrs({ selectionColor: 'red', placeholderTextColor: '#ccc' })`
   border: 1px solid #ccc;
   width: 100%;
-  padding: 17px;
+  padding: ${r(17)}px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: ${r(12)}px;
 `;
 export const FormGroup = styled(View)`
-  height: 80px;
+  height: 60px;
   width: 100%;
+  margin: 10px 0;
 `;
 export const FormError = styled(Text)`
   color: red;
 `;
 export const FormTitle = styled(Text)`
   ${human.title1Object as Styles};
+  text-align: center;
 `;
 
+export const Link = styled(Button_)`
+  color: #40d5bb;
+`;
 export const Button = styled(Button_)`
   background-color: #40d5bb;
   width: 100%;
   border-radius: 5px;
   text-align: center;
   color: #fff;
-  height: 48px;
+  height: ${r(48)}px;
   padding: 15px;
 `;

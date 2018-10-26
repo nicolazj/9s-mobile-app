@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput as TextInput_, FormGroup, FormError } from './primitives';
+import { TextInput as TextInput_, FormGroup, FormError } from '.';
 import { FieldProps } from 'formik';
 
 interface TextInputProps {
