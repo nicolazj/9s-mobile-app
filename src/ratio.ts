@@ -1,11 +1,16 @@
 import { Dimensions, PixelRatio } from 'react-native';
-const DESIGN_WIDTH = 375;
-
-let { height, width } = Dimensions.get('window');
+let { width, height } = Dimensions.get('window');
 if (width > height) {
   width = height;
 }
 
-const ratio = width / DESIGN_WIDTH;
+//Guideline sizes are based on standard ~5" screen mobile device
+const guidelineBaseWidth = 370;
+const guidelineBaseHeight = 680;
 
-export const r = (size: number) => PixelRatio.roundToNearestPixel(size * ratio);
+const scale = (size: number) => PixelRatio.roundToNearestPixel((width / guidelineBaseWidth) * size);
+const verticalScale = (size: number) => PixelRatio.roundToNearestPixel((height / guidelineBaseHeight) * size);
+const moderateScale = (size: number, factor = 0.5) =>
+  PixelRatio.roundToNearestPixel(size + (scale(size) - size) * factor);
+
+export { scale, verticalScale, moderateScale };

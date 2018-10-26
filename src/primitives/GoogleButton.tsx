@@ -3,12 +3,12 @@ import { View, Image } from 'react-native';
 import { Text } from './index';
 import styled, { th } from '../styled';
 import Button_ from './button';
-import { r } from '../ratio';
+import { scale } from '../ratio';
 
 const GoogleButtonWrapper = styled(Button_)`
   border: 1px solid ${th('color.border')};
   border-radius: 5px;
-  height: ${r(48)}px;
+  height: ${scale(48)}px;
 `;
 const ViewParent = styled(View)`
   flex-direction: row;
@@ -17,7 +17,7 @@ const ViewParent = styled(View)`
 const ViewLeft = styled(View)`
   align-items: center;
   justify-content: center;
-  width:${r(48)}px;
+  width:${scale(48)}px;
   border-right-width:1px;
   border-right-color：${th('color.border')};
 `;
@@ -33,8 +33,8 @@ export default (props: any) => (
         <Image
           source={require('../../assets/google.png')}
           style={{
-            height: r(30),
-            width: r(30),
+            height: scale(30),
+            width: scale(30),
             resizeMode: 'contain',
           }}
         />

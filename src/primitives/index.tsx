@@ -2,11 +2,11 @@ import { View, Text as Text_, TextInput as TextInput_, SafeAreaView, KeyboardAvo
 import { human } from 'react-native-typography';
 import { Styles } from 'styled-components';
 import styled, { th } from '../styled';
-import { r } from '../ratio';
+import { scale } from '../ratio';
 import Button_ from './button';
 
 export const Text = styled(Text_)`
-  font-size: ${r(12)}px;
+  font-size: ${scale(12)}px;
 `;
 
 export const Container = styled(View)`
@@ -32,9 +32,9 @@ export const KeyboardAvoiding = styled(KeyboardAvoidingView).attrs({ behavior: '
 export const TextInput = styled(TextInput_).attrs({ selectionColor: 'red', placeholderTextColor: '#ccc' })`
   border: 1px solid ${th('color.border')};
   width: 100%;
-  padding: ${r(17)}px;
+  padding: ${scale(17)}px;
   border-radius: 5px;
-  font-size: ${r(12)}px;
+  font-size: ${scale(12)}px;
 `;
 export const FormGroup = styled(View)`
   height: 60px;
@@ -47,6 +47,7 @@ export const FormError = styled(Text)`
 export const FormTitle = styled(Text)`
   ${human.title1Object as Styles};
   text-align: center;
+  margin: ${scale(20)}px;
 `;
 
 export const Link = styled(Button_)`
@@ -58,6 +59,6 @@ export const Button = styled(Button_)`
   border-radius: 5px;
   text-align: center;
   color: #fff;
-  height: ${r(48)}px;
+  height: ${scale(48)}px;
   padding: 15px;
 `;
