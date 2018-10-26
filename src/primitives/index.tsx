@@ -1,7 +1,7 @@
 import { View, Text as Text_, TextInput as TextInput_, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import { human } from 'react-native-typography';
 import { Styles } from 'styled-components';
-import styled from '../styled';
+import styled, { th } from '../styled';
 import { r } from '../ratio';
 import Button_ from './button';
 
@@ -30,7 +30,7 @@ export const KeyboardAvoiding = styled(KeyboardAvoidingView).attrs({ behavior: '
   flex: 1;
 `;
 export const TextInput = styled(TextInput_).attrs({ selectionColor: 'red', placeholderTextColor: '#ccc' })`
-  border: 1px solid #ccc;
+  border: 1px solid ${th('color.border')};
   width: 100%;
   padding: ${r(17)}px;
   border-radius: 5px;
@@ -50,10 +50,10 @@ export const FormTitle = styled(Text)`
 `;
 
 export const Link = styled(Button_)`
-  color: #40d5bb;
+  color: ${th('color.main')};
 `;
 export const Button = styled(Button_)`
-  background-color: #40d5bb;
+  background-color: ${th('color.main')};
   width: 100%;
   border-radius: 5px;
   text-align: center;

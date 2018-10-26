@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 import { Text } from './index';
-import styled from '../styled';
+import styled, { th } from '../styled';
 import Button_ from './button';
 import { r } from '../ratio';
-import google from '../../assets/google.png';
+
 const GoogleButtonWrapper = styled(Button_)`
-  border: 1px solid #333;
+  border: 1px solid ${th('color.border')};
   border-radius: 5px;
   height: ${r(48)}px;
 `;
@@ -15,23 +15,23 @@ const ViewParent = styled(View)`
   height: 100%;
 `;
 const ViewLeft = styled(View)`
-  border-right-color：#333;
-  border-right-width:1px;
   align-items: center;
   justify-content: center;
   width:${r(48)}px;
+  border-right-width:1px;
+  border-right-color：${th('color.border')};
 `;
 const ViewRight = styled(View)`
   flex: 1;
   align-items: center;
   justify-content: center;
 `;
-export default props => (
+export default (props: any) => (
   <GoogleButtonWrapper {...props}>
     <ViewParent>
       <ViewLeft>
         <Image
-          source={google}
+          source={require('../../assets/google.png')}
           style={{
             height: r(30),
             width: r(30),

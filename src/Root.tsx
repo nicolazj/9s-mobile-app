@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { Provider } from 'unstated';
+import { ThemeProvider } from './styled';
 import App from './nav/App';
-
-import Auth from './states/Auth';
-import client from './client';
-
-let auth = new Auth();
-client.auth = auth;
+import { theme } from './tenant';
 
 export default () => (
-  <Provider inject={[auth]}>
-    <App />
+  <Provider>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </Provider>
 );

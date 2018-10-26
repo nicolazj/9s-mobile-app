@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Platform, StatusBar, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
-import App from './src/nav/App';
+import Root from './src/Root';
 import { Container } from './src/primitives';
 import auth from './src/states/Auth';
 interface Props {
@@ -26,7 +26,7 @@ export default class extends React.Component<Props> {
       return (
         <Container>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <App />
+          <Root />
         </Container>
       );
     }
@@ -36,7 +36,7 @@ export default class extends React.Component<Props> {
     return Promise.all([
       auth.rehydrate(),
       Asset.loadAsync([
-        // require('./assets/images/icon.png'),
+        require('./assets/google.png'),
         // require('./assets/images/splash.png'),
         // require('./assets/images/sage.png'),
         // require('./assets/images/wrike.png'),
