@@ -80,14 +80,25 @@ export default class Auth extends React.Component<Props> {
               <DelimiterText>or</DelimiterText>
               <DelimiterBar />
             </Delimiter>
-            <GoogleButton onPress={() => {}} />
-
-            <View style={{ flexDirection: 'row', marginBottom: 15, justifyContent: 'center' }}>
-              <Text>Don't have an account?</Text>
-              <Link title="Signup" />
-            </View>
+            <GoogleButton
+              onPress={() => {
+                console.log(123);
+              }}
+            />
           </Content>
         </KeyboardAwareScrollView>
+        <View
+          style={{
+            flexDirection: 'row',
+            marginBottom: 15,
+            justifyContent: 'center',
+            position: 'absolute',
+            bottom: 20,
+            width: '100%',
+          }}>
+          <Text>Don't have an account? </Text>
+          <Link title="Signup" />
+        </View>
       </SafeArea>
     );
   }
