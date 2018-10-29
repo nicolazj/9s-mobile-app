@@ -29,15 +29,18 @@ export const SafeArea = styled(SafeAreaView)`
 export const KeyboardAvoiding = styled(KeyboardAvoidingView).attrs({ behavior: 'padding', enabled: true })`
   flex: 1;
 `;
-export const TextInput = styled(TextInput_).attrs({ selectionColor: 'red', placeholderTextColor: '#ccc' })`
-  border: 1px solid ${th('color.border')};
+export const TextInput = styled(TextInput_).attrs({
+  selectionColor: props => th('color.main')(props),
+  placeholderTextColor: props => th('color.grey')(props),
+})`
+  border: 1px solid ${th('color.grey')};
   width: 100%;
-  padding: ${scale(17)}px;
+  padding: ${scale(16)}px;
   border-radius: 5px;
   font-size: ${scale(12)}px;
 `;
 export const FormGroup = styled(View)`
-  height: 60px;
+  height: ${scale(60)}px;
   width: 100%;
   margin: 10px 0;
 `;
@@ -60,5 +63,5 @@ export const Button = styled(Button_)`
   text-align: center;
   color: #fff;
   height: ${scale(48)}px;
-  padding: 15px;
+  padding: ${scale(15)}px;
 `;

@@ -6,7 +6,7 @@ import Button_ from './button';
 import { scale } from '../ratio';
 
 const GoogleButtonWrapper = styled(Button_)`
-  border: 1px solid ${th('color.border')};
+  border: 1px solid ${th('color.grey')};
   border-radius: 5px;
   height: ${scale(48)}px;
 `;
@@ -17,9 +17,9 @@ const ViewParent = styled(View)`
 const ViewLeft = styled(View)`
   align-items: center;
   justify-content: center;
-  width:${scale(48)}px;
-  border-right-width:1px;
-  border-right-color：${th('color.border')};
+  width: ${scale(48)}px;
+  border-right-width: 1px;
+  border-right-color: ${th('color.grey')};
 `;
 const ViewRight = styled(View)`
   flex: 1;

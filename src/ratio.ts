@@ -5,7 +5,7 @@ if (width > height) {
 }
 
 //Guideline sizes are based on standard ~5" screen mobile device
-const guidelineBaseWidth = 370;
+const guidelineBaseWidth = 375;
 const guidelineBaseHeight = 680;
 
 const scale = (size: number) => PixelRatio.roundToNearestPixel((width / guidelineBaseWidth) * size);

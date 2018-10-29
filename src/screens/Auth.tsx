@@ -32,7 +32,6 @@ const DelimiterBar = styled(View)`
 `;
 export default class Auth extends React.Component<Props> {
   onPress = async (values: LoginPayload) => {
-    console.log(values);
     try {
       const user = await agent.basic.login(values);
 
@@ -41,7 +40,7 @@ export default class Auth extends React.Component<Props> {
       if (companies.length === 1) {
         await agent.user.exchange(companies[0].companyUuid);
       }
-      await this.props.navigation.navigate('Main');
+      await this.props.navigation.navigate('Dashboard');
     } catch (err) {}
   };
 
@@ -53,7 +52,7 @@ export default class Auth extends React.Component<Props> {
             <Formik
               initialValues={{
                 username: 'nicolas.jiang@9spokes.com',
-                password: '',
+                password: 'Qwer1234',
               }}
               validationSchema={Yup.object().shape({
                 username: Yup.string().required('Required'),
