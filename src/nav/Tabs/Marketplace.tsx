@@ -22,6 +22,6 @@ const MarketplaceStack = createStackNavigator(
   }
 );
 
-MarketplaceStack.navigationOptions = getTabNavOpts({ title: 'Marketplace', icon: 'link' });
+MarketplaceStack.navigationOptions = getTabNavOpts({ title: 'Marketplace', icon: 'apps' });
 
 export default MarketplaceStack;

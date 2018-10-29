@@ -20,6 +20,6 @@ const DashboardStack = createStackNavigator(
     },
   }
 );
-DashboardStack.navigationOptions = getTabNavOpts({ title: 'Dashboard', icon: 'information-circle' });
+DashboardStack.navigationOptions = getTabNavOpts({ title: 'Dashboard', icon: 'trending-up' });
 
 export default DashboardStack;
