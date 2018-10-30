@@ -54,7 +54,7 @@ export interface Connection {
 }
 export interface Spoke {
   displayName: string;
-  services: [string];
+  services: string[];
   spokesKey: string;
   type: string;
 }

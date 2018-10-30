@@ -36,9 +36,13 @@ export default class Auth extends React.Component<Props> {
       const user = await agent.basic.login(values);
 
       await auth.setUser(user);
+
       const companies = await agent.user.company.list();
       if (companies.length === 1) {
-        await agent.user.exchange(companies[0].companyUuid);
+        const companyUuid = companies[0].companyUuid;
+        auth.setState({ companyUuid });
+        const companyAuth = await agent.user.exchange(companyUuid);
+        await auth.setState({ companyAuth });
       }
       await this.props.navigation.navigate('Dashboard');
     } catch (err) {}
@@ -79,11 +83,7 @@ export default class Auth extends React.Component<Props> {
               <DelimiterText>or</DelimiterText>
               <DelimiterBar />
             </Delimiter>
-            <GoogleButton
-              onPress={() => {
-                console.log(123);
-              }}
-            />
+            <GoogleButton onPress={() => {}} />
           </Content>
         </KeyboardAwareScrollView>
         <View

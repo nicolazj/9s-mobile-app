@@ -12,6 +12,7 @@ export const Text = styled(Text_)`
 export const Container = styled(View)`
   flex: 1;
   width: 100%;
+  background: #f6f6f6;
 `;
 export const Content = styled(Container)`
   padding: 0 18px;

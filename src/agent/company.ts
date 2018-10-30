@@ -7,7 +7,6 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
   const { baseURL, tenantId } = config;
   const { userId, companyUuid, companyAuth } = auth.state;
   const { access_token } = companyAuth;
-
   return {
     send: async (url: string, method: string, data: any) => {
       return instance({
