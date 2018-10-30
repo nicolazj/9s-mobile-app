@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { Subscribe, Container as UnContainer } from 'unstated';
 import { NavigationScreenProp } from 'react-navigation';
 import { human } from 'react-native-typography';
@@ -7,13 +7,13 @@ import { Styles } from 'styled-components';
 import { scale } from '../ratio';
 
 import agent from '../agent';
-import { Spoke } from '../types';
 
 import { Container } from '../primitives';
 import appsContainer, { Apps } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
 import { Text, Content } from '../primitives';
 import styled from '../styled';
+import { imgs } from '../osp';
 interface Props {
   navigation: NavigationScreenProp<any, any>;
   containers: UnContainer<any>[];
@@ -58,17 +58,21 @@ class AppList extends React.Component<Props> {
               <View>
                 <View>
                   <Title>My Apps</Title>
-                  {apps.purchasedApps.map(app => (
-                    <View key={app.key}>
-                      <Text>{app.name}</Text>
-                    </View>
-                  ))}
+                  <View>
+                    {apps.purchasedApps.map(app => (
+                      <View key={app.key}>
+                        <Image source={imgs[app.key]} />
+                        <Text>{app.name}</Text>
+                      </View>
+                    ))}
+                  </View>
                 </View>
                 <View>
                   <Title>Available Apps</Title>
 
                   {apps.availableApps.map(app => (
                     <View key={app.key}>
+                      <Image source={imgs[app.key]} />
                       <Text>{app.name}</Text>
                     </View>
                   ))}

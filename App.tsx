@@ -37,10 +37,15 @@ export default class extends React.Component<Props> {
       auth.rehydrate(),
       Asset.loadAsync([
         require('./assets/google.png'),
-        // require('./assets/images/splash.png'),
-        // require('./assets/images/sage.png'),
-        // require('./assets/images/wrike.png'),
-        // require('./assets/images/zendesk.png'),
+
+        require('./assets/osp/deputy.png'),
+        require('./assets/osp/freeagent.png'),
+        require('./assets/osp/intuit.png'),
+        require('./assets/osp/mailchimp.png'),
+        require('./assets/osp/sageone.png'),
+        require('./assets/osp/shopify.png'),
+        require('./assets/osp/googleanalytics.png'),
+        require('./assets/osp/vend.png'),
       ]),
       Font.loadAsync({
         ...Icon.Ionicons.font,
