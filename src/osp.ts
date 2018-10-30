@@ -1,4 +1,8 @@
-export const imgs = {
+interface Images {
+  [osp: string]: any;
+}
+
+export const imgs: Images = {
   deputy: require('../assets/osp/deputy.png'),
   freeagent: require('../assets/osp/freeagent.png'),
   intuit: require('../assets/osp/intuit.png'),
