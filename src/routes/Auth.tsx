@@ -1,6 +1,7 @@
 import { createStackNavigator, NavigationScreenProps } from 'react-navigation';
 import { SCREENS } from './constants';
 import SignIn from '../screens/SignIn';
+import SignUp from '../screens/SignUp';
 import ResetPwd from '../screens/ResetPwd';
 import { th, IThemeInterface } from '../styled';
 
@@ -8,6 +9,12 @@ export default createStackNavigator(
   {
     [SCREENS[SCREENS.SIGN_IN]]: {
       screen: SignIn,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    [SCREENS[SCREENS.SIGN_UP]]: {
+      screen: SignUp,
       navigationOptions: {
         header: null,
       },

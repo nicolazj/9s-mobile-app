@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import qs from 'qs';
-import { ClientConfig, UserAuth, LoginPayload } from '../types';
+import { ClientConfig, UserAuthResp, LoginPayload } from '../types';
 
 export default (instance: AxiosInstance, config: ClientConfig) => {
   const { tenantId, basicAuthToken } = config;
@@ -18,7 +18,7 @@ export default (instance: AxiosInstance, config: ClientConfig) => {
       });
 
       const { data } = r;
-      return data as UserAuth;
+      return data as UserAuthResp;
     },
 
     get_public_access: async () => {

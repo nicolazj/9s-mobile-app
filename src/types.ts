@@ -18,32 +18,25 @@ export interface Company {
   companyUuid: string;
   industryUuid: String;
 }
-
-export interface UserAuth {
+export interface AuthResp {
   access_token: string;
   expires_in: number;
+  refresh_token: string;
+  scope: string;
+  token_type: string;
+}
+export interface UserAuthResp extends AuthResp {
   openid: string;
-  refresh_token: string;
-  scope: string;
-  token_type: string;
-  userId: string;
 }
-export interface CompanyAuth {
-  access_token: string;
-  expires_in: number;
-  refresh_token: string;
-  scope: string;
-  token_type: string;
-  companyUuid: string;
-}
+
 export interface LoginPayload {
   username: string;
   password: string;
 }
 
 export interface ClientState {
-  userAuth?: UserAuth;
-  companyAuth?: CompanyAuth;
+  userAuth?: UserAuthResp;
+  companyAuth?: AuthResp;
 }
 export interface Connection {
   appKey?: string;

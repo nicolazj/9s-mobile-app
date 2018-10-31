@@ -55,9 +55,8 @@ export default class Auth extends React.Component<Props> {
               >
                 {({ handleSubmit }) => (
                   <View style={{ flex: 1 }}>
-                    <FormTitle style={{ marginBottom: 150 }}>Login</FormTitle>
+                    <FormTitle style={{ marginBottom: 20 }}>Sign up</FormTitle>
                     <Field name="username" component={FormikTextInput} placeholder="Email" />
-
                     <Field name="password" component={FormikTextInput} placeholder="Password" />
                     <View style={{ flexDirection: 'row', marginBottom: 15 }}>
                       <Text>Can't Log In? </Text>
@@ -69,7 +68,7 @@ export default class Auth extends React.Component<Props> {
                       />
                     </View>
 
-                    <Button title="Sign in" onPress={handleSubmit} />
+                    <Button title="Proceed" onPress={handleSubmit} />
                   </View>
                 )}
               </Formik>
@@ -87,8 +86,8 @@ export default class Auth extends React.Component<Props> {
               width: '100%',
             }}
           >
-            <Text>Don't have an account? </Text>
-            <Link title="Signup" onPress={() => this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP])} />
+            <Text>Already have an account? </Text>
+            <Link title="Log in" onPress={() => this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN])} />
           </View>
         </SafeArea>
       </Container>
