@@ -2,12 +2,10 @@ import React from 'react';
 import { Platform, StatusBar, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import Root from './src/Root';
-import { Container } from './src/primitives';
 import auth from './src/states/Auth';
 interface Props {
   skipLoadingScreen: boolean;
 }
-
 export default class extends React.Component<Props> {
   state = {
     isLoadingComplete: false,
@@ -15,7 +13,13 @@ export default class extends React.Component<Props> {
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-      return <AppLoading startAsync={this._loadResourcesAsync} onError={this._handleLoadingError} onFinish={this._handleFinishLoading} />;
+      return (
+        <AppLoading
+          startAsync={this._loadResourcesAsync}
+          onError={this._handleLoadingError}
+          onFinish={this._handleFinishLoading}
+        />
+      );
     } else {
       return (
         <View style={{ flex: 1 }}>

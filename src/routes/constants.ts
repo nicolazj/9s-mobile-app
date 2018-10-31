@@ -2,4 +2,7 @@ export enum SCREENS {
   SIGN_IN,
   SIGN_UP,
   RESET_PWD,
+  APP_LIST,
+  APP_DETAIL,
+  MARKETPLACE_HOME,
 }

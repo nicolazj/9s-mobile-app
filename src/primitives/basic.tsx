@@ -1,5 +1,13 @@
 import React from 'react';
-import { Platform, View, Text as Text_, TextInput as TextInput_, SafeAreaView, TouchableNativeFeedback, TouchableOpacity } from 'react-native';
+import {
+  Platform,
+  View,
+  Text as Text_,
+  TextInput as TextInput_,
+  SafeAreaView,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+} from 'react-native';
 import { human } from 'react-native-typography';
 import { Styles } from 'styled-components';
 import styled, { th } from '../styled';
@@ -24,9 +32,9 @@ export const Container = styled(View)<ContainerProps>`
   flex: 1;
   width: 100%;
   background-color: ${th('color.view.bg')};
-  ${p => p.padding && `padding: 0 ${scale(20)}px`};
-  ${p => p.vcenter && 'justify-content: center'};
-  ${p => p.hcenter && 'align-items: center'};
+  ${p => (p.padding ? `padding: 0 ${scale(20)}px` : '')};
+  ${p => (p.vcenter ? 'justify-content: center' : '')};
+  ${p => (p.hcenter ? 'align-items: center' : '')};
 `;
 
 export const SafeArea = styled(SafeAreaView)`

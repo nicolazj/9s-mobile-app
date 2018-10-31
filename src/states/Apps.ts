@@ -27,6 +27,12 @@ export class Apps extends Container<State> {
       .filter(app => supportedApps.includes(app.key))
       .filter(app => !activeConnections.includes(app.key));
   }
+  connectionStatus(appKey: string) {
+    return {
+      connection: this.state.connections.map(c => c.appKey).includes(appKey),
+      connected: this.activeConnections.map(c => c.appKey).includes(appKey),
+    };
+  }
 }
 
 export default new Apps();

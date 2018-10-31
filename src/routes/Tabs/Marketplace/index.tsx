@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { createStackNavigator, createMaterialTopTabNavigator, TabBarTop } from 'react-navigation';
+import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 import { th, IThemeInterface } from '../../../styled';
+import { SCREENS } from '../../constants';
 
 import { getTabNavOpts } from '../helper';
+import AppDetail from '../../../screens/AppDetail';
 
 import Apps from './Apps';
 import Widgets from './Widgets';
@@ -31,7 +31,15 @@ const m = createMaterialTopTabNavigator(
 
 const MarketplaceStack = createStackNavigator(
   {
-    m: { screen: m, navigationOptions: { title: 'Marketplace' } },
+    [SCREENS[SCREENS.MARKETPLACE_HOME]]: { screen: m, navigationOptions: { title: 'Marketplace' } },
+    [SCREENS[SCREENS.APP_DETAIL]]: {
+      screen: AppDetail,
+      navigationOptions: props => {
+        return {
+          title: props.navigation.getParam('key'),
+        };
+      },
+    },
   },
   {
     navigationOptions: props => {

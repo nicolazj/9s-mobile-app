@@ -1,14 +1,11 @@
-import React from 'react';
-import { View, Text } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 import AppList from '../../../screens/AppList';
-import AppDetail from '../../../screens/AppDetail';
+import { SCREENS } from '../../constants';
 
 export default createStackNavigator(
   {
-    AppList,
-    AppDetail,
+    [SCREENS[SCREENS.APP_LIST]]: AppList,
   },
   {
     navigationOptions: {
