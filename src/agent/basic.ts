@@ -1,9 +1,8 @@
 import { AxiosInstance } from 'axios';
 import qs from 'qs';
-import { Auth, CompanyAuth } from '../states/Auth';
 import { ClientConfig, UserAuth, LoginPayload } from '../types';
 
-export default (instance: AxiosInstance, config: ClientConfig, ) => {
+export default (instance: AxiosInstance, config: ClientConfig) => {
   const { tenantId, basicAuthToken } = config;
 
   return {
@@ -20,6 +19,34 @@ export default (instance: AxiosInstance, config: ClientConfig, ) => {
 
       const { data } = r;
       return data as UserAuth;
+    },
+
+    get_public_access: async () => {
+      const r = await instance({
+        method: 'POST',
+        url: `/authentication/tenants/${tenantId}/token?grant_type=public_access`,
+        data: qs.stringify({ device_id: '8275AC55-257C-448C-8097-EC7F13DB51C1' }),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Basic ${basicAuthToken}`,
+        },
+      });
+
+      const { data } = r;
+      return data;
+    },
+    reset: async (emailAddress, token) => {
+      const r = await instance({
+        method: 'POST',
+        url: `/customer/customer/tenants/${tenantId}/users/access`,
+        data: { emailAddress },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const { data } = r;
+      return data;
     },
   };
 };

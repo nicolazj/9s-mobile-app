@@ -4,7 +4,7 @@ import { Subscribe, Container as UnContainer } from 'unstated';
 import { NavigationScreenProp } from 'react-navigation';
 import { human } from 'react-native-typography';
 import { Styles } from 'styled-components';
-import { scale } from '../ratio';
+import { scale } from '../scale';
 
 import agent from '../agent';
 

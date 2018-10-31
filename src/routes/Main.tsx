@@ -2,7 +2,7 @@ import { createSwitchNavigator } from 'react-navigation';
 
 import Tabs from './Tabs';
 import Loading from '../screens/Loading';
-import Auth from '../screens/Auth';
+import Auth from './Auth';
 
 export default createSwitchNavigator(
   {

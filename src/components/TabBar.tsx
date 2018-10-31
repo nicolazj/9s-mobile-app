@@ -2,7 +2,7 @@ import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import styled, { withTheme, th, IThemeInterface } from '../styled';
 
-import { scale } from '../ratio';
+import { scale } from '../scale';
 import { Text } from '../primitives';
 interface IconProps {
   focused: boolean;

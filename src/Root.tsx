@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Provider } from 'unstated';
 import { ThemeProvider, withTheme, IThemeInterface } from './styled';
-import Main from './nav/Main';
+import Main from './routes/Main';
 import { theme } from './tenant';
 import apps from './states/Apps';
 
