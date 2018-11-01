@@ -7,8 +7,7 @@ interface State {
 }
 export interface ConnectionStatus {
   appKey: string;
-  connection: boolean;
-  connected: boolean;
+  connection?: Connection;
 }
 export class Apps extends Container<State> {
   state = {
@@ -34,8 +33,7 @@ export class Apps extends Container<State> {
   connectionStatus(appKey: string) {
     return {
       appKey,
-      connection: this.state.connections.map(c => c.appKey).includes(appKey),
-      connected: this.activeConnections.map(c => c.appKey).includes(appKey),
+      connection: this.state.connections.find(c => c.appKey === appKey),
     } as ConnectionStatus;
   }
 }

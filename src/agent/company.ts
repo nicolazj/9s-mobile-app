@@ -209,14 +209,6 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         );
         return r.data.workflow as Workflow;
       },
-      // get: async (appKey: string) => {
-      //   const r = await instance.get(`/connections/connections/tenants/${tenantId}/company/${companyUuid}/workflow`, {
-      //     headers: {
-      //       Authorization: `Bearer ${access_token}`,
-      //     },
-      //   });
-      //   return r.data;
-      // },
     },
   };
 };

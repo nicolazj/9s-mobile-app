@@ -39,11 +39,11 @@ export interface ClientState {
   companyAuth?: AuthResp;
 }
 export interface Connection {
-  appKey?: string;
-  createdAt?: string;
-  createdBy?: string;
+  appKey: string;
+  createdAt: string;
+  createdBy: string;
   id: string;
-  status?: string;
+  status: string;
 }
 export interface Spoke {
   displayName: string;
