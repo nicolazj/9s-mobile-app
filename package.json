@@ -9,6 +9,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@types/lodash.get": "^4.4.4",
     "@types/yup": "^0.26.0",
     "axios": "^0.18.0",
     "expo": "^30.0.1",

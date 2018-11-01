@@ -31,4 +31,5 @@ interface LabelProps {
 export const Label = styled(Text)`
   font-size: ${scale(10)}px;
   color: ${(props: LabelProps) => (props.focused ? th('color.main')(props) : th('color.grey')(props))};
+  text-align: center;
 `;

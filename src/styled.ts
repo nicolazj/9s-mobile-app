@@ -6,11 +6,18 @@ export interface IThemeInterface {
     main: string;
     header: string;
     grey: string;
+    danger: string;
     view: { bg: string };
   };
 }
 
-const { default: styled, css, keyframes, ThemeProvider, withTheme } = styledComponents as styledComponents.ThemedStyledComponentsModule<IThemeInterface>;
+const {
+  default: styled,
+  css,
+  keyframes,
+  ThemeProvider,
+  withTheme,
+} = styledComponents as styledComponents.ThemedStyledComponentsModule<IThemeInterface>;
 
 export const th = (...props: string[]) => ({ theme }: { theme: IThemeInterface }) => {
   for (let i = 0; i < props.length; i++) {

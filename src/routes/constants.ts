@@ -4,5 +4,6 @@ export enum SCREENS {
   RESET_PWD,
   APP_LIST,
   APP_DETAIL,
+  APP_CONNECT,
   MARKETPLACE_HOME,
 }

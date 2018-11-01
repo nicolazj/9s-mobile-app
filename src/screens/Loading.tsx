@@ -14,7 +14,7 @@ export default class AuthLoadingScreen extends React.Component<Props> {
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
-    await AsyncStorage.clear();
+    // await AsyncStorage.clear();
     const loggedIn = auth.isLoggedIn();
     this.props.navigation.navigate(loggedIn ? 'Tabs' : 'Auth');
   };

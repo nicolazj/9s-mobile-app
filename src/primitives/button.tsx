@@ -14,6 +14,7 @@ const ButtonTouchable = styled(Touchable)`
   border-radius: 5px;
   height: ${scale(48)}px;
   padding: ${scale(15)}px;
+  margin: 5px 0;
 `;
 
 const ButtonText = styled(Text)`
@@ -87,4 +88,6 @@ export const SocialLoginButon = ({ title, icon, ...props }) => (
   </SocialLoginButtonWrapper>
 );
 
-export const GoogleButton = (props: any) => <SocialLoginButon title="Log in with Google" icon={require('../../assets/google.png')} {...props} />;
+export const GoogleButton = (props: any) => (
+  <SocialLoginButon title="Log in with Google" icon={require('../../assets/google.png')} {...props} />
+);

@@ -5,7 +5,11 @@ interface State {
   connections: Connection[];
   apps: App[];
 }
-
+export interface ConnectionStatus {
+  appKey: string;
+  connection: boolean;
+  connected: boolean;
+}
 export class Apps extends Container<State> {
   state = {
     spokes: [],
@@ -29,9 +33,10 @@ export class Apps extends Container<State> {
   }
   connectionStatus(appKey: string) {
     return {
+      appKey,
       connection: this.state.connections.map(c => c.appKey).includes(appKey),
       connected: this.activeConnections.map(c => c.appKey).includes(appKey),
-    };
+    } as ConnectionStatus;
   }
 }
 
