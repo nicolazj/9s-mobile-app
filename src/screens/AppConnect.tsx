@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ActionSheetIOS } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import { Subscribe } from 'unstated';
-import { AuthSession } from 'expo';
+import { AuthSession, Linking, WebBrowser, Constants } from 'expo';
 import { Container, Button } from '../primitives';
 import { Apps, ConnectionStatus } from '../states/Apps';
 import { SCREENS } from '../routes/constants';
@@ -13,10 +13,6 @@ interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
-function getConnectionId(href: string) {
-  const r = /\/connection\/(.*)$/gm.exec(href);
-  if (r) return r[1];
-}
 export default class extends React.Component<Props> {
   // onPress = () => {
   //   this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT]);
@@ -27,26 +23,27 @@ export default class extends React.Component<Props> {
   }
 
   async startConnection() {
-    console.log('=====================================================>>>>>>>>');
-    const connectionStatus = this.props.navigation.state.params as ConnectionStatus;
-    console.log(connectionStatus);
-    let { appKey, connection } = connectionStatus;
-    const company = agent.company;
-    let workflow: Workflow;
     try {
-      workflow = await company.workflow.create(appKey);
-    } catch (err) {
-      console.log('there exists workflow', err.response.data);
-      workflow = await company.workflow.resume(appKey);
-    }
-    let authResult;
-    let { activities } = workflow;
+      console.log('=====================================================>>>>>>>>');
+      const connectionStatus = this.props.navigation.state.params as ConnectionStatus;
+      console.log(connectionStatus);
+      let { appKey, connection } = connectionStatus;
+      const company = agent.company;
+      let workflow: Workflow;
+      try {
+        workflow = await company.workflow.create(appKey);
+      } catch (err) {
+        console.log('there exists workflow', err.response.data);
+        workflow = await company.workflow.resume(appKey);
+      }
+      let authResult;
+      let { activities } = workflow;
 
-    try {
       while (activities.length > 0) {
         let act = activities[0];
         for (let step of act.steps) {
-          console.log('doing', act, step);
+          console.log('doing', act.type);
+          this.setState({ type: act.type });
 
           switch (act.type) {
             case ACTIVITY_TYPES.INITIATE_CONNECTION:
@@ -61,18 +58,19 @@ export default class extends React.Component<Props> {
               break;
 
             case ACTIVITY_TYPES.REDIRECT_USER_AGENT:
-              let redirectUrl = AuthSession.getRedirectUrl();
-              console.log('redirectUrl', redirectUrl);
-              authResult = await AuthSession.startAsync({
-                authUrl: step.href,
-              });
+              console.log('redirectUrl', Constants.linkingUri);
+              const r = (await WebBrowser.openAuthSessionAsync(step.href)) as { type: string; url: string };
+              if (r.type === 'success') {
+                authResult = Linking.parse(r.url);
+                console.log('authResult', authResult);
+              }
               break;
 
             case ACTIVITY_TYPES.SUBMIT_ENTITY:
               const entity = await Lock.hold();
               console.log('select entity', entity);
               if (connection) {
-                const r = await company.entities.put(connection.id, { _embedded: { selectedEntity: entity.id } });
+                await company.entities.put(connection.id, { _embedded: { selectedEntity: entity.id } });
               }
               break;
 
@@ -84,9 +82,9 @@ export default class extends React.Component<Props> {
               break;
 
             case ACTIVITY_TYPES.SUBMIT_AUTHORIZATION:
-              if (connection && authResult && 'params' in authResult) {
+              if (connection && authResult) {
                 await company.connection.sendAuth(connection.id, {
-                  ...authResult.params,
+                  ...authResult.queryParams,
                   callback: step.id,
                   serviceID: appKey,
                 });
