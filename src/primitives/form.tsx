@@ -1,6 +1,6 @@
-import React from 'react';
-import { TextInput as TextInput_, FormGroup, FormError } from './basic';
 import { FieldProps } from 'formik';
+import React from 'react';
+import { FormError, FormGroup, TextInput as TextInput_ } from './basic';
 
 interface TextInputProps {
   placeholder?: string;

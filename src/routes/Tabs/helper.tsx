@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
+import { NavigationBottomTabScreenOptions, NavigationScreenConfig } from 'react-navigation';
 import { Icon, Label } from '../../components/TabBar';
-import { NavigationScreenConfig, NavigationBottomTabScreenOptions } from 'react-navigation';
 
 export function getTabNavOpts({
   title,

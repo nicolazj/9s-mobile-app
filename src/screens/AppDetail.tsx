@@ -1,19 +1,19 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import { Subscribe } from 'unstated';
-import { Container, Button } from '../primitives';
-import { Apps, ConnectionStatus } from '../states/Apps';
+import { Button, Container } from '../primitives';
 import { SCREENS } from '../routes/constants';
+import { Apps, ConnectionStatus } from '../states/Apps';
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
 export default class extends React.Component<Props> {
-  onPress = (connectionStatus: ConnectionStatus) => {
+  public onPress = (connectionStatus: ConnectionStatus) => {
     this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT], connectionStatus);
-  };
-  render() {
+  }
+  public render() {
     const appKey = this.props.navigation.getParam('key');
     return (
       <Container padding>

@@ -1,16 +1,16 @@
-import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import styled, { withTheme, th, IThemeInterface } from '../styled';
+import React from 'react';
+import styled, { IThemeInterface, th, withTheme } from '../styled';
 
-import { scale } from '../scale';
 import { Text } from '../primitives';
+import { scale } from '../scale';
 interface IconProps {
   focused: boolean;
   name: string;
   theme: IThemeInterface;
 }
 class TabBarIcon extends React.Component<IconProps> {
-  render() {
+  public render() {
     return (
       <Ionicons
         name={this.props.name}

@@ -1,11 +1,11 @@
-import { createStackNavigator, createMaterialTopTabNavigator, NavigationScreenProps } from 'react-navigation';
+import { createMaterialTopTabNavigator, createStackNavigator, NavigationScreenProps } from 'react-navigation';
 
-import { th, IThemeInterface } from '../../../styled';
+import { IThemeInterface, th } from '../../../styled';
 import { SCREENS } from '../../constants';
 
-import { getTabNavOpts } from '../helper';
-import AppDetail from '../../../screens/AppDetail';
 import AppConnect from '../../../screens/AppConnect';
+import AppDetail from '../../../screens/AppDetail';
+import { getTabNavOpts } from '../helper';
 
 import Apps from './Apps';
 import Widgets from './Widgets';
@@ -28,7 +28,7 @@ const m = createMaterialTopTabNavigator(
         height: '100%',
       },
     },
-  }
+  },
 );
 
 const MarketplaceStack = createStackNavigator(
@@ -52,7 +52,7 @@ const MarketplaceStack = createStackNavigator(
     },
   },
   {
-    navigationOptions: props => {
+    navigationOptions: (props) => {
       return {
         headerTintColor: '#fff',
         headerStyle: {
@@ -60,7 +60,7 @@ const MarketplaceStack = createStackNavigator(
         },
       };
     },
-  }
+  },
 );
 
 MarketplaceStack.navigationOptions = getTabNavOpts({ title: 'Marketplace', icon: 'apps' });

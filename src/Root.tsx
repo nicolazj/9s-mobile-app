@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { Provider } from 'unstated';
-import { ThemeProvider, withTheme, IThemeInterface } from './styled';
 import Main from './routes/Main';
-import { theme } from './tenant';
 import apps from './states/Apps';
+import { IThemeInterface, ThemeProvider, withTheme } from './styled';
+import tenant from './tenant';
 
 const App = withTheme(({ theme }: { theme: IThemeInterface }) => <Main screenProps={{ theme }} />);
+
 export default () => (
   <Provider inject={[apps]}>
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={tenant.theme}>
       <App />
     </ThemeProvider>
   </Provider>

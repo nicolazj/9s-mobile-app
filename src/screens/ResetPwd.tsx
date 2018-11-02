@@ -1,18 +1,18 @@
+import { Field, Formik } from 'formik';
 import React from 'react';
-import { View, Alert } from 'react-native';
+import { Alert, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
-import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
-import { SafeArea, FormTitle, FormDesc, Container, Button } from '../primitives';
-import { FormikTextInput } from '../primitives';
 import agent from '../agent';
+import { Button, Container, FormDesc, FormTitle, SafeArea } from '../primitives';
+import { FormikTextInput } from '../primitives';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
 export default class Auth extends React.Component<Props> {
-  onPress = async (values: { username: string }) => {
+  public onPress = async (values: { username: string }) => {
     try {
       const r = await agent.basic.get_public_access();
       console.log(r);
@@ -24,9 +24,9 @@ export default class Auth extends React.Component<Props> {
       console.log(err);
       Alert.alert('Reset password failed', 'try again later');
     }
-  };
+  }
 
-  render() {
+  public render() {
     return (
       <Container>
         <SafeArea>

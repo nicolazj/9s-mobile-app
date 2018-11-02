@@ -1,4 +1,4 @@
-import { btoa } from '../utils';
+import { btoa } from 'abab';
 import { ClientConfig } from '../types';
 const appKey = 'mobileSmudgeDEV02';
 const appSecret = 'zYfCuhQnBz5rvv7nR9s9JZ2AXY49uVVhYYN2BExF';

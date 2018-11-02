@@ -1,24 +1,24 @@
-import React from 'react';
 import { Constants } from 'expo';
-import { View, Alert } from 'react-native';
-import { NavigationScreenProp } from 'react-navigation';
-import { Formik, Field } from 'formik';
-import * as Yup from 'yup';
-import { Delimiter, SafeArea, FormTitle, Container, Button, Text, Link } from '../primitives';
-import { GoogleButton } from '../primitives';
-import { FormikTextInput } from '../primitives';
+import { Field, Formik } from 'formik';
+import React from 'react';
+import { Alert, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { NavigationScreenProp } from 'react-navigation';
+import * as Yup from 'yup';
 import agent from '../agent';
+import { FormikTextInput } from '../primitives';
+import { Button, Container, Delimiter, FormTitle, Link, SafeArea, Text } from '../primitives';
+import { GoogleButton } from '../primitives';
+import { SCREENS } from '../routes/constants';
 import auth from '../states/Auth';
 import { LoginPayload } from '../types';
-import { SCREENS } from '../routes/constants';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
 export default class Auth extends React.Component<Props> {
-  onPress = async (values: LoginPayload) => {
+  public onPress = async (values: LoginPayload) => {
     try {
       const user = await agent.basic.login(values);
       await auth.setUser(user);
@@ -34,9 +34,11 @@ export default class Auth extends React.Component<Props> {
     } catch (err) {
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     }
-  };
-
-  render() {
+  }
+  public googleLogin() {
+    console.log('google login');
+  }
+  public render() {
     return (
       <Container>
         <SafeArea>
@@ -51,8 +53,7 @@ export default class Auth extends React.Component<Props> {
                   username: Yup.string().required('Required'),
                   password: Yup.string().required('Required'),
                 })}
-                onSubmit={this.onPress}
-              >
+                onSubmit={this.onPress}>
                 {({ handleSubmit }) => (
                   <View style={{ flex: 1 }}>
                     <FormTitle style={{ marginBottom: 20 }}>Sign up</FormTitle>
@@ -73,7 +74,7 @@ export default class Auth extends React.Component<Props> {
                 )}
               </Formik>
               <Delimiter />
-              <GoogleButton onPress={() => {}} />
+              <GoogleButton onPress={this.googleLogin} />
             </Container>
           </KeyboardAwareScrollView>
           <View
@@ -84,8 +85,7 @@ export default class Auth extends React.Component<Props> {
               position: 'absolute',
               bottom: 20,
               width: '100%',
-            }}
-          >
+            }}>
             <Text>Already have an account? </Text>
             <Link title="Log in" onPress={() => this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN])} />
           </View>

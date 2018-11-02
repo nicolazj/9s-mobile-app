@@ -1,8 +1,8 @@
 import React from 'react';
-import { createStackNavigator, NavigationScreenConfig, NavigationBottomTabScreenOptions } from 'react-navigation';
+import { createStackNavigator, NavigationBottomTabScreenOptions, NavigationScreenConfig } from 'react-navigation';
 
 import DashboardScreen from '../../screens/Dashboard';
-import { th, IThemeInterface } from '../../styled';
+import { IThemeInterface, th } from '../../styled';
 import { getTabNavOpts } from './helper';
 
 const DashboardStack = createStackNavigator(
@@ -10,7 +10,7 @@ const DashboardStack = createStackNavigator(
     Dashboard: { screen: DashboardScreen, navigationOptions: { title: 'Dashboard' } },
   },
   {
-    navigationOptions: props => {
+    navigationOptions: (props) => {
       return {
         headerTintColor: '#fff',
         headerStyle: {
@@ -18,7 +18,7 @@ const DashboardStack = createStackNavigator(
         },
       };
     },
-  }
+  },
 );
 DashboardStack.navigationOptions = getTabNavOpts({ title: 'Dashboard', icon: 'trending-up' });
 

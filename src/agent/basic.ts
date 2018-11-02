@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import qs from 'qs';
-import { ClientConfig, UserAuthResp, LoginPayload } from '../types';
+import { ClientConfig, LoginPayload, UserAuthResp } from '../types';
 
 export default (instance: AxiosInstance, config: ClientConfig) => {
   const { tenantId, basicAuthToken } = config;
@@ -13,7 +13,7 @@ export default (instance: AxiosInstance, config: ClientConfig) => {
         data: qs.stringify(payload),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Basic ${basicAuthToken}`,
+          'Authorization': `Basic ${basicAuthToken}`,
         },
       });
 
@@ -28,7 +28,7 @@ export default (instance: AxiosInstance, config: ClientConfig) => {
         data: qs.stringify({ device_id: '8275AC55-257C-448C-8097-EC7F13DB51C1' }),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Basic ${basicAuthToken}`,
+          'Authorization': `Basic ${basicAuthToken}`,
         },
       });
 

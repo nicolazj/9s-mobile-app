@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { Image, View } from 'react-native';
+import { scale } from '../scale';
+import styled, { th } from '../styled';
 import { Text } from './index';
 import { Touchable } from './index';
-import styled, { th } from '../styled';
-import { scale } from '../scale';
 
 /***
  *  Button

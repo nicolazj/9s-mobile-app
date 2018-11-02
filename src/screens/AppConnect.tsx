@@ -1,14 +1,14 @@
+import { AuthSession, Constants, Linking, WebBrowser } from 'expo';
 import React from 'react';
-import { View, Text, ActionSheetIOS } from 'react-native';
+import { ActionSheetIOS, Text, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import { Subscribe } from 'unstated';
-import { AuthSession, Linking, WebBrowser, Constants } from 'expo';
-import { Container, Button } from '../primitives';
-import { Apps, ConnectionStatus } from '../states/Apps';
-import { SCREENS } from '../routes/constants';
 import agent from '../agent';
-import { App, Entity, Workflow, Activity, ACTIVITY_TYPES } from '../types';
 import Lock from '../Lock';
+import { Button, Container } from '../primitives';
+import { SCREENS } from '../routes/constants';
+import { Apps, ConnectionStatus } from '../states/Apps';
+import { Activity, ACTIVITY_TYPES, App, Entity, Workflow } from '../types';
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
@@ -18,16 +18,17 @@ export default class extends React.Component<Props> {
   //   this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT]);
   // };
 
-  componentDidMount() {
+  public componentDidMount() {
     this.startConnection();
   }
 
-  async startConnection() {
+  public async startConnection() {
     try {
       console.log('=====================================================>>>>>>>>');
       const connectionStatus = this.props.navigation.state.params as ConnectionStatus;
       console.log(connectionStatus);
-      let { appKey, connection } = connectionStatus;
+      const { appKey } = connectionStatus;
+      let { connection } = connectionStatus;
       const company = agent.company;
       let workflow: Workflow;
       try {
@@ -40,8 +41,8 @@ export default class extends React.Component<Props> {
       let { activities } = workflow;
 
       while (activities.length > 0) {
-        let act = activities[0];
-        for (let step of act.steps) {
+        const act = activities[0];
+        for (const step of act.steps) {
           console.log('doing', act.type);
           this.setState({ type: act.type });
 
@@ -101,7 +102,7 @@ export default class extends React.Component<Props> {
       console.log(JSON.stringify(err, null, 2));
     }
   }
-  render() {
+  public render() {
     const connectionStatus = this.props.navigation.state.params as ConnectionStatus;
     const { appKey } = connectionStatus;
     return (

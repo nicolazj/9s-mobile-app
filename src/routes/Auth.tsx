@@ -1,9 +1,9 @@
 import { createStackNavigator, NavigationScreenProps } from 'react-navigation';
-import { SCREENS } from './constants';
+import ResetPwd from '../screens/ResetPwd';
 import SignIn from '../screens/SignIn';
 import SignUp from '../screens/SignUp';
-import ResetPwd from '../screens/ResetPwd';
-import { th, IThemeInterface } from '../styled';
+import { IThemeInterface, th } from '../styled';
+import { SCREENS } from './constants';
 
 export default createStackNavigator(
   {
@@ -35,5 +35,5 @@ export default createStackNavigator(
   },
   {
     mode: 'modal',
-  }
+  },
 );

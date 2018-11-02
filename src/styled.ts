@@ -1,5 +1,5 @@
-import * as styledComponents from 'styled-components';
 import get from 'lodash.get';
+import * as styledComponents from 'styled-components';
 
 export interface IThemeInterface {
   color: {
@@ -20,9 +20,11 @@ const {
 } = styledComponents as styledComponents.ThemedStyledComponentsModule<IThemeInterface>;
 
 export const th = (...props: string[]) => ({ theme }: { theme: IThemeInterface }) => {
-  for (let i = 0; i < props.length; i++) {
-    let res = get(theme, props[i]);
-    if (res) return res;
+  for (const prop of props) {
+    const res = get(theme, prop);
+    if (res) {
+      return res;
+    }
   }
 };
 

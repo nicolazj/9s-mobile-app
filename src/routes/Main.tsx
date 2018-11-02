@@ -1,8 +1,8 @@
 import { createSwitchNavigator } from 'react-navigation';
 
-import Tabs from './Tabs';
 import Loading from '../screens/Loading';
 import Auth from './Auth';
+import Tabs from './Tabs';
 
 export default createSwitchNavigator(
   {
@@ -12,5 +12,5 @@ export default createSwitchNavigator(
   },
   {
     initialRouteName: 'Loading',
-  }
+  },
 );

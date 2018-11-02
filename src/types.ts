@@ -16,7 +16,7 @@ export interface User {
 export interface Company {
   companyName: string;
   companyUuid: string;
-  industryUuid: String;
+  industryUuid: string;
 }
 export interface AuthResp {
   access_token: string;

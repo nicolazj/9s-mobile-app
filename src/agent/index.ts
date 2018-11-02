@@ -1,10 +1,10 @@
 import axios from 'axios';
+import auth, { Auth } from '../states/Auth';
+import { ClientConfig } from '../types';
 import basic from './basic';
-import user from './user';
 import company from './company';
 import config from './config';
-import { ClientConfig } from '../types';
-import auth, { Auth } from '../states/Auth';
+import user from './user';
 
 export const APIClient = (config: ClientConfig) => (auth: Auth) => {
   const instance = axios.create({

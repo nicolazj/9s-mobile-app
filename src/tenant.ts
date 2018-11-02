@@ -8,3 +8,7 @@ export const theme: IThemeInterface = {
     view: { bg: '#f6f6f6' },
   },
 };
+
+export default {
+  theme,
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 export default createStackNavigator(
@@ -8,5 +8,5 @@ export default createStackNavigator(
     navigationOptions: {
       header: null,
     },
-  }
+  },
 );

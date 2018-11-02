@@ -1,5 +1,5 @@
-import qs from 'qs';
 import { AxiosInstance } from 'axios';
+import qs from 'qs';
 import { Auth } from '../states/Auth';
 import { ClientConfig, Connection, Workflow } from '../types';
 
@@ -15,7 +15,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         method,
         data: qs.stringify(data, { encode: false }),
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          'Authorization': `Bearer ${access_token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
@@ -24,7 +24,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       list: async () => {
         const r = await instance.get(`/widget/tenants/${tenantId}/users/${userId}/companies/${companyUuid}/widgets`, {
           headers: {
-            Authorization: `Bearer ${access_token}`,
+            'Authorization': `Bearer ${access_token}`,
             'X-API-Version': 3,
           },
         });
@@ -37,7 +37,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          }
+          },
         );
 
         return r;
@@ -51,7 +51,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          }
+          },
         );
 
         const {
@@ -66,7 +66,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          }
+          },
         );
 
         const {
@@ -83,7 +83,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          }
+          },
         );
         return r.data as Connection;
       },
@@ -95,7 +95,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          }
+          },
         );
         return r.data;
       },
@@ -109,7 +109,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          }
+          },
         );
 
         const location = r.request.responseHeaders.Location;
@@ -118,16 +118,16 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
 
         return connection as Connection;
       },
-      sendAuth: async (id: string, auth: any) => {
+      sendAuth: async (id: string, authRes: any) => {
         const r = await instance.post(
           `/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections/${id}/authorization`,
-          qs.stringify(auth),
+          qs.stringify(authRes),
           {
             headers: {
-              Authorization: `Bearer ${access_token}`,
+              'Authorization': `Bearer ${access_token}`,
               'Content-Type': 'application/x-www-form-urlencoded',
             },
-          }
+          },
         );
         return r.data;
       },
@@ -140,7 +140,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          }
+          },
         );
         const {
           _embedded: { entities },
@@ -153,10 +153,10 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
           entities,
           {
             headers: {
-              Authorization: `Bearer ${access_token}`,
+              'Authorization': `Bearer ${access_token}`,
               'Content-Type': 'application/hal+json',
             },
-          }
+          },
         );
         return r.data;
       },
@@ -170,7 +170,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          }
+          },
         );
         return r.data.workflow;
       },
@@ -181,7 +181,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          }
+          },
         );
         return r.data.workflow;
       },
@@ -193,7 +193,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          }
+          },
         );
         return r.data.workflow;
       },
@@ -205,7 +205,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          }
+          },
         );
         return r.data.workflow as Workflow;
       },
