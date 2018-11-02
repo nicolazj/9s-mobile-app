@@ -20,7 +20,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
           headers: {
             Authorization: `Basic ${basicAuthToken}`,
           },
-        },
+        }
       );
       const { data } = r;
       return data as CompanyAuth;
@@ -30,7 +30,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         list: async () => {
           const r = await instance.get(`/widget/tenants/${tenantId}/widget-configs`, {
             headers: {
-              'Authorization': `Bearer ${access_token}`,
+              Authorization: `Bearer ${access_token}`,
               'X-API-Version': 3,
             },
           });
@@ -40,7 +40,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         get: async (widgetKey: string) => {
           const r = await instance.get(`/widget/tenants/${tenantId}/widget-configs/${widgetKey}`, {
             headers: {
-              'Authorization': `Bearer ${access_token}`,
+              Authorization: `Bearer ${access_token}`,
               'X-API-Version': 3,
             },
           });
@@ -51,7 +51,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       list: async () => {
         const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/services `, {
           headers: {
-            'Authorization': `Bearer ${access_token}`,
+            Authorization: `Bearer ${access_token}`,
             'X-API-Version': 3,
           },
         });
@@ -63,7 +63,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       get: async (appKey: string) => {
         const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/services/${appKey}`, {
           headers: {
-            'Authorization': `Bearer ${access_token}`,
+            Authorization: `Bearer ${access_token}`,
             'X-API-Version': 3,
           },
         });
@@ -77,7 +77,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       get: async (type: string) => {
         const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/spokes/types/${type}`, {
           headers: {
-            'Authorization': `Bearer ${access_token}`,
+            Authorization: `Bearer ${access_token}`,
             'X-API-Version': 3,
           },
         });
@@ -103,7 +103,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
             headers: {
               Authorization: `Bearer ${access_token}`,
             },
-          },
+          }
         );
 
         const {
@@ -117,7 +117,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${userId}/companies`, {
           data: null, // needed for this endpoint
           headers: {
-            'Authorization': `Bearer ${access_token}`,
+            Authorization: `Bearer ${access_token}`,
             'Content-Type': 'application/json',
           },
         });

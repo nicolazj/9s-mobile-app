@@ -8,5 +8,5 @@ export default createStackNavigator(
     navigationOptions: {
       header: null,
     },
-  },
+  }
 );

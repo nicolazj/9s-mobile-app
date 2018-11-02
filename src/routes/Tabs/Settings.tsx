@@ -9,7 +9,7 @@ const SettingsStack = createStackNavigator(
     Settings: { screen: SettingsScreen, navigationOptions: { title: 'Settings' } },
   },
   {
-    navigationOptions: (props) => {
+    navigationOptions: (props: any) => {
       return {
         headerTintColor: '#fff',
         headerStyle: {
@@ -17,7 +17,7 @@ const SettingsStack = createStackNavigator(
         },
       };
     },
-  },
+  }
 );
 
 SettingsStack.navigationOptions = getTabNavOpts({ title: 'Settings', icon: 'options' });

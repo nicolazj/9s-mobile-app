@@ -28,7 +28,7 @@ const m = createMaterialTopTabNavigator(
         height: '100%',
       },
     },
-  },
+  }
 );
 
 const MarketplaceStack = createStackNavigator(
@@ -52,7 +52,7 @@ const MarketplaceStack = createStackNavigator(
     },
   },
   {
-    navigationOptions: (props) => {
+    navigationOptions: (props: any) => {
       return {
         headerTintColor: '#fff',
         headerStyle: {
@@ -60,7 +60,7 @@ const MarketplaceStack = createStackNavigator(
         },
       };
     },
-  },
+  }
 );
 
 MarketplaceStack.navigationOptions = getTabNavOpts({ title: 'Marketplace', icon: 'apps' });

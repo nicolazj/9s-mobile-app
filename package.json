@@ -8,7 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "lint": "tslint --fix -c tslint.json 'src/**/*.{ts,tsx}'"
+    "lint": "tslint  -c tslint.json 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
     "@types/lodash.get": "^4.4.4",

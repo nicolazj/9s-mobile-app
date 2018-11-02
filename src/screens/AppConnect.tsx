@@ -1,6 +1,6 @@
 import { AuthSession, Constants, Linking, WebBrowser } from 'expo';
 import React from 'react';
-import { ActionSheetIOS, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import { Subscribe } from 'unstated';
 import agent from '../agent';

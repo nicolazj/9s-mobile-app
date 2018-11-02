@@ -10,7 +10,7 @@ const DashboardStack = createStackNavigator(
     Dashboard: { screen: DashboardScreen, navigationOptions: { title: 'Dashboard' } },
   },
   {
-    navigationOptions: (props) => {
+    navigationOptions: (props: any) => {
       return {
         headerTintColor: '#fff',
         headerStyle: {
@@ -18,7 +18,7 @@ const DashboardStack = createStackNavigator(
         },
       };
     },
-  },
+  }
 );
 DashboardStack.navigationOptions = getTabNavOpts({ title: 'Dashboard', icon: 'trending-up' });
 

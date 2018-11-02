@@ -27,32 +27,26 @@ const Title = styled(Text)`
   margin: ${scale(20)}px;
   margin-left: 0;
 `;
-
+let i = 0;
 class AppList extends React.Component<Props> {
   public componentDidMount() {
-    this.fetchConnections();
-    this.fetchSpokes();
     this.fetchApps();
   }
-  public fetchConnections = async () => {
-    const connections = await agent.company.connection.list();
-    const [appContainer] = this.props.containers;
-    appContainer.setState({ connections });
-  }
-  public fetchSpokes = async () => {
-    const spokes = await agent.user.spoke.get('mobile');
-    const [appContainer] = this.props.containers;
-    appContainer.setState({ spokes });
-  }
   public fetchApps = async () => {
-    const apps = await agent.user.service.list();
+    const [connections, spokes, apps] = await Promise.all([
+      agent.company.connection.list(),
+      agent.user.spoke.get('mobile'),
+      agent.user.service.list(),
+    ]);
     const [appContainer] = this.props.containers;
-    appContainer.setState({ apps });
-  }
+    appContainer.setState({ connections, spokes, apps });
+  };
+
   public onPress(app: App) {
     this.props.navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
   }
   public render() {
+    console.log('app list render', i++);
     return (
       <Container padding>
         <Subscribe to={[Apps]}>
@@ -61,7 +55,7 @@ class AppList extends React.Component<Props> {
               <View>
                 <Title>My Apps</Title>
                 <View>
-                  {apps.purchasedApps.map((app) => (
+                  {apps.purchasedApps.map((app: App) => (
                     <Touchable key={app.key} onPress={() => this.onPress(app)}>
                       <Image source={imgs[app.key]} />
                       <Text>{app.name}</Text>
@@ -71,7 +65,7 @@ class AppList extends React.Component<Props> {
               </View>
               <View>
                 <Title>Available Apps</Title>
-                {apps.availableApps.map((app) => (
+                {apps.availableApps.map((app: App) => (
                   <Touchable key={app.key} onPress={() => this.onPress(app)}>
                     <Image source={imgs[app.key]} />
                     <Text>{app.name}</Text>

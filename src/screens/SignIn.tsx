@@ -39,6 +39,7 @@ export default class Auth extends React.Component<Props> {
     console.log('google login');
   }
   public render() {
+    console.log('sign in render');
     return (
       <Container>
         <SafeArea>
