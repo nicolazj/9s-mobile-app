@@ -20,26 +20,28 @@ interface Props {
 export default class Auth extends React.Component<Props> {
   public onPress = async (values: LoginPayload) => {
     try {
+      console.log(1);
       const user = await agent.basic.login(values);
-      await auth.setUser(user);
+      console.log(2);
 
       const companies = await agent.user.company.list();
       if (companies.length === 1) {
         const companyUuid = companies[0].companyUuid;
-        await auth.setState({ companyUuid });
-        const companyAuth = await agent.user.exchange(companyUuid);
-        await auth.setState({ companyAuth });
+        console.log(companyUuid);
+
+        const companyAuth = await agent.basic.getCompanyAccess(companyUuid);
+        console.log(companyAuth);
       }
       this.props.navigation.navigate('Dashboard');
     } catch (err) {
+      console.log(JSON.stringify(err, null, 2));
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     }
-  }
+  };
   public googleLogin() {
     console.log('google login');
   }
   public render() {
-    console.log('sign in render');
     return (
       <Container>
         <SafeArea>

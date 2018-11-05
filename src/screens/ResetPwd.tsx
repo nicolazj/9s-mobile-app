@@ -14,17 +14,13 @@ interface Props {
 export default class Auth extends React.Component<Props> {
   public onPress = async (values: { username: string }) => {
     try {
-      const r = await agent.basic.get_public_access();
+      const r = await agent.public.password.reset(values.username);
       console.log(r);
-      const { access_token } = r;
-      const rr = await agent.basic.reset(values.username, access_token);
-
-      console.log(rr);
     } catch (err) {
       console.log(err);
       Alert.alert('Reset password failed', 'try again later');
     }
-  }
+  };
 
   public render() {
     return (
@@ -38,12 +34,13 @@ export default class Auth extends React.Component<Props> {
               validationSchema={Yup.object().shape({
                 username: Yup.string().required('Required'),
               })}
-              onSubmit={this.onPress}
-            >
+              onSubmit={this.onPress}>
               {({ handleSubmit }) => (
                 <View>
                   <FormTitle style={{ marginBottom: 30 }}>Reset your password</FormTitle>
-                  <FormDesc>No problem! Enter your email address and we will send you a link to reset your password</FormDesc>
+                  <FormDesc>
+                    No problem! Enter your email address and we will send you a link to reset your password
+                  </FormDesc>
                   <Field name="username" component={FormikTextInput} placeholder="Email" />
                   <Button title="Reset password" onPress={handleSubmit} />
                 </View>

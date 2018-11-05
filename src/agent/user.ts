@@ -1,30 +1,12 @@
 import { AxiosInstance } from 'axios';
-import qs from 'qs';
-import { Auth, CompanyAuth } from '../states/Auth';
-import { ClientConfig, Company } from '../types';
+import { Auth } from '../states/Auth';
+import { App, ClientConfig, Company, Spoke } from '../types';
 export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
-  const { tenantId, basicAuthToken } = config;
-  const { access_token, openid } = auth.state.userAuth;
+  const { tenantId } = config;
+  const { access_token } = auth.state.userAuth;
   const { userId } = auth.state;
 
   return {
-    exchange: async (companyUuid: string) => {
-      const r = await instance.post(
-        `/authentication/tenants/${tenantId}/token?grant_type=token-exchange`,
-        qs.stringify({
-          context: companyUuid,
-          subject_token: openid,
-          subject_token_type: 'openid',
-        }),
-        {
-          headers: {
-            Authorization: `Basic ${basicAuthToken}`,
-          },
-        }
-      );
-      const { data } = r;
-      return data as CompanyAuth;
-    },
     widget: {
       config: {
         list: async () => {
@@ -58,7 +40,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         const {
           _embedded: { services },
         } = r.data;
-        return services;
+        return services as App[];
       },
       get: async (appKey: string) => {
         const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/services/${appKey}`, {
@@ -70,7 +52,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         const {
           _embedded: { service },
         } = r.data;
-        return service;
+        return service as App;
       },
     },
     spoke: {
@@ -84,7 +66,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         const {
           _embedded: { spokes },
         } = r.data;
-        return spokes;
+        return spokes as Spoke[];
       },
     },
     application: {

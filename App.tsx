@@ -1,23 +1,23 @@
+import { AppLoading, Asset, Font, Icon } from 'expo';
 import React from 'react';
 import { Platform, StatusBar, View } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
 import Root from './src/Root';
 import auth from './src/states/Auth';
 interface Props {
   skipLoadingScreen: boolean;
 }
-export default class extends React.Component<Props> {
-  state = {
+export default class App extends React.Component<Props> {
+  public state = {
     isLoadingComplete: false,
   };
 
-  render() {
+  public render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
+          startAsync={this.loadResourcesAsync}
+          onError={this.handleLoadingError}
+          onFinish={this.handleFinishLoading}
         />
       );
     } else {
@@ -30,7 +30,7 @@ export default class extends React.Component<Props> {
     }
   }
 
-  _loadResourcesAsync = () => {
+  private loadResourcesAsync = () => {
     return Promise.all([
       auth.rehydrate(),
       Asset.loadAsync([
@@ -53,16 +53,18 @@ export default class extends React.Component<Props> {
 
         // fontawesome: require('./assets/fonts/fontawesome.ttf'),
       }),
-    ]).then(() => {});
+    ]).then(() => {
+      return;
+    });
   };
 
-  _handleLoadingError = (error: Error) => {
+  private handleLoadingError = (error: Error) => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
     console.warn(error);
   };
 
-  _handleFinishLoading = () => {
+  private handleFinishLoading = () => {
     this.setState({ isLoadingComplete: true });
   };
 }

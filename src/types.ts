@@ -3,7 +3,6 @@ export interface ClientConfig {
   tenantId: string;
   appKey: string;
   appSecret: string;
-  basicAuthToken: string;
 }
 
 export interface User {
@@ -21,6 +20,7 @@ export interface Company {
 export interface AuthResp {
   access_token: string;
   expires_in: number;
+  expires_at: number;
   refresh_token: string;
   scope: string;
   token_type: string;

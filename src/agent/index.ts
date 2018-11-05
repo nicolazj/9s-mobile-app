@@ -1,10 +1,11 @@
 import axios from 'axios';
 import auth, { Auth } from '../states/Auth';
 import { ClientConfig } from '../types';
-import basic from './basic';
-import company from './company';
+import basicAgent from './basic';
+import companyAgent from './company';
 import config from './config';
-import user from './user';
+import publicAgent from './public';
+import userAgent from './user';
 
 export const APIClient = (config: ClientConfig) => (auth: Auth) => {
   const instance = axios.create({
@@ -13,13 +14,16 @@ export const APIClient = (config: ClientConfig) => (auth: Auth) => {
 
   return {
     get basic() {
-      return basic(instance, config);
+      return basicAgent(instance, config, auth);
+    },
+    get public() {
+      return publicAgent(instance, config, auth);
     },
     get user() {
-      return user(instance, config, auth);
+      return userAgent(instance, config, auth);
     },
     get company() {
-      return company(instance, config, auth);
+      return companyAgent(instance, config, auth);
     },
   };
 };

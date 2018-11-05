@@ -7,6 +7,7 @@ type UserId = string;
 type CompanyUuid = string;
 
 interface State {
+  publicAuth: AuthResp;
   userAuth: UserAuthResp;
   companyAuth: AuthResp;
   userId: UserId;

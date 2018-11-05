@@ -27,7 +27,6 @@ const Title = styled(Text)`
   margin: ${scale(20)}px;
   margin-left: 0;
 `;
-let i = 0;
 class AppList extends React.Component<Props> {
   public componentDidMount() {
     this.fetchApps();
@@ -46,7 +45,6 @@ class AppList extends React.Component<Props> {
     this.props.navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
   }
   public render() {
-    console.log('app list render', i++);
     return (
       <Container padding>
         <Subscribe to={[Apps]}>
