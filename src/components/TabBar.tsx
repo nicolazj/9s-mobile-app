@@ -28,8 +28,8 @@ interface LabelProps {
   focused: boolean;
 }
 
-export const Label = styled(Text)`
+export const Label = styled(Text)<LabelProps>`
   font-size: ${scale(10)}px;
-  color: ${(props: LabelProps) => (props.focused ? th('color.main')(props) : th('color.grey')(props))};
+  color: ${props => (props.focused ? th('color.main')(props) : th('color.grey')(props))};
   text-align: center;
 `;

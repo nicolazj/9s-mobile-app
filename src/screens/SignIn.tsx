@@ -10,29 +10,25 @@ import { FormikTextInput } from '../primitives';
 import { Button, Container, Delimiter, FormTitle, Link, SafeArea, Text } from '../primitives';
 import { GoogleButton } from '../primitives';
 import { SCREENS } from '../routes/constants';
-import auth from '../states/Auth';
-import { LoginPayload } from '../types';
+import { SignInPayload } from '../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
-export default class Auth extends React.Component<Props> {
-  public onPress = async (values: LoginPayload) => {
+export default class SignIn extends React.Component<Props> {
+  public onPress = async (values: SignInPayload) => {
+    console.log(values);
     try {
-      console.log(1);
-      const user = await agent.basic.login(values);
-      console.log(2);
-
+      await agent.token.login(values);
       const companies = await agent.user.company.list();
       if (companies.length === 1) {
         const companyUuid = companies[0].companyUuid;
-        console.log(companyUuid);
-
-        const companyAuth = await agent.basic.getCompanyAccess(companyUuid);
-        console.log(companyAuth);
+        await agent.token.exchange(companyUuid);
+        this.props.navigation.navigate('Dashboard');
+      } else {
+        // FIXME companies
       }
-      this.props.navigation.navigate('Dashboard');
     } catch (err) {
       console.log(JSON.stringify(err, null, 2));
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
@@ -62,7 +58,7 @@ export default class Auth extends React.Component<Props> {
                     <FormTitle style={{ marginBottom: 150 }}>Login</FormTitle>
                     <Field name="username" component={FormikTextInput} placeholder="Email" />
 
-                    <Field name="password" component={FormikTextInput} placeholder="Password" />
+                    <Field name="password" component={FormikTextInput} placeholder="Password" secureTextEntry={true} />
                     <View style={{ flexDirection: 'row', marginBottom: 15 }}>
                       <Text>Can't Log In? </Text>
                       <Link

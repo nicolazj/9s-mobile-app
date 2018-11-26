@@ -14,10 +14,10 @@ interface Props {
 export default class Auth extends React.Component<Props> {
   public onPress = async (values: { username: string }) => {
     try {
-      const r = await agent.public.password.reset(values.username);
-      console.log(r);
+      // Fixme
+      await agent.token.public();
+      await agent.public.password.reset(values.username);
     } catch (err) {
-      console.log(err);
       Alert.alert('Reset password failed', 'try again later');
     }
   };

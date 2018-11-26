@@ -10,6 +10,7 @@
     "no-console": [false],
     "object-literal-key-quotes": [true, "as-needed"],
     "semicolon": [true, "always", "ignore-bound-class-methods"],
+    "arrow-parens": [true, "ban-single-arg-parens"],
     "trailing-comma": [
       true,
       {

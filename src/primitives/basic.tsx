@@ -32,9 +32,9 @@ export const Container = styled(View)<ContainerProps>`
   flex: 1;
   width: 100%;
   background-color: ${th('color.view.bg')};
-  ${(p) => (p.padding ? `padding: 0 ${scale(20)}px` : '')};
-  ${(p) => (p.vcenter ? 'justify-content: center' : '')};
-  ${(p) => (p.hcenter ? 'align-items: center' : '')};
+  ${p => (p.padding ? `padding: 0 ${scale(20)}px` : '')};
+  ${p => (p.vcenter ? 'justify-content: center' : '')};
+  ${p => (p.hcenter ? 'align-items: center' : '')};
 `;
 
 export const SafeArea = styled(SafeAreaView)`
@@ -46,8 +46,8 @@ export const SafeArea = styled(SafeAreaView)`
  */
 
 export const TextInput = styled(TextInput_).attrs({
-  selectionColor: (props) => th('color.main')(props),
-  placeholderTextColor: (props) => th('color.grey')(props),
+  selectionColor: props => th('color.main')(props),
+  placeholderTextColor: props => th('color.grey')(props),
 })`
   border: 1px solid ${th('color.grey')};
   width: 100%;

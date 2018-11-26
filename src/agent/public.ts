@@ -1,22 +1,53 @@
 import { AxiosInstance } from 'axios';
 import { Auth } from '../states/Auth';
-import { ClientConfig } from '../types';
+import { ClientConfig, SignUpPayload } from '../types';
 
 export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
   const { tenantId } = config;
   const { publicAuth } = auth.state;
   const { access_token } = publicAuth;
   return {
+    user: {
+      isExisted: async (emailAddress: string) => {
+        try {
+          await instance.head(`/customer/customer/tenants/${tenantId}/users/userName/${emailAddress}`, {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          });
+          return true;
+        } catch (err) {
+          return false;
+        }
+      },
+      create: async (values: SignUpPayload) => {
+        const r = await instance.post(
+          `/customer/customer/tenants/${tenantId}/users`,
+          {
+            ...values,
+            termsAndConditionsAccepted: true,
+            emailAddress: values.userName,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
+        return r.data;
+      },
+    },
     password: {
       reset: async (emailAddress: string) => {
-        const r = await instance({
-          method: 'POST',
-          url: `/customer/customer/tenants/${tenantId}/users/access`,
-          data: { emailAddress },
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        });
+        const r = await instance.post(
+          `/customer/customer/tenants/${tenantId}/users/access`,
+          { emailAddress },
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
 
         const { data } = r;
         return data;

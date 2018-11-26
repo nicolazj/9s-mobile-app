@@ -29,11 +29,16 @@ export interface UserAuthResp extends AuthResp {
   openid: string;
 }
 
-export interface LoginPayload {
+export interface SignInPayload {
   username: string;
   password: string;
 }
-
+export interface SignUpPayload {
+  userName: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
 export interface ClientState {
   userAuth?: UserAuthResp;
   companyAuth?: AuthResp;
