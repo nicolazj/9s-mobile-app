@@ -4,14 +4,12 @@ import { TextInputProps } from 'react-native';
 import { FormError, FormGroup, Picker, TextInput } from './basic';
 interface FormikTextInputProps {
   placeholder?: string;
-  label?: string;
 }
 
 export const FormikTextInput: React.SFC<FormikTextInputProps & TextInputProps & FieldProps> = ({
   field: { name, value },
   form: { touched, errors, handleChange },
   placeholder,
-  label,
   secureTextEntry,
 }) => (
   <FormGroup>
@@ -19,7 +17,6 @@ export const FormikTextInput: React.SFC<FormikTextInputProps & TextInputProps & 
       value={value}
       onChangeText={handleChange(name)}
       placeholder={placeholder}
-      label={label}
       secureTextEntry={secureTextEntry}
     />
     {errors[name] && touched[name] && <FormError>{errors[name]}</FormError>}

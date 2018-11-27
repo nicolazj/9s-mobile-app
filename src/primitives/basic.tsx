@@ -18,7 +18,7 @@ import styled, { th } from '../styled';
 export const Touchable = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
 
 export const Text = styled(Text_)`
-  font-size: ${scale(12)}px;
+  font-size: ${scale(14)}px;
 `;
 
 /***
@@ -47,10 +47,10 @@ export const SafeArea = styled(SafeAreaView)`
  * Form
  */
 
-export const TextInput = styled(TextInput_).attrs(props => ({
-  selectionColor: th('color.main')(props),
-  placeholderTextColor: th('color.grey')(props),
-}))`
+export const TextInput = styled(TextInput_).attrs({
+  selectionColor: props => th('color.main')(props),
+  placeholderTextColor: props => th('color.grey')(props),
+})`
   border: 1px solid ${th('color.grey')};
   width: 100%;
   padding: ${scale(16)}px;
@@ -71,6 +71,7 @@ export const FormGroup = styled(View)`
 `;
 export const FormError = styled(Text)`
   color: red;
+  font-size: ${scale(12)}px;
 `;
 export const FormTitle = styled(Text)`
   ${human.title1Object as Styles};
