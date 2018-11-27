@@ -1,1 +1,1 @@
-declare module 'abab';
+declare module 'react-native-woodpicker';

@@ -9,6 +9,8 @@ import {
   View,
 } from 'react-native';
 import { human } from 'react-native-typography';
+import { Picker as Picker_ } from 'react-native-woodpicker';
+
 import { Styles } from 'styled-components';
 import { scale } from '../scale';
 import styled, { th } from '../styled';
@@ -45,15 +47,22 @@ export const SafeArea = styled(SafeAreaView)`
  * Form
  */
 
-export const TextInput = styled(TextInput_).attrs({
-  selectionColor: props => th('color.main')(props),
-  placeholderTextColor: props => th('color.grey')(props),
-})`
+export const TextInput = styled(TextInput_).attrs(props => ({
+  selectionColor: th('color.main')(props),
+  placeholderTextColor: th('color.grey')(props),
+}))`
   border: 1px solid ${th('color.grey')};
   width: 100%;
   padding: ${scale(16)}px;
   border-radius: 5px;
   font-size: ${scale(12)}px;
+`;
+
+export const Picker = styled(Picker_)`
+  border: 1px solid ${th('color.grey')};
+  width: 100%;
+  padding: ${scale(16)}px;
+  border-radius: 5px;
 `;
 export const FormGroup = styled(View)`
   height: ${scale(60)}px;

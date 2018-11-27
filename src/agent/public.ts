@@ -17,7 +17,11 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
           });
           return true;
         } catch (err) {
-          return false;
+          if (err.response.status === 404) {
+            return false;
+          } else {
+            throw err;
+          }
         }
       },
       create: async (values: SignUpPayload) => {

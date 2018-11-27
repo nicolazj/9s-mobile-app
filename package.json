@@ -25,6 +25,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.7.4",
     "react-native-typescript-transformer": "^1.2.10",
     "react-native-typography": "^1.4.0",
+    "react-native-woodpicker": "^0.0.6",
     "react-navigation": "^2.17.0",
     "styled-components": "^4.0.2",
     "supports-color": "^5.5.0",
@@ -37,12 +38,12 @@
     "@types/expo": "^27.0.13",
     "@types/expo__vector-icons": "^6.2.3",
     "@types/jwt-decode": "^2.2.1",
+    "@types/lodash.get": "^4.4.4",
     "@types/qs": "^6.5.1",
     "@types/react": "^16.4.14",
     "@types/react-native": "^0.57.0",
     "@types/react-navigation": "^2.0.23",
     "@types/styled-components": "^4.0.2",
-    "@types/lodash.get": "^4.4.4",
     "@types/yup": "^0.26.0"
   }
 }

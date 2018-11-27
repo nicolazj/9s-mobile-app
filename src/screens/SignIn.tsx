@@ -18,7 +18,6 @@ interface Props {
 
 export default class SignIn extends React.Component<Props> {
   public onPress = async (values: SignInPayload) => {
-    console.log(values);
     try {
       await agent.token.login(values);
       const companies = await agent.user.company.list();
@@ -30,7 +29,6 @@ export default class SignIn extends React.Component<Props> {
         // FIXME companies
       }
     } catch (err) {
-      console.log(JSON.stringify(err, null, 2));
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     }
   };

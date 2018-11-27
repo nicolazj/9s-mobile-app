@@ -5,13 +5,12 @@ import { Alert, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
 import * as Yup from 'yup';
-import agent from '../agent';
-import { FormikTextInput } from '../primitives';
-import { Button, Container, Delimiter, FormTitle, Link, SafeArea, Text } from '../primitives';
-import { GoogleButton } from '../primitives';
-import { SCREENS } from '../routes/constants';
-import auth from '../states/Auth';
-import { SignUpPayload } from '../types';
+import agent from '../../agent';
+import { FormikTextInput } from '../../primitives';
+import { Button, Container, Delimiter, FormTitle, Link, SafeArea, Text } from '../../primitives';
+import { GoogleButton } from '../../primitives';
+import { SCREENS } from '../../routes/constants';
+import { SignUpPayload } from '../../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
@@ -23,14 +22,15 @@ export default class SignUp extends React.Component<Props> {
   }
   public onPress = async (values: SignUpPayload) => {
     try {
-      const userExisted = agent.public.user.isExisted(values.userName);
+      const userExisted = await agent.public.user.isExisted(values.userName);
       if (!userExisted) {
-        console.log('user not existed');
-        // await agent.public.user.create(values);
+        this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP_COMPANY]);
       } else {
         Alert.alert('Error', 'Username existed');
       }
     } catch (err) {
+      console.log(err.response.status, JSON.stringify(err, null, 2));
+
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     }
   };
@@ -45,10 +45,10 @@ export default class SignUp extends React.Component<Props> {
             <Container padding={true}>
               <Formik
                 initialValues={{
-                  username: '',
-                  password: '',
-                  firstName: '',
-                  lastName: '',
+                  userName: 'nicolazj123123@gmail.com',
+                  password: 'Qwer1234',
+                  firstName: 'n',
+                  lastName: 'j',
                 }}
                 validationSchema={Yup.object().shape({
                   firstName: Yup.string().required('Required'),
