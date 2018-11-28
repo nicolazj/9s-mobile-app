@@ -29,21 +29,25 @@ interface Options {
 }
 interface FormikPickerProps {
   options: Options[];
+  placeholder: string;
 }
 
 export const FormikPicker: React.SFC<FormikPickerProps & FieldProps> = ({
   field: { name, value },
   form: { touched, errors, handleChange },
   options,
+  placeholder,
 }) => {
   const item = options.find(o => o.value === value);
+
   return (
     <FormGroup>
       <Picker
         onItemChange={o => handleChange(name)(o.value)}
         items={options}
-        item={item ? item : options[0]}
+        item={item ? item : null}
         isNullable
+        placeholder={placeholder}
       />
       {errors[name] && touched[name] && <FormError>{errors[name]}</FormError>}
     </FormGroup>

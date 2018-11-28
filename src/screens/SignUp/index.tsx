@@ -24,7 +24,7 @@ export default class SignUp extends React.Component<Props> {
     try {
       const userExisted = await agent.public.user.isExisted(values.userName);
       if (!userExisted) {
-        this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP_COMPANY]);
+        this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP_COMPANY], values);
       } else {
         Alert.alert('Error', 'Username existed');
       }
@@ -45,7 +45,7 @@ export default class SignUp extends React.Component<Props> {
             <Container padding={true}>
               <Formik
                 initialValues={{
-                  userName: 'nicolazj123123@gmail.com',
+                  userName: '12345@gmail.com',
                   password: 'Qwer1234',
                   firstName: 'n',
                   lastName: 'j',

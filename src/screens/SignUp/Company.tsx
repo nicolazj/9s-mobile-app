@@ -18,11 +18,16 @@ export default class SignUp extends React.Component<Props> {
   public componentDidMount() {
     agent.token.public();
   }
-  public onPress = async (values: SignUpPayload) => {
+  public onPress = async values => {
+    const signUpPayload = this.props.navigation.state.params as SignUpPayload;
     try {
-      console.log(values);
-      // await agent.public.user.create(values);
-      // await agent.token.login({ username: values.userName, password: values.password });
+      const user = await agent.public.user.create(signUpPayload);
+      console.log(user);
+      await agent.token.login({ username: signUpPayload.userName, password: signUpPayload.password });
+      const company = await agent.user.company.create(values);
+      console.log(company);
+      await agent.token.exchange(company.companyUuid);
+      this.props.navigation.navigate('Dashboard');
     } catch (err) {
       console.log(err.response.status, JSON.stringify(err, null, 2));
 
@@ -38,8 +43,8 @@ export default class SignUp extends React.Component<Props> {
             <Container padding={true}>
               <Formik
                 initialValues={{
-                  companyName: 'nicolazj121233@gmail.com',
-                  industryUuid: '',
+                  companyName: '123',
+                  industryUuid: 'ee155ff4-a2dc-4e54-8ae1-a0c138a6a49b',
                 }}
                 validationSchema={Yup.object().shape({
                   companyName: Yup.string().required('Required'),

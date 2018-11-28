@@ -9,9 +9,8 @@ import {
   View,
 } from 'react-native';
 import { human } from 'react-native-typography';
-import { Picker as Picker_ } from 'react-native-woodpicker';
-
 import { Styles } from 'styled-components';
+import Picker_ from '../components/Picker';
 import { scale } from '../scale';
 import styled, { th } from '../styled';
 
@@ -55,7 +54,7 @@ export const TextInput = styled(TextInput_).attrs({
   width: 100%;
   padding: ${scale(16)}px;
   border-radius: 5px;
-  font-size: ${scale(12)}px;
+  font-size: ${scale(14)}px;
 `;
 
 export const Picker = styled(Picker_)`
@@ -102,7 +101,7 @@ const DelimiterBar = styled(View)`
 `;
 
 export const Delimiter = () => (
-  <DelimiterWrapper style={{ flexDirection: 'row' }}>
+  <DelimiterWrapper>
     <DelimiterBar />
     <DelimiterText>or</DelimiterText>
     <DelimiterBar />

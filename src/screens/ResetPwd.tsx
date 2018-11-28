@@ -30,7 +30,7 @@ export default class Auth extends React.Component<Props> {
       <Container>
         <SafeArea>
           {done ? (
-            <Container padding style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Container padding hcenter vcenter>
               <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://via.placeholder.com/150' }} />
               <FormTitle>Email sent!</FormTitle>
               <Text>Check your inbox for a link to </Text>

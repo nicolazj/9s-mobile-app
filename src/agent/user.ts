@@ -95,6 +95,16 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       },
     },
     company: {
+      create: async p => {
+        const r = await instance.post<Company>(`/customer/customer/tenants/${tenantId}/companies`, p, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        return r.data;
+      },
       list: async () => {
         const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${userId}/companies`, {
           data: null, // needed for this endpoint
