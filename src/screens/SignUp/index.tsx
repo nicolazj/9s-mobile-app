@@ -4,14 +4,13 @@ import React from 'react';
 import { Alert, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
-import * as Yup from 'yup';
 import agent from '../../agent';
 import { FormikTextInput } from '../../primitives';
 import { Button, Container, Delimiter, FormTitle, Link, SafeArea, Text } from '../../primitives';
 import { GoogleButton } from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import { SignUpPayload } from '../../types';
-
+import { name, object, password, username } from '../../validations';
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
@@ -50,11 +49,11 @@ export default class SignUp extends React.Component<Props> {
                   firstName: 'n',
                   lastName: 'j',
                 }}
-                validationSchema={Yup.object().shape({
-                  firstName: Yup.string().required('Required'),
-                  lastName: Yup.string().required('Required'),
-                  userName: Yup.string().required('Required'),
-                  password: Yup.string().required('Required'),
+                validationSchema={object().shape({
+                  firstName: name,
+                  lastName: name,
+                  password,
+                  userName: username,
                 })}
                 onSubmit={this.onPress}>
                 {({ handleSubmit }) => (

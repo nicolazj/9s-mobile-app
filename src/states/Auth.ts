@@ -21,7 +21,15 @@ export class Auth extends Container<State> {
     const { sub: userId } = jwt(openid);
     return this.setState({ userAuth, userId });
   }
-
+  public clear() {
+    this.setState({
+      publicAuth: undefined,
+      userAuth: undefined,
+      companyAuth: undefined,
+      userId: undefined,
+      companyUuid: undefined,
+    });
+  }
   public isLoggedIn() {
     return this.state && this.state.userId;
   }

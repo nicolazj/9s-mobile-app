@@ -2,6 +2,10 @@ import { string } from 'yup';
 
 export { object } from 'yup';
 
+export const name = string()
+  .matches(/^[@\'\-!.A-Za-z0-9]+$/, "Only accepts letters, numbers and @'-!.")
+  .required('Required');
+
 export const username = string()
   .email()
   .required('Required');

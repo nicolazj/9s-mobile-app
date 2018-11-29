@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Provider } from 'unstated';
+import ActivityIndicator from './components/ActivityIndicator';
+import { Container } from './primitives';
 import Main from './routes/Main';
 import apps from './states/Apps';
 import { IThemeInterface, ThemeProvider, withTheme } from './styled';
@@ -10,7 +12,10 @@ const App = withTheme(({ theme }: { theme: IThemeInterface }) => <Main screenPro
 export default () => (
   <Provider inject={[apps]}>
     <ThemeProvider theme={tenant.theme}>
-      <App />
+      <Container>
+        <App />
+        <ActivityIndicator />
+      </Container>
     </ThemeProvider>
   </Provider>
 );

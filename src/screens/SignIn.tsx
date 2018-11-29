@@ -4,31 +4,40 @@ import React from 'react';
 import { Alert, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
+import { Container as UnContainer } from 'unstated';
 import agent from '../agent';
 import { FormikTextInput } from '../primitives';
-import { Button, Container, Delimiter, FormTitle, Link, SafeArea, Text } from '../primitives';
 import { GoogleButton } from '../primitives';
+import { Button, Container, Delimiter, FormTitle, Link, SafeArea, Text } from '../primitives';
 import { SCREENS } from '../routes/constants';
+import ActivityStatus from '../states/ActivityStatus';
+import { SubscribeHOC } from '../states/helper';
 import { SignInPayload } from '../types';
 import { object, password, username } from '../validations';
+
 interface Props {
   navigation: NavigationScreenProp<any, any>;
+  containers: Array<UnContainer<any>>;
 }
 
-export default class SignIn extends React.Component<Props> {
+class SignIn extends React.Component<Props> {
   public onPress = async (values: SignInPayload) => {
+    const [activityStatus] = this.props.containers;
+
     try {
+      (activityStatus as ActivityStatus).show('Logging in');
       await agent.token.login(values);
       const companies = await agent.user.company.list();
       if (companies.length === 1) {
-        const companyUuid = companies[0].companyUuid;
-        await agent.token.exchange(companyUuid);
-        this.props.navigation.navigate('Dashboard');
+        await agent.token.exchange(companies[0].companyUuid);
+        this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
       } else {
         // FIXME companies
       }
     } catch (err) {
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
+    } finally {
+      (activityStatus as ActivityStatus).dismiss();
     }
   };
   public googleLogin() {
@@ -91,3 +100,4 @@ export default class SignIn extends React.Component<Props> {
     );
   }
 }
+export default SubscribeHOC([ActivityStatus])(SignIn);

@@ -1,4 +1,5 @@
 export enum SCREENS {
+  DASHBOARD,
   SIGN_IN,
   SIGN_UP,
   SIGN_UP_COMPANY,

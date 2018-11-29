@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStackNavigator, NavigationBottomTabScreenOptions, NavigationScreenConfig } from 'react-navigation';
-
 import DashboardScreen from '../../screens/Dashboard';
 import { IThemeInterface, th } from '../../styled';
+import { SCREENS } from '../constants';
 import { getTabNavOpts } from './helper';
 
 const DashboardStack = createStackNavigator(
   {
-    Dashboard: { screen: DashboardScreen, navigationOptions: { title: 'Dashboard' } },
+    [SCREENS[SCREENS.DASHBOARD]]: { screen: DashboardScreen, navigationOptions: { title: 'Dashboard' } },
   },
   {
     navigationOptions: (props: any) => {

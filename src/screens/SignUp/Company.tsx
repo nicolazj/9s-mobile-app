@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import agent from '../../agent';
 import { FormikPicker, FormikTextInput } from '../../primitives';
 import { Button, Container, FormTitle, SafeArea } from '../../primitives';
+import { SCREENS } from '../../routes/constants';
 import { SignUpPayload } from '../../types';
 
 interface Props {
@@ -27,7 +28,7 @@ export default class SignUp extends React.Component<Props> {
       const company = await agent.user.company.create(values);
       console.log(company);
       await agent.token.exchange(company.companyUuid);
-      this.props.navigation.navigate('Dashboard');
+      this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
     } catch (err) {
       console.log(err.response.status, JSON.stringify(err, null, 2));
 
