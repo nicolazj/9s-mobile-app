@@ -7,8 +7,9 @@ import { NavigationScreenProp } from 'react-navigation';
 import { Container as UnContainer } from 'unstated';
 import * as Yup from 'yup';
 import agent from '../../agent';
+import Button from '../../components/Button';
 import { FormikPicker, FormikTextInput } from '../../primitives';
-import { Button, Container, FormTitle, SafeArea } from '../../primitives';
+import { Container, FormTitle, SafeArea } from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import activityStatus, { ActivityStatus } from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
@@ -16,6 +17,7 @@ import { SignUpPayload } from '../../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
+  containers: Array<UnContainer<object>>;
 }
 
 export class SignUpCompany extends React.Component<Props> {

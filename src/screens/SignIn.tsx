@@ -6,9 +6,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { NavigationScreenProp } from 'react-navigation';
 import { Container as UnContainer } from 'unstated';
 import agent from '../agent';
+import Button from '../components/Button';
+import Delimiter from '../components/Delimiter';
+import Link from '../components/Link';
+import { GoogleButton } from '../components/SocialButton';
+import { Container, FormTitle, SafeArea, Text } from '../primitives';
 import { FormikTextInput } from '../primitives';
-import { GoogleButton } from '../primitives';
-import { Button, Container, Delimiter, FormTitle, Link, SafeArea, Text } from '../primitives';
 import { SCREENS } from '../routes/constants';
 import activityStatus, { ActivityStatus } from '../states/ActivityStatus';
 import { SubscribeHOC } from '../states/helper';
