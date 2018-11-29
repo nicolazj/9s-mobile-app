@@ -4,35 +4,46 @@ import React from 'react';
 import { Alert, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
+import { Container as UnContainer } from 'unstated';
 import * as Yup from 'yup';
 import agent from '../../agent';
 import { FormikPicker, FormikTextInput } from '../../primitives';
 import { Button, Container, FormTitle, SafeArea } from '../../primitives';
 import { SCREENS } from '../../routes/constants';
+import activityStatus, { ActivityStatus } from '../../states/ActivityStatus';
+import { SubscribeHOC } from '../../states/helper';
 import { SignUpPayload } from '../../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
-export default class SignUp extends React.Component<Props> {
+export class SignUpCompany extends React.Component<Props> {
   public componentDidMount() {
     agent.token.public();
   }
   public onPress = async values => {
+    const [activityStatus] = this.props.containers as [ActivityStatus];
+
     const signUpPayload = this.props.navigation.state.params as SignUpPayload;
     try {
+      activityStatus.show('Creating account');
       const user = await agent.public.user.create(signUpPayload);
-      console.log(user);
+
+      activityStatus.show('Logging in');
       await agent.token.login({ username: signUpPayload.userName, password: signUpPayload.password });
+
+      activityStatus.show('Creating Company');
       const company = await agent.user.company.create(values);
-      console.log(company);
+      activityStatus.show('Switching  company');
+
       await agent.token.exchange(company.companyUuid);
       this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
     } catch (err) {
-      console.log(err.response.status, JSON.stringify(err, null, 2));
-
+      console.log(JSON.stringify(err, null, 2));
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
+    } finally {
+      activityStatus.dismiss();
     }
   };
 
@@ -74,3 +85,5 @@ export default class SignUp extends React.Component<Props> {
     );
   }
 }
+
+export default SubscribeHOC([activityStatus])(SignUpCompany);

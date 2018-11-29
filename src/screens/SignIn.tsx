@@ -10,7 +10,7 @@ import { FormikTextInput } from '../primitives';
 import { GoogleButton } from '../primitives';
 import { Button, Container, Delimiter, FormTitle, Link, SafeArea, Text } from '../primitives';
 import { SCREENS } from '../routes/constants';
-import ActivityStatus from '../states/ActivityStatus';
+import activityStatus, { ActivityStatus } from '../states/ActivityStatus';
 import { SubscribeHOC } from '../states/helper';
 import { SignInPayload } from '../types';
 import { object, password, username } from '../validations';
@@ -22,10 +22,10 @@ interface Props {
 
 class SignIn extends React.Component<Props> {
   public onPress = async (values: SignInPayload) => {
-    const [activityStatus] = this.props.containers;
+    const [activityStatus] = this.props.containers as [ActivityStatus];
 
     try {
-      (activityStatus as ActivityStatus).show('Logging in');
+      activityStatus.show('Logging in');
       await agent.token.login(values);
       const companies = await agent.user.company.list();
       if (companies.length === 1) {
@@ -37,7 +37,7 @@ class SignIn extends React.Component<Props> {
     } catch (err) {
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
-      (activityStatus as ActivityStatus).dismiss();
+      activityStatus.dismiss();
     }
   };
   public googleLogin() {
@@ -100,4 +100,4 @@ class SignIn extends React.Component<Props> {
     );
   }
 }
-export default SubscribeHOC([ActivityStatus])(SignIn);
+export default SubscribeHOC([activityStatus])(SignIn);

@@ -4,23 +4,31 @@ import React from 'react';
 import { Alert, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
+import { Container as UnContainer } from 'unstated';
 import agent from '../../agent';
-import { FormikTextInput } from '../../primitives';
 import { Button, Container, Delimiter, FormTitle, Link, SafeArea, Text } from '../../primitives';
 import { GoogleButton } from '../../primitives';
+import { FormikTextInput } from '../../primitives';
 import { SCREENS } from '../../routes/constants';
+import activityStatus, { ActivityStatus } from '../../states/ActivityStatus';
+import { SubscribeHOC } from '../../states/helper';
 import { SignUpPayload } from '../../types';
 import { name, object, password, username } from '../../validations';
+
 interface Props {
   navigation: NavigationScreenProp<any, any>;
+  containers: Array<UnContainer<object>>;
 }
 
-export default class SignUp extends React.Component<Props> {
+export class SignUp extends React.Component<Props> {
   public componentDidMount() {
     agent.token.public();
   }
   public onPress = async (values: SignUpPayload) => {
+    const [activityStatus] = this.props.containers as [ActivityStatus];
+
     try {
+      activityStatus.show('Checking email');
       const userExisted = await agent.public.user.isExisted(values.userName);
       if (!userExisted) {
         this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP_COMPANY], values);
@@ -31,6 +39,8 @@ export default class SignUp extends React.Component<Props> {
       console.log(err.response.status, JSON.stringify(err, null, 2));
 
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
+    } finally {
+      activityStatus.dismiss();
     }
   };
   public googleLogin() {
@@ -44,7 +54,7 @@ export default class SignUp extends React.Component<Props> {
             <Container padding={true}>
               <Formik
                 initialValues={{
-                  userName: '12345@gmail.com',
+                  userName: 'qw123e@gmail.com',
                   password: 'Qwer1234',
                   firstName: 'n',
                   lastName: 'j',
@@ -88,3 +98,4 @@ export default class SignUp extends React.Component<Props> {
     );
   }
 }
+export default SubscribeHOC([activityStatus])(SignUp);
