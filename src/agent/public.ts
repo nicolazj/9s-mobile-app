@@ -57,5 +57,24 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         return data;
       },
     },
+    industry: {
+      get: async () => {
+        const r = await instance.get(
+          `/catalogue/catalogue/tenants/${tenantId}/industries`,
+
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              'X-API-Version': 3,
+            },
+          }
+        );
+
+        const {
+          _embedded: { industries },
+        } = r.data;
+        return industries;
+      },
+    },
   };
 };

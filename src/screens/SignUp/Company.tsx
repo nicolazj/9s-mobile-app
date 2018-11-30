@@ -1,4 +1,4 @@
-import { Constants } from 'expo';
+import { Constants, WebBrowser } from 'expo';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, View } from 'react-native';
@@ -8,8 +8,9 @@ import { Container as UnContainer } from 'unstated';
 import * as Yup from 'yup';
 import agent from '../../agent';
 import Button from '../../components/Button';
-import { FormikPicker, FormikTextInput } from '../../primitives';
-import { Container, FormTitle, SafeArea } from '../../primitives';
+import Link from '../../components/Link';
+import { FormDesc, FormikPicker, FormikTextInput, FormTitle } from '../../formik';
+import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import activityStatus, { ActivityStatus } from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
@@ -20,9 +21,25 @@ interface Props {
   containers: Array<UnContainer<object>>;
 }
 
-export class SignUpCompany extends React.Component<Props> {
-  public componentDidMount() {
+interface Industry {
+  displayName: string;
+  industryUUID: string;
+}
+
+interface State {
+  industries: Industry[];
+}
+
+export class SignUpCompany extends React.Component<Props, State> {
+  public state = {
+    industries: [],
+  };
+  public async componentDidMount() {
     agent.token.public();
+    const industries = await agent.public.industry.get();
+    this.setState({
+      industries,
+    });
   }
   public onPress = async values => {
     const [activityStatus] = this.props.containers as [ActivityStatus];
@@ -30,7 +47,7 @@ export class SignUpCompany extends React.Component<Props> {
     const signUpPayload = this.props.navigation.state.params as SignUpPayload;
     try {
       activityStatus.show('Creating account');
-      const user = await agent.public.user.create(signUpPayload);
+      await agent.public.user.create(signUpPayload);
 
       activityStatus.show('Logging in');
       await agent.token.login({ username: signUpPayload.userName, password: signUpPayload.password });
@@ -50,15 +67,19 @@ export class SignUpCompany extends React.Component<Props> {
   };
 
   public render() {
+    const options = this.state.industries.map(({ displayName, industryUUID }: Industry) => ({
+      value: industryUUID,
+      label: displayName,
+    }));
     return (
-      <Container>
-        <SafeArea>
+      <P.Container>
+        <P.SafeArea>
           <KeyboardAwareScrollView extraHeight={Constants.statusBarHeight}>
-            <Container padding={true}>
+            <P.Container padding={true}>
               <Formik
                 initialValues={{
-                  companyName: '123',
-                  industryUuid: 'ee155ff4-a2dc-4e54-8ae1-a0c138a6a49b',
+                  companyName: '',
+                  industryUuid: '',
                 }}
                 validationSchema={Yup.object().shape({
                   companyName: Yup.string().required('Required'),
@@ -73,17 +94,33 @@ export class SignUpCompany extends React.Component<Props> {
                       name="industryUuid"
                       component={FormikPicker}
                       placeholder="Select an industry"
-                      options={[{ label: 'l1', value: 'v1' }, { label: 'l2', value: 'v2' }]}
+                      options={options}
                     />
-
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        marginBottom: 15,
+                        flexWrap: 'wrap',
+                      }}>
+                      <FormDesc> By tapping proceed, you are accepting the </FormDesc>
+                      <Link
+                        title="Terms & Conditions"
+                        onPress={() => {
+                          WebBrowser.openBrowserAsync('https://www.9spokes.com/legal/terms-and-conditions/');
+                        }}
+                      />
+                      <FormDesc> related to 9Spokes Dashboard.</FormDesc>
+                    </View>
                     <Button title="Proceed" onPress={handleSubmit} />
                   </View>
                 )}
               </Formik>
-            </Container>
+            </P.Container>
           </KeyboardAwareScrollView>
-        </SafeArea>
-      </Container>
+        </P.SafeArea>
+      </P.Container>
     );
   }
 }

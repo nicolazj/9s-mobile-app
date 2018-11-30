@@ -79,13 +79,13 @@ class Picker extends Component {
 
   public renderPlaceholder = (): string => {
     if (this.props.item && this.props.item.label) {
-      return this.props.item.label;
+      return <Text style={[styles.labelStyle, this.props.labelStyle]}>{this.props.item.label} </Text>;
     } else {
       if (!this.props.isNullable) {
-        return this.state.selectedItem.label;
+        return <Text style={[styles.labelStyle, this.props.labelStyle]}>{this.state.selectedItem.label} </Text>;
       }
     }
-    return this.props.placeholder;
+    return <Text style={[styles.placeholderStyle, this.props.placeholderStyle]}> {this.props.placeholder} </Text>;
   };
 
   public renderDoneBar() {
@@ -107,9 +107,7 @@ class Picker extends Component {
     return (
       <View style={this.props.containerStyle}>
         <TouchableWithoutFeedback onPress={this.togglePicker}>
-          <View style={[styles.input, this.props.style]}>
-            <Text style={[styles.placeholderStyle, this.props.placeholderStyle]}>{this.renderPlaceholder()}</Text>
-          </View>
+          <View style={[styles.input, this.props.style]}>{this.renderPlaceholder()}</View>
         </TouchableWithoutFeedback>
         <Modal
           visible={this.state.showPicker}
@@ -140,9 +138,7 @@ class Picker extends Component {
   public renderAndroid() {
     return (
       <View style={this.props.containerStyle}>
-        <View style={[styles.input, this.props.style]}>
-          <Text style={[styles.placeholderStyle, this.props.placeholderStyle]}>{this.renderPlaceholder()}</Text>
-        </View>
+        <View style={[styles.input, this.props.style]}>{this.renderPlaceholder()}</View>
         <View style={styles.androidPickerContainer}>
           <RNPicker
             prompt={this.props.title}
@@ -171,6 +167,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   placeholderStyle: { color: '#aaa', fontSize: 16 },
+  labelStyle: { color: '#000', fontSize: 16 },
   doneBar: {
     height: 44,
     zIndex: 2,

@@ -10,8 +10,8 @@ import Button from '../../components/Button';
 import Delimiter from '../../components/Delimiter';
 import Link from '../../components/Link';
 import { GoogleButton } from '../../components/SocialButton';
-import { FormikTextInput } from '../../primitives';
-import { Container, FormTitle, SafeArea, Text } from '../../primitives';
+import { FormikTextInput, FormTitle } from '../../formik';
+import { Container, SafeArea, Text } from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import activityStatus, { ActivityStatus } from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
@@ -24,8 +24,8 @@ interface Props {
 }
 
 export class SignUp extends React.Component<Props> {
-  public componentDidMount() {
-    agent.token.public();
+  public async componentDidMount() {
+    await agent.token.public();
   }
   public onPress = async (values: SignUpPayload) => {
     const [activityStatus] = this.props.containers as [ActivityStatus];
@@ -57,7 +57,7 @@ export class SignUp extends React.Component<Props> {
             <Container padding={true}>
               <Formik
                 initialValues={{
-                  userName: 'qw123e@gmail.com',
+                  userName: 'aaaa@gmail.com',
                   password: 'Qwer1234',
                   firstName: 'n',
                   lastName: 'j',
