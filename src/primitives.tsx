@@ -1,6 +1,4 @@
 import { Platform, SafeAreaView, Text as Text_, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native';
-import { human } from 'react-native-typography';
-import { Styles } from 'styled-components';
 import { scale } from './scale';
 import styled, { th } from './styled';
 

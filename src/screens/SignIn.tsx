@@ -1,4 +1,4 @@
-import { Constants } from 'expo';
+import { Constants, Google } from 'expo';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, View } from 'react-native';
@@ -45,6 +45,10 @@ class SignIn extends React.Component<Props> {
   };
   public googleLogin() {
     console.log('google login');
+    Google.logInAsync({
+      iosClientId: '248650621080-vp9dkt8bjb5d5bvlqhcfb4r54s4ip0r4.apps.googleusercontent.com',
+      scopes: ['openid', 'email', 'profile', 'email', 'profile'],
+    });
   }
   public render() {
     return (

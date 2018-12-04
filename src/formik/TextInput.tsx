@@ -7,10 +7,10 @@ import { FormError, FormGroup } from './Misc';
 import { scale } from '../scale';
 import styled, { th } from '../styled';
 
-const TextInput = styled(TextInput_).attrs({
-  selectionColor: props => th('color.main')(props),
-  placeholderTextColor: props => th('color.grey')(props),
-})`
+const TextInput = styled(TextInput_).attrs(props => ({
+  selectionColor: th('color.main')(props),
+  placeholderTextColor: th('color.grey')(props),
+}))`
   border: 1px solid ${th('color.grey')};
   width: 100%;
   padding: ${scale(16)}px;

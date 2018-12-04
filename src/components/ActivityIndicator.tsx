@@ -28,10 +28,10 @@ const Message = styled(Text)`
   font-size: ${scale(16)}px;
   text-align: center;
 `;
-const AI = styled(ActivityIndicator).attrs({
+const AI = styled(ActivityIndicator).attrs(props => ({
   size: 'large',
-  color: props => th('color.main')(props),
-})``;
+  color: th('color.main')(props),
+}))``;
 export default () => (
   <Subscribe to={[ActicityStatus]}>
     {(acticityStatus: ActicityStatus) =>
