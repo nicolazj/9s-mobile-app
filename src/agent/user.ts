@@ -7,6 +7,28 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
   const { userId } = auth.state;
 
   return {
+    user: {
+      me: async () => {
+        const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${auth.state.userId}`, {
+          data: null,
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        return r.data;
+      },
+      get: async (userId: string) => {
+        const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
+
+        return r.data;
+      },
+    },
     widget: {
       config: {
         list: async () => {

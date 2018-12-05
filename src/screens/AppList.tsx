@@ -14,6 +14,7 @@ import { Container, Text, Touchable } from '../primitives';
 import { SCREENS } from '../routes/constants';
 import appsContainer, { Apps } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
+import userContainer, { User } from '../states/User';
 import styled, { th } from '../styled';
 import { App } from '../types';
 
@@ -97,13 +98,15 @@ class AppList extends React.Component<Props> {
     ]);
     const [appContainer] = this.props.containers;
     appContainer.setState({ connections, spokes, apps });
-    console.log(apps);
   };
 
   public onPress(app: App) {
     this.props.navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
   }
   public suggestApp = () => {
+    const [_, userContainer] = this.props.containers as [_, User];
+    console.log(userContainer.state);
+    const { me } = userContainer.state;
     const texts = [
       'Hey 9Spokes team!',
       '',
@@ -111,67 +114,64 @@ class AppList extends React.Component<Props> {
       '',
       'Here are my details:',
       'Name:',
-      'Nicolas Jiang',
+      `${me.firstName} ${me.lastName}`,
       '',
       'Company name:',
-      'nick company test',
+      'fix me',
       '',
       '9Spokes username:',
-      'nicolas.jiang@9spokes.com',
+      me.emailAddress,
     ];
 
-    Linking.openURL('mailto:support@example.com?subject=SendMail&body=' + texts.join('\n'));
+    Linking.openURL('mailto:support@9spokes.com?subject=App Support Request&body=' + texts.join('\n'));
   };
   public render() {
+    const [appContainer] = this.props.containers as [Apps];
     return (
-      <Subscribe to={[Apps]}>
-        {(apps: Apps) => (
-          <Container>
-            <ScrollView>
-              <Container padding>
-                <View>
-                  <Title>My Connected Apps</Title>
-                </View>
-              </Container>
-
-              <ScrollView horizontal={true} style={{ backgroundColor: '#fff' }}>
-                {apps.availableApps.map((app: App) => (
-                  <ConnectedApp key={app.key} onPress={() => this.onPress(app)}>
-                    <ConnectedAppImg source={imgs[app.key]} />
-                    <ConnectedAppLabel>{app.shortName || app.name}</ConnectedAppLabel>
-                  </ConnectedApp>
-                ))}
-              </ScrollView>
-
-              <Container padding>
-                <View>
-                  <Title>Available Apps</Title>
-                </View>
-              </Container>
-              <AvaibleAppContainer>
-                {apps.availableApps.map((app: App) => (
-                  <AvaibleApp key={app.key} onPress={() => this.onPress(app)}>
-                    <AvaibleAppImg source={imgs[app.key]} />
-                    <AvaibleAppTextView>
-                      <AvaibleAppLabel>{app.name}</AvaibleAppLabel>
-                      <AvaibleAppSum>{app.summary}</AvaibleAppSum>
-                    </AvaibleAppTextView>
-                    <AvaibleAppOp>
-                      <AvaibleAppOpText> > </AvaibleAppOpText>
-                    </AvaibleAppOp>
-                  </AvaibleApp>
-                ))}
-              </AvaibleAppContainer>
-
-              <SuggestAppLink>
-                <Link title="Dont't see your apps? Tell us what you use" onPress={this.suggestApp} />
-              </SuggestAppLink>
-            </ScrollView>
+      <Container>
+        <ScrollView>
+          <Container padding>
+            <View>
+              <Title>My Connected Apps</Title>
+            </View>
           </Container>
-        )}
-      </Subscribe>
+
+          <ScrollView horizontal={true} style={{ backgroundColor: '#fff' }}>
+            {appContainer.purchasedApps.map((app: App) => (
+              <ConnectedApp key={app.key} onPress={() => this.onPress(app)}>
+                <ConnectedAppImg source={imgs[app.key]} />
+                <ConnectedAppLabel>{app.shortName || app.name}</ConnectedAppLabel>
+              </ConnectedApp>
+            ))}
+          </ScrollView>
+
+          <Container padding>
+            <View>
+              <Title>Available Apps</Title>
+            </View>
+          </Container>
+          <AvaibleAppContainer>
+            {appContainer.availableApps.map((app: App) => (
+              <AvaibleApp key={app.key} onPress={() => this.onPress(app)}>
+                <AvaibleAppImg source={imgs[app.key]} />
+                <AvaibleAppTextView>
+                  <AvaibleAppLabel>{app.name}</AvaibleAppLabel>
+                  <AvaibleAppSum>{app.summary}</AvaibleAppSum>
+                </AvaibleAppTextView>
+                <AvaibleAppOp>
+                  <AvaibleAppOpText> > </AvaibleAppOpText>
+                </AvaibleAppOp>
+              </AvaibleApp>
+            ))}
+          </AvaibleAppContainer>
+
+          <SuggestAppLink>
+            <Link title="Dont't see your apps? Tell us what you use" onPress={this.suggestApp} />
+          </SuggestAppLink>
+        </ScrollView>
+      </Container>
     );
   }
 }
 
-export default SubscribeHOC([appsContainer])(AppList);
+export default SubscribeHOC([appsContainer, userContainer])(AppList);

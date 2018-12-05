@@ -15,6 +15,7 @@ import { Container, SafeArea, Text } from '../primitives';
 import { SCREENS } from '../routes/constants';
 import activityStatus, { ActivityStatus } from '../states/ActivityStatus';
 import { SubscribeHOC } from '../states/helper';
+import user, { User } from '../states/User';
 import { SignInPayload } from '../types';
 import { object, password, username } from '../validations';
 
@@ -25,12 +26,18 @@ interface Props {
 
 class SignIn extends React.Component<Props> {
   public onPress = async (values: SignInPayload) => {
-    const [activityStatus] = this.props.containers as [ActivityStatus];
+    const [activityStatus, user] = this.props.containers as [ActivityStatus, User];
 
     try {
       activityStatus.show('Logging in');
       await agent.token.login(values);
+      const me = await agent.user.user.me();
+      console.log(me);
+      user.setState({ me });
       const companies = await agent.user.company.list();
+      user.setState({
+        companies,
+      });
       if (companies.length === 1) {
         await agent.token.exchange(companies[0].companyUuid);
         this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
@@ -38,6 +45,7 @@ class SignIn extends React.Component<Props> {
         // FIXME companies
       }
     } catch (err) {
+      console.log(JSON.stringify(err, null, 2));
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
       activityStatus.dismiss();
@@ -107,4 +115,4 @@ class SignIn extends React.Component<Props> {
     );
   }
 }
-export default SubscribeHOC([activityStatus])(SignIn);
+export default SubscribeHOC([activityStatus, user])(SignIn);
