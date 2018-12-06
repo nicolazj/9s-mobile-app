@@ -6,6 +6,9 @@ import auth from './src/states/Auth';
 interface Props {
   skipLoadingScreen: boolean;
 }
+
+console.log(Icon.Ionicons.font);
+
 export default class App extends React.Component<Props> {
   public state = {
     isLoadingComplete: false,
@@ -47,11 +50,6 @@ export default class App extends React.Component<Props> {
       ]),
       Font.loadAsync({
         ...Icon.Ionicons.font,
-        // We include SpaceMono because we use it in HomeScreen.js. Feel free
-        // to remove this if you are not using it in your app
-        // 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-
-        // fontawesome: require('./assets/fonts/fontawesome.ttf'),
       }),
     ]).then(() => {
       return;

@@ -1,18 +1,17 @@
 import React from 'react';
 import { Image, Linking, ScrollView, View } from 'react-native';
-import { human } from 'react-native-typography';
 import { NavigationScreenProp } from 'react-navigation';
-import { Styles } from 'styled-components';
-import { Container as UnContainer, Subscribe } from 'unstated';
+import { Container as UnContainer } from 'unstated';
 import { scale } from '../scale';
 
 import agent from '../agent';
 
 import Link from '../components/Link';
 import { imgs } from '../osp';
-import { Container, Text, Touchable } from '../primitives';
+import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import appsContainer, { Apps } from '../states/Apps';
+import authContainer, { Auth } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
 import userContainer, { User } from '../states/User';
 import styled, { th } from '../styled';
@@ -23,13 +22,12 @@ interface Props {
   containers: Array<UnContainer<any>>;
 }
 
-const Title = styled(Text)`
-  ${human.title1Object as Styles};
+const Title = styled(P.H1)`
   margin: ${scale(20)}px;
   margin-left: 0;
 `;
 
-const ConnectedApp = styled(Touchable)`
+const ConnectedApp = styled(P.Touchable)`
   flex: 1;
   width: 100px;
   align-items: center;
@@ -38,20 +36,20 @@ const ConnectedApp = styled(Touchable)`
 const ConnectedAppImg = styled(Image)`
   margin: ${scale(10)}px;
 `;
-const ConnectedAppLabel = styled(Text)`
+const ConnectedAppLabel = styled(P.Text)`
   font-size: ${scale(12)}px;
   color: ${th('color.grey')};
   flex-wrap: wrap;
   text-align: center;
 `;
-const AvaibleAppContainer = styled(Container)`
+const AvaibleAppContainer = styled(P.Container)`
   background-color: #fff;
   border-top-color: #eee;
   border-bottom-color: #eee;
   border-top-width: 1px;
   border-bottom-width: 1px;
 `;
-const AvaibleApp = styled(Touchable)`
+const AvaibleApp = styled(P.Touchable)`
   flex-direction: row;
   flex: 1;
   border-bottom-color: #eee;
@@ -62,10 +60,10 @@ const AvaibleAppTextView = styled(View)`
   margin: ${scale(10)}px;
   margin-left: 0;
 `;
-const AvaibleAppLabel = styled(Text)`
+const AvaibleAppLabel = styled(P.Text)`
   font-size: ${scale(12)}px;
 `;
-const AvaibleAppSum = styled(Text).attrs(() => ({ numberOfLines: 3 }))`
+const AvaibleAppSum = styled(P.Text).attrs(() => ({ numberOfLines: 3 }))`
   font-size: ${scale(11)}px;
   color: ${th('color.grey')};
 `;
@@ -77,8 +75,9 @@ const AvaibleAppOp = styled(View)`
   justify-content: center;
   padding: 4px;
 `;
-const AvaibleAppOpText = styled(Text)`
+const AvaibleAppOpText = styled(P.Text)`
   color: ${th('color.grey')};
+  font-size: ${scale(24)}px;
 `;
 
 const SuggestAppLink = styled(View)`
@@ -104,8 +103,8 @@ class AppList extends React.Component<Props> {
     this.props.navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
   }
   public suggestApp = () => {
-    const [_, userContainer] = this.props.containers as [_, User];
-    console.log(userContainer.state);
+    const [_, userContainer, authContainer] = this.props.containers as [any, User, Auth];
+    const company = userContainer.state.companies.find(c => c.companyUuid === authContainer.state.companyUuid);
     const { me } = userContainer.state;
     const texts = [
       'Hey 9Spokes team!',
@@ -117,7 +116,7 @@ class AppList extends React.Component<Props> {
       `${me.firstName} ${me.lastName}`,
       '',
       'Company name:',
-      'fix me',
+      company ? company.companyName : '',
       '',
       '9Spokes username:',
       me.emailAddress,
@@ -128,13 +127,13 @@ class AppList extends React.Component<Props> {
   public render() {
     const [appContainer] = this.props.containers as [Apps];
     return (
-      <Container>
+      <P.Container>
         <ScrollView>
-          <Container padding>
+          <P.Container padding>
             <View>
               <Title>My Connected Apps</Title>
             </View>
-          </Container>
+          </P.Container>
 
           <ScrollView horizontal={true} style={{ backgroundColor: '#fff' }}>
             {appContainer.purchasedApps.map((app: App) => (
@@ -145,11 +144,11 @@ class AppList extends React.Component<Props> {
             ))}
           </ScrollView>
 
-          <Container padding>
+          <P.Container padding>
             <View>
               <Title>Available Apps</Title>
             </View>
-          </Container>
+          </P.Container>
           <AvaibleAppContainer>
             {appContainer.availableApps.map((app: App) => (
               <AvaibleApp key={app.key} onPress={() => this.onPress(app)}>
@@ -159,7 +158,7 @@ class AppList extends React.Component<Props> {
                   <AvaibleAppSum>{app.summary}</AvaibleAppSum>
                 </AvaibleAppTextView>
                 <AvaibleAppOp>
-                  <AvaibleAppOpText> > </AvaibleAppOpText>
+                  <AvaibleAppOpText> › </AvaibleAppOpText>
                 </AvaibleAppOp>
               </AvaibleApp>
             ))}
@@ -169,9 +168,9 @@ class AppList extends React.Component<Props> {
             <Link title="Dont't see your apps? Tell us what you use" onPress={this.suggestApp} />
           </SuggestAppLink>
         </ScrollView>
-      </Container>
+      </P.Container>
     );
   }
 }
 
-export default SubscribeHOC([appsContainer, userContainer])(AppList);
+export default SubscribeHOC([appsContainer, userContainer, authContainer])(AppList);

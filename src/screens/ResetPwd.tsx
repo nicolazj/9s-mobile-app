@@ -3,21 +3,23 @@ import React from 'react';
 import { Alert, Image, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import agent from '../agent';
-import { Button, Container, FormDesc, FormTitle, Link, SafeArea, Text } from '../primitives';
-import { FormikTextInput } from '../primitives';
+import Button from '../components/Button';
+import Link from '../components/Link';
+import { FormDesc, FormikTextInput, FormTitle } from '../formik';
+import { Container, SafeArea, Text } from '../primitives';
 import { SCREENS } from '../routes/constants';
 import { object, username } from '../validations';
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
-export default class Auth extends React.Component<Props> {
-  private state = {
+export default class ResetPwd extends React.Component<Props> {
+  public state = {
     done: false,
   };
-  public onPress = async (values: { username: string }) => {
+  public onPress = async (values: { email: string }) => {
     try {
-      await agent.public.password.reset(values.username);
+      await agent.public.password.reset(values.email);
       this.setState({ done: true });
     } catch (err) {
       Alert.alert('Reset password failed', 'try again later');
@@ -47,10 +49,10 @@ export default class Auth extends React.Component<Props> {
             <Container padding>
               <Formik
                 initialValues={{
-                  username: '',
+                  email: '',
                 }}
                 validationSchema={object().shape({
-                  username,
+                  email: username,
                 })}
                 onSubmit={this.onPress}>
                 {({ handleSubmit }) => (
@@ -59,7 +61,7 @@ export default class Auth extends React.Component<Props> {
                     <FormDesc>
                       No problem! Enter your email address and we will send you a link to reset your password
                     </FormDesc>
-                    <Field name="username" component={FormikTextInput} placeholder="Email" />
+                    <Field name="email" component={FormikTextInput} placeholder="Email" />
                     <Button title="Reset password" onPress={handleSubmit} />
                   </View>
                 )}
@@ -70,7 +72,7 @@ export default class Auth extends React.Component<Props> {
       </Container>
     );
   }
-  private async componentDidMount() {
+  public async componentDidMount() {
     await agent.token.public();
   }
 }

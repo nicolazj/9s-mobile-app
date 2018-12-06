@@ -39,8 +39,6 @@ export class SignUp extends React.Component<Props> {
         Alert.alert('Error', 'Username existed');
       }
     } catch (err) {
-      console.log(err.response.status, JSON.stringify(err, null, 2));
-
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
       activityStatus.dismiss();
@@ -57,7 +55,10 @@ export class SignUp extends React.Component<Props> {
             <Container padding={true}>
               <Formik
                 initialValues={{
-                  userName: 'aaaa@gmail.com',
+                  userName:
+                    Math.random()
+                      .toString(36)
+                      .substring(7) + '@gmail.com',
                   password: 'Qwer1234',
                   firstName: 'n',
                   lastName: 'j',

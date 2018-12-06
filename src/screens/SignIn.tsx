@@ -32,7 +32,6 @@ class SignIn extends React.Component<Props> {
       activityStatus.show('Logging in');
       await agent.token.login(values);
       const me = await agent.user.user.me();
-      console.log(me);
       user.setState({ me });
       const companies = await agent.user.company.list();
       user.setState({
@@ -45,7 +44,6 @@ class SignIn extends React.Component<Props> {
         // FIXME companies
       }
     } catch (err) {
-      console.log(JSON.stringify(err, null, 2));
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
       activityStatus.dismiss();

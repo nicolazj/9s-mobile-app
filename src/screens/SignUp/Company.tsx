@@ -14,6 +14,7 @@ import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import activityStatus, { ActivityStatus } from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
+import userContainer, { User } from '../../states/User';
 import { SignUpPayload } from '../../types';
 
 interface Props {
@@ -42,7 +43,7 @@ export class SignUpCompany extends React.Component<Props, State> {
     });
   }
   public onPress = async values => {
-    const [activityStatus] = this.props.containers as [ActivityStatus];
+    const [activityStatus, user] = this.props.containers as [ActivityStatus, User];
 
     const signUpPayload = this.props.navigation.state.params as SignUpPayload;
     try {
@@ -51,9 +52,16 @@ export class SignUpCompany extends React.Component<Props, State> {
 
       activityStatus.show('Logging in');
       await agent.token.login({ username: signUpPayload.userName, password: signUpPayload.password });
+      const me = await agent.user.user.me();
+      user.setState({ me });
 
       activityStatus.show('Creating Company');
       const company = await agent.user.company.create(values);
+      const companies = await agent.user.company.list();
+      user.setState({
+        companies,
+      });
+
       activityStatus.show('Switching  company');
 
       await agent.token.exchange(company.companyUuid);
@@ -125,4 +133,4 @@ export class SignUpCompany extends React.Component<Props, State> {
   }
 }
 
-export default SubscribeHOC([activityStatus])(SignUpCompany);
+export default SubscribeHOC([activityStatus, userContainer])(SignUpCompany);

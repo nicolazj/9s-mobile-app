@@ -2,7 +2,8 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import { Subscribe } from 'unstated';
-import { Button, Container } from '../primitives';
+import Button from '../components/Button';
+import { Container } from '../primitives';
 import { SCREENS } from '../routes/constants';
 import { Apps, ConnectionStatus } from '../states/Apps';
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
 export default class extends React.Component<Props> {
   public onPress = (connectionStatus: ConnectionStatus) => {
     this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT], connectionStatus);
-  }
+  };
   public render() {
     const appKey = this.props.navigation.getParam('key');
     return (
