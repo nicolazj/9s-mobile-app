@@ -15,7 +15,7 @@ interface State {
 }
 
 const KEY = 'AUTH';
-export class Auth extends Container<State> {
+export class AuthState extends Container<State> {
   public setUser(userAuth: UserAuthResp) {
     const { openid } = userAuth;
     const { sub: userId } = jwt(openid);
@@ -30,7 +30,7 @@ export class Auth extends Container<State> {
       companyUuid: undefined,
     });
   }
-  public isLoggedIn() {
+  public hasUserId() {
     return this.state && this.state.userId;
   }
   public async rehydrate() {
@@ -46,4 +46,4 @@ export class Auth extends Container<State> {
   }
 }
 
-export default new Auth();
+export default new AuthState();

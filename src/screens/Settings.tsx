@@ -8,14 +8,14 @@ import Button from '../components/Button';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import { scale } from '../scale';
-import authContainer, { Auth } from '../states/Auth';
+import authContainer, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
-import userContainer, { User } from '../states/User';
+import userState, { UserState } from '../states/User';
 import styled, { th } from '../styled';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  containers: [User, Auth];
+  states: [UserState, AuthState];
 }
 const Title = styled(P.H1)`
   font-size: ${scale(24)}px;
@@ -26,7 +26,7 @@ const BodyText = styled(Text)`
 `;
 export class Settings extends React.Component<Props> {
   public render() {
-    const [userContainer, authContainer] = this.props.containers as [User, Auth];
+    const [userContainer, authContainer] = this.props.states;
     const { me } = userContainer.state;
     const company = userContainer.state.companies.find(c => c.companyUuid === authContainer.state.companyUuid);
     return (
@@ -125,9 +125,9 @@ export class Settings extends React.Component<Props> {
     );
   }
   private handleLogout = () => {
-    const [_, authContainer] = this.props.containers as [User, Auth];
+    const [_, authContainer] = this.props.states as [UserState, AuthState];
     authContainer.clear();
     this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
   };
 }
-export default SubscribeHOC([userContainer, authContainer])(Settings);
+export default SubscribeHOC([userState, authContainer])(Settings);

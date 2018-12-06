@@ -9,7 +9,7 @@ export interface ConnectionStatus {
   appKey: string;
   connection?: Connection;
 }
-export class Apps extends Container<State> {
+export class AppState extends Container<State> {
   public state = {
     spokes: [],
     connections: [],
@@ -38,4 +38,4 @@ export class Apps extends Container<State> {
   }
 }
 
-export default new Apps();
+export default new AppState();

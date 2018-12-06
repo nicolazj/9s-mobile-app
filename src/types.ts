@@ -3,6 +3,7 @@ export interface ClientConfig {
   tenantId: string;
   appKey: string;
   appSecret: string;
+  device_id: string;
 }
 
 export interface User {

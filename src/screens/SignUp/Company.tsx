@@ -12,14 +12,14 @@ import Link from '../../components/Link';
 import { FormDesc, FormikPicker, FormikTextInput, FormTitle } from '../../formik';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
-import activityStatus, { ActivityStatus } from '../../states/ActivityStatus';
+import activityStatusState, { ActivityStatusState } from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
-import userContainer, { User } from '../../states/User';
+import userState, { UserState } from '../../states/User';
 import { SignUpPayload } from '../../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  containers: Array<UnContainer<object>>;
+  states: [ActivityStatusState, UserState];
 }
 
 interface Industry {
@@ -43,26 +43,26 @@ export class SignUpCompany extends React.Component<Props, State> {
     });
   }
   public onPress = async values => {
-    const [activityStatus, user] = this.props.containers as [ActivityStatus, User];
+    const [activityStatusState, userState] = this.props.states;
 
     const signUpPayload = this.props.navigation.state.params as SignUpPayload;
     try {
-      activityStatus.show('Creating account');
+      activityStatusState.show('Creating account');
       await agent.public.user.create(signUpPayload);
 
-      activityStatus.show('Logging in');
+      activityStatusState.show('Logging in');
       await agent.token.login({ username: signUpPayload.userName, password: signUpPayload.password });
       const me = await agent.user.user.me();
-      user.setState({ me });
+      userState.setState({ me });
 
-      activityStatus.show('Creating Company');
+      activityStatusState.show('Creating Company');
       const company = await agent.user.company.create(values);
       const companies = await agent.user.company.list();
-      user.setState({
+      userState.setState({
         companies,
       });
 
-      activityStatus.show('Switching  company');
+      activityStatusState.show('Switching  company');
 
       await agent.token.exchange(company.companyUuid);
       this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
@@ -70,7 +70,7 @@ export class SignUpCompany extends React.Component<Props, State> {
       console.log(JSON.stringify(err, null, 2));
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
-      activityStatus.dismiss();
+      activityStatusState.dismiss();
     }
   };
 
@@ -133,4 +133,4 @@ export class SignUpCompany extends React.Component<Props, State> {
   }
 }
 
-export default SubscribeHOC([activityStatus, userContainer])(SignUpCompany);
+export default SubscribeHOC([activityStatusState, userState])(SignUpCompany);

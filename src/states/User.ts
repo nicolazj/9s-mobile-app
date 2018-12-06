@@ -5,5 +5,5 @@ interface State {
   companies: Company[];
 }
 
-export class User extends Container<State> {}
-export default new User();
+export class UserState extends Container<State> {}
+export default new UserState();

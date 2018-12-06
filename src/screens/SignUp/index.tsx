@@ -4,7 +4,6 @@ import React from 'react';
 import { Alert, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
-import { Container as UnContainer } from 'unstated';
 import agent from '../../agent';
 import Button from '../../components/Button';
 import Delimiter from '../../components/Delimiter';
@@ -13,14 +12,14 @@ import { GoogleButton } from '../../components/SocialButton';
 import { FormikTextInput, FormTitle } from '../../formik';
 import { Container, SafeArea, Text } from '../../primitives';
 import { SCREENS } from '../../routes/constants';
-import activityStatus, { ActivityStatus } from '../../states/ActivityStatus';
+import activityStatusState, { ActivityStatusState } from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
 import { SignUpPayload } from '../../types';
 import { name, object, password, username } from '../../validations';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  containers: Array<UnContainer<object>>;
+  states: [ActivityStatusState];
 }
 
 export class SignUp extends React.Component<Props> {
@@ -28,10 +27,10 @@ export class SignUp extends React.Component<Props> {
     await agent.token.public();
   }
   public onPress = async (values: SignUpPayload) => {
-    const [activityStatus] = this.props.containers as [ActivityStatus];
+    const [activityStatusState] = this.props.states as [ActivityStatusState];
 
     try {
-      activityStatus.show('Checking email');
+      activityStatusState.show('Checking email');
       const userExisted = await agent.public.user.isExisted(values.userName);
       if (!userExisted) {
         this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP_COMPANY], values);
@@ -41,7 +40,7 @@ export class SignUp extends React.Component<Props> {
     } catch (err) {
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
-      activityStatus.dismiss();
+      activityStatusState.dismiss();
     }
   };
   public googleLogin() {
@@ -102,4 +101,4 @@ export class SignUp extends React.Component<Props> {
     );
   }
 }
-export default SubscribeHOC([activityStatus])(SignUp);
+export default SubscribeHOC([activityStatusState])(SignUp);

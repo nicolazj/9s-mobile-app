@@ -1,40 +1,42 @@
-import { AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import qs from 'qs';
-import { Auth } from '../states/Auth';
+import { AuthState } from '../states/Auth';
 import { AuthResp, ClientConfig, SignInPayload, UserAuthResp } from '../types';
 
 function setExipresAt(data: AuthResp) {
   data.expires_at = Date.now() + data.expires_in * 1000;
 }
 
-export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
-  const { tenantId, appKey, appSecret } = config;
+export default (instancei: AxiosInstance, config: ClientConfig, auth: AuthState) => {
+  const { tenantId, appKey, appSecret, device_id } = config;
+
+  const instance = axios.create({
+    baseURL: `${config.baseURL}/authentication/tenants/${tenantId}`,
+    auth: {
+      username: appKey,
+      password: appSecret,
+    },
+  });
+  instance.interceptors.response.use(
+    response => {
+      return response;
+    },
+    err => {
+      console.log(JSON.stringify(err, null, 2));
+      return Promise.reject(err);
+    }
+  );
 
   return {
     refresh: async (token: string) => {
       const { data } = await instance.post<AuthResp>(
-        `/authentication/tenants/${tenantId}/token?grant_type=refresh_token`,
-        qs.stringify({ refresh_token: token }),
-        {
-          auth: {
-            username: appKey,
-            password: appSecret,
-          },
-        }
+        `/token?grant_type=refresh_token`,
+        qs.stringify({ refresh_token: token })
       );
       return data;
     },
     login: async (payload: SignInPayload) => {
-      const { data } = await instance.post<UserAuthResp>(
-        `/authentication/tenants/${tenantId}/token?grant_type=password`,
-        qs.stringify(payload),
-        {
-          auth: {
-            username: appKey,
-            password: appSecret,
-          },
-        }
-      );
+      const { data } = await instance.post<UserAuthResp>(`/token?grant_type=password`, qs.stringify(payload));
 
       setExipresAt(data);
       await auth.setUser(data);
@@ -42,16 +44,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
     },
 
     public: async () => {
-      const { data } = await instance.post<AuthResp>(
-        `/authentication/tenants/${tenantId}/token?grant_type=public_access`,
-        qs.stringify({ device_id: '8275AC55-257C-448C-8097-EC7F13DB51C1' }),
-        {
-          auth: {
-            username: appKey,
-            password: appSecret,
-          },
-        }
-      );
+      const { data } = await instance.post<AuthResp>(`/token?grant_type=public_access`, qs.stringify({ device_id }));
 
       setExipresAt(data);
       await auth.setState({ publicAuth: data });
@@ -61,18 +54,12 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
     exchange: async (companyUuid: string) => {
       const { openid } = auth.state.userAuth;
       const { data } = await instance.post<AuthResp>(
-        `/authentication/tenants/${tenantId}/token?grant_type=token-exchange`,
+        `/token?grant_type=token-exchange`,
         qs.stringify({
           context: companyUuid,
           subject_token: openid,
           subject_token_type: 'openid',
-        }),
-        {
-          auth: {
-            username: appKey,
-            password: appSecret,
-          },
-        }
+        })
       );
       setExipresAt(data);
       await auth.setState({ companyUuid, companyAuth: data });

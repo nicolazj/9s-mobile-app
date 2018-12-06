@@ -4,7 +4,7 @@ interface State {
   msg: string;
 }
 
-export class ActivityStatus extends Container<State> {
+export class ActivityStatusState extends Container<State> {
   public state = {
     show: false,
     msg: '',
@@ -22,4 +22,4 @@ export class ActivityStatus extends Container<State> {
     });
   }
 }
-export default new ActivityStatus();
+export default new ActivityStatusState();

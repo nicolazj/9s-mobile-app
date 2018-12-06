@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, Linking, ScrollView, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
-import { Container as UnContainer } from 'unstated';
 import { scale } from '../scale';
 
 import agent from '../agent';
@@ -10,16 +9,16 @@ import Link from '../components/Link';
 import { imgs } from '../osp';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import appsContainer, { Apps } from '../states/Apps';
-import authContainer, { Auth } from '../states/Auth';
+import appState, { AppState } from '../states/Apps';
+import authContainer, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
-import userContainer, { User } from '../states/User';
+import userState, { UserState } from '../states/User';
 import styled, { th } from '../styled';
 import { App } from '../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  containers: Array<UnContainer<any>>;
+  states: [AppState, UserState, AuthState];
 }
 
 const Title = styled(P.H1)`
@@ -95,7 +94,7 @@ class AppList extends React.Component<Props> {
       agent.user.spoke.get('mobile'),
       agent.user.service.list(),
     ]);
-    const [appContainer] = this.props.containers;
+    const [appContainer] = this.props.states;
     appContainer.setState({ connections, spokes, apps });
   };
 
@@ -103,7 +102,7 @@ class AppList extends React.Component<Props> {
     this.props.navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
   }
   public suggestApp = () => {
-    const [_, userContainer, authContainer] = this.props.containers as [any, User, Auth];
+    const [_, userContainer, authContainer] = this.props.states;
     const company = userContainer.state.companies.find(c => c.companyUuid === authContainer.state.companyUuid);
     const { me } = userContainer.state;
     const texts = [
@@ -125,7 +124,7 @@ class AppList extends React.Component<Props> {
     Linking.openURL('mailto:support@9spokes.com?subject=App Support Request&body=' + texts.join('\n'));
   };
   public render() {
-    const [appContainer] = this.props.containers as [Apps];
+    const [appState] = this.props.states;
     return (
       <P.Container>
         <ScrollView>
@@ -136,7 +135,7 @@ class AppList extends React.Component<Props> {
           </P.Container>
 
           <ScrollView horizontal={true} style={{ backgroundColor: '#fff' }}>
-            {appContainer.purchasedApps.map((app: App) => (
+            {appState.purchasedApps.map((app: App) => (
               <ConnectedApp key={app.key} onPress={() => this.onPress(app)}>
                 <ConnectedAppImg source={imgs[app.key]} />
                 <ConnectedAppLabel>{app.shortName || app.name}</ConnectedAppLabel>
@@ -150,7 +149,7 @@ class AppList extends React.Component<Props> {
             </View>
           </P.Container>
           <AvaibleAppContainer>
-            {appContainer.availableApps.map((app: App) => (
+            {appState.availableApps.map((app: App) => (
               <AvaibleApp key={app.key} onPress={() => this.onPress(app)}>
                 <AvaibleAppImg source={imgs[app.key]} />
                 <AvaibleAppTextView>
@@ -173,4 +172,4 @@ class AppList extends React.Component<Props> {
   }
 }
 
-export default SubscribeHOC([appsContainer, userContainer, authContainer])(AppList);
+export default SubscribeHOC([appState, userState, authContainer])(AppList);

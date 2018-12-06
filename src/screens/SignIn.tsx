@@ -4,7 +4,6 @@ import React from 'react';
 import { Alert, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
-import { Container as UnContainer } from 'unstated';
 import agent from '../agent';
 import Button from '../components/Button';
 import Delimiter from '../components/Delimiter';
@@ -13,28 +12,28 @@ import { GoogleButton } from '../components/SocialButton';
 import { FormikTextInput, FormTitle } from '../formik';
 import { Container, SafeArea, Text } from '../primitives';
 import { SCREENS } from '../routes/constants';
-import activityStatus, { ActivityStatus } from '../states/ActivityStatus';
+import activityStatusState, { ActivityStatusState } from '../states/ActivityStatus';
 import { SubscribeHOC } from '../states/helper';
-import user, { User } from '../states/User';
+import userState, { UserState } from '../states/User';
 import { SignInPayload } from '../types';
 import { object, password, username } from '../validations';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  containers: Array<UnContainer<any>>;
+  states: [ActivityStatusState, UserState];
 }
 
 class SignIn extends React.Component<Props> {
   public onPress = async (values: SignInPayload) => {
-    const [activityStatus, user] = this.props.containers as [ActivityStatus, User];
+    const [activityStatusState, userState] = this.props.states;
 
     try {
-      activityStatus.show('Logging in');
+      activityStatusState.show('Logging in');
       await agent.token.login(values);
       const me = await agent.user.user.me();
-      user.setState({ me });
+      userState.setState({ me });
       const companies = await agent.user.company.list();
-      user.setState({
+      userState.setState({
         companies,
       });
       if (companies.length === 1) {
@@ -46,7 +45,7 @@ class SignIn extends React.Component<Props> {
     } catch (err) {
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
-      activityStatus.dismiss();
+      activityStatusState.dismiss();
     }
   };
   public googleLogin() {
@@ -113,4 +112,4 @@ class SignIn extends React.Component<Props> {
     );
   }
 }
-export default SubscribeHOC([activityStatus, user])(SignIn);
+export default SubscribeHOC([activityStatusState, userState])(SignIn);
