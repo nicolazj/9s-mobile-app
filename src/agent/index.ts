@@ -1,5 +1,5 @@
 import axios from 'axios';
-import auth, { Auth } from '../states/Auth';
+import auth, { AuthState } from '../states/Auth';
 import { ClientConfig } from '../types';
 import companyAgent from './company';
 import config from './config';
@@ -7,7 +7,7 @@ import publicAgent from './public';
 import tokenAgent from './token';
 import userAgent from './user';
 
-export const APIClient = (config: ClientConfig) => (auth: Auth) => {
+export const APIClient = (config: ClientConfig) => (auth: AuthState) => {
   const instance = axios.create({
     baseURL: config.baseURL,
   });

@@ -23,9 +23,6 @@ interface Props {
 }
 
 export class SignUp extends React.Component<Props> {
-  public async componentDidMount() {
-    await agent.token.public();
-  }
   public onPress = async (values: SignUpPayload) => {
     const [activityStatusState] = this.props.states as [ActivityStatusState];
 

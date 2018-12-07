@@ -35,6 +35,15 @@ export default (instancei: AxiosInstance, config: ClientConfig, auth: AuthState)
       );
       return data;
     },
+    refreshUserToken: async () => {
+      const { data } = await instance.post<UserAuthResp>(
+        `/token?grant_type=refresh_token`,
+        qs.stringify({ refresh_token: auth.state.userAuth.access_token })
+      );
+      setExipresAt(data);
+      await auth.setUser(data);
+      return data;
+    },
     login: async (payload: SignInPayload) => {
       const { data } = await instance.post<UserAuthResp>(`/token?grant_type=password`, qs.stringify(payload));
 

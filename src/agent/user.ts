@@ -1,18 +1,43 @@
-import { AxiosInstance } from 'axios';
-import { Auth } from '../states/Auth';
+import axios, { AxiosInstance } from 'axios';
+import { AuthState } from '../states/Auth';
 import { App, ClientConfig, Company, Spoke } from '../types';
-export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
+import agent from './index';
+export default (i: AxiosInstance, config: ClientConfig, auth: AuthState) => {
   const { tenantId } = config;
-  const { access_token } = auth.state.userAuth;
-  const { userId } = auth.state;
+
+  const instance = axios.create({
+    baseURL: `${config.baseURL}`,
+  });
+  instance.interceptors.request.use(
+    async config => {
+      if (auth.hasUserId() && !auth.isUserTokenValid()) {
+        await agent.token.public();
+      }
+      config.headers.Authorization = `Bearer ${auth.state.userAuth.access_token}`;
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
+
+  instance.interceptors.response.use(
+    response => {
+      return response;
+    },
+    err => {
+      console.log(JSON.stringify(err, null, 2));
+      return Promise.reject(err);
+    }
+  );
 
   return {
     user: {
       me: async () => {
+        const { userId } = auth.state;
         const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${auth.state.userId}`, {
           data: null,
           headers: {
-            Authorization: `Bearer ${access_token}`,
             'Content-Type': 'application/json',
           },
         });
@@ -20,11 +45,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         return r.data;
       },
       get: async (userId: string) => {
-        const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        });
+        const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${userId}`, {});
 
         return r.data;
       },
@@ -34,7 +55,6 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         list: async () => {
           const r = await instance.get(`/widget/tenants/${tenantId}/widget-configs`, {
             headers: {
-              Authorization: `Bearer ${access_token}`,
               'X-API-Version': 3,
             },
           });
@@ -44,7 +64,6 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         get: async (widgetKey: string) => {
           const r = await instance.get(`/widget/tenants/${tenantId}/widget-configs/${widgetKey}`, {
             headers: {
-              Authorization: `Bearer ${access_token}`,
               'X-API-Version': 3,
             },
           });
@@ -55,7 +74,6 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       list: async () => {
         const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/services `, {
           headers: {
-            Authorization: `Bearer ${access_token}`,
             'X-API-Version': 3,
           },
         });
@@ -67,7 +85,6 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       get: async (appKey: string) => {
         const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/services/${appKey}`, {
           headers: {
-            Authorization: `Bearer ${access_token}`,
             'X-API-Version': 3,
           },
         });
@@ -81,7 +98,6 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       get: async (type: string) => {
         const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/spokes/types/${type}`, {
           headers: {
-            Authorization: `Bearer ${access_token}`,
             'X-API-Version': 3,
           },
         });
@@ -93,21 +109,13 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
     },
     application: {
       list: async () => {
-        const r = await instance.get(`/connections/connections/tenants/${tenantId}/applications`, {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        });
+        const r = await instance.get(`/connections/connections/tenants/${tenantId}/applications`, {});
         return r;
       },
       get: async (appKey: string) => {
         const r = await instance.get(
           `/connections/connections/tenants/${tenantId}/applications/${appKey}/configuration`,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
+          {}
         );
 
         const {
@@ -120,7 +128,6 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       create: async p => {
         const r = await instance.post<Company>(`/customer/customer/tenants/${tenantId}/companies`, p, {
           headers: {
-            Authorization: `Bearer ${access_token}`,
             'Content-Type': 'application/json',
           },
         });
@@ -128,10 +135,10 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         return r.data;
       },
       list: async () => {
+        const { userId } = auth.state;
         const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${userId}/companies`, {
           data: null, // needed for this endpoint
           headers: {
-            Authorization: `Bearer ${access_token}`,
             'Content-Type': 'application/json',
           },
         });

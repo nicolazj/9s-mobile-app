@@ -30,6 +30,13 @@ export class AuthState extends Container<State> {
       companyUuid: undefined,
     });
   }
+  public isPublicTokenValid() {
+    return this.state && this.state.publicAuth && this.state.publicAuth.expires_at > Date.now();
+  }
+  public isUserTokenValid() {
+    return this.state && this.state.userAuth && this.state.userAuth.expires_at > Date.now();
+  }
+
   public hasUserId() {
     return this.state && this.state.userId;
   }

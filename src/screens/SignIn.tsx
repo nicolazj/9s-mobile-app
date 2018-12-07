@@ -30,12 +30,8 @@ class SignIn extends React.Component<Props> {
     try {
       activityStatusState.show('Logging in');
       await agent.token.login(values);
-      const me = await agent.user.user.me();
-      userState.setState({ me });
       const companies = await agent.user.company.list();
-      userState.setState({
-        companies,
-      });
+
       if (companies.length === 1) {
         await agent.token.exchange(companies[0].companyUuid);
         this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);

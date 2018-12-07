@@ -3,7 +3,6 @@ import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import agent from '../agent';
 import { SCREENS } from '../routes/constants';
-import auth from '../states/Auth';
 import authState, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
@@ -21,6 +20,8 @@ export class AuthLoadingScreen extends React.Component<Props> {
 
   // Fetch the token from storage then navigate to our appropriate place
   public bootstrapAsync = async () => {
+    // await AsyncStorage.clear();
+    // auth.clear();
     const loggedIn = await this.checkingLogin();
     this.props.navigation.navigate(SCREENS[loggedIn ? SCREENS.DASHBOARD : SCREENS.SIGN_IN]);
   };
@@ -35,15 +36,17 @@ export class AuthLoadingScreen extends React.Component<Props> {
   }
 
   private async checkingLogin() {
-    const [_, userState] = this.props.states;
+    const [authState, userState] = this.props.states;
 
-    const hasUserId = auth.hasUserId();
+    const hasUserId = authState.hasUserId();
     if (!hasUserId) {
       return false;
     }
     try {
       const me = await agent.user.user.me();
       userState.setState({ me });
+      const companies = await agent.user.company.list();
+      userState.setState({ companies });
       return true;
     } catch (err) {
       return false;

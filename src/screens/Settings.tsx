@@ -8,7 +8,7 @@ import Button from '../components/Button';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import { scale } from '../scale';
-import authContainer, { AuthState } from '../states/Auth';
+import authState, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
 import styled, { th } from '../styled';
@@ -26,9 +26,9 @@ const BodyText = styled(Text)`
 `;
 export class Settings extends React.Component<Props> {
   public render() {
-    const [userContainer, authContainer] = this.props.states;
-    const { me } = userContainer.state;
-    const company = userContainer.state.companies.find(c => c.companyUuid === authContainer.state.companyUuid);
+    const [userState, authState] = this.props.states;
+    const { me, companies } = userState.state;
+    const company = companies ? companies.find(c => c.companyUuid === authState.state.companyUuid) : null;
     return (
       <P.Container>
         <ScrollView>
@@ -125,9 +125,9 @@ export class Settings extends React.Component<Props> {
     );
   }
   private handleLogout = () => {
-    const [_, authContainer] = this.props.states as [UserState, AuthState];
-    authContainer.clear();
+    const [_, authState] = this.props.states;
+    authState.clear();
     this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
   };
 }
-export default SubscribeHOC([userState, authContainer])(Settings);
+export default SubscribeHOC([userState, authState])(Settings);

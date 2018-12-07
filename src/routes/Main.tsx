@@ -1,16 +1,16 @@
 import { createSwitchNavigator } from 'react-navigation';
-
 import Loading from '../screens/Loading';
 import Auth from './Auth';
+import { SCREENS } from './constants';
 import Tabs from './Tabs';
 
 export default createSwitchNavigator(
   {
     Tabs,
-    Loading,
+    [SCREENS[SCREENS.LOADING]]: Loading,
     Auth,
   },
   {
-    initialRouteName: 'Loading',
+    initialRouteName: SCREENS[SCREENS.LOADING],
   }
 );

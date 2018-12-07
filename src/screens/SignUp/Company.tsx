@@ -36,7 +36,6 @@ export class SignUpCompany extends React.Component<Props, State> {
     industries: [],
   };
   public async componentDidMount() {
-    agent.token.public();
     const industries = await agent.public.industry.get();
     this.setState({
       industries,
