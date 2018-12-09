@@ -12,7 +12,7 @@ export default (i: AxiosInstance, config: ClientConfig, auth: AuthState) => {
   instance.interceptors.request.use(
     async config => {
       if (!auth.isPublicTokenValid()) {
-        await agent.token.refreshUserToken();
+        await agent.token.public();
       }
       config.headers.Authorization = `Bearer ${auth.state.publicAuth.access_token}`;
       return config;
@@ -58,7 +58,6 @@ export default (i: AxiosInstance, config: ClientConfig, auth: AuthState) => {
     password: {
       reset: async (emailAddress: string) => {
         const r = await instance.post(`/customer/customer/tenants/${tenantId}/users/access`, { emailAddress });
-
         const { data } = r;
         return data;
       },

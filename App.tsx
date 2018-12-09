@@ -7,7 +7,6 @@ interface Props {
   skipLoadingScreen: boolean;
 }
 
-console.log(Icon.Ionicons.font);
 
 export default class App extends React.Component<Props> {
   public state = {

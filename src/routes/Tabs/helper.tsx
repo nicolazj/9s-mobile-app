@@ -15,12 +15,7 @@ export function getTabNavOpts({
       return <Label focused={focused}>{title}</Label>;
     },
     tabBarIcon: ({ focused }) => {
-      return (
-        <Icon
-          focused={focused}
-          name={Platform.OS === 'ios' ? `ios-${icon}${focused ? '' : '-outline'}` : `md-${icon}`}
-        />
-      );
+      return <Icon focused={focused} name={Platform.OS === 'ios' ? `ios-${icon}` : `md-${icon}`} />;
     },
   };
 }

@@ -16,6 +16,7 @@ const m = createMaterialTopTabNavigator(
     Widgets,
   },
   {
+    swipeEnabled: false,
     tabBarOptions: {
       upperCaseLabel: false,
       activeTintColor: '#111',
@@ -52,7 +53,7 @@ const MarketplaceStack = createStackNavigator(
     },
   },
   {
-    navigationOptions: (props: any) => {
+    defaultNavigationOptions: (props: any) => {
       return {
         headerTintColor: '#fff',
         headerStyle: {
@@ -60,9 +61,8 @@ const MarketplaceStack = createStackNavigator(
         },
       };
     },
+    navigationOptions: getTabNavOpts({ title: 'Marketplace', icon: 'apps' }),
   }
 );
-
-MarketplaceStack.navigationOptions = getTabNavOpts({ title: 'Marketplace', icon: 'apps' });
 
 export default MarketplaceStack;

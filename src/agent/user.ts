@@ -11,7 +11,7 @@ export default (i: AxiosInstance, config: ClientConfig, auth: AuthState) => {
   instance.interceptors.request.use(
     async config => {
       if (auth.hasUserId() && !auth.isUserTokenValid()) {
-        await agent.token.public();
+        await agent.token.refreshUserToken();
       }
       config.headers.Authorization = `Bearer ${auth.state.userAuth.access_token}`;
       return config;

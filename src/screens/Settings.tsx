@@ -56,14 +56,6 @@ export class Settings extends React.Component<Props> {
                 <Ionicons name="ios-arrow-forward" />
               </Right>
             </ListItem>
-            {/* <ListItem>
-              <Left>
-                <Text>Currency</Text>
-              </Left>
-              <Body>
-                <Text>User profile</Text>
-              </Body>
-            </ListItem> */}
           </List>
           <Title>Support</Title>
           <List style={{ backgroundColor: '#fff' }}>
@@ -77,7 +69,6 @@ export class Settings extends React.Component<Props> {
               </Right>
             </ListItem>
             <ListItem onPress={() => WebBrowser.openBrowserAsync('https://support.9spokes.com/hc/en-us')}>
-              >
               <Left>
                 <Text>Help center</Text>
               </Left>
@@ -91,7 +82,6 @@ export class Settings extends React.Component<Props> {
           <List style={{ backgroundColor: '#fff' }}>
             <ListItem
               onPress={() => WebBrowser.openBrowserAsync('https://www.9spokes.com/legal/terms-and-conditions/')}>
-              >
               <Left>
                 <Text>Terms and conditions</Text>
               </Left>
@@ -114,7 +104,9 @@ export class Settings extends React.Component<Props> {
               <Left>
                 <Text>App version</Text>
               </Left>
-              <Right>1.0.0</Right>
+              <Right>
+                <Text>1.0.0</Text>
+              </Right>
             </ListItem>
           </List>
           <P.Container margin>

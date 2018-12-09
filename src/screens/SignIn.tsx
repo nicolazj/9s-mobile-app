@@ -34,7 +34,7 @@ class SignIn extends React.Component<Props> {
 
       if (companies.length === 1) {
         await agent.token.exchange(companies[0].companyUuid);
-        this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
+        this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
       } else {
         // FIXME companies
       }
