@@ -9,6 +9,7 @@ import Link from '../components/Link';
 import { imgs } from '../osp';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
+import activityStatusState, { ActivityStatusState } from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import authContainer, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
@@ -18,7 +19,7 @@ import { App } from '../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState, UserState, AuthState];
+  states: [AppState, UserState, AuthState, ActivityStatusState];
 }
 
 const Title = styled(P.H1)`
@@ -89,13 +90,18 @@ class AppList extends React.Component<Props> {
     this.fetchApps();
   }
   public fetchApps = async () => {
+    const [_, __, ___, activityStatusState] = this.props.states;
+    activityStatusState.show('Loading');
+
     const [connections, spokes, apps] = await Promise.all([
       agent.company.connection.list(),
       agent.user.spoke.get('mobile'),
       agent.user.service.list(),
     ]);
     const [appContainer] = this.props.states;
-    appContainer.setState({ connections, spokes, apps });
+    const fullApps = await Promise.all(apps.map(app => agent.user.service.get(app.key)));
+    appContainer.setState({ connections, spokes, apps: fullApps });
+    activityStatusState.dismiss();
   };
 
   public onPress(app: App) {
@@ -172,4 +178,4 @@ class AppList extends React.Component<Props> {
   }
 }
 
-export default SubscribeHOC([appState, userState, authContainer])(AppList);
+export default SubscribeHOC([appState, userState, authContainer, activityStatusState])(AppList);

@@ -5,9 +5,10 @@ interface State {
   connections: Connection[];
   apps: App[];
 }
-export interface ConnectionStatus {
+export interface AppDetail {
   appKey: string;
   connection?: Connection;
+  app: App;
 }
 export class AppState extends Container<State> {
   public state = {
@@ -30,11 +31,12 @@ export class AppState extends Container<State> {
       .filter(app => supportedApps.includes(app.key))
       .filter(app => !activeConnections.includes(app.key));
   }
-  public connectionStatus(appKey: string) {
+  public appDetail(appKey: string) {
     return {
       appKey,
-      connection: this.state.connections.find(c => c.appKey === appKey),
-    } as ConnectionStatus;
+      app: this.state.apps.find(app => app.key === appKey),
+      connection: this.state.connections.find(app => app.appKey === appKey),
+    } as AppDetail;
   }
 }
 

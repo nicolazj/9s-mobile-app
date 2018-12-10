@@ -90,7 +90,9 @@ export default (i: AxiosInstance, config: ClientConfig, auth: AuthState) => {
         });
         const {
           _embedded: { service },
+          _links: { bigLogo },
         } = r.data;
+        service.logo = bigLogo.href;
         return service as App;
       },
     },

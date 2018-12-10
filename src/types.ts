@@ -70,6 +70,7 @@ export interface App {
   shortName: string;
   summary: string;
   trial: any;
+  logo: string;
 }
 export interface Entity {
   id: string;
