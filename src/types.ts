@@ -77,6 +77,9 @@ export interface Entity {
   name: string;
 }
 export enum ACTIVITY_TYPES {
+  CLIENT_INIT = '@client_init',
+  SUCCEEDED = '@succeeded',
+  ERRORED = '@errored',
   INITIATE_CONNECTION = 'initiate-connection',
   REDIRECT_USER_AGENT = 'redirect-user-agent',
   SUBMIT_AUTHORIZATION = 'submit-authorization',

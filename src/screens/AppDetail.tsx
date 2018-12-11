@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
+import { Alert, Image, ScrollView, Text, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import agent from '../agent';
 import Button from '../components/Button';
@@ -31,49 +31,78 @@ const DescView = styled(View)`
 const DescText = styled(Text)`
   color: #666;
 `;
-const getAppIcon = (appKey: string) =>
-  `https://cdn.9spokes.io/catalogue-data/2.44-210/9spokesuk/images/${appKey}/logos/big`;
 
 export class AppDetail extends React.Component<Props> {
-  public onPress = (connectionStatus: AppDetail) => {
-    this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT], connectionStatus);
-  };
-  public async componentDidMount() {
-    const appKey = this.props.navigation.getParam('key');
-
-    const r = await agent.user.service.get(appKey);
-    console.log(r);
-  }
   public render() {
     const appKey = this.props.navigation.getParam('key');
     const [appState] = this.props.states;
     const appDetail = appState.appDetail(appKey);
-    const { connection, app } = appDetail;
+    const { app } = appDetail;
     if (!app) {
       return null;
     }
     return (
       <ScrollView>
         <AppDetailContainer padding>
-          <AppImg style={{}} source={{ uri: getAppIcon(appKey) }} resizeMode="contain" />
+          <AppImg style={{}} source={{ uri: app.logo }} resizeMode="contain" />
           {this.renderDesc(app.description)}
-
           {this.renderFeatures(app.features)}
-          {connection && connection.status === 'ACTIVE' ? (
-            <Button title="Remove connection" onPress={() => console.log('remove ')} />
-          ) : (
-            [
-              <Button key="trial" title="Get a trial" />,
-              connection ? (
-                <Button key="resume" title="Resume" onPress={() => this.onPress(appDetail)} />
-              ) : (
-                <Button key="connect" title="Connect" onPress={() => this.onPress(appDetail)} />
-              ),
-            ]
-          )}
+          {this.renderButtons()}
         </AppDetailContainer>
       </ScrollView>
     );
+  }
+  private onPress = (appDetail: AppDetail) => {
+    this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT], appDetail);
+  };
+  private onRemoveConnection = async (connectionId: string) => {
+    Alert.alert(
+      'Remove connection?',
+      'Are you sure you want to remove your connection ',
+      [
+        {
+          text: 'OK',
+          onPress: () => this.removeConnection(connectionId),
+        },
+        {
+          text: 'Cancel',
+          onPress: () => {
+            console.log('cancel');
+          },
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+  private removeConnection = async (connectionId: string) => {
+    await agent.company.connection.delete(connectionId);
+    this.reloadConnections();
+  };
+  private reloadConnections = async () => {
+    const connections = await agent.company.connection.list();
+    const [appState] = this.props.states;
+    appState.setState({ connections });
+  };
+  private renderButtons() {
+    const appKey = this.props.navigation.getParam('key');
+    const [appState] = this.props.states;
+    const appDetail = appState.appDetail(appKey);
+    const { connection, app } = appDetail;
+    const removeConnectionButton = (
+      <Button key="remove" title="Remove connection" danger onPress={() => this.onRemoveConnection(connection.id)} />
+    );
+
+    if (!connection) {
+      return [
+        <Button key="connect" title="Connect" onPress={() => this.onPress(appDetail)} />,
+        <Button key="trial" title="Get a trial" />,
+      ];
+    } else if (connection.status === 'ACTIVE') {
+      return removeConnectionButton;
+    } else {
+      return [<Button key="resume" title="Resume" onPress={() => this.onPress(appDetail)} />, removeConnectionButton];
+    }
   }
   private renderDesc(desc: string) {
     const paras = desc.split('<br>');

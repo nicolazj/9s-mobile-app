@@ -1,17 +1,18 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
 import { AuthState } from '../states/Auth';
 import { App, ClientConfig, Company, Spoke } from '../types';
-import agent from './index';
-export default (i: AxiosInstance, config: ClientConfig, auth: AuthState) => {
-  const { tenantId } = config;
+import token from './token';
+
+export default (config: ClientConfig, auth: AuthState) => {
+  const { baseURL, tenantId } = config;
 
   const instance = axios.create({
-    baseURL: `${config.baseURL}`,
+    baseURL,
   });
   instance.interceptors.request.use(
     async config => {
       if (auth.hasUserId() && !auth.isUserTokenValid()) {
-        await agent.token.refreshUserToken();
+        await token.refreshUserToken();
       }
       config.headers.Authorization = `Bearer ${auth.state.userAuth.access_token}`;
       return config;

@@ -1,11 +1,15 @@
 import React from 'react';
-import { View } from 'react-native';
+import { TouchableNativeFeedbackProps, TouchableOpacityProps, View } from 'react-native';
 import * as P from '../primitives';
 import { scale } from '../scale';
 import styled, { th } from '../styled';
 
-const ButtonTouchable = styled(P.Touchable)`
-  background-color: ${th('color.main')};
+interface SProps {
+  danger: boolean;
+}
+const ButtonTouchable = styled(P.Touchable)<SProps>`
+  background-color: ${props => (props.danger ? '#fff' : th('color.main'))};
+  border: 1px solid ${props => (props.danger ? th('color.danger') : th('color.main'))};
   width: 100%;
   border-radius: 5px;
   height: ${scale(48)}px;
@@ -13,15 +17,23 @@ const ButtonTouchable = styled(P.Touchable)`
   margin: 5px 0;
 `;
 
-const ButtonText = styled(P.Text)`
+const ButtonText = styled(P.Text)<SProps>`
   text-align: center;
-  color: #fff;
+  color: ${props => (props.danger ? th('color.danger') : '#fff')};
 `;
-
-export default ({ title, ...props }) => (
-  <ButtonTouchable {...props}>
+interface Props extends SProps {
+  title: string;
+}
+// FIXME type is incorrect
+const Button: React.SFC<Props & TouchableNativeFeedbackProps & TouchableOpacityProps> = ({
+  title,
+  danger,
+  ...props
+}) => (
+  <ButtonTouchable danger={danger} {...props}>
     <View>
-      <ButtonText>{title}</ButtonText>
+      <ButtonText danger={danger}>{title}</ButtonText>
     </View>
   </ButtonTouchable>
 );
+export default Button;

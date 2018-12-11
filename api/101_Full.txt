@@ -1,0 +1,23 @@
+GET https://api.9spokes.io/dev02/catalogue/catalogue/tenants/00000000-0000-0005-5555-555555555555/services/vend HTTP/1.1
+Host: api.9spokes.io
+Content-Type: application/json
+X-API-Version: 3
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.L8PoLhuDFjSHhAkH3fSRk6-ewGmTGJp2uJNLwXYTptqUcryYk2RpKg.0vuUfajrb_re46UBuDQTeQ.ppQ9ppXAIh6F68mmXvHsCAgttfreoZ5hjQflLrRms29C8W6453_C1-N1ZTCn2Wqdu6bJmjEe8wzG2tE4Hq35Mf0Thr35F-RwcCUxbP42IF5-aANJMEfHSfB7Gqoi8sjc6GJ_9Lgcr6cC7IYs7gyptEb9EmIs8XBCW9K3-pFt5G6Bn1acauQRNvjWfPXrtdNXk9aCQVTFRkHCoqOMnq5OMh1XMXmy4YYWum8J0nqbL5ALyJ-b0Fide2buTqHAF7xXO0N2non-KlaalUrTPx9_vy_LRpmrRuBexCeTC_WO_AiNocU1FrtUXVtiCcLzJgkfWHTsOKaAnDsbgJCostMp5CnbM4LOpZuEgOcKhyQhpXVXuiEjOVWR74SBGr_0HO76_ILe3tQCaK8TCPkoEUMrc8Cw4g2Dw4ooF8BKXQTf7wBTuQbtHPo5_PU8xf5ZxgLX9mw1J0dP_oMvhLRFjdp9-7917g2y4i5kzKgX-05brEBhC_GGeZp7qyCtbIIWDuCd.zjt7za0oVt-W83KjyY8cgQ
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 10 Oct 2018 21:26:59 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Connection: keep-alive
+cache-control: max-age=86400
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+Content-Length: 2833
+
+{"_links":{"bigLogo":{"href":"https://cdn.9spokes.io/catalogue-data/2.42-193/9spokesuk/images/vend/logos/big"},"demos":{"href":"/services/vend/demos"},"faqs":{"href":"/services/vend/faqs"},"first":{"href":"/services/intuit"},"last":{"href":"/services/marsello"},"login":{"href":"https://secure.vendhq.com/signin"},"next":{"href":"/services/tradegecko"},"plans":{"href":"/services/vend/plans"},"prev":{"href":"/services/capsule"},"screenshots":[{"href":"https://cdn.9spokes.io/catalogue-data/2.42-193/9spokesuk/images/vend/screenshots/0"},{"href":"https://cdn.9spokes.io/catalogue-data/2.42-193/9spokesuk/images/vend/screenshots/1"}],"self":{"href":"/services/vend"},"smallLogo":{"href":"https://cdn.9spokes.io/catalogue-data/2.42-193/9spokesuk/images/vend/logos/small"},"support":{"href":"/services/vend/support"},"transparentLogo":{"href":"https://cdn.9spokes.io/catalogue-data/2.42-193/9spokesuk/images/vend/logos/square"}},"_embedded":{"service":{"key":"vend","name":"Vend","shortName":"Vend","summary":"Run the world's best retail with Vend POS software. Vend is retail POS software, inventory management, ecommerce & customer loyalty for iPad, Mac and PC.","description":"Vend is a commerce platform that allows anyone to easily sell online and/or through their retail location. Vend offers a professional online storefront, a payment solution to accept credit cards, and the Vend POS application to power retail sales. Start today and be ready accept credit cards in&nbsp;minutes.","openBanking":false,"features":["Web-based or iPad POS","Works offline","Fast staff training","Discounts and notes","Custom receipts","Layaways and on-account sales","Returns, refunds & store credits","Cash management","User accounts","Customisable designs","Mobile friendly","Flexible shipping","Product collections","Order management","Centralised data","Host your own domain","Hardware support","Accepts credit and debit cards","Gift cards","Custom payment types","Split payments","Partial payments","Customisable taxes","Stock orders","Stock transfers","Inventory control","Inventory counts","Central product catalogue","Customer profiles","Customer purchase history","Central customer database","Vend loyalty program","Customisable reports","Employee performance"],"labels":["all","application","product","sales"],"industries":["CafesandRestaurantsandHotelsandFood","HealthandMedicalandBeauty","HomeandGarden","RetailandShopping","VehiclesandTransport","Startup","Ecommerce"],"pricing":{"model":"Subscription","subscriptionType":"Feature Bands","currency":"GBP","symbol":"£","startingFrom":"£79.00/month","frequency":"month","priceAvailable":false,"freePlanAvailable":true},"trial":{"description":"30 day free trial","available":true,"autoSubscriptionOnExpiry":false,"tryUrl":"https://secure.vendhq.com/signup?partner_code=9spokes-uk"}}}}

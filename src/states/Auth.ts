@@ -36,9 +36,14 @@ export class AuthState extends Container<State> {
   public isUserTokenValid() {
     return this.state && this.state.userAuth && this.state.userAuth.expires_at > Date.now();
   }
-
+  public isCompanyTokenValid() {
+    return this.state && this.state.companyAuth && this.state.companyAuth.expires_at > Date.now();
+  }
   public hasUserId() {
     return this.state && this.state.userId;
+  }
+  public hasCompany() {
+    return this.state && this.state.companyUuid;
   }
   public async rehydrate() {
     const serialState = await AsyncStorage.getItem(KEY);

@@ -1,0 +1,514 @@
+POST https://api.9spokes.io/dev02/connections/connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/workflow?appKey=googleanalytics&outcome=connect HTTP/1.1
+Host: api.9spokes.io
+Accept: */*
+Content-Type: application/json
+Content-Length: 0
+Connection: keep-alive
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+
+
+HTTP/1.1 201 Created
+Server: nginx
+Date: Tue, 09 Oct 2018 20:51:13 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Connection: keep-alive
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+Content-Length: 1084
+
+{
+    "workflow": {
+        "id": "5bbd14c1539e3b05d9d63180",
+        "context": {
+            "tenantId": "00000000-0000-0005-5555-555555555555",
+            "userId": "c44bdf56-72db-4a56-92f6-4b721b5d636a",
+            "companyId": "b72e58d0-f0bf-43b3-bd34-6555fd745ebf",
+            "initiatedAt": "2018-10-09T20:51:13.641Z",
+            "goal": {
+                "appKey": "googleanalytics",
+                "outcome": "connect",
+                "achieved": false
+            }
+        },
+        "activities": [
+            {
+                "id": "1",
+                "type": "initiate-connection",
+                "steps": [
+                    {
+                        "id": "1",
+                        "href": "/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/connections",
+                        "method": "POST",
+                        "_links": {
+                            "complete": {
+                                "href": "/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180",
+                                "templated": false,
+                                "method": "PUT"
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "_links": {
+        "self": {
+            "href": "/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180",
+            "templated": false,
+            "method": "GET"
+        },
+        "cancel": {
+            "href": "/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180",
+            "templated": false,
+            "method": "DELETE"
+        }
+    }
+}
+
+------------------------------------------------------------------
+
+POST https://api.9spokes.io/dev02/connections/connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/connections HTTP/1.1
+Host: api.9spokes.io
+X-User-ID: c44bdf56-72db-4a56-92f6-4b721b5d636a
+Accept: */*
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+X-Tenant-ID: 00000000-0000-0005-5555-555555555555
+Accept-Encoding: br, gzip, deflate
+Accept-Language: en-us
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 22
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+X-Company-ID: 1042f72e-edfd-4bed-a8e6-b46e89d31d6c
+Connection: keep-alive
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+
+appKey=googleanalytics
+HTTP/1.1 201 Created
+Server: nginx
+Date: Tue, 09 Oct 2018 20:51:13 GMT
+Content-Length: 0
+Connection: keep-alive
+location: /connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/connections/5bac63adb70b5ea8a3aed237
+cache-control: no-cache, no-store, must-revalidate
+pragma: no-cache
+expires: 0
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+
+
+------------------------------------------------------------------
+
+GET https://api.9spokes.io/dev02/connections//connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/connections/5bac63adb70b5ea8a3aed237 HTTP/1.1
+Host: api.9spokes.io
+Accept: */*
+Connection: keep-alive
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+Accept-Encoding: br, gzip, deflate
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 09 Oct 2018 20:51:13 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Connection: keep-alive
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+Content-Length: 530
+
+{"_links":{"self":{"href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/connections/5bac63adb70b5ea8a3aed237","templated":false,"method":"GET"}},"connectionDetails":{"id":"5bac63adb70b5ea8a3aed237","appKey":"googleanalytics","version":"3","status":"NOT_CONNECTED","credentialsMetadata":{"version":"v1","createdAt":"2018-09-27T07:04:03.091Z","expireAt":"2018-10-09T20:50:57.235Z"},"tenantUuid":"00000000-0000-0005-5555-555555555555","partyUuid":"b72e58d0-f0bf-43b3-bd34-6555fd745ebf"}}
+
+------------------------------------------------------------------
+
+PUT https://api.9spokes.io/dev02/connections/connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/workflow/5bbd14c1539e3b05d9d63180?activityId=1&stepId=1 HTTP/1.1
+Host: api.9spokes.io
+Accept: */*
+Content-Type: application/json
+Content-Length: 0
+Connection: keep-alive
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 09 Oct 2018 20:51:13 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Connection: keep-alive
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+Content-Length: 1321
+
+{
+    "workflow": {
+        "id": "5bbd14c1539e3b05d9d63180",
+        "context": {
+            "tenantId": "00000000-0000-0005-5555-555555555555",
+            "userId": "c44bdf56-72db-4a56-92f6-4b721b5d636a",
+            "companyId": "b72e58d0-f0bf-43b3-bd34-6555fd745ebf",
+            "initiatedAt": "2018-10-09T20:51:13.641Z",
+            "goal": {
+                "appKey": "googleanalytics",
+                "outcome": "connect",
+                "achieved": false
+            }
+        },
+        "activities": [
+            {
+                "id": "2",
+                "type": "redirect-user-agent",
+                "steps": [
+                    {
+                        "id": "1",
+                        "href": "https://accounts.google.com/o/oauth2/auth?client_id=248650621080-gu5tegh2hmf2qell0qbe5v7s2fb6kcv3.apps.googleusercontent.com&redirect_uri=https://api.9spokes.io/dev02/osp/callback/googleanalytics&response_type=code&scope=https://www.googleapis.com/auth/analytics&access_type=offline&prompt=consent&state=67dcda46-88da-4142-9b20-994f2cdb53b5",
+                        "method": "GET",
+                        "_links": {
+                            "complete": {
+                                "href": "/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180",
+                                "templated": false,
+                                "method": "PUT"
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "_links": {
+        "self": {
+            "href": "/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180",
+            "templated": false,
+            "method": "GET"
+        },
+        "cancel": {
+            "href": "/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180",
+            "templated": false,
+            "method": "DELETE"
+        }
+    }
+}
+------------------------------------------------------------------
+
+
+
+
+
+GOOGLE LOGIN 
+
+
+
+_________________________________________________________________
+
+
+GET https://api.9spokes.io/dev02/osp/callback/googleanalytics?state=67dcda46-88da-4142-9b20-994f2cdb53b5&code=4/dABeO2t0s6LJUIxOOWFomJl43TLf-MjG5rDPnar_poeTMEQbXvVJaCF52_Tl5N9tgY-2YsLnwofTAiSaMKr5TkY&scope=https://www.googleapis.com/auth/analytics HTTP/1.1
+Host: api.9spokes.io
+Connection: keep-alive
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+Accept-Language: en-us
+Referer: https://accounts.google.com/signin/oauth/consent?authuser=0&part=AJi8hAMpsPlXFCBbeNgjfH8EAezbykwtHBlHY9ZnfYaQGb_2IeSKH-9dyoTNHwewrdGClIWHmWShYwCtkLEsoh6_RS82RLzmHjfEnRw006TDod6Um5UnoaVy5CauiPMRn-Zvw67FJyCc6RNZ6E9BLrgzHI_lU1mHuQph-nxHJ-MRYiGxkuTU9ofvtotHAJedRkxsrVdzDOUoiEqNIogzCQtZylE888-7vMm84jICcKJXvG91egzPlEDIyaunxJ-h5SsLPNY6Rc6WZ9bR8sPkand9INuNkRkfGkqy7WEBSFRNJYKWlFIGYXhr6bfIkxWaEjJwPc7nxYfbK7enh6BG4U6wc26c0cT_E63CPYke5BOmeDFSjUvAhTlUCcY5Za0n_b-nxtiDVRE_IDAsDrBtkxiKwAzbxYzqxlPg73AO7-Hk7tdo1L-FVWQ&as=AcGPqn3jUXqFGz0Wr1E8Dg
+Accept-Encoding: br, gzip, deflate
+
+
+HTTP/1.1 302 Found
+Server: nginx
+Date: Tue, 09 Oct 2018 21:15:18 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 522
+Connection: keep-alive
+Location: nsp://auth/dev02/osp/callback/googleanalytics?state=67dcda46-88da-4142-9b20-994f2cdb53b5&code=4/dABeO2t0s6LJUIxOOWFomJl43TLf-MjG5rDPnar_poeTMEQbXvVJaCF52_Tl5N9tgY-2YsLnwofTAiSaMKr5TkY&scope=https://www.googleapis.com/auth/analytics
+Vary: Accept
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+<p>Found. Redirecting to <a href="nsp://auth/dev02/osp/callback/googleanalytics?state=67dcda46-88da-4142-9b20-994f2cdb53b5&amp;code=4/dABeO2t0s6LJUIxOOWFomJl43TLf-MjG5rDPnar_poeTMEQbXvVJaCF52_Tl5N9tgY-2YsLnwofTAiSaMKr5TkY&amp;scope=https://www.googleapis.com/auth/analytics">nsp://auth/dev02/osp/callback/googleanalytics?state=67dcda46-88da-4142-9b20-994f2cdb53b5&amp;code=4/dABeO2t0s6LJUIxOOWFomJl43TLf-MjG5rDPnar_poeTMEQbXvVJaCF52_Tl5N9tgY-2YsLnwofTAiSaMKr5TkY&amp;scope=https://www.googleapis.com/auth/analytics</a></p>
+
+------------------------------------------------------------------
+
+PUT https://api.9spokes.io/dev02/connections/connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/workflow/5bbd14c1539e3b05d9d63180?activityId=2&stepId=1 HTTP/1.1
+Host: api.9spokes.io
+Accept: */*
+Content-Type: application/json
+Content-Length: 0
+Connection: keep-alive
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 09 Oct 2018 21:15:19 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Connection: keep-alive
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+Content-Length: 1124
+
+{"workflow":{"id":"5bbd14c1539e3b05d9d63180","context":{"tenantId":"00000000-0000-0005-5555-555555555555","userId":"c44bdf56-72db-4a56-92f6-4b721b5d636a","companyId":"b72e58d0-f0bf-43b3-bd34-6555fd745ebf","initiatedAt":"2018-10-09T20:51:13.641Z","goal":{"appKey":"googleanalytics","outcome":"connect","achieved":false}},"activities":[{"id":"3","type":"submit-authorization","steps":[{"id":"1","href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/connections/5bac63adb70b5ea8a3aed237/authorization","method":"POST","_links":{"complete":{"href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180","templated":false,"method":"PUT"}}}]}]},"_links":{"self":{"href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180","templated":false,"method":"GET"},"cancel":{"href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180","templated":false,"method":"DELETE"}}}
+
+------------------------------------------------------------------
+
+POST https://api.9spokes.io/dev02/connections/connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/connections/5bac63adb70b5ea8a3aed237/authorization HTTP/1.1
+Host: api.9spokes.io
+Content-Type: application/x-www-form-urlencoded
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Content-Length: 222
+Accept-Encoding: br, gzip, deflate
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+
+state=67dcda46-88da-4142-9b20-994f2cdb53b5&scope=https://www.googleapis.com/auth/analytics&code=4/dABeO2t0s6LJUIxOOWFomJl43TLf-MjG5rDPnar_poeTMEQbXvVJaCF52_Tl5N9tgY-2YsLnwofTAiSaMKr5TkY&callback=1&serviceID=googleanalytics
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 09 Oct 2018 21:15:20 GMT
+Content-Length: 0
+Connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+pragma: no-cache
+expires: 0
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+
+
+------------------------------------------------------------------
+
+PUT https://api.9spokes.io/dev02/connections/connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/workflow/5bbd14c1539e3b05d9d63180?activityId=3&stepId=1 HTTP/1.1
+Host: api.9spokes.io
+Accept: */*
+Content-Type: application/json
+Content-Length: 0
+Connection: keep-alive
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 09 Oct 2018 21:15:20 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+460
+{"workflow":{"id":"5bbd14c1539e3b05d9d63180","context":{"tenantId":"00000000-0000-0005-5555-555555555555","userId":"c44bdf56-72db-4a56-92f6-4b721b5d636a","companyId":"b72e58d0-f0bf-43b3-bd34-6555fd745ebf","initiatedAt":"2018-10-09T20:51:13.641Z","goal":{"appKey":"googleanalytics","outcome":"connect","achieved":false}},"activities":[{"id":"4","type":"get-available-entities","steps":[{"id":"1","href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/connections/5bac63adb70b5ea8a3aed237/entities","method":"GET","_links":{"complete":{"href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180","templated":false,"method":"PUT"}}}]}]},"_links":{"self":{"href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180","templated":false,"method":"GET"},"cancel":{"href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180","templated":false,"method":"DELETE"}}}
+0
+
+
+
+------------------------------------------------------------------
+
+GET https://api.9spokes.io/dev02/connections/connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/connections/5bac63adb70b5ea8a3aed237/entities HTTP/1.1
+Host: api.9spokes.io
+Accept: */*
+Content-Type: application/json
+Connection: keep-alive
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 09 Oct 2018 21:15:20 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+212
+{"_embedded":{"entities":[{"id":"76909709","name":"leolamarry.me - All Web Site Data"},{"id":"95149740","name":"stayloop.com - All Web Site Data"},{"id":"96874343","name":"hits loop - All Web Site Data"},{"id":"97699470","name":"nicolazj - All Web Site Data"},{"id":"104250928","name":"artisanhunt - All Web Site Data"}]},"_links":{"self":{"href":"/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/connections5bac63adb70b5ea8a3aed237/entities","templated":false,"method":"GET"}},"count":5}
+0
+
+
+
+------------------------------------------------------------------
+
+PUT https://api.9spokes.io/dev02/connections/connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/workflow/5bbd14c1539e3b05d9d63180?activityId=4&stepId=1 HTTP/1.1
+Host: api.9spokes.io
+Accept: */*
+Content-Type: application/json
+Content-Length: 0
+Connection: keep-alive
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 09 Oct 2018 21:15:23 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+457
+{"workflow":{"id":"5bbd14c1539e3b05d9d63180","context":{"tenantId":"00000000-0000-0005-5555-555555555555","userId":"c44bdf56-72db-4a56-92f6-4b721b5d636a","companyId":"b72e58d0-f0bf-43b3-bd34-6555fd745ebf","initiatedAt":"2018-10-09T20:51:13.641Z","goal":{"appKey":"googleanalytics","outcome":"connect","achieved":false}},"activities":[{"id":"5","type":"submit-entity","steps":[{"id":"1","href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/connections/5bac63adb70b5ea8a3aed237/entities","method":"PUT","_links":{"complete":{"href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180","templated":false,"method":"PUT"}}}]}]},"_links":{"self":{"href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180","templated":false,"method":"GET"},"cancel":{"href":"/tenants/00000000-0000-0005-5555-555555555555/company/b72e58d0-f0bf-43b3-bd34-6555fd745ebf/workflow/5bbd14c1539e3b05d9d63180","templated":false,"method":"DELETE"}}}
+0
+
+
+
+------------------------------------------------------------------
+
+PUT https://api.9spokes.io/dev02/connections/connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/connections/5bac63adb70b5ea8a3aed237/entities HTTP/1.1
+Host: api.9spokes.io
+Content-Type: application/hal+json
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Content-Length: 43
+Accept-Encoding: br, gzip, deflate
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+
+{"_embedded":{"selectedEntity":"97699470"}}
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 09 Oct 2018 21:15:24 GMT
+Content-Length: 0
+Connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+pragma: no-cache
+expires: 0
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+
+
+------------------------------------------------------------------
+
+PUT https://api.9spokes.io/dev02/connections/connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/workflow/5bbd14c1539e3b05d9d63180?activityId=5&stepId=1 HTTP/1.1
+Host: api.9spokes.io
+Accept: */*
+Content-Type: application/json
+Content-Length: 0
+Connection: keep-alive
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 09 Oct 2018 21:15:24 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+178
+{"workflow":{"id":"5bbd14c1539e3b05d9d63180","context":{"tenantId":"00000000-0000-0005-5555-555555555555","userId":"c44bdf56-72db-4a56-92f6-4b721b5d636a","companyId":"b72e58d0-f0bf-43b3-bd34-6555fd745ebf","initiatedAt":"2018-10-09T20:51:13.641Z","finishedAt":"2018-10-09T21:15:24.359Z","goal":{"appKey":"googleanalytics","outcome":"connect","achieved":true}},"activities":[]}}
+0
+
+
+
+------------------------------------------------------------------
+
+POST https://api.9spokes.io/dev02/widget/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets HTTP/1.1
+Host: api.9spokes.io
+Content-Type: application/x-www-form-urlencoded
+X-API-Version: 3
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+Content-Length: 22
+Accept-Encoding: br, gzip, deflate
+
+appKey=googleanalytics
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 09 Oct 2018 21:15:24 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+5ab
+{"_links":{"createWidget":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets","method":"POST"},"getWidget":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/{id}","templated":true,"method":"GET"},"getWidgetAlertSetting":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/{id}/alertSettings","templated":true,"method":"GET"},"getWidgetAttributes":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/{id}/attributes","templated":true,"method":"GET"},"getWidgetData":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/{id}/data","templated":true,"method":"GET"},"self":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets","method":"GET"}},"_embedded":{"widgets":[{"_embedded":{"id":"9e3d4a04-7274-44b7-b012-e52a8c702716","key":"googleanalytics"}},{"_embedded":{"id":"dc77846a-c072-456e-b1eb-2cf7c3a1caca","key":"googleanalytics"}}]},"count":2}
+0
+
+
+
+------------------------------------------------------------------
+
+GET https://api.9spokes.io/dev02/widget/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/9e3d4a04-7274-44b7-b012-e52a8c702716 HTTP/1.1
+Host: api.9spokes.io
+Content-Type: application/x-www-form-urlencoded
+X-API-Version: 3
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 09 Oct 2018 21:15:24 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+8a8
+{"_links":{"alertSetting":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/9e3d4a04-7274-44b7-b012-e52a8c702716/alertSetting","method":"GET"},"attributes":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/9e3d4a04-7274-44b7-b012-e52a8c702716/attributes","method":"GET"},"data":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/9e3d4a04-7274-44b7-b012-e52a8c702716/data","method":"GET"},"self":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/9e3d4a04-7274-44b7-b012-e52a8c702716","method":"GET"}},"_embedded":{"alertSettings":[],"attributes":{"origin":"googleanalytics","categories":[{"id":"6d24ba0a-501b-457d-bddf-e44ea97754aa","name":"INFORMATION"},{"id":"51cfef2b-0e6e-4550-b71b-e1c21b5f0d1d","name":"MARKETING"},{"id":"dcfeb747-16a9-415f-b921-466ed3c774e3","name":"ALL"}],"displayName":"Website Traffic","active":true,"status":"ACTIVE","order":9999,"showOnDashboard":true,"showOnMobile":true,"createdAt":1539119724000},"data":{"extras":[{"value_2":0,"value_1":0,"label_key":"d.3"},{"value_2":0,"value_1":0,"label_key":"d.4"},{"value_2":0,"value_1":0,"label_key":"d.5"},{"value_2":0,"value_1":0,"label_key":"d.6"},{"value_2":0,"value_1":0,"label_key":"d.7"},{"value_2":0,"value_1":0,"label_key":"d.1"},{"value_2":0,"value_1":0,"label_key":"d.2"},{"value_2":0,"value_1":0,"label_key":"d.3"},{"value_2":0,"value_1":0,"label_key":"d.4"},{"value_2":0,"value_1":0,"label_key":"d.5"},{"value_2":0,"value_1":0,"label_key":"d.6"},{"value_2":0,"value_1":0,"label_key":"d.7"},{"value_2":0,"value_1":0,"label_key":"d.1"},{"value_2":0,"value_1":0,"label_key":"d.2"}],"dataSets":null,"graphData":[{"data_set_name":"unique.visits","value":[0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"data_set_name":"repeat.visits","value":[0,0,0,0,0,0,0,0,0,0,0,0,0,0]}]},"id":"9e3d4a04-7274-44b7-b012-e52a8c702716","key":"googleanalytics"}}
+0
+
+
+
+------------------------------------------------------------------
+
+GET https://api.9spokes.io/dev02/widget/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/dc77846a-c072-456e-b1eb-2cf7c3a1caca HTTP/1.1
+Host: api.9spokes.io
+Content-Type: application/x-www-form-urlencoded
+X-API-Version: 3
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.QuyssZK6RgXyIwlM9u09TpJBmuuIAgKMWcO0XstNINwSx508WDHT1A.umoMqD8ZADjnLVH9CUnxkg.b2zjNbncAzocdz042yEk3wJoDka93C-xQLOt8ypMiPllg16LK0l-8-D_eSS1bYd6mJz8A5M03VcAr0mXnnjutwG6XUVYPHPi2qZkPKba1yAZj9NOmfK5cPZ_1UkjanqdfUqV87jF0T0pQ6KPJJx9PXmRxmsV9QlfLvR3Akc8VNDoCFf-YbsINPCm9bSFEc31BWeifg0lM-Up3zwa6bBmVJvjY_OAecS45VhWl32aUr0cCmfvPDqafNWLJU7tKS7yjDK-cF3EiggwAAlkNOwv1zERDwXtfJd9nvKjbXXI_KdTU_ZO8VXPRwbpnx3adHyPt1nAk-apVMelzq4ezqJ3lB2j9lygJ-3Y8XaxqMuwvzdjoxIvxhWk3fvQkYwy_r3RhWZ-JcQLXpc0kzLOggE5NIwtCvNchODFN6b4uVF24sNRCo7_0YJ8ROIXzvjrzkTqKxVO6V4Nh7CCTevmIgo7zh6AhW5KHhzNcf62sZz-3YUwv9f3oed6ovs5NdTbOsScEONrgbllpJwrX7gb9A8i6bOEb6QFKhBb7hyVeDOiS3aoyOYQmtAtw4aNGcbSCWodYaKlm2432kzdLqAjkCH7EF7pyQvh3H2ViDojtpfa7Xc1-pmvKQoeV_K90oryJl728atzwstgfOBLdi-p21KoePME0MWu4EYdMmHWficja4yJcACT3GJV4iVjVUM-yhWdYGMv2zyDt6OnZPxiog6D4d74D_KbZjcpYPctEpEoQS99ZcDl5N1y3M9NJxYR27lTjNJIRmcaBNnAUEIVbMa9DfaLczQ_6gqHZw0gV2c_XMvTbV1DPKCyc4wnvPvOcB50.r3U9HS0dz9W-J-210-10Dg
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 09 Oct 2018 21:15:24 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+768
+{"_links":{"alertSetting":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/dc77846a-c072-456e-b1eb-2cf7c3a1caca/alertSetting","method":"GET"},"attributes":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/dc77846a-c072-456e-b1eb-2cf7c3a1caca/attributes","method":"GET"},"data":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/dc77846a-c072-456e-b1eb-2cf7c3a1caca/data","method":"GET"},"self":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/dc77846a-c072-456e-b1eb-2cf7c3a1caca","method":"GET"}},"_embedded":{"alertSettings":[],"attributes":{"origin":"googleanalytics","categories":[{"id":"6d24ba0a-501b-457d-bddf-e44ea97754aa","name":"INFORMATION"},{"id":"51cfef2b-0e6e-4550-b71b-e1c21b5f0d1d","name":"MARKETING"},{"id":"dcfeb747-16a9-415f-b921-466ed3c774e3","name":"ALL"}],"displayName":"Website Goal Conversions","active":true,"status":"ACTIVE","order":10000,"showOnDashboard":true,"showOnMobile":true,"createdAt":1539119724000},"data":{"extras":[{"value_2":0,"value_1":0,"label_key":"d.3"},{"value_2":0,"value_1":0,"label_key":"d.4"},{"value_2":0,"value_1":0,"label_key":"d.5"},{"value_2":0,"value_1":0,"label_key":"d.6"},{"value_2":0,"value_1":0,"label_key":"d.7"},{"value_2":0,"value_1":0,"label_key":"d.1"},{"value_2":0,"value_1":0,"label_key":"d.2"}],"dataSets":null,"graphData":[{"data_set_name":"total.conversions","value":[0,0,0,0,0,0,0]},{"data_set_name":"conversion.rate","value":[0,0,0,0,0,0,0]}]},"id":"dc77846a-c072-456e-b1eb-2cf7c3a1caca","key":"googleanalytics"}}
+0
+
+
+
+------------------------------------------------------------------
+

@@ -1,0 +1,29 @@
+GET https://dev.9spokes.io/api/v1/catalogue/catalogue/tenants/00000000-0000-0005-5555-555555555555/industries HTTP/1.1
+Host: dev.9spokes.io
+Content-Type: application/json
+X-API-Version: 3
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.Hy8jTuun2-JLFf2S6_vq6DGxGUYgwFccFIqTYHT624P6R1I6MIS3ag.st31cn5D_sqmcw1d3xKlBg.Vpw6jg2QqWAkLWCdMjfHwB_tv7NS-1jeGk0Zpxv8sJDXTDBO_a2Zf1OEC_J1w-U_fIJdeduGiNbZnhnddaVCmA-rqtPo5GmcaxXc36NOv2RcXo1YllXJvYzS4OlMxKvCgMJEmaP48DNHG3PIy-38V5asVJE-ChdQy7uIfKnP0LZCRnY05Nf8d4JjDhLeIrKQnlMDnpG38i-woHgba-RmX3dyLyBgnGDN4BgEpDerKX49cOtPOUhYWZfTfeHZ2Zi-Vy3voqQuEpO1V6lUGnXPbBDm6nuAJqvDHOk3MzLtxAwqVYugob8ctJplu3D-zq_oidunz8CjBWViWMoOcokspXPB7QIW082veXOSV-g3fMkpzcvA2FEw9Gd7e68u7LLMAipgsXcts1tb022RXENuhV5PRUi0Yx-eEKmXenqTe4Mfxsb09hgn863-OdwiPrESAzlOu_VeJ-xTETEZn1OgUs5kPHVfAKfKZUElSY6ael3eGICL1ZH6W9cq3rAR3XyL.2t6MooymQMif5X1plgblHw
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/28 CFNetwork/975.0.3 Darwin/18.2.0
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Thu, 29 Nov 2018 22:24:35 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+cache-control: max-age=86400
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+
+9ef
+{"_embedded":{"industries":[{"industryKey":"VehiclesandTransport","displayName":"Vehicles & Transport","industryUUID":"a5be19fd-0d23-4fd4-a380-61abb0781b45","active":false},{"industryKey":"Startup","displayName":"Start up","industryUUID":"cca042db-bfc6-11e7-92c5-08002707be12","active":true},{"industryKey":"HealthandMedicalandBeauty","displayName":"Health, Medical & Beauty","industryUUID":"ee155ff0-a2dc-4e54-8ae1-a0c138a6a49b","active":true},{"industryKey":"AccommodationandFunctions","displayName":"Accommodation & Functions","industryUUID":"ee155ff2-a2dc-4e54-8ae1-a0c138a6a49b","active":true},{"industryKey":"AgricultureandForestry","displayName":"Agriculture & Forestry","industryUUID":"ee155ff3-a2dc-4e54-8ae1-a0c138a6a49b","active":true},{"industryKey":"BusinessandProfessionalServices","displayName":"Business & Professional Services","industryUUID":"ee155ff4-a2dc-4e54-8ae1-a0c138a6a49b","active":true},{"industryKey":"CafesandRestaurantsandHotelsandFood","displayName":"Cafes, Restaurants, Hotels & Food","industryUUID":"ee155ff5-a2dc-4e54-8ae1-a0c138a6a49b","active":true},{"industryKey":"CommunityServices","displayName":"Community Services","industryUUID":"ee155ff6-a2dc-4e54-8ae1-a0c138a6a49b","active":true},{"industryKey":"educationandtraining","displayName":"Education & Training","industryUUID":"ee155ff7-a2dc-4e54-8ae1-a0c138a6a49b","active":true},{"industryKey":"EntertainmentandAttraction","displayName":"Entertainment & Attractions","industryUUID":"ee155ff8-a2dc-4e54-8ae1-a0c138a6a49b","active":true},{"industryKey":"FinancialandInsuranceandInvestments","displayName":"Financial, Insurance & Investments","industryUUID":"ee155ff9-a2dc-4e54-8ae1-a0c138a6a49b","active":true},{"industryKey":"Ecommerce","displayName":"Ecommerce","industryUUID":"a2fa37bd-bfc6-11e7-92c5-08002707be12","active":true},{"industryKey":"TradesandServices","displayName":"Trades & Services","industryUUID":"5ed66894-ea71-11e2-91e2-0800200c9a66","active":true},{"industryKey":"RetailandShopping","displayName":"Retail & Shopping","industryUUID":"5ed66893-ea71-11e2-91e2-0800200c9a66","active":true},{"industryKey":"PropertyandRealEstate","displayName":"Property & Real Estate","industryUUID":"5ed66892-ea71-11e2-91e2-0800200c9a66","active":true},{"industryKey":"IndustrialandManufacturing","displayName":"Industrial & Manufacturing","industryUUID":"5ed66891-ea71-11e2-91e2-0800200c9a66","active":true},{"industryKey":"HomeandGarden","displayName":"Home & Garden","industryUUID":"5ed66890-ea71-11e2-91e2-0800200c9a66","active":true}]},"count":17}
+0
+

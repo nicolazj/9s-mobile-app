@@ -1,0 +1,23 @@
+POST https://dev.9spokes.io/api/v1/authentication/tenants/00000000-0000-0005-5555-555555555555/token?grant_type=refresh_token HTTP/1.1
+Host: dev.9spokes.io
+Accept: application/json, text/plain, */*
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Expo/2.9.0.103161 CFNetwork/975.0.3 Darwin/18.2.0
+Connection: keep-alive
+Cookie: __cfduid=d93b5731541cb4e42c1fc521832984cac1544403108
+Accept-Language: en-us
+Authorization: Basic bW9iaWxlU211ZGdlREVWMDI6ellmQ3VoUW5CejVydnY3blI5czlKWjJBWFk0OXVWVmhZWU4yQkV4Rg==
+Content-Length: 57
+Accept-Encoding: br, gzip, deflate
+
+refresh_token=Vb7q_AaCpcUHndgzOI5To2l_BpRbX1x43_a46p9nnBo
+HTTP/1.1 400 Bad Request
+Server: nginx
+Date: Mon, 10 Dec 2018 20:54:46 GMT
+Content-Type: application/json
+Connection: keep-alive
+cache-control: no-store
+pragma: no-store
+Content-Length: 69
+
+{"error":"invalid_grant","error_description":"INVALID_REFRESH_TOKEN"}

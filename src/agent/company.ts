@@ -1,21 +1,46 @@
-import { AxiosInstance } from 'axios';
+import axios from 'axios';
 import qs from 'qs';
-import { Auth } from '../states/Auth';
+import { AuthState } from '../states/Auth';
 import { ClientConfig, Connection, Workflow } from '../types';
+import token from './token';
 
-export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
+export default (config: ClientConfig, auth: AuthState) => {
   const { baseURL, tenantId } = config;
-  const { userId, companyUuid, companyAuth } = auth.state;
-  const { access_token } = companyAuth;
+  const { userId, companyUuid } = auth.state;
+
+  const instance = axios.create({
+    baseURL,
+  });
+  instance.interceptors.request.use(
+    async config => {
+      if (auth.hasCompany() && !auth.isCompanyTokenValid()) {
+        await token.refreshCompanyToken();
+      }
+      config.headers.Authorization = `Bearer ${auth.state.companyAuth.access_token}`;
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
+
+  instance.interceptors.response.use(
+    response => {
+      return response;
+    },
+    err => {
+      console.log(JSON.stringify(err, null, 2));
+      return Promise.reject(err);
+    }
+  );
+
   return {
     send: async (url: string, method: string, data: any) => {
       return instance({
-        baseURL: baseURL + '/connections/connections',
-        url,
+        url: '/connections/connections' + url,
         method,
         data: qs.stringify(data, { encode: false }),
         headers: {
-          Authorization: `Bearer ${access_token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
@@ -24,7 +49,6 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       list: async () => {
         const r = await instance.get(`/widget/tenants/${tenantId}/users/${userId}/companies/${companyUuid}/widgets`, {
           headers: {
-            Authorization: `Bearer ${access_token}`,
             'X-API-Version': 3,
           },
         });
@@ -33,11 +57,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       deleteByAppKey: async (appKey: string) => {
         const r = await instance.delete(
           `/widget/tenants/${tenantId}/users/${userId}/companies/${companyUuid}/widgets?appKey=${appKey}`,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
+          {}
         );
 
         return r;
@@ -47,11 +67,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       forApp: async (appKey: string) => {
         const r = await instance.get(
           `/connections/connections/tenants/${tenantId}/applications/${appKey}/connections/active`,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
+          {}
         );
 
         const {
@@ -60,14 +76,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
         return connections as Connection[];
       },
       list: async () => {
-        const r = await instance.get(
-          `/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections`,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
-        );
+        const r = await instance.get(`/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections`);
 
         const {
           _embedded: { connections },
@@ -77,25 +86,13 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       },
       get: async (id: string) => {
         const r = await instance.get(
-          `/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections/${id}`,
-
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
+          `/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections/${id}`
         );
         return r.data as Connection;
       },
       delete: async (id: string) => {
         const r = await instance.delete(
-          `/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections/${id}`,
-
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
+          `/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections/${id}`
         );
         return r.data;
       },
@@ -104,12 +101,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
           `/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections`,
           qs.stringify({
             appKey,
-          }),
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
+          })
         );
 
         const location = r.request.responseHeaders.Location;
@@ -124,7 +116,6 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
           qs.stringify(authRes),
           {
             headers: {
-              Authorization: `Bearer ${access_token}`,
               'Content-Type': 'application/x-www-form-urlencoded',
             },
           }
@@ -135,12 +126,7 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
     entities: {
       list: async (id: string) => {
         const r = await instance.get(
-          `/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections/${id}/entities`,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
+          `/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections/${id}/entities`
         );
         const {
           _embedded: { entities },
@@ -153,7 +139,6 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
           entities,
           {
             headers: {
-              Authorization: `Bearer ${access_token}`,
               'Content-Type': 'application/hal+json',
             },
           }
@@ -165,47 +150,27 @@ export default (instance: AxiosInstance, config: ClientConfig, auth: Auth) => {
       update: async (workflowId: string, activityId: string, stepId: string) => {
         const r = await instance.put(
           `/connections/connections/tenants/${tenantId}/company/${companyUuid}/workflow/${workflowId}?activityId=${activityId}&stepId=${stepId}`,
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
+          null
         );
         return r.data.workflow;
       },
       resume: async (appKey: string) => {
         const r = await instance.get(
-          `/connections/connections/tenants/${tenantId}/company/${companyUuid}/workflow/resume?appKey=${appKey}&outcome=connect`,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
+          `/connections/connections/tenants/${tenantId}/company/${companyUuid}/workflow/resume?appKey=${appKey}&outcome=connect`
         );
         return r.data.workflow;
       },
       reconnect: async (appKey: string) => {
         const r = await instance.post(
           `/connections/connections/tenants/${tenantId}/company/${companyUuid}/workflow?appKey=${appKey}&outcome=reconnect`,
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
+          null
         );
         return r.data.workflow;
       },
       create: async (appKey: string) => {
         const r = await instance.post(
           `/connections/connections/tenants/${tenantId}/company/${companyUuid}/workflow?appKey=${appKey}&outcome=connect`,
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
+          null
         );
         return r.data.workflow as Workflow;
       },

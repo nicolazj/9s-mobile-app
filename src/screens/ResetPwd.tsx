@@ -22,7 +22,6 @@ export default class ResetPwd extends React.Component<Props> {
       await agent.public.password.reset(values.email);
       this.setState({ done: true });
     } catch (err) {
-      console.log(JSON.stringify(err, null, 2));
       Alert.alert('Reset password failed', 'try again later');
     }
   };

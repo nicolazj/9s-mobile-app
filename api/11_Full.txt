@@ -1,0 +1,54 @@
+DELETE https://api.9spokes.io/dev02/connections/connections/tenants/00000000-0000-0005-5555-555555555555/company/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/connections/5bbd2d17539e3b05d9d63185 HTTP/1.1
+Host: api.9spokes.io
+Accept: */*
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.TvPvqVyWDm_7m0emfoC5MGRlOp8ZRcM523b2P-iSRwBXosKIkdsbeQ.5d8qd3yIVJk3ckhZ9onc1Q.kczn10pam_i7XWanupcnY0oQvDGI_AU8_XurE40CBwpRkhdOIL4RgmazrEUggI6KuvlhLLeGEQ4QliAF-P7dLs3HsbjN8m85tOY7OfraNRzbaOHi44xmTWja1dB458bfF2lNrfltE3L8iJJfnPdEN87ZIYJZk5Uh_0CUnVhS2hZw16ZdPEDCzXkwbEAkMJQ1zuU5Pmy-MFzxKNDjjGKjT5zi84EG2m2nd7IZLvkZ96owUERjsi2B3zkMEmTkBrgc4b_V_lTPKU1xgLD6w0tCdxBhEWL_3ioEbvyn-ikvgqSyGLOTbkZAi5CS11QevoXzUn2mcLkCjTPotdm0lG8X9b4bxqiH9SZnr1ZLYuWI0Aape3H6sTAQJBBq86fcBMkDS_kEvuTmHCklG2PeHPS85ZIkalKRb8lUG8p8ZlDcfDtloXOmAtBYQ8KdjQNK2iWk3EZByay7giMOGNDRC5q56ELjU1KAZl97h7yGsaQO2KFb56N1RcKPW7-BUQWxvR9ARrF_qOKD9NBNQXM-20DExIgGbn6xQpWbTXlAFH2Wn2d2i-JHfipJIXIdn4zieRtWs9w3il8T3yYcMarhVuzTUw-XzB-nTwFzaHO89X8eg2FrKUvJpBTJly73IDmcw7afacYvhoaD5QDE2jO7N6zAYBhXLDI2ndM0QyT-GZpfRNkzucyXChoIK2VE80Q0wBfX28VE_-8XkvUrpO3ovRL1Hua19qvKi1f1DoxCl34xA646iSWkcn8vaO94rOWjaxhbpn1LMPMlOTxmctVjbBSI7b9v7I61TLS5jWqSB2TpQgc2rzJxff8LjeSZifNigt73.j-zz4MAxEVwrYBRiuQ0Z1w
+X-Tenant-ID: 00000000-0000-0005-5555-555555555555
+Accept-Language: en-us
+Accept-Encoding: br, gzip, deflate
+X-User-ID: c44bdf56-72db-4a56-92f6-4b721b5d636a
+Content-Length: 0
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+X-Company-ID: 1042f72e-edfd-4bed-a8e6-b46e89d31d6c
+Connection: keep-alive
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 10 Oct 2018 21:32:42 GMT
+Content-Length: 0
+Connection: keep-alive
+cache-control: no-cache, no-store, must-revalidate
+pragma: no-cache
+expires: 0
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+
+
+------------------------------------------------------------------
+
+DELETE https://api.9spokes.io/dev02/widget/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets?appKey=sageone HTTP/1.1
+Host: api.9spokes.io
+Content-Type: application/x-www-form-urlencoded
+X-API-Version: 3
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Content-Length: 0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.TvPvqVyWDm_7m0emfoC5MGRlOp8ZRcM523b2P-iSRwBXosKIkdsbeQ.5d8qd3yIVJk3ckhZ9onc1Q.kczn10pam_i7XWanupcnY0oQvDGI_AU8_XurE40CBwpRkhdOIL4RgmazrEUggI6KuvlhLLeGEQ4QliAF-P7dLs3HsbjN8m85tOY7OfraNRzbaOHi44xmTWja1dB458bfF2lNrfltE3L8iJJfnPdEN87ZIYJZk5Uh_0CUnVhS2hZw16ZdPEDCzXkwbEAkMJQ1zuU5Pmy-MFzxKNDjjGKjT5zi84EG2m2nd7IZLvkZ96owUERjsi2B3zkMEmTkBrgc4b_V_lTPKU1xgLD6w0tCdxBhEWL_3ioEbvyn-ikvgqSyGLOTbkZAi5CS11QevoXzUn2mcLkCjTPotdm0lG8X9b4bxqiH9SZnr1ZLYuWI0Aape3H6sTAQJBBq86fcBMkDS_kEvuTmHCklG2PeHPS85ZIkalKRb8lUG8p8ZlDcfDtloXOmAtBYQ8KdjQNK2iWk3EZByay7giMOGNDRC5q56ELjU1KAZl97h7yGsaQO2KFb56N1RcKPW7-BUQWxvR9ARrF_qOKD9NBNQXM-20DExIgGbn6xQpWbTXlAFH2Wn2d2i-JHfipJIXIdn4zieRtWs9w3il8T3yYcMarhVuzTUw-XzB-nTwFzaHO89X8eg2FrKUvJpBTJly73IDmcw7afacYvhoaD5QDE2jO7N6zAYBhXLDI2ndM0QyT-GZpfRNkzucyXChoIK2VE80Q0wBfX28VE_-8XkvUrpO3ovRL1Hua19qvKi1f1DoxCl34xA646iSWkcn8vaO94rOWjaxhbpn1LMPMlOTxmctVjbBSI7b9v7I61TLS5jWqSB2TpQgc2rzJxff8LjeSZifNigt73.j-zz4MAxEVwrYBRiuQ0Z1w
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+
+
+HTTP/1.1 204 No Content
+Server: nginx
+Date: Wed, 10 Oct 2018 21:32:42 GMT
+Connection: keep-alive
+x-correlation-id: 641c63d8-7413-4c65-94b8-91da0dbbac81
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+
+
+
+------------------------------------------------------------------
+

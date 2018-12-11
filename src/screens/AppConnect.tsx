@@ -1,22 +1,26 @@
-import { AuthSession, Constants, Linking, WebBrowser } from 'expo';
+import { Constants, Linking, WebBrowser } from 'expo';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
-import { Subscribe } from 'unstated';
 import agent from '../agent';
+import Button from '../components/Button';
 import Lock from '../Lock';
-import { Button, Container } from '../primitives';
-import { SCREENS } from '../routes/constants';
-import { Apps, ConnectionStatus } from '../states/Apps';
-import { Activity, ACTIVITY_TYPES, App, Entity, Workflow } from '../types';
+import { Container } from '../primitives';
+import { AppDetail } from '../states/Apps';
+import { ACTIVITY_TYPES, Entity, Workflow } from '../types';
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
-export default class extends React.Component<Props> {
-  // onPress = () => {
-  //   this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT]);
-  // };
+interface State {
+  entities: Entity[];
+  type: ACTIVITY_TYPES;
+}
+export default class extends React.Component<Props, State> {
+  public state = {
+    entities: [],
+    type: ACTIVITY_TYPES.CLIENT_INIT,
+  } as State;
 
   public componentDidMount() {
     this.startConnection();
@@ -24,11 +28,10 @@ export default class extends React.Component<Props> {
 
   public async startConnection() {
     try {
-      console.log('=====================================================>>>>>>>>');
-      const connectionStatus = this.props.navigation.state.params as ConnectionStatus;
-      console.log(connectionStatus);
-      const { appKey } = connectionStatus;
-      let { connection } = connectionStatus;
+      const appDetail = this.props.navigation.state.params as AppDetail;
+      console.log(appDetail);
+      const { appKey } = appDetail;
+      let { connection } = appDetail;
       const company = agent.company;
       let workflow: Workflow;
       try {
@@ -98,20 +101,28 @@ export default class extends React.Component<Props> {
           activities = activities.concat(r.activities);
         }
       }
+      this.setState({ type: ACTIVITY_TYPES.SUCCEEDED });
     } catch (err) {
-      console.log(JSON.stringify(err, null, 2));
+      this.setState({ type: ACTIVITY_TYPES.ERRORED });
     }
   }
   public render() {
-    const connectionStatus = this.props.navigation.state.params as ConnectionStatus;
+    const connectionStatus = this.props.navigation.state.params as AppDetail;
     const { appKey } = connectionStatus;
     return (
       <Container padding>
         <View>
           <Text>{appKey}</Text>
           <Text>Connecting </Text>
+
+          {this.state.entities.map(e => (
+            <Button title={e.name} onPress={() => this.chooseEntity(e)} key={e.id} />
+          ))}
         </View>
       </Container>
     );
+  }
+  private chooseEntity(e: Entity) {
+    Lock.release(e);
   }
 }

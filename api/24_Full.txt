@@ -1,0 +1,23 @@
+GET https://api.9spokes.io/dev02/catalogue/catalogue/tenants/00000000-0000-0005-5555-555555555555/spokes/types/mobile HTTP/1.1
+Host: api.9spokes.io
+Content-Type: application/json
+X-API-Version: 3
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.L8PoLhuDFjSHhAkH3fSRk6-ewGmTGJp2uJNLwXYTptqUcryYk2RpKg.0vuUfajrb_re46UBuDQTeQ.ppQ9ppXAIh6F68mmXvHsCAgttfreoZ5hjQflLrRms29C8W6453_C1-N1ZTCn2Wqdu6bJmjEe8wzG2tE4Hq35Mf0Thr35F-RwcCUxbP42IF5-aANJMEfHSfB7Gqoi8sjc6GJ_9Lgcr6cC7IYs7gyptEb9EmIs8XBCW9K3-pFt5G6Bn1acauQRNvjWfPXrtdNXk9aCQVTFRkHCoqOMnq5OMh1XMXmy4YYWum8J0nqbL5ALyJ-b0Fide2buTqHAF7xXO0N2non-KlaalUrTPx9_vy_LRpmrRuBexCeTC_WO_AiNocU1FrtUXVtiCcLzJgkfWHTsOKaAnDsbgJCostMp5CnbM4LOpZuEgOcKhyQhpXVXuiEjOVWR74SBGr_0HO76_ILe3tQCaK8TCPkoEUMrc8Cw4g2Dw4ooF8BKXQTf7wBTuQbtHPo5_PU8xf5ZxgLX9mw1J0dP_oMvhLRFjdp9-7917g2y4i5kzKgX-05brEBhC_GGeZp7qyCtbIIWDuCd.zjt7za0oVt-W83KjyY8cgQ
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/21 CFNetwork/974.2.1 Darwin/18.0.0
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 10 Oct 2018 21:26:53 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Connection: keep-alive
+cache-control: max-age=86400
+Strict-Transport-Security: max-age=31536000; includeSubDomains always
+Content-Length: 579
+
+{"_embedded":{"spokes":[{"spokeKey":"money","displayName":"MONEY","services":["intuit","sageone","freeagent"],"type":"mobile"},{"spokeKey":"product","displayName":"PRODUCT","services":["vend"],"type":"mobile"},{"spokeKey":"marketing","displayName":"MARKETING","services":["mailchimp","googleanalytics"],"type":"mobile"},{"spokeKey":"sales","displayName":"SALES","services":["vend"],"type":"mobile"},{"spokeKey":"people","displayName":"MY PEOPLE","services":["deputy"],"type":"mobile"},{"spokeKey":"sales","displayName":"SALES","services":["shopify"],"type":"mobile"}]},"count":6}

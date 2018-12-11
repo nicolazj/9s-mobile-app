@@ -1,0 +1,260 @@
+POST https://dev.9spokes.io/api/v1/authentication/tenants/00000000-0000-0005-5555-555555555555/token?grant_type=public_access HTTP/1.1
+Host: dev.9spokes.io
+Content-Type: application/x-www-form-urlencoded
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+User-Agent: Dashboard/27 CFNetwork/975.0.3 Darwin/18.2.0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Content-Length: 46
+Accept-Encoding: br, gzip, deflate
+Authorization: Basic bW9iaWxlU211ZGdlREVWMDI6ellmQ3VoUW5CejVydnY3blI5czlKWjJBWFk0OXVWVmhZWU4yQkV4Rg==
+
+device_id=8275AC55-257C-448C-8097-EC7F13DB51C1
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 26 Nov 2018 01:15:37 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+cache-control: no-store
+pragma: no-store
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+
+3be
+{"scope":"root_connections read_categories verify_username get_tenants get_catalogue create_user create_request_to_access read_applications","access_token":"eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.ZTad3vU7aAH5CXIeWXE55nU_RmNT7w04Jl-ec5NkhOY4YVQcgP8yWg.xWhMfGT4gYSY74ipdF7vVQ.-g-Jlg95c_hgTL1Iw_ARwXupr004MWAn44C84kxZOCX5QAydP6tpbCZag0FsEVwsnaAzlh7er6AZ0KySDnaSabR-IpQGQWO_Aj_nZkjB--J27mWT93I5-JMzA4dzpecDknOLoF95irIZ8_EbVdpDGhudjljc3D43PuI3yAw6oa0bhaKXWt6SBGI0x6Z-6iJ6kQqSPArO9a6R5aYPKt1Dzn3KPhlhVEt45onbnYbd_goD9q4MiJ4ZvbKFKN2l8eRqTfFk6fUiyawwSfBGj8_xqbT0jWY9j6PLgzXy1A4v2OztWQ8hvDSuiEasxNjyfAm0HyDOolRgVI9T3ypOD8uHCR7yxX4KLjruz2z2jw43LfC8LDF-eniEjK6xaxs90sCE3aFDFY_HNyO5uyr990wyt4BfEoh_U9S03hgAkpVH1ouvRVNXmowmAzJPYOoTz4uko1E-z25-Eow5IlI3ZfRkAE8zQ5fHCNFs3-qFtLQDB6R8m9wVUzei_Z9iif4HN2qa.PofFKZV4K14adKMRzDwTJA","refresh_token":"Y6SWGIr4effVndj0WFgegxIXRt93mOqy2wpJru7LUuM","token_type":"Bearer","expires_in":3600}
+0
+
+
+
+------------------------------------------------------------------
+
+HEAD https://dev.9spokes.io/api/v1/customer/customer/tenants/00000000-0000-0005-5555-555555555555/users/userName/sjsj@fjdj.com HTTP/1.1
+Host: dev.9spokes.io
+Accept: */*
+Content-Type: application/json
+Content-Length: 0
+Connection: keep-alive
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.ZTad3vU7aAH5CXIeWXE55nU_RmNT7w04Jl-ec5NkhOY4YVQcgP8yWg.xWhMfGT4gYSY74ipdF7vVQ.-g-Jlg95c_hgTL1Iw_ARwXupr004MWAn44C84kxZOCX5QAydP6tpbCZag0FsEVwsnaAzlh7er6AZ0KySDnaSabR-IpQGQWO_Aj_nZkjB--J27mWT93I5-JMzA4dzpecDknOLoF95irIZ8_EbVdpDGhudjljc3D43PuI3yAw6oa0bhaKXWt6SBGI0x6Z-6iJ6kQqSPArO9a6R5aYPKt1Dzn3KPhlhVEt45onbnYbd_goD9q4MiJ4ZvbKFKN2l8eRqTfFk6fUiyawwSfBGj8_xqbT0jWY9j6PLgzXy1A4v2OztWQ8hvDSuiEasxNjyfAm0HyDOolRgVI9T3ypOD8uHCR7yxX4KLjruz2z2jw43LfC8LDF-eniEjK6xaxs90sCE3aFDFY_HNyO5uyr990wyt4BfEoh_U9S03hgAkpVH1ouvRVNXmowmAzJPYOoTz4uko1E-z25-Eow5IlI3ZfRkAE8zQ5fHCNFs3-qFtLQDB6R8m9wVUzei_Z9iif4HN2qa.PofFKZV4K14adKMRzDwTJA
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/27 CFNetwork/975.0.3 Darwin/18.2.0
+
+
+HTTP/1.1 404 Not Found
+Server: nginx
+Date: Mon, 26 Nov 2018 01:15:37 GMT
+Content-Length: 0
+Connection: keep-alive
+
+
+
+------------------------------------------------------------------
+
+POST https://dev.9spokes.io/api/v1/customer//customer/tenants/00000000-0000-0005-5555-555555555555/users HTTP/1.1
+Host: dev.9spokes.io
+Content-Type: application/json
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+User-Agent: Dashboard/27 CFNetwork/975.0.3 Darwin/18.2.0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Content-Length: 154
+Accept-Encoding: br, gzip, deflate
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.ZTad3vU7aAH5CXIeWXE55nU_RmNT7w04Jl-ec5NkhOY4YVQcgP8yWg.xWhMfGT4gYSY74ipdF7vVQ.-g-Jlg95c_hgTL1Iw_ARwXupr004MWAn44C84kxZOCX5QAydP6tpbCZag0FsEVwsnaAzlh7er6AZ0KySDnaSabR-IpQGQWO_Aj_nZkjB--J27mWT93I5-JMzA4dzpecDknOLoF95irIZ8_EbVdpDGhudjljc3D43PuI3yAw6oa0bhaKXWt6SBGI0x6Z-6iJ6kQqSPArO9a6R5aYPKt1Dzn3KPhlhVEt45onbnYbd_goD9q4MiJ4ZvbKFKN2l8eRqTfFk6fUiyawwSfBGj8_xqbT0jWY9j6PLgzXy1A4v2OztWQ8hvDSuiEasxNjyfAm0HyDOolRgVI9T3ypOD8uHCR7yxX4KLjruz2z2jw43LfC8LDF-eniEjK6xaxs90sCE3aFDFY_HNyO5uyr990wyt4BfEoh_U9S03hgAkpVH1ouvRVNXmowmAzJPYOoTz4uko1E-z25-Eow5IlI3ZfRkAE8zQ5fHCNFs3-qFtLQDB6R8m9wVUzei_Z9iif4HN2qa.PofFKZV4K14adKMRzDwTJA
+
+{"firstName":"did","userName":"sjsj@fjdj.com","termsAndConditionsAccepted":true,"emailAddress":"sjsj@fjdj.com","password":"qwe123.!.A","lastName":"sjsjs"}
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 26 Nov 2018 01:15:49 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+
+90
+{"firstName":"did","lastName":"sjsjs","userName":"sjsj@fjdj.com","emailAddress":"sjsj@fjdj.com","userId":"a3e8b0c1-cd17-45cb-a798-fd2a417e1f80"}
+0
+
+
+
+------------------------------------------------------------------
+
+POST https://dev.9spokes.io/api/v1/authentication/tenants/00000000-0000-0005-5555-555555555555/token?grant_type=password HTTP/1.1
+Host: dev.9spokes.io
+Content-Type: application/x-www-form-urlencoded
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+User-Agent: Dashboard/27 CFNetwork/975.0.3 Darwin/18.2.0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Content-Length: 42
+Accept-Encoding: br, gzip, deflate
+Authorization: Basic bW9iaWxlU211ZGdlREVWMDI6ellmQ3VoUW5CejVydnY3blI5czlKWjJBWFk0OXVWVmhZWU4yQkV4Rg==
+
+username=sjsj@fjdj.com&password=qwe123.!.A
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 26 Nov 2018 01:15:49 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+cache-control: no-store
+pragma: no-store
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+
+706
+{"scope":"root_connections read_categories get_user_company_relation create_company address open_id get_user update_password profile create_user_company_relation get_companies update_user phone get_catalogue read_active_connections read_app_configuration delete_user email read_applications","access_token":"eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.8DPm5d6q6FJRAXNQGBUQSGT62AgfDkiCScFy5aH0CjOmUEdu3i3_ZA.6BPvMr5ChexBIF-aonpvIw.g86Ibvxhj9JEQek27pa40nv995MjbS4gaLQhBcljf8DUQnXbF9bHX0Bsi6KJgnK5i6w2zItrqTdWo7AqzbXHZscuiTLrF3JZB1wZBM7LY5cA5YPk0Weiu6NZ2py78zayIs6q311MbaOs6XmMBr5za98CF1FIVRbn1Xt-61-jVqz4Ji1EyiSpp5T1D7en_xo0zme3NEWIDzynOyvNEHFCIuE2E95rhjc6nhvINJ6x4BbdYPSEP-O9W9DISs02WXPQW11xwicdFrATjwEq9a7CxFBTrfaJOB1EZGSqdo5F2jy6ysRlbpYQ5w1iI--sec3SApC3xPYOOngYdUXbrB4KErzd2TmGInVppuh1A6R2BL4nsfobGud68F2QanvS8ULyHi0RzMIxMHX3SATMYtmT12vI_ZaSjYz32L0auhrt4pkpAIl7l47HlZ1RVBD7oF_odAw7o6krh-wdHBaPdvCfrTzb0KZLZg3fksoIASzvZSZ4qef2qJSNDT8LR-onSwd7IYBAEcq-tIL7UjRn5D_bi8agLuCI5aswJRZ4ewhXRd5UsmeIcQTSBGBED-aKx7G433c_RHDe0ANn1pvTaau7_JpsPiibUK4kvRdDyEWikJQIXHRARRNOYJYKVa1g3ccdx0rI0XNf4AOkkbbtVC90_u9_1Zgvy93kQoK52QuHA6w.O_mjhDPh_eMh5M19-aaPKw","refresh_token":"em_UCE35DflgaIc-2yrObmpM8DtefkGH9ixO3fTnTrA","openid":"eyJhbGciOiJFUzI1NiJ9.eyJqdGkiOiJhODhmYmU4Yi03ZTAxLTRmYWYtODRjYS00YmY1ZGNkODc1OGEiLCJzdWIiOiJhM2U4YjBjMS1jZDE3LTQ1Y2ItYTc5OC1mZDJhNDE3ZTFmODAiLCJhdWQiOiIwMDAwMDAwMC0wMDAwLTAwMDUtNTU1NS01NTU1NTU1NTU1NTUiLCJpc3MiOiIwMDAwMDAwMC0wMDAwLTAwMDUtNTU1NS01NTU1NTU1NTU1NTUiLCJpYXQiOjE1NDMxOTQ5NDksImV4cCI6MTU0MzIwOTM0OSwiYXV0aF90aW1lIjoxNTQzMTk0OTQ5LCJnaXZlbl9uYW1lIjoiZGlkIiwiZmFtaWx5X25hbWUiOiJzanNqcyIsIm5hbWUiOiJkaWQgc2pzanMifQ.UuSqeNU5t1cu_hp7K0Vkppn-F_Rj5Y0f0D87djwTL60WTzoWsUSE9PdspB07MRIkw9jUvgVrtTQ6OR1ZgcM1Rg","token_type":"Bearer","expires_in":3600}
+0
+
+
+
+------------------------------------------------------------------
+
+POST https://dev.9spokes.io/api/v1/customer/customer/tenants/00000000-0000-0005-5555-555555555555/companies HTTP/1.1
+Host: dev.9spokes.io
+Content-Type: application/json
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+User-Agent: Dashboard/27 CFNetwork/975.0.3 Darwin/18.2.0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Content-Length: 77
+Accept-Encoding: br, gzip, deflate
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.8DPm5d6q6FJRAXNQGBUQSGT62AgfDkiCScFy5aH0CjOmUEdu3i3_ZA.6BPvMr5ChexBIF-aonpvIw.g86Ibvxhj9JEQek27pa40nv995MjbS4gaLQhBcljf8DUQnXbF9bHX0Bsi6KJgnK5i6w2zItrqTdWo7AqzbXHZscuiTLrF3JZB1wZBM7LY5cA5YPk0Weiu6NZ2py78zayIs6q311MbaOs6XmMBr5za98CF1FIVRbn1Xt-61-jVqz4Ji1EyiSpp5T1D7en_xo0zme3NEWIDzynOyvNEHFCIuE2E95rhjc6nhvINJ6x4BbdYPSEP-O9W9DISs02WXPQW11xwicdFrATjwEq9a7CxFBTrfaJOB1EZGSqdo5F2jy6ysRlbpYQ5w1iI--sec3SApC3xPYOOngYdUXbrB4KErzd2TmGInVppuh1A6R2BL4nsfobGud68F2QanvS8ULyHi0RzMIxMHX3SATMYtmT12vI_ZaSjYz32L0auhrt4pkpAIl7l47HlZ1RVBD7oF_odAw7o6krh-wdHBaPdvCfrTzb0KZLZg3fksoIASzvZSZ4qef2qJSNDT8LR-onSwd7IYBAEcq-tIL7UjRn5D_bi8agLuCI5aswJRZ4ewhXRd5UsmeIcQTSBGBED-aKx7G433c_RHDe0ANn1pvTaau7_JpsPiibUK4kvRdDyEWikJQIXHRARRNOYJYKVa1g3ccdx0rI0XNf4AOkkbbtVC90_u9_1Zgvy93kQoK52QuHA6w.O_mjhDPh_eMh5M19-aaPKw
+
+{"industryUuid":"ee155ff4-a2dc-4e54-8ae1-a0c138a6a49b","companyName":"sjsjs"}
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 26 Nov 2018 01:15:53 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+
+8f
+{"companyUuid":"bd38bb32-e254-4827-a851-eda41d75db84","companyName":"sjsjs","industryUuid":"ee155ff4-a2dc-4e54-8ae1-a0c138a6a49b","isActive":1}
+0
+
+
+
+------------------------------------------------------------------
+
+POST https://dev.9spokes.io/api/v1/authentication/tenants/00000000-0000-0005-5555-555555555555/token?grant_type=token-exchange HTTP/1.1
+Host: dev.9spokes.io
+Content-Type: application/x-www-form-urlencoded
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+User-Agent: Dashboard/27 CFNetwork/975.0.3 Darwin/18.2.0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Content-Length: 591
+Accept-Encoding: br, gzip, deflate
+Authorization: Basic bW9iaWxlU211ZGdlREVWMDI6ellmQ3VoUW5CejVydnY3blI5czlKWjJBWFk0OXVWVmhZWU4yQkV4Rg==
+
+context=bd38bb32-e254-4827-a851-eda41d75db84&subject_token=eyJhbGciOiJFUzI1NiJ9.eyJqdGkiOiJhODhmYmU4Yi03ZTAxLTRmYWYtODRjYS00YmY1ZGNkODc1OGEiLCJzdWIiOiJhM2U4YjBjMS1jZDE3LTQ1Y2ItYTc5OC1mZDJhNDE3ZTFmODAiLCJhdWQiOiIwMDAwMDAwMC0wMDAwLTAwMDUtNTU1NS01NTU1NTU1NTU1NTUiLCJpc3MiOiIwMDAwMDAwMC0wMDAwLTAwMDUtNTU1NS01NTU1NTU1NTU1NTUiLCJpYXQiOjE1NDMxOTQ5NDksImV4cCI6MTU0MzIwOTM0OSwiYXV0aF90aW1lIjoxNTQzMTk0OTQ5LCJnaXZlbl9uYW1lIjoiZGlkIiwiZmFtaWx5X25hbWUiOiJzanNqcyIsIm5hbWUiOiJkaWQgc2pzanMifQ.UuSqeNU5t1cu_hp7K0Vkppn-F_Rj5Y0f0D87djwTL60WTzoWsUSE9PdspB07MRIkw9jUvgVrtTQ6OR1ZgcM1Rg&subject_token_type=openid
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 26 Nov 2018 01:15:53 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+cache-control: no-store
+pragma: no-store
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+
+683
+{"scope":"read_categories read_workflow update_admin read_connection get_user create_user_company_relation get_companies get_company_users update_user update_any_user_company create_connection delete_company read_active_connections create_workflow update_workflow invite_to_company update_connection read_applications leave_company root_connections get_company_info get_user_company_relation delete_connection create_company delete_any_user_company get_catalogue read_app_configuration delete_user update_company delete_workflow","access_token":"eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.5bFHTewWAsQT70y5oWTj-yTsIsxR9H7RswNR-kQQfL3ZtKKdJuKmwA.1-OCpGceHp0dQ__cFeEVTw.wsOJ4KRjZhfxUJJPm4Xq2oeruks1I1FN8kW03ORqp2GpiOWmd71t6TenzbBGEiKPmmyl-RxU_B2Sdd9c4efQ_FfIEKqjK2qfySG92-JNug_u_UVasRkml3G-dDE-USBFCUX3LOc7ExiqfS-sLYRaR9TIlqPRpkknEl2JXnFiwJ60f6FDCb7qx5J3sZlj33KqgG81z7r1kTJHzUBAFH-a2xAT6VvIab52PU7w8LDlpZduyob7TKRJgeGzV833OmawPt_DKuIbHpWmegtbMxU6kI_4tvS3n6To8ExzBlCSEcYFM_cf2kbuxBwbCJfAc8yQwgtm_E8YKRvMPEuk3QMHoMOBxATJzF5_cFYMk5SJnLJ0Ean3MqwRkUxMEEGVGz0fR_LPBVLtoLVYRhjAD8YzE5Q_V0ngYMeZ9V90sQm6wl2nMRzX7-wk6wkxElKRhnmO9yUdjRwzjRFdOpZeQtlZ0nVZGvNHXCnTZrQuhaDpj0xOWQH6bO3ZYHfTtUtCyOvzBza3g_umwQx07EkODetgbF-gw0pNloSBD4b_KiSu3lHHNFsZDdBayfO3MAzgAxGC9igkRPmkdAHoKHtki-81yRruTtL6nfeVM1bPibJ_tcb_r0Mv-ZMImZJ3eu54_R1tCdrMdrDLB6HF1IQqiCogUfjh03e3UoDaRgsWa2hecdk6xuRVkwN51I7bBnv-GXQOmmGgWqTz_7wha37olasGKA83jHvBr28lVmEwQOvg4sY7xL6E18hugU78nHKZu0Zv3tFYikIvqiuZab7XW0RT92skIsyMp4h6OghQ3GCiqckq-qxsnjZQmLfJyK-n361C.oYyV7xrxWucNqZ-T-mS_eQ","refresh_token":"MJ8Z6cuPLgi30UCPpxsPaQrEozfg1bPAqvZBni7jKfw","token_type":"Bearer","expires_in":3600}
+0
+
+
+
+------------------------------------------------------------------
+
+GET https://dev.9spokes.io/api/v1/customer/customer/tenants/00000000-0000-0005-5555-555555555555/users/a3e8b0c1-cd17-45cb-a798-fd2a417e1f80 HTTP/1.1
+Host: dev.9spokes.io
+Accept: */*
+Content-Type: application/json
+Connection: keep-alive
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.8DPm5d6q6FJRAXNQGBUQSGT62AgfDkiCScFy5aH0CjOmUEdu3i3_ZA.6BPvMr5ChexBIF-aonpvIw.g86Ibvxhj9JEQek27pa40nv995MjbS4gaLQhBcljf8DUQnXbF9bHX0Bsi6KJgnK5i6w2zItrqTdWo7AqzbXHZscuiTLrF3JZB1wZBM7LY5cA5YPk0Weiu6NZ2py78zayIs6q311MbaOs6XmMBr5za98CF1FIVRbn1Xt-61-jVqz4Ji1EyiSpp5T1D7en_xo0zme3NEWIDzynOyvNEHFCIuE2E95rhjc6nhvINJ6x4BbdYPSEP-O9W9DISs02WXPQW11xwicdFrATjwEq9a7CxFBTrfaJOB1EZGSqdo5F2jy6ysRlbpYQ5w1iI--sec3SApC3xPYOOngYdUXbrB4KErzd2TmGInVppuh1A6R2BL4nsfobGud68F2QanvS8ULyHi0RzMIxMHX3SATMYtmT12vI_ZaSjYz32L0auhrt4pkpAIl7l47HlZ1RVBD7oF_odAw7o6krh-wdHBaPdvCfrTzb0KZLZg3fksoIASzvZSZ4qef2qJSNDT8LR-onSwd7IYBAEcq-tIL7UjRn5D_bi8agLuCI5aswJRZ4ewhXRd5UsmeIcQTSBGBED-aKx7G433c_RHDe0ANn1pvTaau7_JpsPiibUK4kvRdDyEWikJQIXHRARRNOYJYKVa1g3ccdx0rI0XNf4AOkkbbtVC90_u9_1Zgvy93kQoK52QuHA6w.O_mjhDPh_eMh5M19-aaPKw
+Accept-Encoding: br, gzip, deflate
+User-Agent: Dashboard/27 CFNetwork/975.0.3 Darwin/18.2.0
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 26 Nov 2018 01:15:53 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+
+90
+{"firstName":"did","lastName":"sjsjs","userName":"sjsj@fjdj.com","emailAddress":"sjsj@fjdj.com","userId":"a3e8b0c1-cd17-45cb-a798-fd2a417e1f80"}
+0
+
+
+
+------------------------------------------------------------------
+
+GET https://dev.9spokes.io/api/v1/connections/connections/tenants/00000000-0000-0005-5555-555555555555/company/bd38bb32-e254-4827-a851-eda41d75db84/connections HTTP/1.1
+Host: dev.9spokes.io
+X-Tenant-ID: 00000000-0000-0005-5555-555555555555
+Cookie: __cfduid=d313948ecb9f0fe7f4ad339677a1613001538962669
+User-Agent: Dashboard/27 CFNetwork/975.0.3 Darwin/18.2.0
+X-Company-ID: bd38bb32-e254-4827-a851-eda41d75db84
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+X-User-ID: a3e8b0c1-cd17-45cb-a798-fd2a417e1f80
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.5bFHTewWAsQT70y5oWTj-yTsIsxR9H7RswNR-kQQfL3ZtKKdJuKmwA.1-OCpGceHp0dQ__cFeEVTw.wsOJ4KRjZhfxUJJPm4Xq2oeruks1I1FN8kW03ORqp2GpiOWmd71t6TenzbBGEiKPmmyl-RxU_B2Sdd9c4efQ_FfIEKqjK2qfySG92-JNug_u_UVasRkml3G-dDE-USBFCUX3LOc7ExiqfS-sLYRaR9TIlqPRpkknEl2JXnFiwJ60f6FDCb7qx5J3sZlj33KqgG81z7r1kTJHzUBAFH-a2xAT6VvIab52PU7w8LDlpZduyob7TKRJgeGzV833OmawPt_DKuIbHpWmegtbMxU6kI_4tvS3n6To8ExzBlCSEcYFM_cf2kbuxBwbCJfAc8yQwgtm_E8YKRvMPEuk3QMHoMOBxATJzF5_cFYMk5SJnLJ0Ean3MqwRkUxMEEGVGz0fR_LPBVLtoLVYRhjAD8YzE5Q_V0ngYMeZ9V90sQm6wl2nMRzX7-wk6wkxElKRhnmO9yUdjRwzjRFdOpZeQtlZ0nVZGvNHXCnTZrQuhaDpj0xOWQH6bO3ZYHfTtUtCyOvzBza3g_umwQx07EkODetgbF-gw0pNloSBD4b_KiSu3lHHNFsZDdBayfO3MAzgAxGC9igkRPmkdAHoKHtki-81yRruTtL6nfeVM1bPibJ_tcb_r0Mv-ZMImZJ3eu54_R1tCdrMdrDLB6HF1IQqiCogUfjh03e3UoDaRgsWa2hecdk6xuRVkwN51I7bBnv-GXQOmmGgWqTz_7wha37olasGKA83jHvBr28lVmEwQOvg4sY7xL6E18hugU78nHKZu0Zv3tFYikIvqiuZab7XW0RT92skIsyMp4h6OghQ3GCiqckq-qxsnjZQmLfJyK-n361C.oYyV7xrxWucNqZ-T-mS_eQ
+Accept-Encoding: br, gzip, deflate
+
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 26 Nov 2018 01:15:53 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+
+cf
+{"count":0,"_embedded":{"connections":[]},"_links":{"self":{"href":"/tenants/00000000-0000-0005-5555-555555555555/company/bd38bb32-e254-4827-a851-eda41d75db84/connections","templated":false,"method":"GET"}}}
+0
+
+
+
+------------------------------------------------------------------
+

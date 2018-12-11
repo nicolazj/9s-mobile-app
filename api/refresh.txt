@@ -1,0 +1,64 @@
+POST https://dev.9spokes.io/api/v1/authentication/tenants/00000000-0000-0005-5555-555555555555/token?grant_type=refresh_token HTTP/1.1
+Host: dev.9spokes.io
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Dashboard/30 CFNetwork/975.0.3 Darwin/18.2.0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Content-Length: 57
+Accept-Encoding: br, gzip, deflate
+Authorization: Basic bW9iaWxlU211ZGdlREVWMDI6ellmQ3VoUW5CejVydnY3blI5czlKWjJBWFk0OXVWVmhZWU4yQkV4Rg==
+
+refresh_token=6oAwIXQEn-2sngPPSwsTwhih4Ednvn5rqks3IccMrJQ
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 10 Dec 2018 20:48:51 GMT
+Content-Type: application/json
+Connection: keep-alive
+cache-control: no-store
+pragma: no-store
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+Content-Length: 1968
+
+{"scope":"root_connections read_categories get_user_company_relation create_company address open_id get_user update_password profile create_user_company_relation get_companies update_user phone get_catalogue read_active_connections read_app_configuration delete_user email read_applications","access_token":"eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.FwupQqbCIbMsIiW4KebrNPu99lKfA6OzYrWPYvpfp7oukPYuYG4slA.Gs20aUPqQOFBE3ZKDKvCuQ.dcBWvyuUy7qXn1UmqFiPQZMGHxtrdtZW8q2g-LIcme8ruZIR3VDzRcOx9dypwTnOuOyIz8JcJS4aiUegN1BgHGMumj-U2jt9wHorfV4CNDY4Vw1qXr720J33mOgUH2jEp9GviwVxrK7s4OxwO7AOYtlEM45kAYk5Kt92bXBvFtWSrDBYLQVhFpzz2RJG5ZncASHtx5Zsb0US8iFv252ljCN9nyh6snz42UfQVsIz6G7w-t838nhUwY8uvbm4s9I35pNTsmRDVxTwkcX8AFxe9qJ9NlcHtGKsio5KkyJL36aOknuW_ilsZtSfTmY8hQmnoTBJAx7CT7baD-iYUvrtXJApgk2ewxZUBfP-QFenUriZCrB-nhgtG_3BJSD2QfroEOFj7AoMsu70x8Yta5rA8FURVvqrqKjFMEvxFolGpVOZ5sx3Fs52obaee9J_Gdywka0T2Hs5YNot-643yHT-lOYrBFMRw0zcSOnOUYM8fE0zQZHT_N-5CXIUi5zmBwwmR7SWgYNL76rfkzN8PGGAz4JyOng8l4dYgxnr90SHrjWtFxZ9_HIr58vLNx2oOIbmAGexGogz4W9wXvxmvOtby6qvhKdxyCPBf8WV8Rx2T69c2Ps-d__4VSYy3I1aemZqXAGuknfZcTycpTZXUHeOIR8_XPIs00BjdV2E-eZqCnTOb0EkLZ1u9ahs-RH6CLh5.GYXVhL5pvHrol6IKCMh_qA","refresh_token":"X8yN-BzoBUDRZjtwctUvQJ3Wzx6y3MgeIUwYuYbnXgw","openid":"eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.oaPz6hwA2ZStGERPbg1ARkmtxgsrbsbn46DuvbNxiuCOxQb0saVw6Q.QJEz4U2_3cOM3f0YVPtP3Q.y6vNa8lUanhkQC-JvfN2h2-eY6d4TQD10PttrQs0UK7QjSH9ykzxVW0GWFOPseDSnuHH54SGdX99PKNqUko8zMA83FUGNiF13WQUDTlwdEIDCIr7YR6Dcy3DdfrD8zwJUaIx2_JS0EgKbaS31y4FUJZKdwDNnsTqOcBwIFxho9WQLl9hgbxdH4pu91wi1PnXoO43xEieXMWvmP2pxend9OGmgzZzA1_dx1SeVAvWH4ASQidN1mJ-uC5FbRi7WZ04mGLUWAbIr_YiPNn6RDHfZ6zbDX8goueaUO2ZKyZlvc47-Ida2R6ATJLkwAm1fmNReH_07SMlIM2WJexnTbBtNz_U4VGIBDovDuuPhQ2rwaInRr9jXEujnFIovom3Oso51a_NIW6kIU_kCz-5KUk98dqaGXooVE204jjQtreWEruK8GPX6Eg8qkI1cwkWhO-f4VnPcFswAXgyr2qt7TvwpA.sMk-uZL3s7dJV1v2WDUIWA","token_type":"Bearer","expires_in":3600}
+
+------------------------------------------------------------------
+
+POST https://dev.9spokes.io/api/v1/authentication/tenants/00000000-0000-0005-5555-555555555555/token?grant_type=refresh_token HTTP/1.1
+Host: dev.9spokes.io
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Dashboard/30 CFNetwork/975.0.3 Darwin/18.2.0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Content-Length: 57
+Accept-Encoding: br, gzip, deflate
+Authorization: Basic bW9iaWxlU211ZGdlREVWMDI6ellmQ3VoUW5CejVydnY3blI5czlKWjJBWFk0OXVWVmhZWU4yQkV4Rg==
+
+refresh_token=pPqkvweKyX7gtPT4ooqUqCpvDnWWif3l3w4o-Y8duu0
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 10 Dec 2018 20:48:51 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+cache-control: no-store
+pragma: no-store
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+
+683
+{"scope":"read_categories read_workflow update_admin read_connection get_user create_user_company_relation get_companies get_company_users update_user update_any_user_company create_connection delete_company read_active_connections create_workflow update_workflow invite_to_company update_connection read_applications leave_company root_connections get_company_info get_user_company_relation delete_connection create_company delete_any_user_company get_catalogue read_app_configuration delete_user update_company delete_workflow","access_token":"eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.xqgjVPe5_B6-RNLPX_9oxUkfxa-hcxhJr2g8dHzw7f-pl6b8U-0faA.y9VxwJm_euuH7oBruN9y-A.Sixx8C9gT_GL2KoKboZSytq-ZniUx_MCledqsA1Xc8mAIDyW3Ow2l5Khz4UsAFghWunbuKwUmlz64FvWYvd_vjr652rcQO2-P8K6OtUkIlYM_gA3DBbyUOaldR9zVYigIcEkpPzRXPfwwTx755GzV3g3REJ7ImdBk6SkYGvyugNCylKrLTM7Yt3Z4HXTwIHbc-dzRRJPRPTTNvSvITudSecAMwvRf1mHAzGHqQQraddoRxlyqkRo7ap6oP7R7AjQHZ6dUUFitf6yK3ysZAGhzN6hGbsZZ0SaBbYE_CV7rl2W74IGCNDvISQNMdeUaZdzUkKt7Q7JaZChWSRrfxWTJtvKdO4FkpevOoTVwpC66mSjf7d_R6JMLyclx_Hs9VKD9L6P2kNS3peWyk2K9HuDsFu8XGQUJYwGWDal-UJmrgPpy78t21GRd9PDEK2O6DCP04a7RfI0GsJ3mEeVQ1ZiONaJNPgIf-Dyy6oN-lMYoOG0G6orS5seDtj4SNfA25Gh8elYlMEHY0nh5qzFwu-9uXA8iffK0xDBvEa34sr595AYrpQhxVHEBvj3Ck0vksyCHyI6uyH4BguFgPjdKJw007NvPP0r9hmYGyA0Pmo45Ehp_H3DUPXvHUAJREKWDVlTL9AW-sKxOsCDuukP4SIpBKnNrh5xxwIvAIop_moctzg5GN_WXvSBSZ57vdfRjqdakvBSe2dZfP0ITcsA_1B2LZExd1S9cDB5_FBCWJbsUYlcRxW9CnUpCmyeFUL3h5lmWCXgv_h5N4CZapZ1WEDcLgbW5QFhynM-Ojq6MatHRYjFLztzvcNm0tC6iNADj29R.WVaVwGJGbtzUgD7_Kku8hA","refresh_token":"B9h3-YSqEjj0_1YKKnNXxstyoD1gkYLys1PAlRXb4UY","token_type":"Bearer","expires_in":3600}
+0
+
+
+
+------------------------------------------------------------------
+

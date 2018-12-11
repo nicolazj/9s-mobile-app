@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
 import qs from 'qs';
 import { AuthState } from '../states/Auth';
 import { AuthResp, ClientConfig, SignInPayload, UserAuthResp } from '../types';
@@ -7,7 +7,7 @@ function setExipresAt(data: AuthResp) {
   data.expires_at = Date.now() + data.expires_in * 1000;
 }
 
-export default (instancei: AxiosInstance, config: ClientConfig, auth: AuthState) => {
+export default (config: ClientConfig, auth: AuthState) => {
   const { tenantId, appKey, appSecret, device_id } = config;
 
   const instance = axios.create({
@@ -38,10 +38,19 @@ export default (instancei: AxiosInstance, config: ClientConfig, auth: AuthState)
     refreshUserToken: async () => {
       const { data } = await instance.post<UserAuthResp>(
         `/token?grant_type=refresh_token`,
-        qs.stringify({ refresh_token: auth.state.userAuth.access_token })
+        qs.stringify({ refresh_token: auth.state.userAuth.refresh_token })
       );
       setExipresAt(data);
       await auth.setUser(data);
+      return data;
+    },
+    refreshCompanyToken: async () => {
+      const { data } = await instance.post<AuthResp>(
+        `/token?grant_type=refresh_token`,
+        qs.stringify({ refresh_token: auth.state.companyAuth.refresh_token })
+      );
+      setExipresAt(data);
+      await auth.setState({ companyAuth: data });
       return data;
     },
     login: async (payload: SignInPayload) => {
