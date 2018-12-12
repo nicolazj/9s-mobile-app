@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AuthState } from '../states/Auth';
 import { App, ClientConfig, Company, Spoke } from '../types';
-import token from './token';
+import agent from './index';
 
 export default (config: ClientConfig, auth: AuthState) => {
   const { baseURL, tenantId } = config;
@@ -12,7 +12,7 @@ export default (config: ClientConfig, auth: AuthState) => {
   instance.interceptors.request.use(
     async config => {
       if (auth.hasUserId() && !auth.isUserTokenValid()) {
-        await token.refreshUserToken();
+        await agent.token.refreshUserToken();
       }
       config.headers.Authorization = `Bearer ${auth.state.userAuth.access_token}`;
       return config;

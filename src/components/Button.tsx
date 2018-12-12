@@ -5,7 +5,7 @@ import { scale } from '../scale';
 import styled, { th } from '../styled';
 
 interface SProps {
-  danger: boolean;
+  danger?: boolean;
 }
 const ButtonTouchable = styled(P.Touchable)<SProps>`
   background-color: ${props => (props.danger ? '#fff' : th('color.main'))};

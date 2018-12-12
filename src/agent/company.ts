@@ -2,7 +2,7 @@ import axios from 'axios';
 import qs from 'qs';
 import { AuthState } from '../states/Auth';
 import { ClientConfig, Connection, Workflow } from '../types';
-import token from './token';
+import agent from './index';
 
 export default (config: ClientConfig, auth: AuthState) => {
   const { baseURL, tenantId } = config;
@@ -14,7 +14,7 @@ export default (config: ClientConfig, auth: AuthState) => {
   instance.interceptors.request.use(
     async config => {
       if (auth.hasCompany() && !auth.isCompanyTokenValid()) {
-        await token.refreshCompanyToken();
+        await agent.token.refreshCompanyToken();
       }
       config.headers.Authorization = `Bearer ${auth.state.companyAuth.access_token}`;
       return config;
@@ -54,6 +54,22 @@ export default (config: ClientConfig, auth: AuthState) => {
         });
         return r.data;
       },
+      addByAppKey: async (appKey: string) => {
+        const r = await instance.post(
+          `/widget/tenants/${tenantId}/users/${userId}/companies/${companyUuid}/widgets`,
+          qs.stringify({
+            appKey,
+          }),
+          {
+            headers: {
+              'X-API-Version': 3,
+            },
+          }
+        );
+
+        return r;
+      },
+
       deleteByAppKey: async (appKey: string) => {
         const r = await instance.delete(
           `/widget/tenants/${tenantId}/users/${userId}/companies/${companyUuid}/widgets?appKey=${appKey}`,

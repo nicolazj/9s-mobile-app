@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AuthState } from '../states/Auth';
 import { ClientConfig } from '../types';
-import token from './token';
+import agent from './index';
 
 export default (config: ClientConfig, auth: AuthState) => {
   const { tenantId } = config;
@@ -12,7 +12,7 @@ export default (config: ClientConfig, auth: AuthState) => {
   instance.interceptors.request.use(
     async config => {
       if (!auth.isPublicTokenValid()) {
-        await token.public();
+        await agent.token.public();
       }
       config.headers.Authorization = `Bearer ${auth.state.publicAuth.access_token}`;
       return config;

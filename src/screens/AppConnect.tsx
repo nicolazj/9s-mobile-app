@@ -1,25 +1,36 @@
 import { Constants, Linking, WebBrowser } from 'expo';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Image, Text } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import agent from '../agent';
-import Button from '../components/Button';
+import Select from '../components/Select';
 import Lock from '../Lock';
-import { Container } from '../primitives';
-import { AppDetail } from '../states/Apps';
+import * as P from '../primitives';
+import { scale } from '../scale';
+import appState, { AppState } from '../states/Apps';
+import { SubscribeHOC } from '../states/helper';
+import styled from '../styled';
 import { ACTIVITY_TYPES, Entity, Workflow } from '../types';
+
 interface Props {
   navigation: NavigationScreenProp<any, any>;
+  states: [AppState];
 }
 
 interface State {
   entities: Entity[];
-  type: ACTIVITY_TYPES;
+  step: ACTIVITY_TYPES;
 }
-export default class extends React.Component<Props, State> {
+
+const AppImg = styled(Image)`
+  height: ${scale(100)}px;
+  width: ${scale(200)}px;
+  align-self: center;
+`;
+export class AppConnectScreen extends React.Component<Props, State> {
   public state = {
     entities: [],
-    type: ACTIVITY_TYPES.CLIENT_INIT,
+    step: ACTIVITY_TYPES.CLIENT_INIT,
   } as State;
 
   public componentDidMount() {
@@ -28,17 +39,24 @@ export default class extends React.Component<Props, State> {
 
   public async startConnection() {
     try {
-      const appDetail = this.props.navigation.state.params as AppDetail;
-      console.log(appDetail);
-      const { appKey } = appDetail;
+      const appKey = this.props.navigation.getParam('key');
+      const [appState] = this.props.states;
+      const appDetail = appState.appDetail(appKey);
+
       let { connection } = appDetail;
       const company = agent.company;
       let workflow: Workflow;
       try {
         workflow = await company.workflow.create(appKey);
       } catch (err) {
-        console.log('there exists workflow', err.response.data);
-        workflow = await company.workflow.resume(appKey);
+        console.log('create workflow err');
+        try {
+          workflow = await company.workflow.resume(appKey);
+        } catch (err) {
+          console.log('resume workflow err');
+
+          workflow = await company.workflow.reconnect(appKey);
+        }
       }
       let authResult;
       let { activities } = workflow;
@@ -47,7 +65,7 @@ export default class extends React.Component<Props, State> {
         const act = activities[0];
         for (const step of act.steps) {
           console.log('doing', act.type);
-          this.setState({ type: act.type });
+          this.setState({ step: act.type });
 
           switch (act.type) {
             case ACTIVITY_TYPES.INITIATE_CONNECTION:
@@ -101,28 +119,46 @@ export default class extends React.Component<Props, State> {
           activities = activities.concat(r.activities);
         }
       }
-      this.setState({ type: ACTIVITY_TYPES.SUCCEEDED });
+      agent.company.widget.addByAppKey(appKey);
+      this.setState({ step: ACTIVITY_TYPES.SUCCEEDED });
     } catch (err) {
-      this.setState({ type: ACTIVITY_TYPES.ERRORED });
+      this.setState({ step: ACTIVITY_TYPES.ERRORED });
     }
   }
   public render() {
-    const connectionStatus = this.props.navigation.state.params as AppDetail;
-    const { appKey } = connectionStatus;
-    return (
-      <Container padding>
-        <View>
-          <Text>{appKey}</Text>
-          <Text>Connecting </Text>
+    const appKey = this.props.navigation.getParam('key');
+    const [appState] = this.props.states;
+    const appDetail = appState.appDetail(appKey);
+    const { step } = this.state;
 
-          {this.state.entities.map(e => (
-            <Button title={e.name} onPress={() => this.chooseEntity(e)} key={e.id} />
-          ))}
-        </View>
-      </Container>
+    return (
+      <P.Container padding>
+        {step === ACTIVITY_TYPES.CLIENT_INIT && (
+          <P.Container hcenter>
+            <P.H2>Connect to {appDetail.app.name}</P.H2>
+          </P.Container>
+        )}
+        {step === ACTIVITY_TYPES.SUBMIT_ENTITY && (
+          <P.Container hcenter>
+            <P.H2>Select an entity</P.H2>
+            <Text>Select one of the following entities for your account</Text>
+            {this.state.entities.map(e => (
+              <Select title={e.name} onPress={() => this.chooseEntity(e)} key={e.id} />
+            ))}
+          </P.Container>
+        )}
+        {step === ACTIVITY_TYPES.SUCCEEDED && (
+          <P.Container vcenter>
+            <AppImg style={{}} source={{ uri: appDetail.app.logo }} resizeMode="contain" />
+            <P.H2>SUCCEEDED</P.H2>
+          </P.Container>
+        )}
+      </P.Container>
     );
   }
   private chooseEntity(e: Entity) {
     Lock.release(e);
   }
 }
+
+export default SubscribeHOC([appState])(AppConnectScreen);

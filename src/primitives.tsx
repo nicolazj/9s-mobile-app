@@ -13,6 +13,14 @@ export const H1 = styled(Text)`
   font-size: ${scale(28)}px;
   line-height: ${scale(28 * 1.7)}px;
 `;
+export const H2 = styled(Text)`
+  font-size: ${scale(22)}px;
+  line-height: ${scale(22 * 1.7)}px;
+`;
+export const H3 = styled(Text)`
+  font-size: ${scale(16)}px;
+  line-height: ${scale(16 * 1.7)}px;
+`;
 interface ContainerProps {
   padding?: boolean;
   margin?: boolean;

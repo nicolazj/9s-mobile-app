@@ -98,9 +98,9 @@ class AppList extends React.Component<Props> {
       agent.user.spoke.get('mobile'),
       agent.user.service.list(),
     ]);
-    const [appContainer] = this.props.states;
+    const [appState] = this.props.states;
     const fullApps = await Promise.all(apps.map(app => agent.user.service.get(app.key)));
-    appContainer.setState({ connections, spokes, apps: fullApps });
+    appState.setState({ connections, spokes, apps: fullApps });
     activityStatusState.dismiss();
   };
 

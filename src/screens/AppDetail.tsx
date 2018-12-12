@@ -1,14 +1,14 @@
 import React from 'react';
 import { Alert, Image, ScrollView, Text, View } from 'react-native';
-import { NavigationScreenProp } from 'react-navigation';
+import { NavigationEvents, NavigationScreenProp } from 'react-navigation';
 import agent from '../agent';
 import Button from '../components/Button';
 import { Container } from '../primitives';
 import { SCREENS } from '../routes/constants';
 import { scale } from '../scale';
-import appState, { AppState } from '../states/Apps';
+import appState, { AppDetail, AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
-import styled, { th } from '../styled';
+import styled from '../styled';
 interface Props {
   navigation: NavigationScreenProp<any, any>;
   states: [AppState];
@@ -32,7 +32,7 @@ const DescText = styled(Text)`
   color: #666;
 `;
 
-export class AppDetail extends React.Component<Props> {
+export class AppDetailScreen extends React.Component<Props> {
   public render() {
     const appKey = this.props.navigation.getParam('key');
     const [appState] = this.props.states;
@@ -43,6 +43,11 @@ export class AppDetail extends React.Component<Props> {
     }
     return (
       <ScrollView>
+        <NavigationEvents
+          onWillFocus={payload => {
+            this.reloadConnections();
+          }}
+        />
         <AppDetailContainer padding>
           <AppImg style={{}} source={{ uri: app.logo }} resizeMode="contain" />
           {this.renderDesc(app.description)}
@@ -52,8 +57,9 @@ export class AppDetail extends React.Component<Props> {
       </ScrollView>
     );
   }
-  private onPress = (appDetail: AppDetail) => {
-    this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT], appDetail);
+  private onConnect = (appDetail: AppDetail) => {
+    console.log(appDetail);
+    this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT], { key: appDetail.appKey });
   };
   private onRemoveConnection = async (connectionId: string) => {
     Alert.alert(
@@ -95,13 +101,13 @@ export class AppDetail extends React.Component<Props> {
 
     if (!connection) {
       return [
-        <Button key="connect" title="Connect" onPress={() => this.onPress(appDetail)} />,
+        <Button key="connect" title="Connect" onPress={() => this.onConnect(appDetail)} />,
         <Button key="trial" title="Get a trial" />,
       ];
     } else if (connection.status === 'ACTIVE') {
       return removeConnectionButton;
     } else {
-      return [<Button key="resume" title="Resume" onPress={() => this.onPress(appDetail)} />, removeConnectionButton];
+      return [<Button key="resume" title="Resume" onPress={() => this.onConnect(appDetail)} />, removeConnectionButton];
     }
   }
   private renderDesc(desc: string) {
@@ -125,4 +131,4 @@ export class AppDetail extends React.Component<Props> {
     );
   }
 }
-export default SubscribeHOC([appState])(AppDetail);
+export default SubscribeHOC([appState])(AppDetailScreen);
