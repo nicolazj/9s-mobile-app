@@ -6,6 +6,7 @@ export const theme: IThemeInterface = {
     grey: '#aaa',
     danger: '#f00',
     view: { bg: '#f6f6f6' },
+    chart: ['#5A3EC8', '#C8C7CC'],
   },
 };
 

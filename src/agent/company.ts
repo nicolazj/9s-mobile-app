@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 import { AuthState } from '../states/Auth';
-import { ClientConfig, Connection, Workflow } from '../types';
+import { ClientConfig, Connection, Widget, Workflow } from '../types';
 import agent from './index';
 
 export default (config: ClientConfig, auth: AuthState) => {
@@ -52,7 +52,11 @@ export default (config: ClientConfig, auth: AuthState) => {
             'X-API-Version': 3,
           },
         });
-        return r.data;
+
+        const {
+          _embedded: { widgets },
+        } = r.data;
+        return widgets.map(w => w._embedded) as Widget[];
       },
       addByAppKey: async (appKey: string) => {
         const r = await instance.post(

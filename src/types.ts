@@ -57,7 +57,25 @@ export interface Spoke {
   spokesKey: string;
   type: string;
 }
-
+export interface Widget {
+  attributes: {
+    active: boolean;
+    displayName: string;
+    origin: string;
+    showOnDashboard: boolean;
+    showOnMobile: boolean;
+    status: string;
+  };
+  data: {
+    extras: Array<{ label_key: string }>;
+    graphData: Array<{
+      data_set_name: string;
+      value: number[];
+    }>;
+  };
+  id: string;
+  key: string;
+}
 export interface App {
   description: string;
   features: string[];

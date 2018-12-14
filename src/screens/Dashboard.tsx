@@ -1,18 +1,31 @@
 import React from 'react';
-import { StatusBar, Text, View } from 'react-native';
+import { ScrollView, StatusBar } from 'react-native';
 import agent from '../agent';
-export default class Dashboard extends React.Component {
+import WidgetComp from '../components/widget';
+import * as P from '../primitives';
+import { Widget } from '../types';
+interface State {
+  widgets: Widget[];
+}
+export default class Dashboard extends React.Component<any, State> {
+  public state = {
+    widgets: [],
+  } as State;
   public async componentDidMount() {
-    const data = await agent.company.widget.list();
-    const data2 = await agent.user.service.get('googleanalytics');
-    console.log(data2);
+    const widgets = await agent.company.widget.list();
+    console.log(widgets);
+    this.setState({ widgets });
   }
   public render() {
     return (
-      <View>
-        <StatusBar barStyle="light-content" />
-        <Text>Home</Text>
-      </View>
+      <ScrollView>
+        <P.Container padding>
+          <StatusBar barStyle="light-content" />
+          {this.state.widgets.map(w => (
+            <WidgetComp key={w.id} widget={w} />
+          ))}
+        </P.Container>
+      </ScrollView>
     );
   }
 }

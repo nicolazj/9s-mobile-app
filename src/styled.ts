@@ -8,6 +8,7 @@ export interface IThemeInterface {
     grey: string;
     danger: string;
     view: { bg: string };
+    chart: string[];
   };
 }
 
