@@ -30,7 +30,9 @@
     "typescript": "^3.1.1",
     "unstated": "^2.1.1",
     "yup": "^0.26.6",
-    "victory-native": "^31.0.0"
+    "d3-shape": "^1.2.2",
+    "d3-array": "^2.0.2",
+    "d3-scale": "^2.1.2"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
@@ -43,6 +45,9 @@
     "@types/react-native": "^0.57.0",
     "@types/react-navigation": "^2.0.23",
     "@types/styled-components": "^4.0.2",
-    "@types/yup": "^0.26.0"
+    "@types/yup": "^0.26.0",
+    "@types/d3-shape": "^1.2.7",
+    "@types/d3-array": "^1.2.4",
+    "@types/d3-scale": "^2.0.2"
   }
 }

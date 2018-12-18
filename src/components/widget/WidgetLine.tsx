@@ -1,11 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
-import { VictoryBar, VictoryChart, VictoryLegend, VictoryLine } from 'victory-native';
+import t from '../../i18n/en';
 import * as P from '../../primitives';
-
 import { scale } from '../../scale';
 import styled, { IThemeInterface, withTheme } from '../../styled';
 import { Widget } from '../../types';
+import LineChart from '../charts/LineChart';
+
 interface Props {
   widget: Widget;
   theme: IThemeInterface;
@@ -26,7 +27,7 @@ const IndexVal = styled(P.Text)`
   font-size: ${scale(14)}px;
 `;
 const ChartWrapper = styled(View)`
-  padding: 0px;
+  padding: 20px;
 `;
 
 export class WidgetComp extends React.Component<Props> {
@@ -34,42 +35,23 @@ export class WidgetComp extends React.Component<Props> {
     const { widget, theme } = this.props;
     const { graphData, extras } = widget.data;
     const data = graphData.map((gd, i) => {
-      return gd.value.map((v, i) => {
-        return {
-          value: v,
-          label_key: extras[i].label_key + '@' + i,
-        };
-      });
+      return {
+        legend: t(gd.data_set_name),
+        svg: {
+          stroke: theme.color.chart[i],
+          strokeWidth: 3,
+        },
+        data: gd.value.map((v, i) => {
+          return {
+            value: v,
+            label_key: extras[i].label_key,
+          };
+        }),
+      };
     });
+
     return (
       <View>
-        <VictoryBar
-          data={[
-            { x: 1, y: 2, label: 'A' },
-            { x: 2, y: 4, label: 'B' },
-            { x: 3, y: 7, label: 'C' },
-            { x: 4, y: 3, label: 'D' },
-            { x: 5, y: 5, label: 'E' },
-          ]}
-          events={[
-            {
-              target: 'data',
-              eventHandlers: {
-                onPressIn: () => {
-                  return [
-                    {
-                      target: 'labels',
-                      mutation: props => {
-                        console.log(props);
-                        return props.text === 'clicked' ? null : { text: 'clicked' };
-                      },
-                    },
-                  ];
-                },
-              },
-            },
-          ]}
-        />
         <Header>
           <View>
             <IndexTitle>{widget.data.graphData[0].data_set_name}</IndexTitle>
@@ -82,53 +64,14 @@ export class WidgetComp extends React.Component<Props> {
         </Header>
 
         <ChartWrapper>
-          <VictoryChart>
-            <VictoryLegend
-              x={125}
-              y={0}
-              orientation="horizontal"
-              gutter={20}
-              data={graphData.map((gd, i) => ({
-                name: gd.data_set_name,
-                symbol: { fill: theme.color.chart[i], type: 'square' },
-              }))}
-            />
-            {data.map((l, i) => {
-              return (
-                <VictoryLine
-                  key={i}
-                  style={{
-                    data: { stroke: theme.color.chart[i] },
-                    parent: { border: '1px solid #ccc' },
-                  }}
-                  data={l}
-                  x={'label_key'}
-                  y={'value'}
-                  events={[
-                    {
-                      target: 'data',
-                      eventHandlers: {
-                        onPressIn: () => {
-                          return [
-                            {
-                              target: 'labels',
-                              mutation: props => {
-                                console.log(props);
-                                return props.text === 'clicked' ? null : { text: 'clicked' };
-                              },
-                            },
-                          ];
-                        },
-                      },
-                    },
-                  ]}
-                />
-              );
-            })}
-          </VictoryChart>
+          <LineChart data={data} onVertialGridClick={this.onVertialGridClick} />
         </ChartWrapper>
       </View>
     );
+  }
+
+  private onVertialGridClick(index: number) {
+    console.log('onVertialGridClick', index);
   }
 }
 

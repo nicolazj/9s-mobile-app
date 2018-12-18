@@ -22,6 +22,8 @@ export const monthLookup = {
   'm.12': 'D',
 };
 export const commmonLookup = {
+  'total.conversions': 'Total conversions',
+  'conversion.rate': 'Conversion rate',
   'ft.this.week': 'This week',
   'ft.last.week': 'Last week',
   'ft.this.year': 'This year',
@@ -233,3 +235,11 @@ export const commmonLookup = {
   'paypal-recent-transactions': 'PayPal Transactions',
   'paypal-sales-summary': 'PayPal Sales Summary',
 };
+
+const all = {
+  ...monthLookup,
+  ...weekDayLookup,
+  ...commmonLookup,
+};
+
+export default key => all[key] || key;

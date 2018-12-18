@@ -13,10 +13,10 @@ export default class Dashboard extends React.Component<any, State> {
   } as State;
   public async componentDidMount() {
     const widgets = await agent.company.widget.list();
-    console.log(widgets);
     this.setState({ widgets });
   }
   public render() {
+    const { widgets } = this.state;
     return (
       <ScrollView>
         <P.Container padding>
@@ -24,6 +24,8 @@ export default class Dashboard extends React.Component<any, State> {
           {this.state.widgets.map(w => (
             <WidgetComp key={w.id} widget={w} />
           ))}
+
+          {/* {widgets.length > 0 && <WidgetComp widget={this.state.widgets[0]} />} */}
         </P.Container>
       </ScrollView>
     );
