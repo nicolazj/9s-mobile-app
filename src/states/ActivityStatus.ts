@@ -5,17 +5,17 @@ interface State {
 }
 
 export class ActivityStatusState extends Container<State> {
-  public state = {
+  state = {
     show: false,
     msg: '',
   } as State;
-  public show(msg: string) {
+  show(msg: string) {
     this.setState({
       show: true,
       msg,
     });
   }
-  public dismiss() {
+  dismiss() {
     this.setState({
       show: false,
       msg: '',

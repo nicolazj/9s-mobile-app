@@ -19,14 +19,14 @@ export class AuthLoadingScreen extends React.Component<Props> {
   }
 
   // Fetch the token from storage then navigate to our appropriate place
-  public bootstrapAsync = async () => {
+  bootstrapAsync = async () => {
     // await AsyncStorage.clear();
     // auth.clear();
     const loggedIn = await this.checkingLogin();
     this.props.navigation.navigate(SCREENS[loggedIn ? SCREENS.DASHBOARD : SCREENS.SIGN_IN]);
   };
   // Render any loading content that you like here
-  public render() {
+  render() {
     return (
       <View>
         <ActivityIndicator />
@@ -35,7 +35,7 @@ export class AuthLoadingScreen extends React.Component<Props> {
     );
   }
 
-  private async checkingLogin() {
+  async checkingLogin() {
     const [authState, userState] = this.props.states;
 
     const hasUserId = authState.hasUserId();

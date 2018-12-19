@@ -28,16 +28,16 @@ const AppImg = styled(Image)`
   align-self: center;
 `;
 export class AppConnectScreen extends React.Component<Props, State> {
-  public state = {
+  state = {
     entities: [],
     step: ACTIVITY_TYPES.CLIENT_INIT,
   } as State;
 
-  public componentDidMount() {
+  componentDidMount() {
     this.startConnection();
   }
 
-  public async startConnection() {
+  async startConnection() {
     try {
       const appKey = this.props.navigation.getParam('key');
       const [appState] = this.props.states;
@@ -125,7 +125,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
       this.setState({ step: ACTIVITY_TYPES.ERRORED });
     }
   }
-  public render() {
+  render() {
     const appKey = this.props.navigation.getParam('key');
     const [appState] = this.props.states;
     const appDetail = appState.appDetail(appKey);
@@ -156,7 +156,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
       </P.Container>
     );
   }
-  private chooseEntity(e: Entity) {
+  chooseEntity(e: Entity) {
     Lock.release(e);
   }
 }

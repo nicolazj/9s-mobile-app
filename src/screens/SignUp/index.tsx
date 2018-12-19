@@ -23,7 +23,7 @@ interface Props {
 }
 
 export class SignUp extends React.Component<Props> {
-  public onPress = async (values: SignUpPayload) => {
+  onPress = async (values: SignUpPayload) => {
     const [activityStatusState] = this.props.states as [ActivityStatusState];
 
     try {
@@ -40,10 +40,10 @@ export class SignUp extends React.Component<Props> {
       activityStatusState.dismiss();
     }
   };
-  public googleLogin() {
+  googleLogin() {
     console.log('google login');
   }
-  public render() {
+  render() {
     return (
       <Container>
         <SafeArea>

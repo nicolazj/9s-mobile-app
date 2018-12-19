@@ -7,13 +7,12 @@ interface Props {
   skipLoadingScreen: boolean;
 }
 
-
 export default class App extends React.Component<Props> {
-  public state = {
+  state = {
     isLoadingComplete: false,
   };
 
-  public render() {
+  render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
@@ -32,7 +31,7 @@ export default class App extends React.Component<Props> {
     }
   }
 
-  private loadResourcesAsync = () => {
+  loadResourcesAsync = () => {
     return Promise.all([
       auth.rehydrate(),
       Asset.loadAsync([
@@ -55,13 +54,13 @@ export default class App extends React.Component<Props> {
     });
   };
 
-  private handleLoadingError = (error: Error) => {
+  handleLoadingError = (error: Error) => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
     console.warn(error);
   };
 
-  private handleFinishLoading = () => {
+  handleFinishLoading = () => {
     this.setState({ isLoadingComplete: true });
   };
 }

@@ -86,10 +86,10 @@ const SuggestAppLink = styled(View)`
   padding-bottom: ${scale(50)}px;
 `;
 class AppList extends React.Component<Props> {
-  public componentDidMount() {
+  componentDidMount() {
     this.fetchApps();
   }
-  public fetchApps = async () => {
+  fetchApps = async () => {
     const [_, __, ___, activityStatusState] = this.props.states;
     activityStatusState.show('Loading');
 
@@ -104,10 +104,10 @@ class AppList extends React.Component<Props> {
     activityStatusState.dismiss();
   };
 
-  public onPress(app: App) {
+  onPress(app: App) {
     this.props.navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
   }
-  public suggestApp = () => {
+  suggestApp = () => {
     const [_, userContainer, authContainer] = this.props.states;
     const company = userContainer.state.companies.find(c => c.companyUuid === authContainer.state.companyUuid);
     const { me } = userContainer.state;
@@ -129,7 +129,7 @@ class AppList extends React.Component<Props> {
 
     Linking.openURL('mailto:support@9spokes.com?subject=App Support Request&body=' + texts.join('\n'));
   };
-  public render() {
+  render() {
     const [appState] = this.props.states;
     return (
       <P.Container>

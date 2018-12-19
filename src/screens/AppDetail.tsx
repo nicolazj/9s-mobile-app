@@ -33,7 +33,7 @@ const DescText = styled(Text)`
 `;
 
 export class AppDetailScreen extends React.Component<Props> {
-  public render() {
+  render() {
     const appKey = this.props.navigation.getParam('key');
     const [appState] = this.props.states;
     const appDetail = appState.appDetail(appKey);
@@ -57,11 +57,11 @@ export class AppDetailScreen extends React.Component<Props> {
       </ScrollView>
     );
   }
-  private onConnect = (appDetail: AppDetail) => {
+  onConnect = (appDetail: AppDetail) => {
     console.log(appDetail);
     this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT], { key: appDetail.appKey });
   };
-  private onRemoveConnection = async (connectionId: string) => {
+  onRemoveConnection = async (connectionId: string) => {
     Alert.alert(
       'Remove connection?',
       'Are you sure you want to remove your connection ',
@@ -81,16 +81,16 @@ export class AppDetailScreen extends React.Component<Props> {
       { cancelable: false }
     );
   };
-  private removeConnection = async (connectionId: string) => {
+  removeConnection = async (connectionId: string) => {
     await agent.company.connection.delete(connectionId);
     this.reloadConnections();
   };
-  private reloadConnections = async () => {
+  reloadConnections = async () => {
     const connections = await agent.company.connection.list();
     const [appState] = this.props.states;
     appState.setState({ connections });
   };
-  private renderButtons() {
+  renderButtons() {
     const appKey = this.props.navigation.getParam('key');
     const [appState] = this.props.states;
     const appDetail = appState.appDetail(appKey);
@@ -110,7 +110,7 @@ export class AppDetailScreen extends React.Component<Props> {
       return [<Button key="resume" title="Resume" onPress={() => this.onConnect(appDetail)} />, removeConnectionButton];
     }
   }
-  private renderDesc(desc: string) {
+  renderDesc(desc: string) {
     const paras = desc.split('<br>');
     return (
       <DescView>
@@ -120,7 +120,7 @@ export class AppDetailScreen extends React.Component<Props> {
       </DescView>
     );
   }
-  private renderFeatures(features: string[]) {
+  renderFeatures(features: string[]) {
     return (
       <DescView>
         <KeyFeatureTitle>Key features</KeyFeatureTitle>

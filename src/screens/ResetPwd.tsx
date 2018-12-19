@@ -14,10 +14,10 @@ interface Props {
 }
 
 export default class ResetPwd extends React.Component<Props> {
-  public state = {
+  state = {
     done: false,
   };
-  public onPress = async (values: { email: string }) => {
+  onPress = async (values: { email: string }) => {
     try {
       await agent.public.password.reset(values.email);
       this.setState({ done: true });
@@ -26,7 +26,7 @@ export default class ResetPwd extends React.Component<Props> {
     }
   };
 
-  public render() {
+  render() {
     const { done } = this.state;
     return (
       <Container>

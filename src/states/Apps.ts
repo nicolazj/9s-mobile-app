@@ -11,7 +11,7 @@ export interface AppDetail {
   app: App;
 }
 export class AppState extends Container<State> {
-  public state = {
+  state = {
     spokes: [],
     connections: [],
     apps: [],
@@ -31,7 +31,7 @@ export class AppState extends Container<State> {
       .filter(app => supportedApps.includes(app.key))
       .filter(app => !activeConnections.includes(app.key));
   }
-  public appDetail(appKey: string) {
+  appDetail(appKey: string) {
     return {
       appKey,
       app: this.state.apps.find(app => app.key === appKey),

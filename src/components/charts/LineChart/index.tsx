@@ -1,11 +1,13 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import t from '../../../i18n/en';
-import Grid from './grid';
+import Grid from './Grid';
+import Indicator from './Indicator';
+import Legend from './Legend';
 import LineChart from './LineChart';
-import XAxis from './x-axis';
-import YAxis from './y-axis';
+import XAxis from './XAxis';
+import YAxis from './YAxis';
 
 function getXLabel(data, index, count) {
   const item = data[0].data[index];
@@ -13,23 +15,12 @@ function getXLabel(data, index, count) {
   return count > 7 ? label[0] : label;
 }
 
-const Legend = ({ data }) => {
-  return (
-    <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-      {data.map(d => {
-        return (
-          <View key={d.legend} style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View style={{ width: 10, height: 10, margin: 4, backgroundColor: d.svg.stroke }} />
-            <Text style={{ fontSize: 10 }}>{d.legend}</Text>
-          </View>
-        );
-      })}
-    </View>
-  );
-};
-
-class LineChartWrapper extends React.PureComponent {
-  public render() {
+interface Props {
+  data: any;
+  onVertialGridClick: (index: number) => void;
+}
+class LineChartWrapper extends React.PureComponent<Props> {
+  render() {
     const { data, onVertialGridClick } = this.props;
     const xAxisHeight = 30;
     const axesSvg = { fontSize: 10, fill: 'grey' };
@@ -48,6 +39,7 @@ class LineChartWrapper extends React.PureComponent {
           <View style={{ flex: 1, marginLeft: 10 }}>
             <LineChart data={data} style={{ flex: 1 }} yAccessor={({ item: { value } }) => value}>
               <Grid onVertialGridClick={onVertialGridClick} />
+              <Indicator />
             </LineChart>
 
             <XAxis

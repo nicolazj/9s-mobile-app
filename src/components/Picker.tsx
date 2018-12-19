@@ -15,14 +15,14 @@ import {
 const isIOS = Platform.OS === 'ios';
 
 class Picker extends Component {
-  public static defaultProps = {
+  static defaultProps = {
     isNullable: false,
     androidPickerMode: 'dialog',
     title: '',
     placeholder: '',
   };
 
-  public state = {
+  state = {
     selectedItem:
       this.props.item !== null
         ? this.props.items.find(item => item === this.props.item)
@@ -33,7 +33,7 @@ class Picker extends Component {
     fadeAnim: new Animated.Value(0),
   };
 
-  public onItemChange = (value: any) => {
+  onItemChange = (value: any) => {
     const items = this.props.isNullable ? [{ value: '', label: '' }, ...this.props.items] : this.props.items;
 
     const newSelectedItem = items.find(item => value === item.value);
@@ -47,12 +47,12 @@ class Picker extends Component {
     });
   };
 
-  public onDonePress = () => {
+  onDonePress = () => {
     this.togglePicker();
     this.props.onItemChange(this.state.selectedItem);
   };
 
-  public togglePicker = () => {
+  togglePicker = () => {
     if (this.props.disabled) {
       return;
     }
@@ -70,14 +70,14 @@ class Picker extends Component {
     });
   };
 
-  public renderPickerItems() {
+  renderPickerItems() {
     const items = this.props.isNullable ? [{ value: '', label: '' }, ...this.props.items] : this.props.items;
     return items.map(item => {
       return <RNPicker.Item label={item.label} value={item.value} key={item.label} />;
     });
   }
 
-  public renderPlaceholder = (): string => {
+  renderPlaceholder = (): string => {
     if (this.props.item && this.props.item.label) {
       return <Text style={[styles.labelStyle, this.props.labelStyle]}>{this.props.item.label} </Text>;
     } else {
@@ -88,7 +88,7 @@ class Picker extends Component {
     return <Text style={[styles.placeholderStyle, this.props.placeholderStyle]}> {this.props.placeholder} </Text>;
   };
 
-  public renderDoneBar() {
+  renderDoneBar() {
     return (
       <View style={styles.doneBar}>
         <View style={styles.doneColumnStyle}>
@@ -103,7 +103,7 @@ class Picker extends Component {
     );
   }
 
-  public renderIOS = () => {
+  renderIOS = () => {
     return (
       <View style={this.props.containerStyle}>
         <TouchableWithoutFeedback onPress={this.togglePicker}>
@@ -135,7 +135,7 @@ class Picker extends Component {
     );
   };
 
-  public renderAndroid() {
+  renderAndroid() {
     return (
       <View style={this.props.containerStyle}>
         <View style={[styles.input, this.props.style]}>{this.renderPlaceholder()}</View>
@@ -153,7 +153,7 @@ class Picker extends Component {
     );
   }
 
-  public render() {
+  render() {
     return isIOS ? this.renderIOS() : this.renderAndroid();
   }
 }

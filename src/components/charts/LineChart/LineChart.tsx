@@ -8,43 +8,36 @@ import Svg, { Path } from 'react-native-svg';
 import { getTicks } from './utils';
 
 class LineChart extends PureComponent {
-  public static defaultProps = {
+  static defaultProps = {
     svg: {},
-    width: 100,
-    height: 100,
-    curve: shape.curveLinear,
     contentInset: {},
     numberOfTicks: 4,
-    xScale: scale.scaleLinear,
-    yScale: scale.scaleLinear,
     xAccessor: ({ index }) => index,
     yAccessor: ({ item }) => item,
   };
-  public state = {
+
+  state = {
     width: 0,
     height: 0,
+    curTick: this.props.data[0].data.length - 1,
   };
 
-  public render() {
+  onTickClick = (index: number) => {
+    this.setState({ curTick: index });
+  };
+  render() {
     const {
       data,
       xAccessor,
       yAccessor,
-      yScale,
-      xScale,
       style,
       numberOfTicks,
       contentInset: { top = 0, bottom = 0, left = 0, right = 0 },
-      gridMax,
-      gridMin,
-      clampX,
-      clampY,
       svg,
       children,
     } = this.props;
 
-    const { width, height } = this.state;
-
+    const { width, height, curTick } = this.state;
     if (data.length === 0) {
       return <View style={style} />;
     }
@@ -59,57 +52,62 @@ class LineChart extends PureComponent {
     const yValues = array.merge(mappedData).map(item => item.y);
     const xValues = array.merge(mappedData).map(item => item.x);
 
-    const yExtent = array.extent([...yValues, gridMin, gridMax]);
-    const xExtent = array.extent([...xValues]);
+    const yExtent = array.extent(yValues);
+    const xExtent = array.extent(xValues);
 
-    const { yMin = yExtent[0], yMax = yExtent[1], xMin = xExtent[0], xMax = xExtent[1] } = this.props;
-    const y = yScale()
+    const [yMin, yMax] = yExtent;
+
+    const [xMin, xMax] = xExtent;
+
+    const y = scale
+      .scaleLinear()
       .domain([yMin, yMax])
       .range([height - bottom, top])
-      .clamp(clampY);
+      .clamp(false);
 
-    const x = xScale()
+    const x = scale
+      .scaleLinear()
       .domain([xMin, xMax])
       .range([left, width - right])
-      .clamp(clampX);
+      .clamp(false);
 
     const paths = this.createPaths({
       data: mappedData,
       x,
       y,
     });
-    // const ticks = y.ticks(numberOfTicks);
     const ticks = getTicks(yMin, yMax, numberOfTicks);
 
     const extraProps = {
       x,
       y,
       data,
+      mappedData,
       ticks,
       width,
       height,
-      ...paths,
+      paths,
+      onTickClick: this.onTickClick.bind(this),
+      curTick,
     };
     return (
       <View style={style}>
         <View style={{ flex: 1 }} onLayout={event => this._onLayout(event)}>
-          {height > 0 && width > 0 && (
-            <Svg style={{ height, width }}>
-              {paths.path.map((path, index) => {
-                const { svg: pathSvg } = data[index];
-                return <Path key={path} fill={'none'} {...svg} {...pathSvg} d={path} />;
-              })}
-              {React.Children.map(children, child => {
-                return React.cloneElement(child, extraProps);
-              })}
-            </Svg>
-          )}
+          <Svg style={{ height, width }}>
+            {paths.map((path, index) => {
+              const { svg: pathSvg } = data[index];
+              return <Path key={index} fill={'none'} {...svg} {...pathSvg} d={path} />;
+            })}
+            {React.Children.map(children, child => {
+              return React.cloneElement(child, extraProps);
+            })}
+          </Svg>
         </View>
       </View>
     );
   }
 
-  private _onLayout(event) {
+  _onLayout(event) {
     const {
       nativeEvent: {
         layout: { height, width },
@@ -118,21 +116,16 @@ class LineChart extends PureComponent {
     this.setState({ height, width });
   }
 
-  private createPaths({ data, x, y }) {
-    const { curve } = this.props;
-
-    const lines = data.map(line =>
+  createPaths({ data, x, y }) {
+    const paths = data.map(line =>
       shape
         .line()
         .x(d => x(d.x))
         .y(d => y(d.y))
         .defined(item => typeof item.y === 'number')
-        .curve(curve)(line)
+        .curve(shape.curveLinear)(line)
     );
-    return {
-      path: lines,
-      lines,
-    };
+    return paths;
   }
 }
 

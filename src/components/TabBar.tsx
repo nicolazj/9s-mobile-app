@@ -10,7 +10,7 @@ interface IconProps {
   theme: IThemeInterface;
 }
 class TabBarIcon extends React.Component<IconProps> {
-  public render() {
+  render() {
     return (
       <Ionicons
         name={this.props.name}

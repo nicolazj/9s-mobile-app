@@ -32,16 +32,16 @@ interface State {
 }
 
 export class SignUpCompany extends React.Component<Props, State> {
-  public state = {
+  state = {
     industries: [],
   };
-  public async componentDidMount() {
+  async componentDidMount() {
     const industries = await agent.public.industry.get();
     this.setState({
       industries,
     });
   }
-  public onPress = async values => {
+  onPress = async values => {
     const [activityStatusState, userState] = this.props.states;
 
     const signUpPayload = this.props.navigation.state.params as SignUpPayload;
@@ -73,7 +73,7 @@ export class SignUpCompany extends React.Component<Props, State> {
     }
   };
 
-  public render() {
+  render() {
     const options = this.state.industries.map(({ displayName, industryUUID }: Industry) => ({
       value: industryUUID,
       label: displayName,

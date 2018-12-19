@@ -24,7 +24,7 @@ interface Props {
 }
 
 class SignIn extends React.Component<Props> {
-  public onPress = async (values: SignInPayload) => {
+  onPress = async (values: SignInPayload) => {
     const [activityStatusState, userState] = this.props.states;
 
     try {
@@ -44,14 +44,14 @@ class SignIn extends React.Component<Props> {
       activityStatusState.dismiss();
     }
   };
-  public googleLogin() {
+  googleLogin() {
     console.log('google login');
     Google.logInAsync({
       iosClientId: '248650621080-vp9dkt8bjb5d5bvlqhcfb4r54s4ip0r4.apps.googleusercontent.com',
       scopes: ['openid', 'email', 'profile', 'email', 'profile'],
     });
   }
-  public render() {
+  render() {
     return (
       <Container>
         <SafeArea>

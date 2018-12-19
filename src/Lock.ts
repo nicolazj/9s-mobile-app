@@ -1,12 +1,12 @@
 import { Entity } from './types';
 class Lock<T> {
-  private resolve?: (value?: T | PromiseLike<T> | undefined) => void;
-  public hold() {
+  resolve?: (value?: T | PromiseLike<T> | undefined) => void;
+  hold() {
     return new Promise<T>(resolve => {
       this.resolve = resolve;
     });
   }
-  public release(payload: T) {
+  release(payload: T) {
     if (this.resolve) {
       this.resolve(payload);
     }

@@ -25,7 +25,7 @@ const BodyText = styled(Text)`
   color: ${th('color.grey')};
 `;
 export class Settings extends React.Component<Props> {
-  public render() {
+  render() {
     const [userState, authState] = this.props.states;
     const { me, companies } = userState.state;
     const company = companies ? companies.find(c => c.companyUuid === authState.state.companyUuid) : null;
@@ -116,7 +116,7 @@ export class Settings extends React.Component<Props> {
       </P.Container>
     );
   }
-  private handleLogout = () => {
+  handleLogout = () => {
     const [_, authState] = this.props.states;
     authState.clear();
     this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);

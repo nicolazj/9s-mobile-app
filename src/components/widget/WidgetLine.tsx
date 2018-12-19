@@ -12,11 +12,17 @@ interface Props {
   theme: IThemeInterface;
 }
 const Header = styled(View)`
-  justify-content: space-between;
-  flex-direction: row;
   padding: 10px;
 `;
-
+const IndexTitles = styled(View)`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const IndexVals = styled(View)`
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 0;
+`;
 const IndexTitle = styled(P.Text)`
   color: #333;
   font-size: ${scale(12)}px;
@@ -27,11 +33,14 @@ const IndexVal = styled(P.Text)`
   font-size: ${scale(14)}px;
 `;
 const ChartWrapper = styled(View)`
-  padding: 20px;
+  padding: 0px 20px;
 `;
 
 export class WidgetComp extends React.Component<Props> {
-  public render() {
+  state = {
+    curTick: this.props.widget.data.graphData[0].value.length - 1,
+  };
+  render() {
     const { widget, theme } = this.props;
     const { graphData, extras } = widget.data;
     const data = graphData.map((gd, i) => {
@@ -49,29 +58,31 @@ export class WidgetComp extends React.Component<Props> {
         }),
       };
     });
-
+    const { curTick } = this.state;
     return (
       <View>
         <Header>
-          <View>
-            <IndexTitle>{widget.data.graphData[0].data_set_name}</IndexTitle>
-            <IndexVal>0</IndexVal>
-          </View>
-          <View>
-            <IndexTitle>{widget.data.graphData[1].data_set_name}</IndexTitle>
-            <IndexVal>0</IndexVal>
-          </View>
+          <IndexTitles>
+            <IndexTitle>{t(widget.data.graphData[0].data_set_name)}</IndexTitle>
+            <IndexTitle>{t(widget.data.graphData[1].data_set_name)}</IndexTitle>
+          </IndexTitles>
+          <IndexVals>
+            <IndexVal>{widget.data.graphData[0].value[curTick]}</IndexVal>
+            <IndexVal>{widget.data.graphData[1].value[curTick]}</IndexVal>
+          </IndexVals>
         </Header>
 
         <ChartWrapper>
-          <LineChart data={data} onVertialGridClick={this.onVertialGridClick} />
+          <LineChart data={data} onTickClick={this.onTickClick} />
         </ChartWrapper>
       </View>
     );
   }
 
-  private onVertialGridClick(index: number) {
-    console.log('onVertialGridClick', index);
+  onTickClick(index: number) {
+    this.setState({
+      curTick: index,
+    });
   }
 }
 
