@@ -24,6 +24,8 @@ export const monthLookup = {
 export const commmonLookup = {
   'total.conversions': 'Total conversions',
   'conversion.rate': 'Conversion rate',
+  'unique.visits': 'Unique visits',
+  'repeat.visits': 'Repeat visits',
   'ft.this.week': 'This week',
   'ft.last.week': 'Last week',
   'ft.this.year': 'This year',

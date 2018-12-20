@@ -65,6 +65,7 @@ export interface Widget {
     showOnDashboard: boolean;
     showOnMobile: boolean;
     status: string;
+    order: number;
   };
   data: {
     extras: Array<{ label_key: string }>;

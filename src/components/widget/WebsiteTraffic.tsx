@@ -42,6 +42,20 @@ function formatXAxis(data, index, count) {
   return count > 7 ? label[0] : label;
 }
 
+function timeInWord(milisec: number) {
+  let sec = Math.floor(milisec / 1000);
+  let word = '';
+  if (sec > 3600) {
+    word = Math.floor(sec / 3600) + 'h ';
+    sec = sec % 3600;
+  }
+  word += Math.floor(sec / 60) + 'm ';
+  sec = sec % 60;
+  word += sec + 's';
+
+  return word;
+}
+
 export class WidgetComp extends React.Component<Props> {
   state = {
     curTick: this.props.widget.data.graphData[0].value.length - 1,
@@ -69,22 +83,17 @@ export class WidgetComp extends React.Component<Props> {
       <View>
         <Header>
           <IndexTitles>
-            <IndexTitle>{t(widget.data.graphData[0].data_set_name)}</IndexTitle>
-            <IndexTitle>{t(widget.data.graphData[1].data_set_name)}</IndexTitle>
+            <IndexTitle>Total visits</IndexTitle>
+            <IndexTitle>Average time</IndexTitle>
           </IndexTitles>
           <IndexVals>
-            <IndexVal>{widget.data.graphData[0].value[curTick]}</IndexVal>
-            <IndexVal>{widget.data.graphData[1].value[curTick]}</IndexVal>
+            <IndexVal>{widget.data.extras[curTick].value_1}</IndexVal>
+            <IndexVal>{timeInWord(widget.data.extras[curTick].value_2)}</IndexVal>
           </IndexVals>
         </Header>
 
         <ChartWrapper>
-          <LineChart
-            data={data}
-            curTick={curTick}
-            onTickClick={this.onTickClick}
-            formatXAxis={formatXAxis}
-          />
+          <LineChart data={data} curTick={curTick} onTickClick={this.onTickClick} formatXAxis={formatXAxis} />
         </ChartWrapper>
       </View>
     );

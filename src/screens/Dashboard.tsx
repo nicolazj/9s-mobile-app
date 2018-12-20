@@ -17,14 +17,19 @@ export default class Dashboard extends React.Component<any, State> {
   }
   render() {
     const { widgets } = this.state;
-    console.log(widgets);
+
     return (
       <ScrollView>
         <P.Container padding>
           <StatusBar barStyle="light-content" />
-          {widgets.map(w => (
-            <WidgetComp key={w.id} widget={w} />
-          ))}
+          {widgets
+            .filter(a => a.attributes.active && a.attributes.showOnMobile)
+            .sort((a, b) => {
+              return a.attributes.order - b.attributes.order;
+            })
+            .map(w => (
+              <WidgetComp key={w.id} widget={w} />
+            ))}
         </P.Container>
       </ScrollView>
     );

@@ -10,7 +10,14 @@ class Grid extends React.PureComponent {
     return (
       <G>
         {ticks.map(tick => (
-          <Line key={tick} x1={'0%'} x2={'100%'} y1={y(tick)} y2={y(tick)} stroke={'rgba(0,0,0,0.2)'} />
+          <Line
+            key={tick}
+            x1={'0%'}
+            x2={'100%'}
+            y1={y(tick)}
+            y2={y(tick)}
+            stroke={'rgba(0,0,0,0.2)'}
+          />
         ))}
         {data[0].data.map((_, index) => [
           <Line
@@ -31,7 +38,9 @@ class Grid extends React.PureComponent {
             x2={x(index)}
             stroke={'rgba(0,0,0,0)'}
             strokeWidth={delta}
-            onPressIn={() => onTickClick(index)}
+            onPressIn={() => {
+              onTickClick(index);
+            }}
           />,
         ])}
       </G>
