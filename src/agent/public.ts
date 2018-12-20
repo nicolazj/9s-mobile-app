@@ -1,20 +1,22 @@
 import axios from 'axios';
 import { AuthState } from '../states/Auth';
 import { ClientConfig } from '../types';
-import agent from './index';
+import token from './token';
 
-export default (config: ClientConfig, auth: AuthState) => {
-  const { tenantId } = config;
+export default (cconfig: ClientConfig, auth: AuthState) => {
+  const { tenantId } = cconfig;
 
   const instance = axios.create({
-    baseURL: `${config.baseURL}`,
+    baseURL: `${cconfig.baseURL}`,
   });
   instance.interceptors.request.use(
     async config => {
       if (!auth.isPublicTokenValid()) {
-        await agent.token.public();
+        await token(cconfig, auth).public();
       }
-      config.headers.Authorization = `Bearer ${auth.state.publicAuth.access_token}`;
+      config.headers.Authorization = `Bearer ${
+        auth.state.publicAuth.access_token
+      }`;
       return config;
     },
     error => {
@@ -36,7 +38,9 @@ export default (config: ClientConfig, auth: AuthState) => {
     user: {
       isExisted: async (emailAddress: string) => {
         try {
-          await instance.head(`/customer/customer/tenants/${tenantId}/users/userName/${emailAddress}`);
+          await instance.head(
+            `/customer/customer/tenants/${tenantId}/users/userName/${emailAddress}`
+          );
           return true;
         } catch (err) {
           if (err.response.status === 404) {
@@ -47,17 +51,23 @@ export default (config: ClientConfig, auth: AuthState) => {
         }
       },
       create: async (values: SignUpPayload) => {
-        const r = await instance.post(`/customer/customer/tenants/${tenantId}/users`, {
-          ...values,
-          termsAndConditionsAccepted: true,
-          emailAddress: values.userName,
-        });
+        const r = await instance.post(
+          `/customer/customer/tenants/${tenantId}/users`,
+          {
+            ...values,
+            termsAndConditionsAccepted: true,
+            emailAddress: values.userName,
+          }
+        );
         return r.data;
       },
     },
     password: {
       reset: async (emailAddress: string) => {
-        const r = await instance.post(`/customer/customer/tenants/${tenantId}/users/access`, { emailAddress });
+        const r = await instance.post(
+          `/customer/customer/tenants/${tenantId}/users/access`,
+          { emailAddress }
+        );
         const { data } = r;
         return data;
       },

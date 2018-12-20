@@ -1,6 +1,5 @@
 import React from 'react';
 import { View } from 'react-native';
-
 import t from '../../../i18n/en';
 import Grid from './Grid';
 import Indicator from './Indicator';
@@ -37,13 +36,22 @@ class LineChartWrapper extends React.PureComponent<Props> {
             yAccessor={({ item: { value } }) => value}
           />
           <View style={{ flex: 1, marginLeft: 10 }}>
-            <LineChart data={data} style={{ flex: 1 }} yAccessor={({ item: { value } }) => value}>
-              <Grid onVertialGridClick={onVertialGridClick} />
+            <LineChart
+              data={data}
+              style={{ flex: 1 }}
+              yAccessor={({ item: { value } }) => value}
+            >
               <Indicator />
+
+              <Grid onVertialGridClick={onVertialGridClick} />
             </LineChart>
 
             <XAxis
-              style={{ marginHorizontal: -10, height: xAxisHeight, paddingTop: 10 }}
+              style={{
+                marginHorizontal: -10,
+                height: xAxisHeight,
+                paddingTop: 10,
+              }}
               data={data}
               contentInset={{ left: 20, right: 20 }}
               svg={axesSvg}

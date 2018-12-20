@@ -31,7 +31,10 @@ class Grid extends React.PureComponent {
             x2={x(index)}
             stroke={'rgba(0,0,0,0)'}
             strokeWidth={delta}
-            onPressIn={() => onTickClick(index)}
+            onPressIn={() => {
+              console.log('click');
+              onTickClick(index);
+            }}
           />,
         ])}
       </G>

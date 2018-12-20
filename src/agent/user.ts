@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { AuthState } from '../states/Auth';
 import { App, ClientConfig, Company, Spoke } from '../types';
-import agent from './index';
+import token from './token';
 
-export default (config: ClientConfig, auth: AuthState) => {
-  const { baseURL, tenantId } = config;
+export default (cconfig: ClientConfig, auth: AuthState) => {
+  const { baseURL, tenantId } = cconfig;
 
   const instance = axios.create({
     baseURL,
@@ -12,9 +12,11 @@ export default (config: ClientConfig, auth: AuthState) => {
   instance.interceptors.request.use(
     async config => {
       if (auth.hasUserId() && !auth.isUserTokenValid()) {
-        await agent.token.refreshUserToken();
+        await token(cconfig, auth).refreshUserToken();
       }
-      config.headers.Authorization = `Bearer ${auth.state.userAuth.access_token}`;
+      config.headers.Authorization = `Bearer ${
+        auth.state.userAuth.access_token
+      }`;
       return config;
     },
     error => {
@@ -36,17 +38,23 @@ export default (config: ClientConfig, auth: AuthState) => {
     user: {
       me: async () => {
         const { userId } = auth.state;
-        const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${auth.state.userId}`, {
-          data: null,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        const r = await instance.get(
+          `/customer/customer/tenants/${tenantId}/users/${auth.state.userId}`,
+          {
+            data: null,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
 
         return r.data;
       },
       get: async (userId: string) => {
-        const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${userId}`, {});
+        const r = await instance.get(
+          `/customer/customer/tenants/${tenantId}/users/${userId}`,
+          {}
+        );
 
         return r.data;
       },
@@ -54,41 +62,53 @@ export default (config: ClientConfig, auth: AuthState) => {
     widget: {
       config: {
         list: async () => {
-          const r = await instance.get(`/widget/tenants/${tenantId}/widget-configs`, {
-            headers: {
-              'X-API-Version': 3,
-            },
-          });
+          const r = await instance.get(
+            `/widget/tenants/${tenantId}/widget-configs`,
+            {
+              headers: {
+                'X-API-Version': 3,
+              },
+            }
+          );
 
           return r.data;
         },
         get: async (widgetKey: string) => {
-          const r = await instance.get(`/widget/tenants/${tenantId}/widget-configs/${widgetKey}`, {
-            headers: {
-              'X-API-Version': 3,
-            },
-          });
+          const r = await instance.get(
+            `/widget/tenants/${tenantId}/widget-configs/${widgetKey}`,
+            {
+              headers: {
+                'X-API-Version': 3,
+              },
+            }
+          );
         },
       },
     },
     service: {
       list: async () => {
-        const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/services `, {
-          headers: {
-            'X-API-Version': 3,
-          },
-        });
+        const r = await instance.get(
+          `/catalogue/catalogue/tenants/${tenantId}/services `,
+          {
+            headers: {
+              'X-API-Version': 3,
+            },
+          }
+        );
         const {
           _embedded: { services },
         } = r.data;
         return services as App[];
       },
       get: async (appKey: string) => {
-        const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/services/${appKey}`, {
-          headers: {
-            'X-API-Version': 3,
-          },
-        });
+        const r = await instance.get(
+          `/catalogue/catalogue/tenants/${tenantId}/services/${appKey}`,
+          {
+            headers: {
+              'X-API-Version': 3,
+            },
+          }
+        );
         const {
           _embedded: { service },
           _links: { bigLogo },
@@ -99,11 +119,14 @@ export default (config: ClientConfig, auth: AuthState) => {
     },
     spoke: {
       get: async (type: string) => {
-        const r = await instance.get(`/catalogue/catalogue/tenants/${tenantId}/spokes/types/${type}`, {
-          headers: {
-            'X-API-Version': 3,
-          },
-        });
+        const r = await instance.get(
+          `/catalogue/catalogue/tenants/${tenantId}/spokes/types/${type}`,
+          {
+            headers: {
+              'X-API-Version': 3,
+            },
+          }
+        );
         const {
           _embedded: { spokes },
         } = r.data;
@@ -112,7 +135,10 @@ export default (config: ClientConfig, auth: AuthState) => {
     },
     application: {
       list: async () => {
-        const r = await instance.get(`/connections/connections/tenants/${tenantId}/applications`, {});
+        const r = await instance.get(
+          `/connections/connections/tenants/${tenantId}/applications`,
+          {}
+        );
         return r;
       },
       get: async (appKey: string) => {
@@ -129,22 +155,29 @@ export default (config: ClientConfig, auth: AuthState) => {
     },
     company: {
       create: async p => {
-        const r = await instance.post<Company>(`/customer/customer/tenants/${tenantId}/companies`, p, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        const r = await instance.post<Company>(
+          `/customer/customer/tenants/${tenantId}/companies`,
+          p,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
 
         return r.data;
       },
       list: async () => {
         const { userId } = auth.state;
-        const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${userId}/companies`, {
-          data: null, // needed for this endpoint
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        const r = await instance.get(
+          `/customer/customer/tenants/${tenantId}/users/${userId}/companies`,
+          {
+            data: null, // needed for this endpoint
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
         const {
           _embedded: { companies },
         } = r.data;

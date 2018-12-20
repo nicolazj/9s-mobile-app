@@ -2,10 +2,10 @@ import axios from 'axios';
 import qs from 'qs';
 import { AuthState } from '../states/Auth';
 import { ClientConfig, Connection, Widget, Workflow } from '../types';
-import agent from './index';
+import token from './token';
 
-export default (config: ClientConfig, auth: AuthState) => {
-  const { baseURL, tenantId } = config;
+export default (cconfig: ClientConfig, auth: AuthState) => {
+  const { baseURL, tenantId } = cconfig;
   const { userId, companyUuid } = auth.state;
 
   const instance = axios.create({
@@ -14,9 +14,11 @@ export default (config: ClientConfig, auth: AuthState) => {
   instance.interceptors.request.use(
     async config => {
       if (auth.hasCompany() && !auth.isCompanyTokenValid()) {
-        await agent.token.refreshCompanyToken();
+        await token(cconfig, auth).refreshCompanyToken();
       }
-      config.headers.Authorization = `Bearer ${auth.state.companyAuth.access_token}`;
+      config.headers.Authorization = `Bearer ${
+        auth.state.companyAuth.access_token
+      }`;
       return config;
     },
     error => {
@@ -47,11 +49,14 @@ export default (config: ClientConfig, auth: AuthState) => {
     },
     widget: {
       list: async () => {
-        const r = await instance.get(`/widget/tenants/${tenantId}/users/${userId}/companies/${companyUuid}/widgets`, {
-          headers: {
-            'X-API-Version': 3,
-          },
-        });
+        const r = await instance.get(
+          `/widget/tenants/${tenantId}/users/${userId}/companies/${companyUuid}/widgets`,
+          {
+            headers: {
+              'X-API-Version': 3,
+            },
+          }
+        );
 
         const {
           _embedded: { widgets },
@@ -96,7 +101,9 @@ export default (config: ClientConfig, auth: AuthState) => {
         return connections as Connection[];
       },
       list: async () => {
-        const r = await instance.get(`/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections`);
+        const r = await instance.get(
+          `/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections`
+        );
 
         const {
           _embedded: { connections },
@@ -167,7 +174,11 @@ export default (config: ClientConfig, auth: AuthState) => {
       },
     },
     workflow: {
-      update: async (workflowId: string, activityId: string, stepId: string) => {
+      update: async (
+        workflowId: string,
+        activityId: string,
+        stepId: string
+      ) => {
         const r = await instance.put(
           `/connections/connections/tenants/${tenantId}/company/${companyUuid}/workflow/${workflowId}?activityId=${activityId}&stepId=${stepId}`,
           null
