@@ -36,6 +36,12 @@ const ChartWrapper = styled(View)`
   padding: 0px 20px;
 `;
 
+function formatXAxis(data, index, count) {
+  const item = data[0].data[index];
+  const label = item && t(item.label_key);
+  return count > 7 ? label[0] : label;
+}
+
 export class WidgetComp extends React.Component<Props> {
   state = {
     curTick: this.props.widget.data.graphData[0].value.length - 1,
@@ -73,7 +79,11 @@ export class WidgetComp extends React.Component<Props> {
         </Header>
 
         <ChartWrapper>
-          <LineChart data={data} onTickClick={this.onTickClick} />
+          <LineChart
+            data={data}
+            onTickClick={this.onTickClick}
+            formatXAxis={formatXAxis}
+          />
         </ChartWrapper>
       </View>
     );

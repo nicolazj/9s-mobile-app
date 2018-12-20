@@ -8,19 +8,14 @@ import LineChart from './LineChart';
 import XAxis from './XAxis';
 import YAxis from './YAxis';
 
-function getXLabel(data, index, count) {
-  const item = data[0].data[index];
-  const label = item && t(item.label_key);
-  return count > 7 ? label[0] : label;
-}
-
 interface Props {
   data: any;
-  onVertialGridClick: (index: number) => void;
+  onTickClick: (index: number) => void;
+  formatXAxis: any;
 }
 class LineChartWrapper extends React.PureComponent<Props> {
   render() {
-    const { data, onVertialGridClick } = this.props;
+    const { data, onTickClick, formatXAxis } = this.props;
     const xAxisHeight = 30;
     const axesSvg = { fontSize: 10, fill: 'grey' };
     const verticalContentInset = { top: 10, bottom: 10 };
@@ -43,7 +38,7 @@ class LineChartWrapper extends React.PureComponent<Props> {
             >
               <Indicator />
 
-              <Grid onVertialGridClick={onVertialGridClick} />
+              <Grid onTickClick={onTickClick} />
             </LineChart>
 
             <XAxis
@@ -56,7 +51,7 @@ class LineChartWrapper extends React.PureComponent<Props> {
               contentInset={{ left: 20, right: 20 }}
               svg={axesSvg}
               formatLabel={(value, index, count) => {
-                return getXLabel(data, index, count);
+                return formatXAxis(data, index, count);
               }}
             />
           </View>
