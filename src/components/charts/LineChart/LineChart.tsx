@@ -19,12 +19,8 @@ class LineChart extends PureComponent {
   state = {
     width: 0,
     height: 0,
-    curTick: this.props.data[0].data.length - 1,
   };
 
-  onTickClick = (index: number) => {
-    this.setState({ curTick: index });
-  };
   render() {
     const {
       data,
@@ -35,9 +31,11 @@ class LineChart extends PureComponent {
       contentInset: { top = 0, bottom = 0, left = 0, right = 0 },
       svg,
       children,
+      onTickClick,
+      curTick,
     } = this.props;
 
-    const { width, height, curTick } = this.state;
+    const { width, height } = this.state;
     if (data.length === 0) {
       return <View style={style} />;
     }
@@ -87,8 +85,8 @@ class LineChart extends PureComponent {
       width,
       height,
       paths,
-      onTickClick: this.onTickClick.bind(this),
       curTick,
+      onTickClick,
     };
     return (
       <View style={style}>
@@ -96,7 +94,15 @@ class LineChart extends PureComponent {
           <Svg style={{ height, width }}>
             {paths.map((path, index) => {
               const { svg: pathSvg } = data[index];
-              return <Path key={index} fill={'none'} {...svg} {...pathSvg} d={path} />;
+              return (
+                <Path
+                  key={index}
+                  fill={'none'}
+                  {...svg}
+                  {...pathSvg}
+                  d={path}
+                />
+              );
             })}
             {React.Children.map(children, child => {
               return React.cloneElement(child, extraProps);

@@ -81,6 +81,7 @@ export class WidgetComp extends React.Component<Props> {
         <ChartWrapper>
           <LineChart
             data={data}
+            curTick={curTick}
             onTickClick={this.onTickClick}
             formatXAxis={formatXAxis}
           />
@@ -89,11 +90,11 @@ export class WidgetComp extends React.Component<Props> {
     );
   }
 
-  onTickClick(index: number) {
+  onTickClick = (index: number) => {
     this.setState({
       curTick: index,
     });
-  }
+  };
 }
 
 export default withTheme(WidgetComp);

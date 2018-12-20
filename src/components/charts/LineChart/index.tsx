@@ -1,6 +1,5 @@
 import React from 'react';
 import { View } from 'react-native';
-import t from '../../../i18n/en';
 import Grid from './Grid';
 import Indicator from './Indicator';
 import Legend from './Legend';
@@ -15,7 +14,7 @@ interface Props {
 }
 class LineChartWrapper extends React.PureComponent<Props> {
   render() {
-    const { data, onTickClick, formatXAxis } = this.props;
+    const { data, onTickClick, formatXAxis, curTick } = this.props;
     const xAxisHeight = 30;
     const axesSvg = { fontSize: 10, fill: 'grey' };
     const verticalContentInset = { top: 10, bottom: 10 };
@@ -35,10 +34,11 @@ class LineChartWrapper extends React.PureComponent<Props> {
               data={data}
               style={{ flex: 1 }}
               yAccessor={({ item: { value } }) => value}
+              onTickClick={onTickClick}
+              curTick={curTick}
             >
               <Indicator />
-
-              <Grid onTickClick={onTickClick} />
+              <Grid />
             </LineChart>
 
             <XAxis

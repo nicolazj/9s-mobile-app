@@ -8,7 +8,15 @@ class Indicator extends React.PureComponent {
       <G>
         {mappedData.map((line, i) => {
           const dot = line[curTick];
-          return <Circle key={i} cx={x(dot.x)} y={y(dot.y)} r={5} fill={data[i].svg.stroke} />;
+          return (
+            <Circle
+              key={i}
+              cx={x(dot.x)}
+              y={y(dot.y)}
+              r={5}
+              fill={data[i].svg.stroke}
+            />
+          );
         })}
       </G>
     );
