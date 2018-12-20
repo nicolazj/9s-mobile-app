@@ -43,10 +43,10 @@ const HEIGHT_EXPANDED = 300;
 const HEIGHT_COLLAPSED = 60;
 export default class WidgetComp extends React.Component<Props, State> {
   state = {
-    show: false,
+    show: true,
   } as State;
 
-  height = new Value(HEIGHT_COLLAPSED);
+  height = new Value(HEIGHT_EXPANDED);
 
   onShowHidePress = () => {
     Animated.timing(this.height, {
@@ -64,7 +64,10 @@ export default class WidgetComp extends React.Component<Props, State> {
       <WidgetContainer>
         <WidgetHeader>
           <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
-          <WidgetOp title={show ? 'Hide' : 'Show'} onPress={this.onShowHidePress} />
+          <WidgetOp
+            title={show ? 'Hide' : 'Show'}
+            onPress={this.onShowHidePress}
+          />
         </WidgetHeader>
         <WidgetWrapper style={{ height: this.height }}>
           <WidgetLine widget={widget} />

@@ -9,7 +9,7 @@ class XAxis extends PureComponent {
     spacingInner: 0.05,
     spacingOuter: 0.05,
     contentInset: {},
-    svg: {},
+    svg: { fontSize: 10, fill: 'grey' },
     xAccessor: ({ index }) => index,
     scale: d3Scale.scaleLinear,
     formatLabel: value => value,
@@ -20,7 +20,15 @@ class XAxis extends PureComponent {
   };
 
   render() {
-    const { style, data, xAccessor, formatLabel, numberOfTicks, svg, children } = this.props;
+    const {
+      style,
+      data,
+      xAccessor,
+      formatLabel,
+      numberOfTicks,
+      svg,
+      children,
+    } = this.props;
 
     const { height, width } = this.state;
 
@@ -52,7 +60,9 @@ class XAxis extends PureComponent {
     return (
       <View style={style}>
         <View style={{ flexGrow: 1 }} onLayout={event => this._onLayout(event)}>
-          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>{formatLabel(ticks[0], 0)}</Text>
+          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>
+            {formatLabel(ticks[0], 0)}
+          </Text>
           <Svg
             style={{
               position: 'absolute',
@@ -60,7 +70,8 @@ class XAxis extends PureComponent {
               left: 0,
               height,
               width,
-            }}>
+            }}
+          >
             <G>
               {React.Children.map(children, child => {
                 return React.cloneElement(child, extraProps);
@@ -73,7 +84,8 @@ class XAxis extends PureComponent {
                     alignmentBaseline={'hanging'}
                     {...svg}
                     key={index}
-                    x={x(value)}>
+                    x={x(value)}
+                  >
                     {formatLabel(value, index, ticks.length)}
                   </SVGText>
                 );

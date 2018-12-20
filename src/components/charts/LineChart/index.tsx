@@ -11,13 +11,12 @@ interface Props {
   data: any;
   onTickClick: (index: number) => void;
   formatXAxis: any;
+  curTick: number;
 }
 class LineChartWrapper extends React.PureComponent<Props> {
   render() {
     const { data, onTickClick, formatXAxis, curTick } = this.props;
     const xAxisHeight = 30;
-    const axesSvg = { fontSize: 10, fill: 'grey' };
-    const verticalContentInset = { top: 10, bottom: 10 };
     return (
       <View>
         <Legend data={data} />
@@ -25,8 +24,6 @@ class LineChartWrapper extends React.PureComponent<Props> {
           <YAxis
             data={data}
             style={{ marginBottom: xAxisHeight }}
-            contentInset={verticalContentInset}
-            svg={axesSvg}
             yAccessor={({ item: { value } }) => value}
           />
           <View style={{ flex: 1, marginLeft: 10 }}>
@@ -43,13 +40,12 @@ class LineChartWrapper extends React.PureComponent<Props> {
 
             <XAxis
               style={{
-                marginHorizontal: -10,
+                marginHorizontal: -20,
                 height: xAxisHeight,
                 paddingTop: 10,
               }}
               data={data}
               contentInset={{ left: 20, right: 20 }}
-              svg={axesSvg}
               formatLabel={(value, index, count) => {
                 return formatXAxis(data, index, count);
               }}

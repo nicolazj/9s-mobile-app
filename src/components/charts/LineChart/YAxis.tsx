@@ -26,8 +26,8 @@ interface State {
 class YAxis extends PureComponent<Props, State> {
   static defaultProps = {
     numberOfTicks: 4,
-    contentInset: {},
-    svg: {},
+    contentInset: { top: 10, bottom: 10 },
+    svg: { fontSize: 10, fill: 'grey' },
     scale: d3Scale.scaleLinear,
     formatLabel: value => value && value.toString(),
     yAccessor: ({ item }) => item,
@@ -38,7 +38,15 @@ class YAxis extends PureComponent<Props, State> {
   } as State;
 
   render() {
-    const { style, data, yAccessor, numberOfTicks, formatLabel, svg, children } = this.props;
+    const {
+      style,
+      data,
+      yAccessor,
+      numberOfTicks,
+      formatLabel,
+      svg,
+      children,
+    } = this.props;
 
     const { height, width } = this.state;
 
@@ -65,7 +73,11 @@ class YAxis extends PureComponent<Props, State> {
     const ticks = getTicks(min, max, numberOfTicks);
     const longestValue = ticks
       .map((value, index) => formatLabel(value, index))
-      .reduce((prev, curr) => (prev.toString().length > curr.toString().length ? prev : curr), 0);
+      .reduce(
+        (prev, curr) =>
+          prev.toString().length > curr.toString().length ? prev : curr,
+        0
+      );
 
     const extraProps = {
       y,
@@ -76,7 +88,9 @@ class YAxis extends PureComponent<Props, State> {
     return (
       <View style={[style]}>
         <View style={{ flexGrow: 1 }} onLayout={event => this._onLayout(event)}>
-          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>{longestValue}</Text>
+          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>
+            {longestValue}
+          </Text>
           <Svg
             style={{
               position: 'absolute',
@@ -84,7 +98,8 @@ class YAxis extends PureComponent<Props, State> {
               left: 0,
               height,
               width,
-            }}>
+            }}
+          >
             <G>
               {React.Children.map(children, child => {
                 return React.cloneElement(child, extraProps);
@@ -98,7 +113,8 @@ class YAxis extends PureComponent<Props, State> {
                     alignmentBaseline={'middle'}
                     {...svg}
                     key={index}
-                    y={y(value)}>
+                    y={y(value)}
+                  >
                     {formatLabel(value, index)}
                   </SVGText>
                 );
