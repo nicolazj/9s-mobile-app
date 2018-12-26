@@ -1,70 +1,21 @@
 import React from 'react';
 import { View } from 'react-native';
 import t from '../../i18n/en';
-import * as P from '../../primitives';
-import { scale } from '../../scale';
-import styled, { IThemeInterface, withTheme } from '../../styled';
-import { Widget } from '../../types';
+import { withTheme } from '../../styled';
 import LineChart from '../charts/LineChart';
+import LineWidget, { ChartWrapper, Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from './base/LineWidget';
 
-interface Props {
-  widget: Widget;
-  theme: IThemeInterface;
-}
-const Header = styled(View)`
-  padding: 10px;
-`;
-const IndexTitles = styled(View)`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const IndexVals = styled(View)`
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 10px 0;
-`;
-const IndexTitle = styled(P.Text)`
-  color: #333;
-  font-size: ${scale(12)}px;
-`;
-const IndexVal = styled(P.Text)`
-  color: #333;
-  font-weight: bold;
-  font-size: ${scale(14)}px;
-`;
-const ChartWrapper = styled(View)`
-  padding: 0px 20px;
-`;
-
-function formatXAxis(data, index, count) {
+function formatXAxis(data, index) {
   const item = data[0].data[index];
   const label = item && t(item.label_key);
-  return count > 7 ? label[0] : label;
+  return label;
 }
 
-export class WidgetComp extends React.Component<Props> {
-  state = {
-    curTick: this.props.widget.data.graphData[0].value.length - 1,
-  };
+export class WidgetComp extends LineWidget {
   render() {
-    const { widget, theme } = this.props;
-    const { graphData, extras } = widget.data;
-    const data = graphData.map((gd, i) => {
-      return {
-        legend: t(gd.data_set_name),
-        svg: {
-          stroke: theme.color.chart[i],
-          strokeWidth: 3,
-        },
-        data: gd.value.map((v, i) => {
-          return {
-            value: v,
-            label_key: extras[i].label_key,
-          };
-        }),
-      };
-    });
+    const { widget } = this.props;
     const { curTick } = this.state;
+    const data = this.getData();
     return (
       <View>
         <Header>
@@ -77,19 +28,12 @@ export class WidgetComp extends React.Component<Props> {
             <IndexVal>{widget.data.graphData[1].value[curTick]}</IndexVal>
           </IndexVals>
         </Header>
-
         <ChartWrapper>
           <LineChart data={data} curTick={curTick} onTickClick={this.onTickClick} formatXAxis={formatXAxis} />
         </ChartWrapper>
       </View>
     );
   }
-
-  onTickClick = (index: number) => {
-    this.setState({
-      curTick: index,
-    });
-  };
 }
 
 export default withTheme(WidgetComp);

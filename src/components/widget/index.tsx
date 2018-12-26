@@ -6,7 +6,6 @@ import { scale } from '../../scale';
 import styled, { th } from '../../styled';
 import { Widget } from '../../types';
 import Link from '../Link';
-import WidgetLine from './WidgetLine';
 
 import widgetWebsiteGoalConversions from './WebsiteGoalConversions';
 import widgetWebsiteTraffic from './WebsiteTraffic';
