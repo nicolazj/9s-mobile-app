@@ -618,8 +618,8 @@
   resolved "https://registry.yarnpkg.com/@types/d3-path/-/d3-path-1.0.7.tgz#a0736fceed688a695f48265a82ff7a3369414b81"
 
 "@types/d3-scale@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@types/d3-scale/-/d3-scale-2.0.2.tgz#61145948aa1a52ab31384766cd013308699112b3"
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/d3-scale/-/d3-scale-2.1.0.tgz#da085c551aa4c4ae4845a0111447dea6e04f3d23"
   dependencies:
     "@types/d3-time" "*"
 
@@ -634,8 +634,8 @@
   resolved "https://registry.yarnpkg.com/@types/d3-time/-/d3-time-1.0.9.tgz#c2cf05a3cd51f810b8d8a9bbca0c74030d4e535e"
 
 "@types/expo@^31.0.1":
-  version "31.0.3"
-  resolved "https://registry.yarnpkg.com/@types/expo/-/expo-31.0.3.tgz#22c94adcedeeade594a4a3e12d58d9ce5d0d0dc5"
+  version "31.0.5"
+  resolved "https://registry.yarnpkg.com/@types/expo/-/expo-31.0.5.tgz#54aa6ca7c97cf17fa83caedc8d0ef6ba2521003d"
   dependencies:
     "@types/fbemitter" "*"
     "@types/react" "*"
@@ -698,8 +698,8 @@
     "@types/react-native" "*"
 
 "@types/react-native@*", "@types/react-native@^0.57.0":
-  version "0.57.19"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.19.tgz#2fa4d1ca9ee9f67e58a6480b5182ee0ffeec75bb"
+  version "0.57.23"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.23.tgz#6f654c2129d4108fc26eaa4b2658df77cc22e024"
   dependencies:
     "@types/prop-types" "*"
     "@types/react" "*"
@@ -712,8 +712,8 @@
     "@types/react-native" "*"
 
 "@types/react@*", "@types/react@^16.4.14":
-  version "16.7.17"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.7.17.tgz#3242e796a1ffbba4f49eae5915a67f4c079504e9"
+  version "16.7.18"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.7.18.tgz#f4ce0d539a893dd61e36cd11ae3a5e54f5a48337"
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -1782,8 +1782,8 @@ css-to-react-native@^2.2.2:
     postcss-value-parser "^3.3.0"
 
 csstype@^2.2.0:
-  version "2.5.8"
-  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.5.8.tgz#4ce5aa16ea0d562ef9105fa3ae2676f199586a35"
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.0.tgz#6cf7b2fa7fc32aab3d746802c244d4eda71371a2"
 
 d3-array@^1.2.0:
   version "1.2.4"
@@ -4309,7 +4309,7 @@ react-native-keyboard-aware-scroll-view@^0.7.4:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
-react-native-maps@*, "react-native-maps@github:expo/react-native-maps#v0.22.1-exp.0":
+react-native-maps@*, react-native-maps@expo/react-native-maps#v0.22.1-exp.0:
   version "0.22.1"
   resolved "https://codeload.github.com/expo/react-native-maps/tar.gz/e6f98ff7272e5d0a7fe974a41f28593af2d77bb2"
 

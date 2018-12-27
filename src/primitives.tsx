@@ -1,10 +1,19 @@
-import { Platform, SafeAreaView, Text as Text_, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native';
-import { scale } from './scale';
 import styled, { th } from './styled';
+import { ReactElement } from 'react';
+import { scale } from './scale';
+import {
+  Platform,
+  SafeAreaView,
+  Text as Text_,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-export const Touchable = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
+export const Touchable =
+  Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
 
-export const Text = styled(Text_)`
+export const Text = styled(Text_)<{ children?: string }>`
   font-size: ${scale(14)}px;
   font-family: 'System';
   font-weight: 400;
@@ -26,6 +35,7 @@ interface ContainerProps {
   margin?: boolean;
   vcenter?: boolean;
   hcenter?: boolean;
+  children?: ReactElement<any>[] | ReactElement<any>;
 }
 export const Container = styled(View)<ContainerProps>`
   flex: 1;
@@ -37,6 +47,8 @@ export const Container = styled(View)<ContainerProps>`
   ${p => (p.hcenter ? 'align-items: center' : '')};
 `;
 
-export const SafeArea = styled(SafeAreaView)`
+export const SafeArea = styled(SafeAreaView)<{
+  children?: ReactElement<any>[] | ReactElement<any>;
+}>`
   flex: 1;
 `;

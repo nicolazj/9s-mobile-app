@@ -1,4 +1,5 @@
-import { AppLoading, Asset, Font, Icon } from 'expo';
+import { AppLoading, Asset, Font } from 'expo';
+import Icon from '@expo/vector-icons';
 import React from 'react';
 import { Platform, StatusBar, View } from 'react-native';
 import Root from './src/Root';
