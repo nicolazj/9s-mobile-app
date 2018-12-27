@@ -6,10 +6,11 @@ import { scale } from '../scale';
 import agent from '../agent';
 
 import Link from '../components/Link';
-import { imgs } from '../osp';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import activityStatusState, { ActivityStatusState } from '../states/ActivityStatus';
+import activityStatusState, {
+  ActivityStatusState,
+} from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import authContainer, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
@@ -35,6 +36,8 @@ const ConnectedApp = styled(P.Touchable)`
 `;
 const ConnectedAppImg = styled(Image)`
   margin: ${scale(10)}px;
+  height: ${scale(40)}px;
+  width: ${scale(40)}px;
 `;
 const ConnectedAppLabel = styled(P.Text)`
   font-size: ${scale(12)}px;
@@ -70,6 +73,8 @@ const AvaibleAppSum = styled(P.Text).attrs(() => ({ numberOfLines: 3 }))`
 
 const AvaibleAppImg = styled(Image)`
   margin: ${scale(10)}px;
+  height: ${scale(40)}px;
+  width: ${scale(40)}px;
 `;
 const AvaibleAppOp = styled(View)`
   justify-content: center;
@@ -99,7 +104,9 @@ class AppList extends React.Component<Props> {
       agent.user.service.list(),
     ]);
     const [appState] = this.props.states;
-    const fullApps = await Promise.all(apps.map(app => agent.user.service.get(app.key)));
+    const fullApps = await Promise.all(
+      apps.map(app => agent.user.service.get(app.key))
+    );
     appState.setState({ connections, spokes, apps: fullApps });
     activityStatusState.dismiss();
   };
@@ -109,7 +116,9 @@ class AppList extends React.Component<Props> {
   }
   suggestApp = () => {
     const [_, userContainer, authContainer] = this.props.states;
-    const company = userContainer.state.companies.find(c => c.companyUuid === authContainer.state.companyUuid);
+    const company = userContainer.state.companies.find(
+      c => c.companyUuid === authContainer.state.companyUuid
+    );
     const { me } = userContainer.state;
     const texts = [
       'Hey 9Spokes team!',
@@ -127,7 +136,10 @@ class AppList extends React.Component<Props> {
       me.emailAddress,
     ];
 
-    Linking.openURL('mailto:support@9spokes.com?subject=App Support Request&body=' + texts.join('\n'));
+    Linking.openURL(
+      'mailto:support@9spokes.com?subject=App Support Request&body=' +
+        texts.join('\n')
+    );
   };
   render() {
     const [appState] = this.props.states;
@@ -143,8 +155,10 @@ class AppList extends React.Component<Props> {
           <ScrollView horizontal={true} style={{ backgroundColor: '#fff' }}>
             {appState.purchasedApps.map((app: App) => (
               <ConnectedApp key={app.key} onPress={() => this.onPress(app)}>
-                <ConnectedAppImg source={imgs[app.key]} />
-                <ConnectedAppLabel>{app.shortName || app.name}</ConnectedAppLabel>
+                <ConnectedAppImg source={{ uri: app.squareLogo }} />
+                <ConnectedAppLabel>
+                  {app.shortName || app.name}
+                </ConnectedAppLabel>
               </ConnectedApp>
             ))}
           </ScrollView>
@@ -157,7 +171,7 @@ class AppList extends React.Component<Props> {
           <AvaibleAppContainer>
             {appState.availableApps.map((app: App) => (
               <AvaibleApp key={app.key} onPress={() => this.onPress(app)}>
-                <AvaibleAppImg source={imgs[app.key]} />
+                <AvaibleAppImg source={{ uri: app.squareLogo }} />
                 <AvaibleAppTextView>
                   <AvaibleAppLabel>{app.name}</AvaibleAppLabel>
                   <AvaibleAppSum>{app.summary}</AvaibleAppSum>
@@ -170,7 +184,10 @@ class AppList extends React.Component<Props> {
           </AvaibleAppContainer>
 
           <SuggestAppLink>
-            <Link title="Dont't see your apps? Tell us what you use" onPress={this.suggestApp} />
+            <Link
+              title="Dont't see your apps? Tell us what you use"
+              onPress={this.suggestApp}
+            />
           </SuggestAppLink>
         </ScrollView>
       </P.Container>
@@ -178,4 +195,9 @@ class AppList extends React.Component<Props> {
   }
 }
 
-export default SubscribeHOC([appState, userState, authContainer, activityStatusState])(AppList);
+export default SubscribeHOC([
+  appState,
+  userState,
+  authContainer,
+  activityStatusState,
+])(AppList);

@@ -90,6 +90,7 @@ export interface App {
   summary: string;
   trial: any;
   logo: string;
+  squareLogo: string;
 }
 export interface Entity {
   id: string;

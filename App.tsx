@@ -34,18 +34,7 @@ export default class App extends React.Component<Props> {
   loadResourcesAsync = () => {
     return Promise.all([
       auth.rehydrate(),
-      Asset.loadAsync([
-        require('./assets/google.png'),
-
-        require('./assets/osp/deputy.png'),
-        require('./assets/osp/freeagent.png'),
-        require('./assets/osp/intuit.png'),
-        require('./assets/osp/mailchimp.png'),
-        require('./assets/osp/sageone.png'),
-        require('./assets/osp/shopify.png'),
-        require('./assets/osp/googleanalytics.png'),
-        require('./assets/osp/vend.png'),
-      ]),
+      Asset.loadAsync([require('./assets/google.png')]),
       Font.loadAsync({
         ...Icon.Ionicons.font,
       }),

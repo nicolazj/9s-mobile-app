@@ -111,9 +111,10 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
         );
         const {
           _embedded: { service },
-          _links: { bigLogo },
+          _links: { bigLogo, transparentLogo },
         } = r.data;
         service.logo = bigLogo.href;
+        service.squareLogo = transparentLogo.href;
         return service as App;
       },
     },
