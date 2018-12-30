@@ -1,4 +1,4 @@
-export function getTicks(min, max, count, precise = 1) {
+export function getTicks(min: number, max: number, count: number, precise = 1) {
   const step = (max - min) / (count - 1);
   const ticks = [];
   let i = 0;
@@ -6,5 +6,5 @@ export function getTicks(min, max, count, precise = 1) {
     ticks[i] = (min + step * i).toFixed(precise);
     i++;
   }
-  return ticks;
+  return ticks.map(Number);
 }

@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import t from '../../../i18n/en';
 import * as P from '../../../primitives';
 import { scale } from '../../../scale';
-import styled, { IThemeInterface, withTheme } from '../../../styled';
+import styled, { IThemeInterface } from '../../../styled';
 import { Widget } from '../../../types';
 
 interface Props {
@@ -54,13 +54,24 @@ export function timeInWord(milisec: number) {
 
   return word;
 }
+export type Data = {
+  legend: string;
+  svg: {
+    stroke: string;
+    strokeWidth: number;
+  };
+  data: {
+    value: number;
+    label_key: string;
+  }[];
+}[];
 
 export class LineWidget extends React.Component<Props> {
   state = {
     curTick: this.props.widget.data.graphData[0].value.length - 1,
   };
 
-  getData() {
+  getData(): Data {
     const { widget, theme } = this.props;
     const { graphData, extras } = widget.data;
     const data = graphData.map((gd, i) => {

@@ -1,34 +1,41 @@
 import * as array from 'd3-array';
 import * as d3Scale from 'd3-scale';
 import React, { PureComponent } from 'react';
-import { Text, View } from 'react-native';
+import { LayoutChangeEvent, Text, View, ViewStyle } from 'react-native';
 import Svg, { G, Text as SVGText } from 'react-native-svg';
 
-class XAxis extends PureComponent {
-  static defaultProps = {
-    spacingInner: 0.05,
-    spacingOuter: 0.05,
-    contentInset: {},
-    svg: { fontSize: 10, fill: 'grey' },
-    xAccessor: ({ index }) => index,
-    scale: d3Scale.scaleLinear,
-    formatLabel: value => value,
+import { Data } from '../../widget/base/LineWidget';
+
+interface Props {
+  data: Data;
+  numberOfTicks: number;
+  contentInset: {
+    top?: number;
+    left?: number;
+    right?: number;
+    bottom?: number;
   };
+  svg: object;
+  scale: any;
+  formatLabel: (value: string, index: number) => string;
+  xAccessor: (d: any) => number;
+  style?: ViewStyle;
+}
+class XAxis extends PureComponent<Props> {
+  static defaultProps = {
+    contentInset: { left: 0, right: 0 },
+    svg: { fontSize: 10, fill: 'grey' },
+    xAccessor: ({ index }: { index: number }) => index,
+    scale: d3Scale.scaleLinear,
+    formatLabel: (value: string, index: number) => value,
+  } as Partial<Props>;
   state = {
     width: 0,
     height: 0,
   };
 
   render() {
-    const {
-      style,
-      data,
-      xAccessor,
-      formatLabel,
-      numberOfTicks,
-      svg,
-      children,
-    } = this.props;
+    const { style, data, xAccessor, formatLabel, numberOfTicks, svg, children } = this.props;
 
     const { height, width } = this.state;
 
@@ -40,14 +47,14 @@ class XAxis extends PureComponent {
         x: xAccessor({ item, index }),
       }))
     );
-    let values = array.merge(mappedData).map(item => item.x);
+    let values = array.merge<{ x: number }>(mappedData).map(item => item.x);
     values = values.filter((item, pos) => {
       return values.indexOf(item) === pos;
     });
     const extent = array.extent(values);
     const [min, max] = extent;
+    if (!min || !max) return null;
     const domain = [min, max];
-
     const x = this._getX(domain);
     const ticks = numberOfTicks ? x.ticks(numberOfTicks) : values;
     const extraProps = {
@@ -60,9 +67,7 @@ class XAxis extends PureComponent {
     return (
       <View style={style}>
         <View style={{ flexGrow: 1 }} onLayout={event => this._onLayout(event)}>
-          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>
-            {formatLabel(ticks[0], 0)}
-          </Text>
+          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>{formatLabel(ticks[0], 0)}</Text>
           <Svg
             style={{
               position: 'absolute',
@@ -70,8 +75,7 @@ class XAxis extends PureComponent {
               left: 0,
               height,
               width,
-            }}
-          >
+            }}>
             <G>
               {React.Children.map(children, child => {
                 return React.cloneElement(child, extraProps);
@@ -84,9 +88,8 @@ class XAxis extends PureComponent {
                     alignmentBaseline={'hanging'}
                     {...svg}
                     key={index}
-                    x={x(value)}
-                  >
-                    {formatLabel(value, index, ticks.length)}
+                    x={x(value)}>
+                    {formatLabel(value, index)}
                   </SVGText>
                 );
               })}
@@ -96,7 +99,7 @@ class XAxis extends PureComponent {
       </View>
     );
   }
-  _onLayout(event) {
+  _onLayout(event: LayoutChangeEvent) {
     const {
       nativeEvent: {
         layout: { width, height },
@@ -108,7 +111,7 @@ class XAxis extends PureComponent {
     }
   }
 
-  _getX(domain) {
+  _getX(domain: number[]) {
     const {
       scale,
       contentInset: { left = 0, right = 0 },

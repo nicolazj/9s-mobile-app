@@ -1,4 +1,8 @@
-export const weekDayLookup = {
+type Dict = {
+  [index: string]: string;
+};
+
+export const weekDayLookup: Dict = {
   'd.1': 'MON',
   'd.2': 'TUE',
   'd.3': 'WED',
@@ -7,7 +11,7 @@ export const weekDayLookup = {
   'd.6': 'SAT',
   'd.7': 'SUN',
 };
-export const monthLookup = {
+export const monthLookup: Dict = {
   'm.1': 'J',
   'm.2': 'F',
   'm.3': 'M',
@@ -21,7 +25,7 @@ export const monthLookup = {
   'm.11': 'N',
   'm.12': 'D',
 };
-export const commmonLookup = {
+export const commmonLookup: Dict = {
   'total.conversions': 'Total conversions',
   'conversion.rate': 'Conversion rate',
   'unique.visits': 'Unique visits',
@@ -244,4 +248,4 @@ const all = {
   ...commmonLookup,
 };
 
-export default key => all[key] || key;
+export default (key: string): string => (all[key] ? all[key] : key);

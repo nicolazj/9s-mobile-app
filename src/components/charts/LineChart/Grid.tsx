@@ -1,7 +1,19 @@
+import * as scale from 'd3-scale';
 import React from 'react';
 import { G, Line } from 'react-native-svg';
 
-class Grid extends React.PureComponent {
+import { Data } from '../../widget/base/LineWidget';
+
+interface Props {
+  data: Data;
+  curTick: number;
+  ticks: number[];
+  onTickClick: (tick: number) => void;
+  x: scale.ScaleLinear<number, number>;
+  y: scale.ScaleLinear<number, number>;
+}
+
+class Grid extends React.PureComponent<Props> {
   render() {
     const { x, y, data, ticks, onTickClick, curTick } = this.props;
 
@@ -10,14 +22,7 @@ class Grid extends React.PureComponent {
     return (
       <G>
         {ticks.map(tick => (
-          <Line
-            key={tick}
-            x1={'0%'}
-            x2={'100%'}
-            y1={y(tick)}
-            y2={y(tick)}
-            stroke={'rgba(0,0,0,0.2)'}
-          />
+          <Line key={tick} x1={'0%'} x2={'100%'} y1={y(tick)} y2={y(tick)} stroke={'rgba(0,0,0,0.2)'} />
         ))}
         {data[0].data.map((_, index) => [
           <Line

@@ -1,7 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import { Data } from '../../widget/base/LineWidget';
 
-export default ({ data }) => {
+interface Props {
+  data: Data;
+}
+
+const Legend: React.StatelessComponent<Props> = ({ data }) => {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
       {data.map(d => {
@@ -15,3 +20,4 @@ export default ({ data }) => {
     </View>
   );
 };
+export default Legend;

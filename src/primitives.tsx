@@ -1,17 +1,10 @@
-import styled, { th } from './styled';
 import { ReactElement } from 'react';
-import { scale } from './scale';
-import {
-  Platform,
-  SafeAreaView,
-  Text as Text_,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Platform, SafeAreaView, Text as Text_, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native';
 
-export const Touchable =
-  Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
+import { scale } from './scale';
+import styled, { th } from './styled';
+
+export const Touchable = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
 
 export const Text = styled(Text_)<{ children?: string }>`
   font-size: ${scale(14)}px;

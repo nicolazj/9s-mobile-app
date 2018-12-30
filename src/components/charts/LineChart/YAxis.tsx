@@ -1,11 +1,14 @@
 import * as array from 'd3-array';
 import * as d3Scale from 'd3-scale';
 import React, { PureComponent } from 'react';
-import { Text, View } from 'react-native';
+import { LayoutChangeEvent, Text, View, ViewStyle } from 'react-native';
 import { G, Svg, Text as SVGText } from 'react-native-svg';
+
+import { Data } from '../../widget/base/LineWidget';
 import { getTicks } from './utils';
 
 interface Props {
+  data: Data;
   numberOfTicks: number;
   contentInset: {
     top?: number;
@@ -13,11 +16,11 @@ interface Props {
     right?: number;
     bottom?: number;
   };
-  svg: object;
   scale: any;
+  svg: object;
   formatLabel: (value: string, index: number) => string;
   yAccessor: (d: any) => number;
-  style?: React.CSSProperties;
+  style?: ViewStyle;
 }
 interface State {
   height: number;
@@ -31,22 +34,14 @@ class YAxis extends PureComponent<Props, State> {
     scale: d3Scale.scaleLinear,
     formatLabel: value => value && value.toString(),
     yAccessor: ({ item }) => item,
-  } as Props;
+  } as Partial<Props>;
   state = {
     height: 0,
     width: 0,
   } as State;
 
   render() {
-    const {
-      style,
-      data,
-      yAccessor,
-      numberOfTicks,
-      formatLabel,
-      svg,
-      children,
-    } = this.props;
+    const { style, data, yAccessor, numberOfTicks, formatLabel, svg, children } = this.props;
 
     const { height, width } = this.state;
 
@@ -60,11 +55,12 @@ class YAxis extends PureComponent<Props, State> {
       }))
     );
 
-    const values = array.merge(mappedData).map(item => item.y);
+    const values = array.merge<{ y: number }>(mappedData).map(item => item.y);
 
     const extent = array.extent([...values]);
 
     const [min, max] = extent;
+    if (!min || !max) return null;
 
     const domain = [min, max];
 
@@ -73,11 +69,7 @@ class YAxis extends PureComponent<Props, State> {
     const ticks = getTicks(min, max, numberOfTicks);
     const longestValue = ticks
       .map((value, index) => formatLabel(value, index))
-      .reduce(
-        (prev, curr) =>
-          prev.toString().length > curr.toString().length ? prev : curr,
-        0
-      );
+      .reduce((prev, curr) => (prev.toString().length > curr.toString().length ? prev : curr), 0);
 
     const extraProps = {
       y,
@@ -88,9 +80,7 @@ class YAxis extends PureComponent<Props, State> {
     return (
       <View style={[style]}>
         <View style={{ flexGrow: 1 }} onLayout={event => this._onLayout(event)}>
-          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>
-            {longestValue}
-          </Text>
+          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>{longestValue}</Text>
           <Svg
             style={{
               position: 'absolute',
@@ -98,8 +88,7 @@ class YAxis extends PureComponent<Props, State> {
               left: 0,
               height,
               width,
-            }}
-          >
+            }}>
             <G>
               {React.Children.map(children, child => {
                 return React.cloneElement(child, extraProps);
@@ -113,8 +102,7 @@ class YAxis extends PureComponent<Props, State> {
                     alignmentBaseline={'middle'}
                     {...svg}
                     key={index}
-                    y={y(value)}
-                  >
+                    y={y(value)}>
                     {formatLabel(value, index)}
                   </SVGText>
                 );
@@ -126,7 +114,7 @@ class YAxis extends PureComponent<Props, State> {
     );
   }
 
-  _onLayout(event) {
+  _onLayout(event: LayoutChangeEvent) {
     const {
       nativeEvent: {
         layout: { height, width },
@@ -135,7 +123,7 @@ class YAxis extends PureComponent<Props, State> {
     this.setState({ height, width });
   }
 
-  getY(domain) {
+  getY(domain: number[]) {
     const {
       scale,
       contentInset: { top = 0, bottom = 0 },

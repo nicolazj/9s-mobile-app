@@ -2,18 +2,40 @@ import * as array from 'd3-array';
 import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
 import React, { PureComponent } from 'react';
-import { View } from 'react-native';
+import { LayoutChangeEvent, View, ViewStyle } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
+import { Data } from '../../widget/base/LineWidget';
 import { getTicks } from './utils';
 
-class LineChart extends PureComponent {
+export type MappedData = {
+  x: number;
+  y: number;
+}[][];
+
+interface Props {
+  data: Data;
+  contentInset: {
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+  };
+  svg: any;
+  curTick: number;
+  numberOfTicks: number;
+  onTickClick: (tick: number) => void;
+  xAccessor: (obj: any) => number;
+  yAccessor: (obj: any) => number;
+  style: ViewStyle;
+}
+class LineChart extends PureComponent<Props> {
   static defaultProps = {
     svg: {},
     contentInset: {},
     numberOfTicks: 4,
-    xAccessor: ({ index }) => index,
-    yAccessor: ({ item }) => item,
+    xAccessor: ({ index }: { index: number }) => index,
+    yAccessor: ({ item }: { item: number }) => item,
   };
 
   state = {
@@ -36,11 +58,8 @@ class LineChart extends PureComponent {
     } = this.props;
 
     const { width, height } = this.state;
-    if (data.length === 0) {
-      return <View style={style} />;
-    }
 
-    const mappedData = data.map(dataArray =>
+    const mappedData: MappedData = data.map(dataArray =>
       dataArray.data.map((item, index) => ({
         y: yAccessor({ item, index }),
         x: xAccessor({ item, index }),
@@ -91,20 +110,12 @@ class LineChart extends PureComponent {
     return (
       <View style={style}>
         <View style={{ flex: 1 }} onLayout={event => this._onLayout(event)}>
-          <Svg style={{ height, width }}>
+          <Svg height={height} width={width}>
             {paths.map((path, index) => {
               const { svg: pathSvg } = data[index];
-              return (
-                <Path
-                  key={index}
-                  fill={'none'}
-                  {...svg}
-                  {...pathSvg}
-                  d={path}
-                />
-              );
+              return <Path key={index} fill={'none'} {...svg} {...pathSvg} d={path} />;
             })}
-            {React.Children.map(children, child => {
+            {React.Children.map(children as React.ReactElement<any>[], child => {
               return React.cloneElement(child, extraProps);
             })}
           </Svg>
@@ -113,7 +124,7 @@ class LineChart extends PureComponent {
     );
   }
 
-  _onLayout(event) {
+  _onLayout(event: LayoutChangeEvent) {
     const {
       nativeEvent: {
         layout: { height, width },
@@ -122,10 +133,18 @@ class LineChart extends PureComponent {
     this.setState({ height, width });
   }
 
-  createPaths({ data, x, y }) {
+  createPaths({
+    data,
+    x,
+    y,
+  }: {
+    data: MappedData;
+    x: scale.ScaleLinear<number, number>;
+    y: scale.ScaleLinear<number, number>;
+  }) {
     const paths = data.map(line =>
       shape
-        .line()
+        .line<{ x: number; y: number }>()
         .x(d => x(d.x))
         .y(d => y(d.y))
         .defined(item => typeof item.y === 'number')
