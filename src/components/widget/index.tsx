@@ -69,11 +69,15 @@ export default class WidgetComp extends React.Component<Props, State> {
     const { show } = this.state;
     console.log(widget.attributes.displayName);
     const Widget = widgetsMap[widget.attributes.displayName];
+    if (!Widget) return null;
     return (
       <WidgetContainer>
         <WidgetHeader>
           <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
-          <WidgetOp title={show ? 'Hide' : 'Show'} onPress={this.onShowHidePress} />
+          <WidgetOp
+            title={show ? 'Hide' : 'Show'}
+            onPress={this.onShowHidePress}
+          />
         </WidgetHeader>
         <WidgetWrapper style={{ height: this.height }}>
           <Widget widget={widget} />

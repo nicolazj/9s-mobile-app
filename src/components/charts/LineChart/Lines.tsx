@@ -29,7 +29,7 @@ interface Props {
   yAccessor: (obj: any) => number;
   style: ViewStyle;
 }
-class LineChart extends PureComponent<Props> {
+class Lines extends PureComponent<Props> {
   static defaultProps = {
     svg: {},
     contentInset: {},
@@ -113,11 +113,22 @@ class LineChart extends PureComponent<Props> {
           <Svg height={height} width={width}>
             {paths.map((path, index) => {
               const { svg: pathSvg } = data[index];
-              return <Path key={index} fill={'none'} {...svg} {...pathSvg} d={path} />;
+              return (
+                <Path
+                  key={index}
+                  fill={'none'}
+                  {...svg}
+                  {...pathSvg}
+                  d={path}
+                />
+              );
             })}
-            {React.Children.map(children as React.ReactElement<any>[], child => {
-              return React.cloneElement(child, extraProps);
-            })}
+            {React.Children.map(
+              children as React.ReactElement<any>[],
+              child => {
+                return React.cloneElement(child, extraProps);
+              }
+            )}
           </Svg>
         </View>
       </View>
@@ -154,4 +165,4 @@ class LineChart extends PureComponent<Props> {
   }
 }
 
-export default LineChart;
+export default Lines;
