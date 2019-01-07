@@ -15,12 +15,14 @@ import LineWidget, {
   IndexVals,
 } from './base/LineWidget';
 
-function formatXAxis(data: Data, index: number) {
+function formatXAxis(value: number, index: number, data: Data) {
   const item = data[0].data[index];
   const label = item && t(item.label_key);
   return label[0];
 }
-
+function formatYAxis(value: number, index: number) {
+  return value > 1000 ? (value / 1000).toFixed(1) + 'K' : value.toString();
+}
 function formatter(value: number) {
   return numeral(value).format('$0,0.0');
 }
@@ -43,7 +45,13 @@ export class WidgetComp extends LineWidget {
           </IndexVals>
         </Header>
         <ChartWrapper>
-          <LineChart data={data} curTick={curTick} onTickClick={this.onTickClick} formatXAxis={formatXAxis} />
+          <LineChart
+            data={data}
+            curTick={curTick}
+            onTickClick={this.onTickClick}
+            formatXAxis={formatXAxis}
+            formatYAxis={formatYAxis}
+          />
         </ChartWrapper>
       </View>
     );

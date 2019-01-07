@@ -12,12 +12,13 @@ import YAxis from './YAxis';
 interface Props {
   data: Data;
   onTickClick: (index: number) => void;
-  formatXAxis: any;
+  formatXAxis: (value: number, index: number, data: Data) => string;
+  formatYAxis: (value: number, index: number) => string;
   curTick: number;
 }
 class LineChartWrapper extends React.PureComponent<Props> {
   render() {
-    const { data, onTickClick, formatXAxis, curTick } = this.props;
+    const { data, onTickClick, formatXAxis, formatYAxis, curTick } = this.props;
     const xAxisHeight = 30;
     return (
       <View>
@@ -27,6 +28,7 @@ class LineChartWrapper extends React.PureComponent<Props> {
             data={data}
             style={{ marginBottom: xAxisHeight }}
             yAccessor={({ item: { value } }) => value}
+            formatLabel={formatYAxis}
           />
           <View style={{ flex: 1, marginLeft: 10 }}>
             <Lines
@@ -34,8 +36,7 @@ class LineChartWrapper extends React.PureComponent<Props> {
               style={{ flex: 1 }}
               yAccessor={({ item: { value } }) => value}
               onTickClick={onTickClick}
-              curTick={curTick}
-            >
+              curTick={curTick}>
               <Indicator />
               <Grid />
             </Lines>
@@ -49,7 +50,7 @@ class LineChartWrapper extends React.PureComponent<Props> {
               data={data}
               contentInset={{ left: 20, right: 20 }}
               formatLabel={(value, index) => {
-                return formatXAxis(data, index);
+                return formatXAxis(value, index, data);
               }}
             />
           </View>

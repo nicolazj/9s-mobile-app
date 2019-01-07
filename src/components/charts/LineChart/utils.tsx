@@ -8,3 +8,9 @@ export function getTicks(min: number, max: number, count: number, precise = 1) {
   }
   return ticks.map(Number);
 }
+
+export function getDomain(arr: [number, number]) {
+  const spacer = 1;
+  let [a, b] = arr;
+  return a === b ? [a - spacer, b + spacer] : [a, b];
+}

@@ -5,7 +5,7 @@ import { LayoutChangeEvent, Text, View, ViewStyle } from 'react-native';
 import { G, Svg, Text as SVGText } from 'react-native-svg';
 
 import { Data } from '../../widget/base/LineWidget';
-import { getTicks } from './utils';
+import { getDomain, getTicks } from './utils';
 
 interface Props {
   data: Data;
@@ -57,12 +57,13 @@ class YAxis extends PureComponent<Props, State> {
 
     const values = array.merge<{ y: number }>(mappedData).map(item => item.y);
 
-    const extent = array.extent([...values]);
+    const extent = array.extent<number>(values) as [number, number];
 
-    const [min, max] = extent;
-    if (!min || !max) return null;
+    let domain = getDomain(extent);
 
-    const domain = [min, max];
+    const [min, max] = domain;
+
+    if (min === undefined || max === undefined) return null;
 
     const y = this.getY(domain);
 

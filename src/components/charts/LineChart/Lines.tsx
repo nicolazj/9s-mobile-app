@@ -6,7 +6,7 @@ import { LayoutChangeEvent, View, ViewStyle } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { Data } from '../../widget/base/LineWidget';
-import { getTicks } from './utils';
+import { getDomain, getTicks } from './utils';
 
 export type MappedData = {
   x: number;
@@ -69,10 +69,10 @@ class Lines extends PureComponent<Props> {
     const yValues = array.merge(mappedData).map(item => item.y);
     const xValues = array.merge(mappedData).map(item => item.x);
 
-    const yExtent = array.extent(yValues);
+    const yExtent = array.extent(yValues) as [number, number];
     const xExtent = array.extent(xValues);
 
-    const [yMin, yMax] = yExtent;
+    let [yMin, yMax] = getDomain(yExtent);
 
     const [xMin, xMax] = xExtent;
 
@@ -111,24 +111,15 @@ class Lines extends PureComponent<Props> {
       <View style={style}>
         <View style={{ flex: 1 }} onLayout={event => this._onLayout(event)}>
           <Svg height={height} width={width}>
-            {paths.map((path, index) => {
-              const { svg: pathSvg } = data[index];
-              return (
-                <Path
-                  key={index}
-                  fill={'none'}
-                  {...svg}
-                  {...pathSvg}
-                  d={path}
-                />
-              );
+            {paths
+              .map((path, index) => {
+                const { svg: pathSvg } = data[index];
+                return <Path key={index} fill={'none'} {...svg} {...pathSvg} d={path} />;
+              })
+              .reverse()}
+            {React.Children.map(children as React.ReactElement<any>[], child => {
+              return React.cloneElement(child, extraProps);
             })}
-            {React.Children.map(
-              children as React.ReactElement<any>[],
-              child => {
-                return React.cloneElement(child, extraProps);
-              }
-            )}
           </Svg>
         </View>
       </View>

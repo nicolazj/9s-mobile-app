@@ -21,8 +21,8 @@ class Grid extends React.PureComponent<Props> {
     const { svg } = data[0];
     return (
       <G>
-        {ticks.map(tick => (
-          <Line key={tick} x1={'0%'} x2={'100%'} y1={y(tick)} y2={y(tick)} stroke={'rgba(0,0,0,0.2)'} />
+        {ticks.map((tick, index) => (
+          <Line key={index} x1={'0%'} x2={'100%'} y1={y(tick)} y2={y(tick)} stroke={'rgba(0,0,0,0.2)'} />
         ))}
         {data[0].data.map((_, index) => [
           <Line

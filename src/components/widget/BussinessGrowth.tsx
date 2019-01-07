@@ -12,7 +12,6 @@ import LineWidget, {
   IndexTitles,
   IndexVal,
   IndexVals,
-  timeInWord,
 } from './base/LineWidget';
 
 function formatXAxis(value: number, index: number, data: Data) {
@@ -26,20 +25,18 @@ export class WidgetComp extends LineWidget {
     const { widget } = this.props;
     const { curTick } = this.state;
     const data = this.getData();
-
     return (
       <View>
         <Header>
           <IndexTitles>
-            <IndexTitle>Total visits</IndexTitle>
-            <IndexTitle>Average time</IndexTitle>
+            <IndexTitle>Revenue growth</IndexTitle>
+            <IndexTitle>Expense growth</IndexTitle>
           </IndexTitles>
           <IndexVals>
-            <IndexVal>{widget.data.extras[curTick].value_1}</IndexVal>
-            <IndexVal>{timeInWord(widget.data.extras[curTick].value_2)}</IndexVal>
+            <IndexVal>{widget.data.graphData[0].value[curTick]}%</IndexVal>
+            <IndexVal>{widget.data.graphData[1].value[curTick]}%</IndexVal>
           </IndexVals>
         </Header>
-
         <ChartWrapper>
           <LineChart data={data} curTick={curTick} onTickClick={this.onTickClick} formatXAxis={formatXAxis} />
         </ChartWrapper>

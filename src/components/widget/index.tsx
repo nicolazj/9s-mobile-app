@@ -6,6 +6,7 @@ import { scale } from '../../scale';
 import styled, { th } from '../../styled';
 import { Widget } from '../../types';
 import Link from '../Link';
+import BussinessGrowth from './BussinessGrowth';
 import SalesByMonth from './SalesByMonth';
 import widgetWebsiteGoalConversions from './WebsiteGoalConversions';
 import widgetWebsiteTraffic from './WebsiteTraffic';
@@ -49,9 +50,10 @@ const HEIGHT_EXPANDED = 300;
 const HEIGHT_COLLAPSED = 60;
 
 const widgetsMap = {
-  'Website Goal Conversions': widgetWebsiteGoalConversions,
-  'Website Traffic': widgetWebsiteTraffic,
-  'Sales By Month': SalesByMonth,
+  'website-conversions': widgetWebsiteGoalConversions,
+  'website-traffic': widgetWebsiteTraffic,
+  'sales-by-month': SalesByMonth,
+  'business-growth': BussinessGrowth,
 };
 export default class WidgetComp extends React.Component<Props, State> {
   state = {
@@ -72,10 +74,9 @@ export default class WidgetComp extends React.Component<Props, State> {
   render() {
     const { widget } = this.props;
     const { show } = this.state;
-    const Widget = widgetsMap[widget.attributes.displayName];
+    const Widget = widgetsMap[widget.key];
     if (!Widget) return null;
 
-    console.log(widget.attributes.displayName, widget);
     return (
       <WidgetContainer>
         <WidgetHeader>

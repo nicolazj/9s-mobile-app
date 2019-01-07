@@ -14,7 +14,7 @@ import LineWidget, {
   IndexVals,
 } from './base/LineWidget';
 
-function formatXAxis(data: Data, index: number) {
+function formatXAxis(value: number, index: number, data: Data) {
   const item = data[0].data[index];
   const label = item && t(item.label_key);
   return label;
