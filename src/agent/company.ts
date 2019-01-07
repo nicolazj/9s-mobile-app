@@ -142,7 +142,6 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
             },
           }
         );
-        console.log('sendAuth', r);
         return r.data;
       },
     },

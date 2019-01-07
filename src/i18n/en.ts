@@ -30,6 +30,9 @@ export const commmonLookup: Dict = {
   'conversion.rate': 'Conversion rate',
   'unique.visits': 'Unique visits',
   'repeat.visits': 'Repeat visits',
+  'month.last.year': 'Last year',
+  'month.this.year': 'This year',
+
   'ft.this.week': 'This week',
   'ft.last.week': 'Last week',
   'ft.this.year': 'This year',

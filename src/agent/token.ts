@@ -42,7 +42,6 @@ export default (config: ClientConfig, auth: AuthState) => {
       );
       setExipresAt(data);
       await auth.setUser(data);
-      console.log('refreshUserToken succeeded');
       return data;
     },
     refreshCompanyToken: async () => {
@@ -55,10 +54,7 @@ export default (config: ClientConfig, auth: AuthState) => {
       return data;
     },
     login: async (payload: SignInPayload) => {
-      const { data } = await instance.post<UserAuthResp>(
-        `/token?grant_type=password`,
-        qs.stringify(payload)
-      );
+      const { data } = await instance.post<UserAuthResp>(`/token?grant_type=password`, qs.stringify(payload));
 
       setExipresAt(data);
       await auth.setUser(data);
@@ -66,10 +62,7 @@ export default (config: ClientConfig, auth: AuthState) => {
     },
 
     public: async () => {
-      const { data } = await instance.post<AuthResp>(
-        `/token?grant_type=public_access`,
-        qs.stringify({ device_id })
-      );
+      const { data } = await instance.post<AuthResp>(`/token?grant_type=public_access`, qs.stringify({ device_id }));
 
       setExipresAt(data);
       await auth.setState({ publicAuth: data });

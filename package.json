@@ -11,6 +11,7 @@
     "lint": "tslint  -c tslint.json 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
+    "@types/numeral": "^0.0.25",
     "axios": "^0.18.0",
     "d3-array": "^2.0.2",
     "d3-scale": "^2.1.2",
@@ -21,6 +22,7 @@
     "jwt-decode": "^2.2.0",
     "lodash.get": "^4.4.2",
     "native-base": "^2.8.1",
+    "numeral": "^2.0.6",
     "polished": "^2.3.0",
     "qs": "^6.5.2",
     "react": "16.5.0",

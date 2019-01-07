@@ -1,3 +1,4 @@
+import numeral from 'numeral';
 import React from 'react';
 import { View } from 'react-native';
 
@@ -12,7 +13,6 @@ import LineWidget, {
   IndexTitles,
   IndexVal,
   IndexVals,
-  timeInWord,
 } from './base/LineWidget';
 
 function formatXAxis(data: Data, index: number) {
@@ -21,6 +21,9 @@ function formatXAxis(data: Data, index: number) {
   return label[0];
 }
 
+function formatter(value: number) {
+  return numeral(value).format('$0,0.0');
+}
 export class WidgetComp extends LineWidget {
   render() {
     const { widget } = this.props;
@@ -31,15 +34,14 @@ export class WidgetComp extends LineWidget {
       <View>
         <Header>
           <IndexTitles>
-            <IndexTitle>Total visits</IndexTitle>
-            <IndexTitle>Average time</IndexTitle>
+            <IndexTitle>Month total</IndexTitle>
+            <IndexTitle>Month last year</IndexTitle>
           </IndexTitles>
           <IndexVals>
-            <IndexVal>{widget.data.extras[curTick].value_1}</IndexVal>
-            <IndexVal>{timeInWord(widget.data.extras[curTick].value_2)}</IndexVal>
+            <IndexVal>{formatter(widget.data.graphData[0].value[curTick])}</IndexVal>
+            <IndexVal>{formatter(widget.data.graphData[1].value[curTick])}</IndexVal>
           </IndexVals>
         </Header>
-
         <ChartWrapper>
           <LineChart data={data} curTick={curTick} onTickClick={this.onTickClick} formatXAxis={formatXAxis} />
         </ChartWrapper>

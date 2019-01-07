@@ -6,7 +6,7 @@ import { scale } from '../../scale';
 import styled, { th } from '../../styled';
 import { Widget } from '../../types';
 import Link from '../Link';
-
+import SalesByMonth from './SalesByMonth';
 import widgetWebsiteGoalConversions from './WebsiteGoalConversions';
 import widgetWebsiteTraffic from './WebsiteTraffic';
 
@@ -34,6 +34,10 @@ const WidgetOp = styled(Link)``;
 const WidgetWrapper = styled(Animated.View)`
   overflow: hidden;
 `;
+
+const NoDataPromp = styled(P.Text)`
+  text-align: center;
+`;
 interface Props {
   widget: Widget;
 }
@@ -47,6 +51,7 @@ const HEIGHT_COLLAPSED = 60;
 const widgetsMap = {
   'Website Goal Conversions': widgetWebsiteGoalConversions,
   'Website Traffic': widgetWebsiteTraffic,
+  'Sales By Month': SalesByMonth,
 };
 export default class WidgetComp extends React.Component<Props, State> {
   state = {
@@ -67,20 +72,18 @@ export default class WidgetComp extends React.Component<Props, State> {
   render() {
     const { widget } = this.props;
     const { show } = this.state;
-    console.log(widget.attributes.displayName);
     const Widget = widgetsMap[widget.attributes.displayName];
     if (!Widget) return null;
+
+    console.log(widget.attributes.displayName, widget);
     return (
       <WidgetContainer>
         <WidgetHeader>
           <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
-          <WidgetOp
-            title={show ? 'Hide' : 'Show'}
-            onPress={this.onShowHidePress}
-          />
+          <WidgetOp title={show ? 'Hide' : 'Show'} onPress={this.onShowHidePress} />
         </WidgetHeader>
         <WidgetWrapper style={{ height: this.height }}>
-          <Widget widget={widget} />
+          {widget.data.extras ? <Widget widget={widget} /> : <NoDataPromp>no data</NoDataPromp>}
         </WidgetWrapper>
       </WidgetContainer>
     );
