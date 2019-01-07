@@ -18,7 +18,7 @@ interface Props {
   };
   scale: any;
   svg: object;
-  formatLabel: (value: string, index: number) => string;
+  formatLabel: (value: number, index: number) => string;
   yAccessor: (d: any) => number;
   style?: ViewStyle;
 }
@@ -69,7 +69,7 @@ class YAxis extends PureComponent<Props, State> {
     const ticks = getTicks(min, max, numberOfTicks);
     const longestValue = ticks
       .map((value, index) => formatLabel(value, index))
-      .reduce((prev, curr) => (prev.toString().length > curr.toString().length ? prev : curr), 0);
+      .reduce((prev, curr) => (prev.toString().length > curr.toString().length ? prev : curr), '');
 
     const extraProps = {
       y,
@@ -90,7 +90,7 @@ class YAxis extends PureComponent<Props, State> {
               width,
             }}>
             <G>
-              {React.Children.map(children, child => {
+              {React.Children.map(children as React.ReactElement<any>[], child => {
                 return React.cloneElement(child, extraProps);
               })}
               {ticks.map((value, index) => {

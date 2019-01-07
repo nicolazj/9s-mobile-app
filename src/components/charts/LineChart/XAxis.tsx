@@ -17,7 +17,7 @@ interface Props {
   };
   svg: object;
   scale: any;
-  formatLabel: (value: string, index: number) => string;
+  formatLabel: (value: number, index: number) => string;
   xAccessor: (d: any) => number;
   style?: ViewStyle;
 }
@@ -27,7 +27,7 @@ class XAxis extends PureComponent<Props> {
     svg: { fontSize: 10, fill: 'grey' },
     xAccessor: ({ index }: { index: number }) => index,
     scale: d3Scale.scaleLinear,
-    formatLabel: (value: string, index: number) => value,
+    formatLabel: (value: number, index: number) => value && value.toString(),
   } as Partial<Props>;
   state = {
     width: 0,
@@ -38,7 +38,6 @@ class XAxis extends PureComponent<Props> {
     const { style, data, xAccessor, formatLabel, numberOfTicks, svg, children } = this.props;
 
     const { height, width } = this.state;
-
     if (data.length === 0) {
       return <View style={style} />;
     }
@@ -51,23 +50,27 @@ class XAxis extends PureComponent<Props> {
     values = values.filter((item, pos) => {
       return values.indexOf(item) === pos;
     });
+
     const extent = array.extent(values);
     const [min, max] = extent;
-    if (!min || !max) return null;
+    if (min === undefined || max === undefined) return null;
+
     const domain = [min, max];
     const x = this._getX(domain);
-    const ticks = numberOfTicks ? x.ticks(numberOfTicks) : values;
+    const ticks = values;
     const extraProps = {
       x,
       ticks,
       height,
       formatLabel,
     };
-
+    const longestValue = ticks
+      .map((value, index) => formatLabel(value, index))
+      .reduce((prev, curr) => (prev.toString().length > curr.toString().length ? prev : curr), '');
     return (
       <View style={style}>
         <View style={{ flexGrow: 1 }} onLayout={event => this._onLayout(event)}>
-          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>{formatLabel(ticks[0], 0)}</Text>
+          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>{longestValue}</Text>
           <Svg
             style={{
               position: 'absolute',
@@ -77,7 +80,7 @@ class XAxis extends PureComponent<Props> {
               width,
             }}>
             <G>
-              {React.Children.map(children, child => {
+              {React.Children.map(children as React.ReactElement<any>[], child => {
                 return React.cloneElement(child, extraProps);
               })}
               {ticks.map((value, index) => {

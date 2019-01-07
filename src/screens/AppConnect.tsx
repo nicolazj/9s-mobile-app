@@ -86,6 +86,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
                 authResult = Linking.parse(r.url);
                 console.log('authResult', authResult);
               }
+              console.log('cancel !!!!');
               break;
 
             case ACTIVITY_TYPES.SUBMIT_ENTITY:
@@ -110,11 +111,12 @@ export class AppConnectScreen extends React.Component<Props, State> {
                   callback: step.id,
                   serviceID: appKey,
                 });
-              }
+              } else throw 'no auth result';
               break;
           }
 
           const r = await company.workflow.update(workflow.id, act.id, step.id);
+          console.log(r);
           activities.shift();
           activities = activities.concat(r.activities);
         }
@@ -151,6 +153,12 @@ export class AppConnectScreen extends React.Component<Props, State> {
           <P.Container vcenter>
             <AppImg style={{}} source={{ uri: appDetail.app.logo }} resizeMode="contain" />
             <P.H2>SUCCEEDED</P.H2>
+          </P.Container>
+        )}
+
+        {step === ACTIVITY_TYPES.ERRORED && (
+          <P.Container vcenter>
+            <P.H2>ERRORED</P.H2>
           </P.Container>
         )}
       </P.Container>

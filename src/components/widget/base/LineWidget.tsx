@@ -35,12 +35,6 @@ export const ChartWrapper = styled(View)`
   padding: 0px 20px;
 `;
 
-export function formatXAxis(data, index, count) {
-  const item = data[0].data[index];
-  const label = item && t(item.label_key);
-  return count > 7 ? label[0] : label;
-}
-
 export function timeInWord(milisec: number) {
   let sec = Math.floor(milisec / 1000);
   let word = '';

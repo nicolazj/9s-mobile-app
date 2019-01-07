@@ -61,14 +61,14 @@ export class AppDetailScreen extends React.Component<Props> {
     console.log(appDetail);
     this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT], { key: appDetail.appKey });
   };
-  onRemoveConnection = async (connectionId: string) => {
+  onRemoveConnection = async (connectionId: string, appKey: string) => {
     Alert.alert(
       'Remove connection?',
       'Are you sure you want to remove your connection ',
       [
         {
           text: 'OK',
-          onPress: () => this.removeConnection(connectionId),
+          onPress: () => this.removeConnection(connectionId, appKey),
         },
         {
           text: 'Cancel',
@@ -81,8 +81,9 @@ export class AppDetailScreen extends React.Component<Props> {
       { cancelable: false }
     );
   };
-  removeConnection = async (connectionId: string) => {
+  removeConnection = async (connectionId: string, appKey: string) => {
     await agent.company.connection.delete(connectionId);
+    await agent.company.widget.deleteByAppKey(appKey);
     this.reloadConnections();
   };
   reloadConnections = async () => {
@@ -96,7 +97,12 @@ export class AppDetailScreen extends React.Component<Props> {
     const appDetail = appState.appDetail(appKey);
     const { connection, app } = appDetail;
     const removeConnectionButton = (
-      <Button key="remove" title="Remove connection" danger onPress={() => this.onRemoveConnection(connection.id)} />
+      <Button
+        key="remove"
+        title="Remove connection"
+        danger
+        onPress={() => this.onRemoveConnection(connection.id, appKey)}
+      />
     );
 
     if (!connection) {
