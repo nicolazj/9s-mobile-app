@@ -50,7 +50,6 @@ class XAxis extends PureComponent<Props> {
     values = values.filter((item, pos) => {
       return values.indexOf(item) === pos;
     });
-    console.log(values);
     const extent = array.extent(values);
     const [min, max] = extent;
     if (min === undefined || max === undefined) return null;

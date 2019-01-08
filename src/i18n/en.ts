@@ -32,9 +32,20 @@ export const commmonLookup: Dict = {
   'repeat.visits': 'Repeat visits',
   'month.last.year': 'Last year',
   'month.this.year': 'This year',
+  'day.last.week': 'Last week',
+  'day.this.week': 'This week',
   'total.revenues': 'Total revenues',
   'total.expenses': 'Total expenses',
+  payables: 'Payables',
+  taxes: 'Taxes',
+  'we.owe': 'We owe',
+  'owed.to.us': 'Owed to use',
+  'cash.on.hand': 'Cash on hand',
+  tax: 'Tax',
+  total: 'Total',
+};
 
+const legacy: Dict = {
   'ft.this.week': 'This week',
   'ft.last.week': 'Last week',
   'ft.this.year': 'This year',
@@ -251,6 +262,7 @@ const all = {
   ...monthLookup,
   ...weekDayLookup,
   ...commmonLookup,
+  ...legacy,
 };
 
 export default (key: string): string => (all[key] ? all[key] : key);

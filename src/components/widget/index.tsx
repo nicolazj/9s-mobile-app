@@ -3,10 +3,16 @@ import { Animated, View } from 'react-native';
 
 import * as P from '../../primitives';
 import { scale } from '../../scale';
-import styled, { th } from '../../styled';
+import styled from '../../styled';
 import { Widget } from '../../types';
 import Link from '../Link';
 import BussinessGrowth from './BussinessGrowth';
+import CashCommitments from './CashCommitments';
+import CashPositionAndCoverage from './CashPositionAndCoverage';
+import GrossProfit from './GrossProfit';
+import MoneyOwed from './MoneyOwed';
+import MoneyOwedMoneyOwing from './MoneyOwedMoneyOwing';
+import SalesByDay from './SalesByDay';
 import SalesByMonth from './SalesByMonth';
 import widgetWebsiteGoalConversions from './WebsiteGoalConversions';
 import widgetWebsiteTraffic from './WebsiteTraffic';
@@ -53,7 +59,13 @@ const widgetsMap = {
   'website-conversions': widgetWebsiteGoalConversions,
   'website-traffic': widgetWebsiteTraffic,
   'sales-by-month': SalesByMonth,
+  'sales-by-day': SalesByDay,
   'business-growth': BussinessGrowth,
+  'cash-position-and-coverage': CashPositionAndCoverage,
+  'gross-profit': GrossProfit,
+  'money-owed': MoneyOwed,
+  'money-owed-and-money-owing': MoneyOwedMoneyOwing,
+  'cash-commitments': CashCommitments,
 };
 export default class WidgetComp extends React.Component<Props, State> {
   state = {

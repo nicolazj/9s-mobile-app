@@ -68,6 +68,9 @@ export interface Widget {
     order: number;
   };
   data: {
+    dataSets: {
+      rows: { column_1: string; column_2: string }[];
+    }[];
     extras: Array<{ label_key: string }>;
     graphData: Array<{
       data_set_name: string;
