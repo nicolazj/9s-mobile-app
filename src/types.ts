@@ -57,6 +57,11 @@ export interface Spoke {
   spokesKey: string;
   type: string;
 }
+
+export interface DataRow {
+  column_1: string;
+  column_2: string;
+}
 export interface Widget {
   attributes: {
     active: boolean;
@@ -69,7 +74,7 @@ export interface Widget {
   };
   data: {
     dataSets: {
-      rows: { column_1: string; column_2: string }[];
+      rows: DataRow[];
     }[];
     extras: Array<{ label_key: string }>;
     graphData: Array<{

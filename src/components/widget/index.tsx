@@ -43,13 +43,14 @@ const WidgetWrapper = styled(Animated.View)`
 `;
 
 const NoDataPromp = styled(P.Text)`
-  text-align: center;
+  text-align: left;
+  padding: 0 10px;
 `;
 interface Props {
   widget: Widget;
 }
 interface State {
-  show: boolean;
+  collapsed: boolean;
 }
 
 const HEIGHT_EXPANDED = 300;
@@ -69,34 +70,40 @@ const widgetsMap = {
 };
 export default class WidgetComp extends React.Component<Props, State> {
   state = {
-    show: true,
+    collapsed: true,
   } as State;
 
-  height = new Value(HEIGHT_EXPANDED);
+  height = new Value(HEIGHT_COLLAPSED);
 
   onShowHidePress = () => {
     Animated.timing(this.height, {
-      toValue: this.state.show ? HEIGHT_COLLAPSED : HEIGHT_EXPANDED,
+      toValue: this.state.collapsed ? HEIGHT_EXPANDED : HEIGHT_COLLAPSED,
       duration: 300,
     }).start();
     this.setState({
-      show: !this.state.show,
+      collapsed: !this.state.collapsed,
     });
   };
   render() {
     const { widget } = this.props;
-    const { show } = this.state;
+    const { collapsed } = this.state;
     const Widget = widgetsMap[widget.key];
     if (!Widget) return null;
-
+    const hasData = !!widget.data.extras;
     return (
       <WidgetContainer>
         <WidgetHeader>
           <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
-          <WidgetOp title={show ? 'Hide' : 'Show'} onPress={this.onShowHidePress} />
+          {hasData && <WidgetOp title={collapsed ? 'Show' : 'Hide'} onPress={this.onShowHidePress} />}
         </WidgetHeader>
         <WidgetWrapper style={{ height: this.height }}>
-          {widget.data.extras ? <Widget widget={widget} /> : <NoDataPromp>no data</NoDataPromp>}
+          {hasData ? (
+            <Widget widget={widget} collapsed={collapsed} />
+          ) : (
+            <NoDataPromp>
+              Sorry, we can't find your information. Check if your app contains and data or start making use of it
+            </NoDataPromp>
+          )}
         </WidgetWrapper>
       </WidgetContainer>
     );
