@@ -93,7 +93,7 @@ class WidgetComp extends React.Component<Props, State> {
             <Widget widget={widget} collapsed={collapsed} />
           ) : (
             <NoDataPromp>
-              Sorry, we can't find your information. Check if your app contains and data or start making use of it
+              Sorry, we can't find your information. Check if your app contains any data or start making use of it
             </NoDataPromp>
           )}
         </WidgetWrapper>
