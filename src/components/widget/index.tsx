@@ -5,19 +5,10 @@ import { NavigationScreenProp, withNavigation } from 'react-navigation';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import { scale } from '../../scale';
-import styled, { th } from '../../styled';
+import styled from '../../styled';
 import { Widget } from '../../types';
 import Link from '../Link';
-import BussinessGrowth from './BussinessGrowth';
-import CashCommitments from './CashCommitments';
-import CashPositionAndCoverage from './CashPositionAndCoverage';
-import GrossProfit from './GrossProfit';
-import MoneyOwed from './MoneyOwed';
-import MoneyOwedMoneyOwing from './MoneyOwedMoneyOwing';
-import SalesByDay from './SalesByDay';
-import SalesByMonth from './SalesByMonth';
-import widgetWebsiteGoalConversions from './WebsiteGoalConversions';
-import widgetWebsiteTraffic from './WebsiteTraffic';
+import { getWidgetByKey } from './utils';
 
 const { Value } = Animated;
 
@@ -54,6 +45,7 @@ const NoDataPromp = styled(P.Text)`
 `;
 interface Props {
   widget: Widget;
+  sample: boolean;
   navigation: NavigationScreenProp<any, any>;
 }
 interface State {
@@ -63,24 +55,16 @@ interface State {
 const HEIGHT_EXPANDED = 300;
 const HEIGHT_COLLAPSED = 60;
 
-const widgetsMap = {
-  'website-conversions': widgetWebsiteGoalConversions,
-  'website-traffic': widgetWebsiteTraffic,
-  'sales-by-month': SalesByMonth,
-  'sales-by-day': SalesByDay,
-  'business-growth': BussinessGrowth,
-  'cash-position-and-coverage': CashPositionAndCoverage,
-  'gross-profit': GrossProfit,
-  'money-owed': MoneyOwed,
-  'money-owed-and-money-owing': MoneyOwedMoneyOwing,
-  'cash-commitments': CashCommitments,
-};
 class WidgetComp extends React.Component<Props, State> {
-  state = {
-    collapsed: true,
-  } as State;
+  private height: Animated.Value;
 
-  height = new Value(HEIGHT_COLLAPSED);
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      collapsed: props.sample ? false : true,
+    };
+    this.height = new Value(props.sample ? HEIGHT_EXPANDED : HEIGHT_COLLAPSED);
+  }
 
   onShowHidePress = () => {
     Animated.timing(this.height, {
@@ -92,12 +76,12 @@ class WidgetComp extends React.Component<Props, State> {
     });
   };
   render() {
-    const { widget } = this.props;
+    const { widget, sample } = this.props;
     const { collapsed } = this.state;
-    const Widget = widgetsMap[widget.key];
-    if (!Widget) return null;
     const hasData = !!widget.data.extras;
-    console.log(this.props.navigation);
+
+    const Widget = getWidgetByKey(widget.key);
+    if (!Widget) return null;
     return (
       <WidgetContainer>
         <WidgetHeader>
@@ -113,14 +97,17 @@ class WidgetComp extends React.Component<Props, State> {
             </NoDataPromp>
           )}
         </WidgetWrapper>
-        <WidgetFooter>
-          <Link
-            title="what does this mean?"
-            onPress={() => {
-              this.props.navigation.navigate(SCREENS[SCREENS.WIDGET_INFO]);
-            }}
-          />
-        </WidgetFooter>
+
+        {!collapsed && !sample && (
+          <WidgetFooter>
+            <Link
+              title="what does this mean?"
+              onPress={() => {
+                this.props.navigation.navigate(SCREENS[SCREENS.WIDGET_INFO], { key: widget.key });
+              }}
+            />
+          </WidgetFooter>
+        )}
       </WidgetContainer>
     );
   }

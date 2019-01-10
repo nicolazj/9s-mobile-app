@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStackNavigator, NavigationBottomTabScreenOptions, NavigationScreenConfig } from 'react-navigation';
+
 import DashboardScreen from '../../screens/Dashboard';
 import WidgetInfo from '../../screens/WidgetInfo';
 import { IThemeInterface, th } from '../../styled';
