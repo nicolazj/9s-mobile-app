@@ -5,15 +5,7 @@ import { View } from 'react-native';
 import t from '../../i18n/en';
 import { withTheme } from '../../styled';
 import LineChart from '../charts/LineChart';
-import LineWidget, {
-  ChartWrapper,
-  Data,
-  Header,
-  IndexTitle,
-  IndexTitles,
-  IndexVal,
-  IndexVals,
-} from './base/LineWidget';
+import LineWidget, { Data, Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from './base/LineWidget';
 
 function formatXAxis(value: number, index: number, data: Data) {
   const item = data[0].data[index];
@@ -44,15 +36,13 @@ export class WidgetComp extends LineWidget {
             <IndexVal>{formatter(widget.data.graphData[1].value[curTick])}</IndexVal>
           </IndexVals>
         </Header>
-        <ChartWrapper>
-          <LineChart
-            data={data}
-            curTick={curTick}
-            onTickClick={this.onTickClick}
-            formatXAxis={formatXAxis}
-            formatYAxis={formatYAxis}
-          />
-        </ChartWrapper>
+        <LineChart
+          data={data}
+          curTick={curTick}
+          onTickClick={this.onTickClick}
+          formatXAxis={formatXAxis}
+          formatYAxis={formatYAxis}
+        />
       </View>
     );
   }

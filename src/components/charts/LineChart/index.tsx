@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
+import styled from '../../../styled';
 import { Data } from '../../widget/base/LineWidget';
 import Grid from './Grid';
 import Indicator from './Indicator';
@@ -16,12 +17,16 @@ interface Props {
   formatYAxis: (value: number, index: number) => string;
   curTick: number;
 }
+
+export const ChartWrapper = styled(View)`
+  padding: 0px 20px;
+`;
 class LineChartWrapper extends React.PureComponent<Props> {
   render() {
     const { data, onTickClick, formatXAxis, formatYAxis, curTick } = this.props;
     const xAxisHeight = 30;
     return (
-      <View>
+      <ChartWrapper>
         <Legend data={data} />
         <View style={{ height: 200, padding: 0, flexDirection: 'row' }}>
           <YAxis
@@ -55,7 +60,7 @@ class LineChartWrapper extends React.PureComponent<Props> {
             />
           </View>
         </View>
-      </View>
+      </ChartWrapper>
     );
   }
 }

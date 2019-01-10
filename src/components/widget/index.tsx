@@ -1,9 +1,11 @@
 import React from 'react';
 import { Animated, View } from 'react-native';
+import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import * as P from '../../primitives';
+import { SCREENS } from '../../routes/constants';
 import { scale } from '../../scale';
-import styled from '../../styled';
+import styled, { th } from '../../styled';
 import { Widget } from '../../types';
 import Link from '../Link';
 import BussinessGrowth from './BussinessGrowth';
@@ -41,13 +43,18 @@ const WidgetOp = styled(Link)``;
 const WidgetWrapper = styled(Animated.View)`
   overflow: hidden;
 `;
-
+const WidgetFooter = styled(View)`
+  padding: 10px;
+  justify-content: flex-end;
+`;
 const NoDataPromp = styled(P.Text)`
   text-align: left;
   padding: 0 10px;
+  color: #999;
 `;
 interface Props {
   widget: Widget;
+  navigation: NavigationScreenProp<any, any>;
 }
 interface State {
   collapsed: boolean;
@@ -68,7 +75,7 @@ const widgetsMap = {
   'money-owed-and-money-owing': MoneyOwedMoneyOwing,
   'cash-commitments': CashCommitments,
 };
-export default class WidgetComp extends React.Component<Props, State> {
+class WidgetComp extends React.Component<Props, State> {
   state = {
     collapsed: true,
   } as State;
@@ -90,6 +97,7 @@ export default class WidgetComp extends React.Component<Props, State> {
     const Widget = widgetsMap[widget.key];
     if (!Widget) return null;
     const hasData = !!widget.data.extras;
+    console.log(this.props.navigation);
     return (
       <WidgetContainer>
         <WidgetHeader>
@@ -105,7 +113,17 @@ export default class WidgetComp extends React.Component<Props, State> {
             </NoDataPromp>
           )}
         </WidgetWrapper>
+        <WidgetFooter>
+          <Link
+            title="what does this mean?"
+            onPress={() => {
+              this.props.navigation.navigate(SCREENS[SCREENS.WIDGET_INFO]);
+            }}
+          />
+        </WidgetFooter>
       </WidgetContainer>
     );
   }
 }
+
+export default withNavigation(WidgetComp);

@@ -31,9 +31,6 @@ export const IndexVal = styled(P.Text)`
   font-weight: bold;
   font-size: ${scale(14)}px;
 `;
-export const ChartWrapper = styled(View)`
-  padding: 0px 20px;
-`;
 
 export function timeInWord(milisec: number) {
   let sec = Math.floor(milisec / 1000);

@@ -48,6 +48,7 @@ export class AuthState extends Container<State> {
   async rehydrate() {
     const serialState = await AsyncStorage.getItem(KEY);
     if (serialState) {
+      console.log('serialState', serialState);
       const incomingState = JSON.parse(serialState);
       this.setState(incomingState as State);
     }
