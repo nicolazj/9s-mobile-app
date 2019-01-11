@@ -40,6 +40,7 @@ export default createStackNavigator(
       screen: signUp,
       navigationOptions: (props: NavigationScreenProps) => {
         return {
+          headerTintColor: th('color.header')(props.screenProps as { theme: IThemeInterface }),
           headerStyle: {
             backgroundColor: th('color.view.bg')(props.screenProps as { theme: IThemeInterface }),
             elevation: 0, // remove shadow on Android
@@ -53,6 +54,7 @@ export default createStackNavigator(
       screen: ResetPwd,
       navigationOptions: (props: NavigationScreenProps) => {
         return {
+          headerTintColor: th('color.header')(props.screenProps as { theme: IThemeInterface }),
           headerStyle: {
             backgroundColor: th('color.view.bg')(props.screenProps as { theme: IThemeInterface }),
             elevation: 0, // remove shadow on Android

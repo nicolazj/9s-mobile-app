@@ -1,7 +1,7 @@
 import { createStackNavigator } from 'react-navigation';
-import { IThemeInterface, th } from '../../styled';
 
 import SettingsScreen from '../../screens/Settings';
+import { IThemeInterface, th } from '../../styled';
 import { getTabNavOpts } from './helper';
 
 const SettingsStack = createStackNavigator(

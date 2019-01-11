@@ -1,4 +1,5 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+
 import Loading from '../screens/Loading';
 import Auth from './Auth';
 import { SCREENS } from './constants';
@@ -8,6 +9,7 @@ const MainNavigator = createSwitchNavigator(
   {
     Tabs,
     [SCREENS[SCREENS.LOADING]]: Loading,
+
     Auth,
   },
   {

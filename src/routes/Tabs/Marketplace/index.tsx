@@ -10,7 +10,7 @@ import { getTabNavOpts } from '../helper';
 import Apps from './Apps';
 import Widgets from './Widgets';
 
-const m = createMaterialTopTabNavigator(
+const Marketplace = createMaterialTopTabNavigator(
   {
     Apps,
     Widgets,
@@ -34,7 +34,7 @@ const m = createMaterialTopTabNavigator(
 
 const MarketplaceStack = createStackNavigator(
   {
-    [SCREENS[SCREENS.MARKETPLACE_HOME]]: { screen: m, navigationOptions: { title: 'Marketplace' } },
+    [SCREENS[SCREENS.MARKETPLACE_HOME]]: { screen: Marketplace, navigationOptions: { title: 'Marketplace' } },
     [SCREENS[SCREENS.APP_DETAIL]]: {
       screen: AppDetail,
       navigationOptions: (props: NavigationScreenProps) => {

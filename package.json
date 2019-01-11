@@ -11,7 +11,6 @@
     "lint": "tslint  -c tslint.json 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
-    "@types/numeral": "^0.0.25",
     "axios": "^0.18.0",
     "d3-array": "^2.0.2",
     "d3-scale": "^2.1.2",
@@ -37,6 +36,8 @@
     "yup": "^0.26.6"
   },
   "devDependencies": {
+    "@types/numeral": "^0.0.25",
+    "@types/react-navigation": "^3.0.1",
     "@types/d3-array": "^1.2.4",
     "@types/d3-scale": "^2.0.2",
     "@types/d3-shape": "^1.2.7",
@@ -47,7 +48,6 @@
     "@types/qs": "^6.5.1",
     "@types/react": "^16.4.14",
     "@types/react-native": "^0.57.0",
-    "@types/react-navigation": "^2.0.23",
     "@types/styled-components": "^4.0.2",
     "@types/yup": "^0.26.0",
     "babel-preset-expo": "^5.0.0"
