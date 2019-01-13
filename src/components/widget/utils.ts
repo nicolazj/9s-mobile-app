@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { Widget } from '../../types';
+import AverageItemsPerSale from './AverageItemsPerSale';
+import AverageSpendPerSale from './AverageSpendPerSale';
 import BussinessGrowth from './BussinessGrowth';
 import CashCommitments from './CashCommitments';
 import CashPositionAndCoverage from './CashPositionAndCoverage';
@@ -26,6 +28,8 @@ const widgetsMap: WidgetMap = {
   'money-owed': MoneyOwed,
   'money-owed-and-money-owing': MoneyOwedMoneyOwing,
   'cash-commitments': CashCommitments,
+  'average-items-per-sale': AverageItemsPerSale,
+  'average-spend-per-sale': AverageSpendPerSale,
 };
 
 const WidgetDataMap = {

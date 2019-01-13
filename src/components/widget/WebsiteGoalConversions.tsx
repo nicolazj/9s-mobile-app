@@ -15,7 +15,6 @@ function formatXAxis(value: number, index: number, data: Data) {
 export class WidgetComp extends LineWidget {
   render() {
     const { widget } = this.props;
-    console.log(widget);
     const { curTick } = this.state;
     const data = this.getData();
     return (
