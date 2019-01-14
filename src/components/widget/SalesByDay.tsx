@@ -10,7 +10,7 @@ import LineWidget, { Data, Header, IndexTitle, IndexTitles, IndexVal, IndexVals 
 function formatXAxis(value: number, index: number, data: Data) {
   const item = data[0].data[index];
   const label = item && t(item.label_key);
-  return label;
+  return label || '';
 }
 function formatYAxis(value: number, index: number) {
   return value > 1000 ? (value / 1000).toFixed(1) + 'K' : value.toString();

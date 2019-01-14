@@ -65,7 +65,9 @@ class XAxis extends PureComponent<Props> {
     };
     const longestValue = ticks
       .map((value, index) => formatLabel(value, index))
-      .reduce((prev, curr) => (prev.toString().length > curr.toString().length ? prev : curr), '');
+      .reduce((prev, curr) => {
+        return prev.toString().length > curr.toString().length ? prev : curr;
+      }, '');
     return (
       <View style={style}>
         <View style={{ flexGrow: 1 }} onLayout={event => this._onLayout(event)}>
