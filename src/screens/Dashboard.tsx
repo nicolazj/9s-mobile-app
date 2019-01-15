@@ -13,7 +13,7 @@ export default class Dashboard extends React.Component<any, State> {
   } as State;
   async componentDidMount() {
     const widgets = await agent.company.widget.list();
-    console.log(widgets.map(w => w.key));
+    console.log(widgets.map(w => w.key + '----' + w.origin));
     this.setState({ widgets });
   }
   render() {

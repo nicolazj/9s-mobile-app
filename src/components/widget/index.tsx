@@ -85,7 +85,10 @@ class WidgetComp extends React.Component<Props, State> {
     return (
       <WidgetContainer>
         <WidgetHeader>
-          <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
+          <View>
+            <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
+            <P.Text>{widget.origin}</P.Text>
+          </View>
           {hasData && <WidgetOp title={collapsed ? 'Show' : 'Hide'} onPress={this.onShowHidePress} />}
         </WidgetHeader>
         <WidgetWrapper style={{ height: this.height }}>

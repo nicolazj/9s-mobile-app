@@ -2,7 +2,7 @@ import jwt from 'jwt-decode';
 import { AsyncStorage } from 'react-native';
 import { Container } from 'unstated';
 import { AuthResp, UserAuthResp } from '../types';
-
+import PersistContainer from './PersistContainer';
 type UserId = string;
 type CompanyUuid = string;
 
@@ -14,8 +14,15 @@ interface State {
   companyUuid: CompanyUuid;
 }
 
-const KEY = 'AUTH';
-export class AuthState extends Container<State> {
+export class AuthState extends PersistContainer<State> {
+  get config() {
+    return {
+      key: 'AUTH',
+      version: 1,
+      storage: AsyncStorage,
+    };
+  }
+
   setUser(userAuth: UserAuthResp) {
     const { openid } = userAuth;
     const { sub: userId } = jwt(openid);
@@ -44,18 +51,6 @@ export class AuthState extends Container<State> {
   }
   hasCompany() {
     return this.state && this.state.companyUuid;
-  }
-  async rehydrate() {
-    const serialState = await AsyncStorage.getItem(KEY);
-    if (serialState) {
-      console.log('serialState', serialState);
-      const incomingState = JSON.parse(serialState);
-      this.setState(incomingState as State);
-    }
-
-    this.subscribe(() => {
-      AsyncStorage.setItem(KEY, JSON.stringify(this.state));
-    });
   }
 }
 

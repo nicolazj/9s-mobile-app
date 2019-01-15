@@ -1,4 +1,5 @@
 export enum SCREENS {
+  ONBOARDING,
   DASHBOARD,
   LOADING,
   SIGN_IN,
