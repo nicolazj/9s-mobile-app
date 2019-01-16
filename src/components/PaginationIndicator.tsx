@@ -1,49 +1,35 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
+import styled from '../styled';
+interface Props {
+  current: number;
+  length: number;
+}
 
-export default class PaginationIndicator extends React.Component {
-  static propTypes = {
-    current: PropTypes.number,
-    length: PropTypes.number.isRequired,
-  };
-  static defaultProps = {
-    current: 0,
-  };
+const PView = styled(View)`
+  flex-direction: row;
+`;
 
-  renderIndicatorItem = (index, selected) => (
-    <View
-      style={selected ? [styles.base, styles.selected] : styles.base}
-      key={index}
-    />
+const Dot = styled(View)<{ selected: boolean }>`
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  margin: 0 4px;
+  background-color: ${p => (p.selected ? '#333' : '#999')};
+`;
+const PaginationIndicator: React.FC<Props> = ({ current = 0, length }) => {
+  const renderIndicatorItem = (index: number, selected: boolean) => (
+    <Dot selected={selected} key={index} />
   );
 
-  renderIndicators = () => {
+  const renderIndicators = () => {
     const indicators = [];
-    for (let i = 0; i < this.props.length; i += 1) {
-      indicators.push(this.renderIndicatorItem(i, i === this.props.current));
+    for (let i = 0; i < length; i += 1) {
+      indicators.push(renderIndicatorItem(i, i === current));
     }
     return indicators;
   };
 
-  render = () => (
-    <View style={styles.container}>{this.renderIndicators()}</View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-  },
-  base: {
-    width: 8,
-    height: 8,
-    borderRadius: 5,
-    borderColor: 'red',
-    borderWidth: 1,
-    marginHorizontal: 5,
-  },
-  selected: {
-    backgroundColor: 'red',
-  },
-});
+  return <PView>{renderIndicators()}</PView>;
+};
+export default PaginationIndicator;

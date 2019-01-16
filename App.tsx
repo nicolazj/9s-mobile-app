@@ -36,6 +36,10 @@ export default class App extends React.Component<Props> {
     return Promise.all([
       // auth.rehydrate(),
       Asset.loadAsync([require('./assets/google.png')]),
+      Asset.loadAsync([require('./assets/onboarding1.jpeg')]),
+      Asset.loadAsync([require('./assets/onboarding2.jpeg')]),
+      Asset.loadAsync([require('./assets/onboarding3.jpeg')]),
+      Asset.loadAsync([require('./assets/onboarding4.jpeg')]),
       Font.loadAsync({
         ...Icon.Ionicons.font,
       }),
