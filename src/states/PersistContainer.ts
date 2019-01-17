@@ -8,7 +8,6 @@ interface PersistConfig {
 
 export default abstract class PersistContainer<T extends object> extends Container<T> {
   abstract get config(): PersistConfig;
-
   constructor() {
     super();
 
@@ -21,7 +20,7 @@ export default abstract class PersistContainer<T extends object> extends Contain
           if (incomingState._persist_version === config.version) {
             delete incomingState._persist_version;
             this.setState(incomingState as Partial<T>);
-          } else console.log('unstated-persist: state version mismatch, skipping rehydration');
+          } else console.log(' state version mismatch, skipping rehydration');
         }
       } catch (err) {
         console.log('err during rehydate', err);
@@ -30,7 +29,7 @@ export default abstract class PersistContainer<T extends object> extends Contain
           config.storage
             .setItem(config.key, JSON.stringify({ ...this.state, _persist_version: config.version }))
             .catch(err => {
-              console.log('unstated-persist: err during store', err);
+              console.log(' err during store', err);
             });
         });
       }

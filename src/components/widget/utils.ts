@@ -11,6 +11,8 @@ import MoneyOwed from './MoneyOwed';
 import MoneyOwedMoneyOwing from './MoneyOwedMoneyOwing';
 import SalesByDay from './SalesByDay';
 import SalesByMonth from './SalesByMonth';
+import SalesByWeek from './SalesByWeek';
+import TopSellingProducts from './TopSellingProducts';
 import widgetWebsiteGoalConversions, { sample as widgetWebsiteGoalConversionsSample } from './WebsiteGoalConversions';
 import widgetWebsiteTraffic from './WebsiteTraffic';
 
@@ -30,9 +32,13 @@ const widgetsMap: WidgetMap = {
   'cash-commitments': CashCommitments,
   'average-items-per-sale': AverageItemsPerSale,
   'average-spend-per-sale': AverageSpendPerSale,
+  'top-selling-products': TopSellingProducts,
+  'sales-by-week': SalesByWeek,
 };
-
-const WidgetDataMap = {
+interface WidgetDataMap {
+  [key: string]: Widget;
+}
+const WidgetDataMap: WidgetDataMap = {
   'website-conversions': widgetWebsiteGoalConversionsSample,
 };
 

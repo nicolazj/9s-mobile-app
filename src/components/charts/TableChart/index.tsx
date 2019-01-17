@@ -6,11 +6,15 @@ import { scale } from '../../../scale';
 import styled, { th, withTheme } from '../../../styled';
 import { DataRow } from '../../../types';
 
+interface Formatter {
+  (value: string): string;
+}
+
 interface Props {
   data: DataRow[];
-  col1Formatter: (value: string) => string;
-  col2Formatter: (value: string) => string;
+  colFormatters: Formatter[];
   collapsed: boolean;
+  header: React.ReactNodeArray;
 }
 
 export const ChartWrapper = styled(View)`
@@ -25,17 +29,34 @@ const Row = styled(View)<{ stripe: boolean; last?: boolean }>`
 const ColText = styled(P.Text)<{ strong: boolean }>`
   font-size: ${scale(12)}px;
   ${p => (p.strong ? `font-weight:bold` : '')};
+
+  flex: 1;
 `;
 
-const TableChart: React.StatelessComponent<Props> = ({ data, col1Formatter, col2Formatter, collapsed }) => {
-  const rows = collapsed ? [data[data.length - 1]] : data;
+const TableChart: React.StatelessComponent<Props> = ({ data, colFormatters, collapsed, header }) => {
+  const rows = collapsed ? data.filter(d => d.showWhenCollapsed) : data;
   return (
     <ChartWrapper>
+      <Row key="head">
+        {React.Children.map(header, (key, key_index) => {
+          return (
+            <ColText key={key_index} style={{ textAlign: key_index === 0 ? 'left' : 'right' }}>
+              {key}
+            </ColText>
+          );
+        })}
+      </Row>
+
       {rows.map((d, index) => {
         return (
           <Row stripe={index % 2 === 1} key={index}>
-            <ColText strong={index === rows.length - 1}>{col1Formatter(d.column_1)}</ColText>
-            <ColText strong={index === rows.length - 1}>{col2Formatter(d.column_2)}</ColText>
+            {d.data.map((key, key_index) => {
+              return (
+                <ColText key={key} strong={d.strong === true} style={{ textAlign: key_index === 0 ? 'left' : 'right' }}>
+                  {colFormatters[key_index](key)}
+                </ColText>
+              );
+            })}
           </Row>
         );
       })}

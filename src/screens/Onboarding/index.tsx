@@ -28,10 +28,7 @@ const Walkthrough1 = () => {
   return (
     <Slide padding hcenter>
       <Title>Stay on top of your business 24/7</Title>
-      <Subtitle>
-        see the performance data that matters most to you during your bussiness
-        day
-      </Subtitle>
+      <Subtitle>see the performance data that matters most to you during your bussiness day</Subtitle>
 
       <Pic source={require('../../../assets/onboarding1.jpeg')} />
     </Slide>
@@ -42,10 +39,7 @@ const Walkthrough2 = () => {
   return (
     <Slide padding hcenter>
       <Title>It's simple to get started</Title>
-      <Subtitle>
-        Create your account, register your compnay, connect your favorite
-        business apps
-      </Subtitle>
+      <Subtitle>Create your account, register your compnay, connect your favorite business apps</Subtitle>
 
       <Pic source={require('../../../assets/onboarding2.jpeg')} />
     </Slide>
@@ -96,12 +90,14 @@ const WalkthroughView = styled(P.Container)`
 export default class WalkthroughScreen extends React.Component {
   render = () => (
     <WalkthroughView>
-      <Walkthrough>
-        <Walkthrough1 />
-        <Walkthrough2 />
-        <Walkthrough3 />
-        <Walkthrough4 />
-      </Walkthrough>
+      <P.SafeArea>
+        <Walkthrough>
+          <Walkthrough1 />
+          <Walkthrough2 />
+          <Walkthrough3 />
+          <Walkthrough4 />
+        </Walkthrough>
+      </P.SafeArea>
     </WalkthroughView>
   );
 }

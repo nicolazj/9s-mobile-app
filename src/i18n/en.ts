@@ -32,6 +32,8 @@ export const commmonLookup: Dict = {
   'repeat.visits': 'Repeat visits',
   'month.last.year': 'Last year',
   'month.this.year': 'This year',
+  'week.last.year': 'Last year',
+  'week.this.year': 'This year',
   'day.last.week': 'Last week',
   'day.this.week': 'This week',
   'coverage.last.week': 'Last week',

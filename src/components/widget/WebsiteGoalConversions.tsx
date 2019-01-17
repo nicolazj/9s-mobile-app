@@ -3,6 +3,7 @@ import { View } from 'react-native';
 
 import t from '../../i18n/en';
 import { withTheme } from '../../styled';
+import { Widget } from '../../types';
 import LineChart from '../charts/LineChart';
 import LineWidget, { Data, Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from './base/LineWidget';
 
@@ -37,7 +38,7 @@ export class WidgetComp extends LineWidget {
 
 export default withTheme(WidgetComp);
 
-export const sample = {
+export const sample: Widget = {
   alertSettings: [],
   attributes: {
     active: true,

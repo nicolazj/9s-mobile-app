@@ -59,8 +59,9 @@ export interface Spoke {
 }
 
 export interface DataRow {
-  column_1: string;
-  column_2: string;
+  data: string[];
+  strong?: boolean;
+  showWhenCollapsed?: boolean;
 }
 export interface Widget {
   attributes: {
@@ -71,12 +72,14 @@ export interface Widget {
     showOnMobile: boolean;
     status: string;
     order: number;
+    categories: any;
+    createdAt: number;
   };
   data: {
     dataSets: {
-      rows: DataRow[];
+      rows: Array<{ [key: string]: string }>;
     }[];
-    extras: Array<{ label_key: string }>;
+    extras: Array<{ label_key: string; value_1: number; value_2: number }>;
     graphData: Array<{
       data_set_name: string;
       value: number[];

@@ -78,10 +78,11 @@ class WidgetComp extends React.Component<Props, State> {
   render() {
     const { widget, sample } = this.props;
     const { collapsed } = this.state;
-    const hasData = !!widget.data.extras;
+    const hasData = !!widget.data.extras || widget.data.dataSets;
 
     const Widget = getWidgetByKey(widget.key);
     if (!Widget) return null;
+
     return (
       <WidgetContainer>
         <WidgetHeader>
