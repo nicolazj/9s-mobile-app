@@ -59,7 +59,7 @@ class SignIn extends React.Component<Props> {
             <Container padding={true}>
               <Formik
                 initialValues={{
-                  username: 'nicolas.jiang@9spokes.com',
+                  username: 'shopify@9spokes.com',
                   password: 'Qwer1234',
                 }}
                 validationSchema={object().shape({

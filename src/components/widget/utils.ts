@@ -13,6 +13,7 @@ import SalesByDay from './SalesByDay';
 import SalesByMonth from './SalesByMonth';
 import SalesByWeek from './SalesByWeek';
 import TopSellingProducts from './TopSellingProducts';
+import TopSellingProductsToday from './TopSellingProductsToday';
 import widgetWebsiteGoalConversions, { sample as widgetWebsiteGoalConversionsSample } from './WebsiteGoalConversions';
 import widgetWebsiteTraffic from './WebsiteTraffic';
 
@@ -34,6 +35,7 @@ const widgetsMap: WidgetMap = {
   'average-spend-per-sale': AverageSpendPerSale,
   'top-selling-products': TopSellingProducts,
   'sales-by-week': SalesByWeek,
+  'product-sales-by-volume': TopSellingProductsToday,
 };
 interface WidgetDataMap {
   [key: string]: Widget;
