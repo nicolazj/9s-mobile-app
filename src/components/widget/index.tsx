@@ -15,7 +15,7 @@ const { Value } = Animated;
 const WidgetContainer = styled(View)`
   background-color: #fff;
   border-radius: 10px;
-  margin: 20px 0;
+  margin: 10px 0;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 `;
 const WidgetHeader = styled(View)`
@@ -88,7 +88,6 @@ class WidgetComp extends React.Component<Props, State> {
         <WidgetHeader>
           <View>
             <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
-            <P.Text>{widget.origin}</P.Text>
           </View>
           {hasData && <WidgetOp title={collapsed ? 'Show' : 'Hide'} onPress={this.onShowHidePress} />}
         </WidgetHeader>

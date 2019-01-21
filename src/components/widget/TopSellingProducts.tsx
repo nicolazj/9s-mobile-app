@@ -17,7 +17,7 @@ interface Props {
 
 const id = (t: any) => t;
 
-const WidgetComp: React.StatelessComponent<Props> = ({ widget, collapsed }) => {
+const WidgetComp: React.FC<Props> = ({ widget, collapsed }) => {
   const data: DataRow[] = widget.data.dataSets[0].rows.map((row, index) => {
     return {
       data: _values(row),

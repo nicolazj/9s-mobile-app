@@ -19,7 +19,7 @@ export default class Dashboard extends React.Component<any, State> {
         .sort((a, b) => {
           return a.attributes.order - b.attributes.order;
         })
-        .map(w => w.key + '----' + w.attributes.order)
+        .map(w => w.key + '----' + w.attributes.order + w.attributes.displayName)
     );
     this.setState({ widgets });
   }

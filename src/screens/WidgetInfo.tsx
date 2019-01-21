@@ -9,7 +9,7 @@ interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
-const WidgetInfo: React.StatelessComponent<Props> = ({ navigation }) => {
+const WidgetInfo: React.FC<Props> = ({ navigation }) => {
   const key = navigation.getParam('key');
   const sample = getWidgetSampleByKey(key);
   console.log(sample, 'sample');

@@ -6,7 +6,7 @@ interface Props {
   data: Data;
 }
 
-const Legend: React.StatelessComponent<Props> = ({ data }) => {
+const Legend: React.FC<Props> = ({ data }) => {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
       {data.map(d => {
