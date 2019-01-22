@@ -45,7 +45,7 @@ const NoDataPromp = styled(P.Text)`
 `;
 interface Props {
   widget: Widget;
-  sample: boolean;
+  sample?: boolean;
   navigation: NavigationScreenProp<any, any>;
 }
 interface State {

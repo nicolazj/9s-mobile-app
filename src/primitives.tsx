@@ -1,25 +1,26 @@
-import { ReactElement } from 'react';
 import { Platform, SafeAreaView, Text as Text_, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native';
-
 import { scale } from './scale';
 import styled, { th } from './styled';
 
 export const Touchable = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
 
-export const Text = styled(Text_)<{ children?: string }>`
+interface TextProps {
+  children?: string | string[];
+}
+export const Text = styled(Text_)<TextProps>`
   font-size: ${scale(14)}px;
   font-family: 'System';
   font-weight: 400;
 `;
-export const H1 = styled(Text)`
+export const H1 = styled(Text)<TextProps>`
   font-size: ${scale(28)}px;
   line-height: ${scale(28 * 1.7)}px;
 `;
-export const H2 = styled(Text)`
+export const H2 = styled(Text)<TextProps>`
   font-size: ${scale(22)}px;
   line-height: ${scale(22 * 1.7)}px;
 `;
-export const H3 = styled(Text)`
+export const H3 = styled(Text)<TextProps>`
   font-size: ${scale(16)}px;
   line-height: ${scale(16 * 1.7)}px;
 `;
