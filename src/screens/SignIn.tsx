@@ -25,7 +25,7 @@ interface Props {
 
 class SignIn extends React.Component<Props> {
   onPress = async (values: SignInPayload) => {
-    const [activityStatusState, userState] = this.props.states;
+    const [activityStatusState] = this.props.states;
 
     try {
       activityStatusState.show('Logging in');
@@ -59,7 +59,7 @@ class SignIn extends React.Component<Props> {
             <Container padding={true}>
               <Formik
                 initialValues={{
-                  username: 'shopify@9spokes.com',
+                  username: 'nicolas.jiang@9spokes.com',
                   password: 'Qwer1234',
                 }}
                 validationSchema={object().shape({

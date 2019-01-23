@@ -50,10 +50,34 @@ interface Props {
 }
 interface State {
   collapsed: boolean;
+  error: boolean;
 }
 
 const HEIGHT_EXPANDED = 300;
 const HEIGHT_COLLAPSED = 60;
+
+class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.log(error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <NoDataPromp>Error</NoDataPromp>;
+    }
+
+    return this.props.children;
+  }
+}
 
 class WidgetComp extends React.Component<Props, State> {
   private height: Animated.Value;
@@ -62,10 +86,15 @@ class WidgetComp extends React.Component<Props, State> {
     super(props);
     this.state = {
       collapsed: props.sample ? false : true,
+      error: false,
     };
     this.height = new Value(props.sample ? HEIGHT_EXPANDED : HEIGHT_COLLAPSED);
   }
-
+  componentDidCatch(error, info) {
+    // You can also log the error to an error reporting service
+    console.log(error, info);
+    this.setState({ error: true });
+  }
   onShowHidePress = () => {
     Animated.timing(this.height, {
       toValue: this.state.collapsed ? HEIGHT_EXPANDED : HEIGHT_COLLAPSED,
@@ -77,7 +106,7 @@ class WidgetComp extends React.Component<Props, State> {
   };
   render() {
     const { widget, sample } = this.props;
-    const { collapsed } = this.state;
+    const { collapsed, error } = this.state;
     const hasData = !!widget.data.extras || widget.data.dataSets;
 
     const Widget = getWidgetByKey(widget.key);
@@ -93,7 +122,9 @@ class WidgetComp extends React.Component<Props, State> {
         </WidgetHeader>
         <WidgetWrapper style={{ height: this.height }}>
           {hasData ? (
-            <Widget widget={widget} collapsed={collapsed} />
+            <ErrorBoundary>
+              <Widget widget={widget} collapsed={collapsed} />
+            </ErrorBoundary>
           ) : (
             <NoDataPromp>
               Sorry, we can't find your information. Check if your app contains any data or start making use of it

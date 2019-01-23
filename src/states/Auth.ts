@@ -1,6 +1,5 @@
 import jwt from 'jwt-decode';
 import { AsyncStorage } from 'react-native';
-import { Container } from 'unstated';
 import { AuthResp, UserAuthResp } from '../types';
 import PersistContainer from './PersistContainer';
 type UserId = string;

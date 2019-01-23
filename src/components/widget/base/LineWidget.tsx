@@ -65,6 +65,7 @@ export class LineWidget extends React.Component<Props> {
   getData(): Data {
     const { widget, theme } = this.props;
     const { graphData, extras } = widget.data;
+    console.log(widget.key, widget.data.graphData);
     const data = graphData.map((gd, i) => {
       return {
         legend: t(gd.data_set_name),

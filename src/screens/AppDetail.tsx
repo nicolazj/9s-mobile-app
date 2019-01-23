@@ -44,7 +44,7 @@ export class AppDetailScreen extends React.Component<Props> {
     return (
       <ScrollView>
         <NavigationEvents
-          onWillFocus={payload => {
+          onWillFocus={() => {
             this.reloadConnections();
           }}
         />
@@ -101,7 +101,7 @@ export class AppDetailScreen extends React.Component<Props> {
         key="remove"
         title="Remove connection"
         danger
-        onPress={() => this.onRemoveConnection(connection.id, appKey)}
+        onPress={() => connection && this.onRemoveConnection(connection.id, appKey)}
       />
     );
 
