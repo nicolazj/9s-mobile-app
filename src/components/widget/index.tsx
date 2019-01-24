@@ -1,10 +1,12 @@
 import React from 'react';
-import { Animated, View } from 'react-native';
+import { Animated, Image, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import { scale } from '../../scale';
+import appState, { AppState } from '../../states/Apps';
+import { SubscribeHOC } from '../../states/helper';
 import styled from '../../styled';
 import { Widget } from '../../types';
 import Link from '../Link';
@@ -25,10 +27,18 @@ const WidgetHeader = styled(View)`
   justify-content: space-between;
   flex-direction: row;
 `;
+const WidgetTitleWrapper = styled(View)`
+  flex-direction: row;
+`;
 
 const WidgetTitle = styled(P.Text)`
   font-weight: bold;
   font-size: ${scale(12)}px;
+`;
+const WidgetAppIcon = styled(Image)`
+  margin-left: 4px;
+  width: 16px;
+  height: 16px;
 `;
 const WidgetOp = styled(Link)``;
 const WidgetWrapper = styled(Animated.View)`
@@ -47,6 +57,7 @@ interface Props {
   widget: Widget;
   sample?: boolean;
   navigation: NavigationScreenProp<any, any>;
+  states: [AppState];
 }
 interface State {
   collapsed: boolean;
@@ -106,18 +117,20 @@ class WidgetComp extends React.Component<Props, State> {
   };
   render() {
     const { widget, sample } = this.props;
-    const { collapsed, error } = this.state;
+    const [appState] = this.props.states;
+    const { collapsed } = this.state;
     const hasData = !!widget.data.extras || widget.data.dataSets;
 
     const Widget = getWidgetByKey(widget.key);
-    if (!Widget) return null;
-
+    const app = appState.getApp(widget.attributes.origin);
+    if (!Widget || !app) return null;
     return (
       <WidgetContainer>
         <WidgetHeader>
-          <View>
+          <WidgetTitleWrapper style={{ flexDirection: 'row' }}>
             <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
-          </View>
+            <WidgetAppIcon source={{ uri: app.squareLogo }} />
+          </WidgetTitleWrapper>
           {hasData && <WidgetOp title={collapsed ? 'Show' : 'Hide'} onPress={this.onShowHidePress} />}
         </WidgetHeader>
         <WidgetWrapper style={{ height: this.height }}>
@@ -147,4 +160,4 @@ class WidgetComp extends React.Component<Props, State> {
   }
 }
 
-export default withNavigation(WidgetComp);
+export default SubscribeHOC([appState])(withNavigation(WidgetComp));

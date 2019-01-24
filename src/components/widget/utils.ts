@@ -8,6 +8,7 @@ import AvItemsPerSaleTodayHourly from './AvItemsPerSaleTodayHourly';
 import AvSpendPerSaleToday from './AvSpendPerSaleToday';
 import AvSpendPerSaleTodayHourly from './AvSpendPerSaleTodayHourly';
 import BussinessGrowth from './BussinessGrowth';
+import CampaignPerformance from './CampaignPerformance';
 import CashCommitments from './CashCommitments';
 import CashPositionAndCoverage from './CashPositionAndCoverage';
 import GrossProfit from './GrossProfit';
@@ -20,6 +21,7 @@ import SalesByWeek from './SalesByWeek';
 import SalesTodayHourly from './SalesTodayHourly';
 import SalesTransactionsToday from './SalesTransactionsToday';
 import SalesTransactionsTodayHourly from './SalesTransactionsTodayHourly';
+import TopPerformingCampaigns from './TopPerformingCampaigns';
 import TopSellingProducts from './TopSellingProducts';
 import TopSellingProductsToday from './TopSellingProductsToday';
 import TotalSalesToday from './TotalSalesToday';
@@ -54,6 +56,8 @@ const widgetsMap: WidgetMap = {
   'average-item-per-sale-hourly': AvItemsPerSaleTodayHourly,
   'average-spend-per-sale-hourly': AvSpendPerSaleTodayHourly,
   'average-item-per-sale-today': AvItemsPerSaleToday,
+  'campaign-performance': CampaignPerformance,
+  'top-performing-campaigns': TopPerformingCampaigns,
 };
 interface WidgetDataMap {
   [key: string]: Widget;

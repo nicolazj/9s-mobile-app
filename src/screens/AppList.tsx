@@ -8,9 +8,7 @@ import agent from '../agent';
 import Link from '../components/Link';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import activityStatusState, {
-  ActivityStatusState,
-} from '../states/ActivityStatus';
+import activityStatusState, { ActivityStatusState } from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import authContainer, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
@@ -95,7 +93,7 @@ class AppList extends React.Component<Props> {
     this.fetchApps();
   }
   fetchApps = async () => {
-    const [_, __, ___, activityStatusState] = this.props.states;
+    const [appState, __, ___, activityStatusState] = this.props.states;
     activityStatusState.show('Loading');
 
     const [connections, spokes, apps] = await Promise.all([
@@ -103,10 +101,7 @@ class AppList extends React.Component<Props> {
       agent.user.spoke.get('mobile'),
       agent.user.service.list(),
     ]);
-    const [appState] = this.props.states;
-    const fullApps = await Promise.all(
-      apps.map(app => agent.user.service.get(app.key))
-    );
+    const fullApps = await Promise.all(apps.map(app => agent.user.service.get(app.key)));
     appState.setState({ connections, spokes, apps: fullApps });
     activityStatusState.dismiss();
   };
@@ -116,9 +111,7 @@ class AppList extends React.Component<Props> {
   }
   suggestApp = () => {
     const [_, userContainer, authContainer] = this.props.states;
-    const company = userContainer.state.companies.find(
-      c => c.companyUuid === authContainer.state.companyUuid
-    );
+    const company = userContainer.state.companies.find(c => c.companyUuid === authContainer.state.companyUuid);
     const { me } = userContainer.state;
     const texts = [
       'Hey 9Spokes team!',
@@ -136,10 +129,7 @@ class AppList extends React.Component<Props> {
       me.emailAddress,
     ];
 
-    Linking.openURL(
-      'mailto:support@9spokes.com?subject=App Support Request&body=' +
-        texts.join('\n')
-    );
+    Linking.openURL('mailto:support@9spokes.com?subject=App Support Request&body=' + texts.join('\n'));
   };
   render() {
     const [appState] = this.props.states;
@@ -156,9 +146,7 @@ class AppList extends React.Component<Props> {
             {appState.purchasedApps.map((app: App) => (
               <ConnectedApp key={app.key} onPress={() => this.onPress(app)}>
                 <ConnectedAppImg source={{ uri: app.squareLogo }} />
-                <ConnectedAppLabel>
-                  {app.shortName || app.name}
-                </ConnectedAppLabel>
+                <ConnectedAppLabel>{app.shortName || app.name}</ConnectedAppLabel>
               </ConnectedApp>
             ))}
           </ScrollView>
@@ -184,10 +172,7 @@ class AppList extends React.Component<Props> {
           </AvaibleAppContainer>
 
           <SuggestAppLink>
-            <Link
-              title="Dont't see your apps? Tell us what you use"
-              onPress={this.suggestApp}
-            />
+            <Link title="Dont't see your apps? Tell us what you use" onPress={this.suggestApp} />
           </SuggestAppLink>
         </ScrollView>
       </P.Container>
@@ -195,9 +180,4 @@ class AppList extends React.Component<Props> {
   }
 }
 
-export default SubscribeHOC([
-  appState,
-  userState,
-  authContainer,
-  activityStatusState,
-])(AppList);
+export default SubscribeHOC([appState, userState, authContainer, activityStatusState])(AppList);

@@ -31,6 +31,9 @@ export class AppState extends Container<State> {
       .filter(app => supportedApps.includes(app.key))
       .filter(app => !activeConnections.includes(app.key));
   }
+  getApp(appKey: string) {
+    return this.state.apps.find(app => app.key === appKey);
+  }
   appDetail(appKey: string) {
     return {
       appKey,

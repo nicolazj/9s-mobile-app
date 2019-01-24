@@ -7,11 +7,16 @@ import DashboardStack from './Dashboard';
 import MarketplaceStack from './Marketplace';
 import SettingsStack from './Settings';
 
-const Tabs = createBottomTabNavigator({
-  DashboardStack,
-  MarketplaceStack,
-  SettingsStack,
-});
+const Tabs = createBottomTabNavigator(
+  {
+    DashboardStack,
+    MarketplaceStack,
+    SettingsStack,
+  },
+  {
+    lazy: false,
+  }
+);
 
 const TabsStack = createStackNavigator(
   {
