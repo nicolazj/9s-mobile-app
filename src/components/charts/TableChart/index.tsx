@@ -6,6 +6,7 @@ import { scale } from '../../../scale';
 import styled, { th, withTheme } from '../../../styled';
 import { DataTab } from '../../../types';
 import Switch from '../../Switch';
+
 interface Props {
   tabs: DataTab[];
   collapsed: boolean;

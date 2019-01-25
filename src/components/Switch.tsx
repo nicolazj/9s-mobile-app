@@ -15,9 +15,10 @@ const SwitchView = styled(View)`
   border: 1px solid ${th('color.main')};
   border-radius: 4px;
   width: ${scale(120)}px;
+  overflow: hidden;
 `;
 const SwitchButton = styled(P.Touchable)<{ selected: boolean }>`
-  padding: 3px 10px;
+  padding: 6px 10px;
   background-color: ${p => (!p.selected ? '#fff' : th('color.main')(p))};
   flex: 1;
 `;

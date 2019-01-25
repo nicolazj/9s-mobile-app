@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Image, View } from 'react-native';
+import { Animated, Image, LayoutChangeEvent, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import * as P from '../../primitives';
@@ -62,9 +62,9 @@ interface Props {
 interface State {
   collapsed: boolean;
   error: boolean;
+  maxHeight: number;
 }
 
-const HEIGHT_EXPANDED = 300;
 const HEIGHT_COLLAPSED = 60;
 
 class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
@@ -98,21 +98,37 @@ class WidgetComp extends React.Component<Props, State> {
     this.state = {
       collapsed: props.sample ? false : true,
       error: false,
+      maxHeight: 300,
     };
-    this.height = new Value(props.sample ? HEIGHT_EXPANDED : HEIGHT_COLLAPSED);
+    this.height = new Value(
+      props.sample ? this.state.maxHeight : HEIGHT_COLLAPSED
+    );
   }
-  componentDidCatch(error, info) {
+  componentDidCatch(error: any, info: any) {
     // You can also log the error to an error reporting service
     console.log(error, info);
     this.setState({ error: true });
   }
   onShowHidePress = () => {
     Animated.timing(this.height, {
-      toValue: this.state.collapsed ? HEIGHT_EXPANDED : HEIGHT_COLLAPSED,
+      toValue: this.state.collapsed ? this.state.maxHeight : HEIGHT_COLLAPSED,
       duration: 300,
     }).start();
     this.setState({
       collapsed: !this.state.collapsed,
+    });
+  };
+
+  setMaxHeight = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout;
+    if (height > this.state.maxHeight) {
+      Animated.timing(this.height, {
+        toValue: height,
+        duration: 300,
+      }).start();
+    }
+    this.setState({
+      maxHeight: height,
     });
   };
   render() {
@@ -131,30 +147,43 @@ class WidgetComp extends React.Component<Props, State> {
             <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
             <WidgetAppIcon source={{ uri: app.squareLogo }} />
           </WidgetTitleWrapper>
-          {hasData && <WidgetOp title={collapsed ? 'Show' : 'Hide'} onPress={this.onShowHidePress} />}
+          {hasData && (
+            <WidgetOp
+              title={collapsed ? 'Show' : 'Hide'}
+              onPress={this.onShowHidePress}
+            />
+          )}
         </WidgetHeader>
         <WidgetWrapper style={{ height: this.height }}>
-          {hasData ? (
-            <ErrorBoundary>
-              <Widget widget={widget} collapsed={collapsed} />
-            </ErrorBoundary>
-          ) : (
-            <NoDataPromp>
-              Sorry, we can't find your information. Check if your app contains any data or start making use of it
-            </NoDataPromp>
-          )}
-        </WidgetWrapper>
+          <View onLayout={this.setMaxHeight}>
+            {hasData ? (
+              <ErrorBoundary>
+                <Widget widget={widget} collapsed={collapsed} />
+              </ErrorBoundary>
+            ) : (
+              <NoDataPromp>
+                Sorry, we can't find your information. Check if your app
+                contains any data or start making use of it
+              </NoDataPromp>
+            )}
 
-        {!collapsed && !sample && (
-          <WidgetFooter>
-            <Link
-              title="what does this mean?"
-              onPress={() => {
-                this.props.navigation.navigate(SCREENS[SCREENS.WIDGET_INFO], { key: widget.key });
-              }}
-            />
-          </WidgetFooter>
-        )}
+            {!collapsed && !sample && (
+              <WidgetFooter>
+                <Link
+                  title="what does this mean?"
+                  onPress={() => {
+                    this.props.navigation.navigate(
+                      SCREENS[SCREENS.WIDGET_INFO],
+                      {
+                        key: widget.key,
+                      }
+                    );
+                  }}
+                />
+              </WidgetFooter>
+            )}
+          </View>
+        </WidgetWrapper>
       </WidgetContainer>
     );
   }

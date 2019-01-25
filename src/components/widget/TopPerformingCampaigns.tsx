@@ -19,7 +19,7 @@ const WidgetComp: React.FC<Props> = ({ widget, collapsed }) => {
   const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
     return {
       title: ['Best', 'Worst'][dIndex],
-      header: ['Name', 'Opened', 'Clicked'],
+      header: ['Name', 'Opened', 'Clicked'] as React.ReactNodeArray,
       formatters: [id, formatter, formatter],
       rows: dataSet.rows.map((row, index) => {
         return {
