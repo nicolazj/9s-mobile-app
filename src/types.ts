@@ -1,3 +1,4 @@
+import React from 'react';
 export interface ClientConfig {
   baseURL: string;
   tenantId: string;
@@ -58,10 +59,19 @@ export interface Spoke {
   type: string;
 }
 
+interface TableRowFormatter {
+  (value: any): string;
+}
 export interface DataRow {
   data: string[];
   strong?: boolean;
   showWhenCollapsed?: boolean;
+}
+export interface DataTab {
+  rows: DataRow[];
+  header?: React.ReactNodeArray;
+  formatters: TableRowFormatter[];
+  title?: string;
 }
 export interface Widget {
   attributes: {

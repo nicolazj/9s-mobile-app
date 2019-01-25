@@ -1,9 +1,8 @@
-import _values from 'lodash.values';
 import numeral from 'numeral';
 import React from 'react';
 
 import t from '../../i18n/en';
-import { DataRow, Widget } from '../../types';
+import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
 
 function formatter(value: number) {
@@ -18,20 +17,22 @@ interface Props {
 const id = (t: any) => t;
 
 const WidgetComp: React.FC<Props> = ({ widget, collapsed }) => {
-  const data: DataRow[] = widget.data.dataSets[0].rows.map((row, index) => {
+  const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
     return {
-      data: _values(row),
-      showWhenCollapsed: index === 0,
+      title: ['Best', 'Worst'][dIndex],
+      header: ['Product', 'Sales', 'Revenue'],
+      formatters: [t, id, formatter],
+      rows: dataSet.rows.map((row, index) => {
+        return {
+          data: Object.keys(row)
+            .sort()
+            .map(k => row[k]),
+          showWhenCollapsed: index === 0,
+        };
+      }),
     };
   });
-  return (
-    <TableChart
-      data={data}
-      header={['Product', 'Sales', 'Revenue']}
-      colFormatters={[t, id, formatter]}
-      collapsed={collapsed}
-    />
-  );
+  return <TableChart data={data} collapsed={collapsed} />;
 };
 
 export default WidgetComp;
