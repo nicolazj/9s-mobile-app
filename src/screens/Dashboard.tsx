@@ -13,13 +13,25 @@ export default class Dashboard extends React.Component<any, State> {
   } as State;
   async componentDidMount() {
     const widgets = await agent.company.widget.list();
+
     console.log(
       widgets
-        .filter(a => a.attributes.active && a.attributes.showOnMobile)
+        // .filter(a => a.attributes.active && a.attributes.showOnMobile)
         .sort((a, b) => {
           return a.attributes.order - b.attributes.order;
         })
-        .map(w => w.key + '----' + w.attributes.order + w.attributes.displayName)
+        .map(
+          w =>
+            w.key +
+            '|| active:' +
+            w.attributes.active +
+            '|| som:' +
+            w.attributes.showOnMobile +
+            '|| order:' +
+            w.attributes.order +
+            '|| name' +
+            w.attributes.displayName
+        )
     );
     this.setState({ widgets });
   }

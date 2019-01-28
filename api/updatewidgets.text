@@ -1,0 +1,33 @@
+PUT https://dev.9spokes.io/api/v1/widget/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/b9de3d51-649a-46f4-80c7-3cf9aa395d95/attributes HTTP/1.1
+Host: dev.9spokes.io
+Content-Type: application/x-www-form-urlencoded
+X-API-Version: 3
+User-Agent: Dashboard/34 CFNetwork/976 Darwin/18.2.0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.BI8hEZJC_-AcKXI6b-or0-YX4sUVsfV1-KVGCg8IAMSHqs9_zxwOBQ.VqOJEHU3VDYrfwZImgk6wQ.9b8v2OJQSKjhlOn6scsz8nF4w5j6K2BnSCW2nK_klvAQtoOf-TMRY2XE4ttQFNUIPL1sf3A-O2u19I5_PhaRftk8NuExM0iNVrjEYSo_ngOHWDItvV0xGd-IqpkkeBfScYdeNq7CIq3cKMp3GZfM5KWb9nqUtYudJICQ8ypVkbAvbnLxP9dWapatzRkRJQ5bnQLk722_3pMjDv5UUn1qzIzE0nog2nuAbDo7x8XGjcPXWg-yNpDTRQRI4awn4I60XzcIyU_8y5W5ZrSdfIzyeKOiZJy6arq8Ht5VqO5eArWQHl-qyApdOsropBtTWDmNtf8jJIxx7d3kcC6_6SFz5LxPEFYROWIuvPBiJt5a-yf2O1JP4QiksCFIGQ60XdEfoixeAWIJn9ADBNSrYbVRm4bkHJ3umJ12xNlWYYYjX4icxOCgGRSc0e6z6dAdoQMW8_qam_3bI8PU-siXq2fd_xsJgiu5CfQJXZsJnoh1rb8uQ9lFUa3EWQlQOLDcJdxsix6oT-BQtaE6bj7r-8H7a5rMDKMSO-VmIgJAlyqA90qFD5s_aoSEygjA93kZUc7QK5QxwKhYgvqNwEhcbSJ8dGJ2qrzR8lksdJSLEgKwdtjusXiTbnHpm2G9l4yt2N_RACQxd7LvEKAT9UksMzyETtz48wOd1Cm5zbBPZDzFVzL2sR3NXskVn1KxeHmi5t_l2oYbvrbFa0lZiOk1twShjmuFsPaSaJ35k_GOuaJvg8GO4kf3wmBa9pPfwqDFpvhpZWd6ufjxxLmc2zp84f7moutmJ26voqsynWaqYzbodQ76sNt2bME7v58QqXXBSsYu.Tnz_ee7gV7qBywm-w6W0bg
+Content-Length: 40
+Accept-Encoding: br, gzip, deflate
+
+order=10007&showOnMobile=1&status=ACTIVE
+HTTP/1.1 200 OK
+Date: Mon, 28 Jan 2019 22:03:50 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+
+3fb
+{"_links":{"self":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/b9de3d51-649a-46f4-80c7-3cf9aa395d95/attributes","method":"GET"},"update":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/b9de3d51-649a-46f4-80c7-3cf9aa395d95/attributes","method":"PUT"},"widget":{"href":"/tenants/00000000-0000-0005-5555-555555555555/users/c44bdf56-72db-4a56-92f6-4b721b5d636a/companies/1042f72e-edfd-4bed-a8e6-b46e89d31d6c/widgets/b9de3d51-649a-46f4-80c7-3cf9aa395d95","method":"GET"}},"_embedded":{"active":true,"categories":[{"id":"51cfef2b-0e6e-4550-b71b-e1c21b5f0d1d","name":"MARKETING"},{"id":"dcfeb747-16a9-415f-b921-466ed3c774e3","name":"ALL"}],"createdAt":"2019-01-24T02:17:59.000Z","displayName":"Campaign Performance","order":10007,"origin":"mailchimp","showOnDashboard":true,"showOnMobile":true,"status":"ACTIVE"}}
+0
+
