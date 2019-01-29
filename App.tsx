@@ -1,9 +1,11 @@
 import { AppLoading, Asset, Font } from 'expo';
-import Icon from '@expo/vector-icons';
 import React from 'react';
-import { Platform, StatusBar, View } from 'react-native';
+import { View } from 'react-native';
+
+import Icon from '@expo/vector-icons';
+
 import Root from './src/Root';
-import auth from './src/states/Auth';
+
 interface Props {
   skipLoadingScreen: boolean;
 }
@@ -25,7 +27,6 @@ export default class App extends React.Component<Props> {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           <Root />
         </View>
       );
@@ -34,7 +35,6 @@ export default class App extends React.Component<Props> {
 
   loadResourcesAsync = () => {
     return Promise.all([
-      // auth.rehydrate(),
       Asset.loadAsync([require('./assets/google.png')]),
       Asset.loadAsync([require('./assets/onboarding1.jpeg')]),
       Asset.loadAsync([require('./assets/onboarding2.jpeg')]),

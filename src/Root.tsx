@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Provider } from 'unstated';
 import ActivityIndicator from './components/ActivityIndicator';
 import { Container } from './primitives';
