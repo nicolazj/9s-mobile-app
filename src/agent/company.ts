@@ -56,7 +56,7 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
         const {
           _embedded: { widgets },
         } = r.data;
-        return widgets.map(w => w._embedded) as Widget[];
+        return widgets.map((w: any) => w._embedded) as Widget[];
       },
       addByAppKey: async (appKey: string) => {
         const r = await instance.post(

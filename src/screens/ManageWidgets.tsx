@@ -2,7 +2,6 @@ import _groupby from 'lodash.groupby';
 import { Body, Left, List, ListItem, Right, Text } from 'native-base';
 import React from 'react';
 import { Image, ScrollView, StatusBar, View } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
 
 import agent from '../agent';
 import * as P from '../primitives';

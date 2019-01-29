@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AuthState } from '../states/Auth';
-import { ClientConfig } from '../types';
+import { ClientConfig, SignUpPayload } from '../types';
 import token from './token';
 
 export default (cconfig: ClientConfig, auth: AuthState) => {
@@ -14,9 +14,7 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
       if (!auth.isPublicTokenValid()) {
         await token(cconfig, auth).public();
       }
-      config.headers.Authorization = `Bearer ${
-        auth.state.publicAuth.access_token
-      }`;
+      config.headers.Authorization = `Bearer ${auth.state.publicAuth.access_token}`;
       return config;
     },
     error => {
@@ -38,9 +36,7 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
     user: {
       isExisted: async (emailAddress: string) => {
         try {
-          await instance.head(
-            `/customer/customer/tenants/${tenantId}/users/userName/${emailAddress}`
-          );
+          await instance.head(`/customer/customer/tenants/${tenantId}/users/userName/${emailAddress}`);
           return true;
         } catch (err) {
           if (err.response.status === 404) {
@@ -51,23 +47,17 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
         }
       },
       create: async (values: SignUpPayload) => {
-        const r = await instance.post(
-          `/customer/customer/tenants/${tenantId}/users`,
-          {
-            ...values,
-            termsAndConditionsAccepted: true,
-            emailAddress: values.userName,
-          }
-        );
+        const r = await instance.post(`/customer/customer/tenants/${tenantId}/users`, {
+          ...values,
+          termsAndConditionsAccepted: true,
+          emailAddress: values.userName,
+        });
         return r.data;
       },
     },
     password: {
       reset: async (emailAddress: string) => {
-        const r = await instance.post(
-          `/customer/customer/tenants/${tenantId}/users/access`,
-          { emailAddress }
-        );
+        const r = await instance.post(`/customer/customer/tenants/${tenantId}/users/access`, { emailAddress });
         const { data } = r;
         return data;
       },

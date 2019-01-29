@@ -129,7 +129,7 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
       },
     },
     company: {
-      create: async p => {
+      create: async (p: any) => {
         const r = await instance.post<Company>(`/customer/customer/tenants/${tenantId}/companies`, p, {
           headers: {
             'Content-Type': 'application/json',
