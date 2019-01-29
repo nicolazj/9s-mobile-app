@@ -85,6 +85,17 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
         );
         return r;
       },
+      updateAttrs: async (widgetId: string, data: any) => {
+        const r = await instance.put(
+          `widget/tenants/${tenantId}/users/${userId}/companies/${companyUuid}/widgets/${widgetId}/attributes`,
+          qs.stringify(data),
+          {
+            headers: {
+              'X-API-Version': 3,
+            },
+          }
+        );
+      },
     },
     connection: {
       forApp: async (appKey: string) => {

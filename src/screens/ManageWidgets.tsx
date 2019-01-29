@@ -2,6 +2,7 @@ import _groupby from 'lodash.groupby';
 import { Body, Left, List, ListItem, Right, Text } from 'native-base';
 import React from 'react';
 import { Image, ScrollView, StatusBar, View } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 
 import agent from '../agent';
 import * as P from '../primitives';
@@ -39,6 +40,28 @@ export class ManageWidgets extends React.Component<Props, State> {
 
     this.setState({ widgets });
   }
+  toggle = (widget: Widget, show: boolean) => {
+    agent.company.widget.updateAttrs(widget.id, {
+      order: widget.attributes.order,
+      status: widget.attributes.status,
+      showOnMobile: show ? '1' : '0',
+    });
+    this.setState(state => {
+      return {
+        widgets: state.widgets.map(w =>
+          w.id === widget.id
+            ? {
+                ...w,
+                attributes: {
+                  ...w.attributes,
+                  showOnMobile: show,
+                },
+              }
+            : w
+        ),
+      };
+    });
+  };
   render() {
     const { widgets } = this.state;
     const [appState] = this.props.states;
@@ -53,9 +76,8 @@ export class ManageWidgets extends React.Component<Props, State> {
       activeWidgets.filter(w => !w.attributes.showOnMobile),
       'attributes.origin'
     );
-    console.log(activeWidgetsNotShowedGrouped);
 
-    const getIcon = appKey => appState.getApp(appKey).squareLogo;
+    const getIcon = (appKey: string) => appState.getApp(appKey)!.squareLogo;
 
     return (
       <ScrollView>
@@ -68,12 +90,18 @@ export class ManageWidgets extends React.Component<Props, State> {
                 .filter(w => w.attributes.showOnMobile)
                 .map(w => (
                   <ListItem key={w.id}>
-                    <Body>
-                      <P.Text>{w.attributes.displayName}</P.Text>
-                    </Body>
-                    <Right>
-                      <AppIcon source={{ uri: getIcon(w.attributes.origin) }} />
-                    </Right>
+                    <P.Touchable
+                      style={{ flexDirection: 'row' }}
+                      onPress={() => {
+                        this.toggle(w, false);
+                      }}>
+                      <Body>
+                        <P.Text>{w.attributes.displayName}</P.Text>
+                      </Body>
+                      <Right>
+                        <AppIcon source={{ uri: getIcon(w.attributes.origin) }} />
+                      </Right>
+                    </P.Touchable>
                   </ListItem>
                 ))}
             </List>
@@ -86,12 +114,18 @@ export class ManageWidgets extends React.Component<Props, State> {
                 <List style={{ backgroundColor: '#fff' }}>
                   {activeWidgetsNotShowedGrouped[key].map(w => (
                     <ListItem key={w.id}>
-                      <Body>
-                        <P.Text>{w.attributes.displayName}</P.Text>
-                      </Body>
-                      <Right>
-                        <AppIcon source={{ uri: getIcon(w.attributes.origin) }} />
-                      </Right>
+                      <P.Touchable
+                        style={{ flexDirection: 'row' }}
+                        onPress={() => {
+                          this.toggle(w, true);
+                        }}>
+                        <Body>
+                          <P.Text>{w.attributes.displayName}</P.Text>
+                        </Body>
+                        <Right>
+                          <AppIcon source={{ uri: getIcon(w.attributes.origin) }} />
+                        </Right>
+                      </P.Touchable>
                     </ListItem>
                   ))}
                 </List>
