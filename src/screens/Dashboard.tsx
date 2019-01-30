@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StatusBar } from 'react-native';
+import { RefreshControl, ScrollView, StatusBar } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 
 import agent from '../agent';
@@ -9,10 +9,12 @@ import { Widget } from '../types';
 
 interface State {
   widgets: Widget[];
+  refreshing: boolean;
 }
 export default class Dashboard extends React.Component<any, State> {
   state = {
     widgets: [],
+    refreshing: false,
   } as State;
 
   reloadWidgets = async () => {
@@ -39,17 +41,22 @@ export default class Dashboard extends React.Component<any, State> {
     );
     this.setState({ widgets });
   };
+  _onRefresh = async () => {
+    this.setState({ refreshing: true });
+    await this.reloadWidgets();
+    this.setState({ refreshing: false });
+  };
   render() {
     const { widgets } = this.state;
 
     return (
-      <ScrollView>
+      <ScrollView refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} />}>
         <NavigationEvents
           onWillFocus={() => {
             this.reloadWidgets();
           }}
         />
-        <P.Container padding>
+        <P.Container padding style={{ backgroundColor: '#fff' }}>
           <StatusBar barStyle="light-content" />
           {widgets
             .filter(a => a.attributes.active && a.attributes.showOnMobile)

@@ -3,6 +3,8 @@ import { Body, Left, List, ListItem, Right, Text } from 'native-base';
 import React from 'react';
 import { Image, ScrollView, StatusBar, View } from 'react-native';
 
+import { Ionicons } from '@expo/vector-icons';
+
 import agent from '../agent';
 import * as P from '../primitives';
 import { scale } from '../scale';
@@ -94,7 +96,10 @@ export class ManageWidgets extends React.Component<Props, State> {
                       onPress={() => {
                         this.toggle(w, false);
                       }}>
-                      <Body>
+                      <Left>
+                        <Ionicons name="ios-remove-circle" size={24} color="#ff3b30" />
+                      </Left>
+                      <Body style={{ flex: 2 }}>
                         <P.Text>{w.attributes.displayName}</P.Text>
                       </Body>
                       <Right>
@@ -118,7 +123,10 @@ export class ManageWidgets extends React.Component<Props, State> {
                         onPress={() => {
                           this.toggle(w, true);
                         }}>
-                        <Body>
+                        <Left>
+                          <Ionicons name="ios-add-circle" size={24} color="#4cd964" />
+                        </Left>
+                        <Body style={{ flex: 2 }}>
                           <P.Text>{w.attributes.displayName}</P.Text>
                         </Body>
                         <Right>
