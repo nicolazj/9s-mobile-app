@@ -1,10 +1,12 @@
 import _groupby from 'lodash.groupby';
 import React from 'react';
 import { Image, ScrollView, StatusBar, View } from 'react-native';
+import SortableList from 'react-native-sortable-list';
 
 import { Ionicons } from '@expo/vector-icons';
-import SortableList from 'react-native-sortable-list';
+
 import agent from '../agent';
+import SortableRow from '../components/SortableRow';
 import * as P from '../primitives';
 import { scale } from '../scale';
 import appState, { AppState } from '../states/Apps';
@@ -25,16 +27,21 @@ const AppIcon = styled(Image)`
   height: 16px;
 `;
 
-const List = styled(View)``;
+const List = styled(View)`
+  background-color: #fff;
+  padding: 10px 0;
+`;
 const ListItem = styled(View)`
   padding: 10px;
   flex-direction: row;
-  border-bottom-color: #ccc;
+  border-bottom-color: #ddd;
   border-bottom-width: 1px;
+  align-items: center;
 `;
-const Left = styled(View)``;
-const Body = styled(View)``;
-const Right = styled(View)``;
+const Cell = styled(View)`
+  padding: 0 10px;
+`;
+
 interface State {
   widgets: Widget[];
   scrollEnabled: boolean;
@@ -48,7 +55,7 @@ export class ManageWidgets extends React.Component<Props, State> {
     widgets: [],
     scrollEnabled: true,
   } as State;
-  private orders: number[] = [];
+  private orders: string[] = [];
   async componentDidMount() {
     const widgets = await agent.company.widget.list();
 
@@ -78,7 +85,6 @@ export class ManageWidgets extends React.Component<Props, State> {
   };
   render() {
     const { widgets, scrollEnabled } = this.state;
-    console.log('scrollEnabled', scrollEnabled);
     const [appState] = this.props.states;
 
     const activeWidgets = widgets
@@ -93,92 +99,84 @@ export class ManageWidgets extends React.Component<Props, State> {
     );
 
     const getIcon = (appKey: string) => appState.getApp(appKey)!.squareLogo;
-
+    console.log('keys', activeWidgetsShowed.map(w => w.id));
     return (
       <ScrollView scrollEnabled={scrollEnabled}>
         <P.Container style={{ backgroundColor: '#fff' }}>
           <StatusBar barStyle="light-content" />
-          <P.H1>Manage</P.H1>
+          <P.H1 style={{ textAlign: 'center' }}>Manage</P.H1>
           <Group>
             <Title>DASHBOARD</Title>
-            <List style={{ backgroundColor: '#fff' }}>
+            <List>
               <SortableList
                 sortingEnabled={true}
                 scrollEnabled={false}
                 data={activeWidgetsShowed.reduce((p, cur, i) => {
-                  p[cur.attributes.order] = cur;
+                  p[cur.id] = cur;
                   return p;
                 }, {})}
-                order={activeWidgetsShowed.map(w => w.attributes.order)}
-                onChangeOrder={(orders: number[]) => {
+                order={activeWidgetsShowed.map(w => w.id)}
+                onChangeOrder={(orders: string[]) => {
                   this.orders = orders;
                   console.log(orders);
                 }}
                 onActivateRow={() => {
                   this.setState({ scrollEnabled: false });
                 }}
-                onReleaseRow={() => {
+                onReleaseRow={async () => {
                   this.setState({ scrollEnabled: true });
                   const { orders } = this;
-                  widgets.forEach(widget => {
-                    const {
-                      attributes: { order },
-                    } = widget;
-                    const index = orders.indexOf(order);
-                    console.log('index', index, order);
+                  const toUpdate = [];
+                  for (let widget of widgets) {
+                    const { id } = widget;
+                    const index = orders.indexOf(id);
+                    console.log('index=', index, 'id=', id);
                     if (index > -1) {
                       widget.attributes.order = index;
-                      agent.company.widget.updateAttrs(widget.id, {
-                        order: index,
-                      });
+                      toUpdate.push([
+                        widget.id,
+                        {
+                          order: index,
+                          status: widget.attributes.status,
+                          showOnMobile: '1',
+                        },
+                      ]);
                     }
-                  });
+                  }
+
                   this.setState({ widgets });
+                  // need to execute this one by one, otherwise database can not handle it.
+                  for (let payload of toUpdate) {
+                    await agent.company.widget.updateAttrs(...(payload as [string, any]));
+                  }
                 }}
-                renderRow={({ data: w }, active) => {
+                renderRow={({ data: widget, active }) => {
                   return (
-                    <ListItem key={w.id}>
-                      {/* <P.Touchable
-                        style={{ flexDirection: 'row' }}
-                        onPress={() => {
-                          this.toggle(w, false);
-                        }}> */}
-                      <Left>
-                        <Ionicons name="ios-remove-circle" size={24} color="#ff3b30" />
-                      </Left>
-                      <Body style={{ flex: 2 }}>
-                        <P.Text>{w.attributes.displayName}</P.Text>
-                      </Body>
-                      <Right>
-                        <AppIcon source={{ uri: getIcon(w.attributes.origin) }} />
-                      </Right>
-                      {/* </P.Touchable> */}
-                    </ListItem>
+                    <SortableRow key={widget.id} active={active}>
+                      <ListItem key={widget.id}>
+                        <Cell>
+                          <P.Touchable
+                            style={{ flexDirection: 'row' }}
+                            onPress={() => {
+                              this.toggle(widget, false);
+                            }}>
+                            <Ionicons name="ios-remove-circle" size={24} color="#ff3b30" />
+                          </P.Touchable>
+                        </Cell>
+                        <Cell style={{ flex: 2 }}>
+                          <P.Text>{widget.attributes.displayName}</P.Text>
+                        </Cell>
+                        <Cell>
+                          <AppIcon source={{ uri: getIcon(widget.attributes.origin) }} />
+                        </Cell>
+                        <Cell>
+                          <Ionicons name="ios-reorder" size={30} color="#999" />
+                        </Cell>
+                      </ListItem>
+                    </SortableRow>
                   );
                 }}
               />
-
-              {/* {activeWidgets
-                .filter(w => w.attributes.showOnMobile)
-                .map(w => (
-                  <ListItem key={w.id}>
-                    <P.Touchable
-                      style={{ flexDirection: 'row' }}
-                      onPress={() => {
-                        this.toggle(w, false);
-                      }}>
-                      <Left>
-                        <Ionicons name="ios-remove-circle" size={24} color="#ff3b30" />
-                      </Left>
-                      <Body style={{ flex: 2 }}>
-                        <P.Text>{w.attributes.displayName}</P.Text>
-                      </Body>
-                      <Right>
-                        <AppIcon source={{ uri: getIcon(w.attributes.origin) }} />
-                      </Right>
-                    </P.Touchable>
-                  </ListItem>
-                ))} */}
             </List>
           </Group>
 
@@ -186,18 +184,27 @@ export class ManageWidgets extends React.Component<Props, State> {
             return (
               <Group key={key}>
                 <Title>{key.toUpperCase()}</Title>
-                <List style={{ backgroundColor: '#fff' }}>
-                  {activeWidgetsNotShowedGrouped[key].map(w => (
-                    <ListItem key={w.id}>
-                      <Left>
-                        <Ionicons name="ios-add-circle" size={24} color="#4cd964" />
-                      </Left>
-                      <Body style={{ flex: 2 }}>
-                        <P.Text>{w.attributes.displayName}</P.Text>
-                      </Body>
-                      <Right>
-                        <AppIcon source={{ uri: getIcon(w.attributes.origin) }} />
-                      </Right>
+                <List>
+                  {activeWidgetsNotShowedGrouped[key].map(widget => (
+                    <ListItem key={widget.id}>
+                      <Cell>
+                        <P.Touchable
+                          style={{ flexDirection: 'row' }}
+                          onPress={() => {
+                            this.toggle(widget, true);
+                          }}>
+                          <Ionicons name="ios-add-circle" size={24} color="#4cd964" />
+                        </P.Touchable>
+                      </Cell>
+                      <Cell style={{ flex: 2 }}>
+                        <P.Text>{widget.attributes.displayName}</P.Text>
+                      </Cell>
+                      <Cell>
+                        <AppIcon source={{ uri: getIcon(widget.attributes.origin) }} />
+                      </Cell>
+                      <Cell>
+                        <Ionicons name="ios-reorder" size={30} color="#fff" />
+                      </Cell>
                     </ListItem>
                   ))}
                 </List>
