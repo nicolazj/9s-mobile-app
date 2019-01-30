@@ -4364,6 +4364,13 @@ react-native-screens@1.0.0-alpha.15:
   version "1.0.0-alpha.17"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.17.tgz#8c1a7224b967c476670963fce7d06b946e7158e9"
 
+react-native-sortable-list@^0.0.22:
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/react-native-sortable-list/-/react-native-sortable-list-0.0.22.tgz#f23d2626ef0e625836205d46e48b97eb04169ec0"
+  integrity sha512-glMJMmXl5hTCPH3jHpZlt6+kGFyood+NeX5/QS/0od+A7VsCh9MOmsgGsPRlFrI0Hw45V55L6MZuoE6yiViquQ==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-svg@8.0.8:
   version "8.0.8"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-8.0.8.tgz#5d4c636751d9db2d98a9b3cfc4ef45c4eac65d60"
