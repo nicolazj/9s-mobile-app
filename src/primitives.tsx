@@ -1,8 +1,21 @@
-import { Platform, SafeAreaView, Text as Text_, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import {
+  Platform,
+  SafeAreaView,
+  Text as Text_,
+  TouchableNativeFeedback,
+  TouchableNativeFeedbackProps,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+} from 'react-native';
+
 import { scale } from './scale';
 import styled, { th } from './styled';
 
-export const Touchable = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
+type Intersection<A, B> = Pick<A, keyof A & keyof B>;
+export const Touchable: React.ComponentType<Intersection<TouchableNativeFeedbackProps, TouchableOpacityProps>> =
+  Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
 
 interface TextProps {
   children?: string | string[];

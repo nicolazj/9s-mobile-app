@@ -118,7 +118,6 @@ export class ManageWidgets extends React.Component<Props, State> {
                 order={activeWidgetsShowed.map(w => w.id)}
                 onChangeOrder={(orders: string[]) => {
                   this.orders = orders;
-                  console.log(orders);
                 }}
                 onActivateRow={() => {
                   this.setState({ scrollEnabled: false });
@@ -130,7 +129,6 @@ export class ManageWidgets extends React.Component<Props, State> {
                   for (let widget of widgets) {
                     const { id } = widget;
                     const index = orders.indexOf(id);
-                    console.log('index=', index, 'id=', id);
                     if (index > -1) {
                       widget.attributes.order = index;
                       toUpdate.push([
@@ -150,13 +148,12 @@ export class ManageWidgets extends React.Component<Props, State> {
                     await agent.company.widget.updateAttrs(...(payload as [string, any]));
                   }
                 }}
-                renderRow={({ data: widget, active }) => {
+                renderRow={({ data: widget, active }: { data: Widget; active: boolean }) => {
                   return (
                     <SortableRow key={widget.id} active={active}>
                       <ListItem key={widget.id}>
                         <Cell>
                           <P.Touchable
-                            style={{ flexDirection: 'row' }}
                             onPress={() => {
                               this.toggle(widget, false);
                             }}>
@@ -189,7 +186,6 @@ export class ManageWidgets extends React.Component<Props, State> {
                     <ListItem key={widget.id}>
                       <Cell>
                         <P.Touchable
-                          style={{ flexDirection: 'row' }}
                           onPress={() => {
                             this.toggle(widget, true);
                           }}>
