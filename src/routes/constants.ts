@@ -1,5 +1,6 @@
 export enum SCREENS {
   ONBOARDING,
+  FORCE_CONNECT,
   DASHBOARD,
   LOADING,
   SIGN_IN,

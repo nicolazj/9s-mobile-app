@@ -26,7 +26,12 @@ export class AuthLoadingScreen extends React.Component<Props> {
     const { onboarding } = cookieState.state;
     const loggedIn = await this.checkingLogin();
     if (loggedIn) {
-      this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
+      let connection = 0;
+      if (connection > 0) {
+        this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
+      } else {
+        this.props.navigation.navigate(SCREENS[SCREENS.FORCE_CONNECT]);
+      }
     } else if (!onboarding) {
       this.props.navigation.navigate(SCREENS[SCREENS.ONBOARDING]);
     } else this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
@@ -34,7 +39,7 @@ export class AuthLoadingScreen extends React.Component<Props> {
   // Render any loading content that you like here
   render() {
     return (
-      <View>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator />
         <StatusBar barStyle="default" />
       </View>

@@ -4,6 +4,7 @@ import Loading from '../screens/Loading';
 import Onboarding from '../screens/Onboarding';
 import Auth from './Auth';
 import { SCREENS } from './constants';
+import ForceConnect from './ForceConnect';
 import Tabs from './Tabs';
 
 const MainNavigator = createSwitchNavigator(
@@ -11,6 +12,7 @@ const MainNavigator = createSwitchNavigator(
     Tabs,
     [SCREENS[SCREENS.LOADING]]: Loading,
     [SCREENS[SCREENS.ONBOARDING]]: Onboarding,
+    ForceConnect,
 
     Auth,
   },
