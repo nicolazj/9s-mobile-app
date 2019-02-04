@@ -26,14 +26,10 @@ const SwitchText = styled(P.Text)<{ selected: boolean }>`
   color: ${p => (p.selected ? '#fff' : th('color.main')(p))};
   text-align: center;
 `;
-const Switch: React.SFC<Props> = ({ options, cur, onChange }) => (
+const Switch: React.FC<Props> = ({ options, cur, onChange }) => (
   <SwitchView>
     {options.map((option, index) => (
-      <SwitchButton
-        key={option.label}
-        selected={index === cur}
-        onPress={() => onChange(index)}
-      >
+      <SwitchButton key={option.label} selected={index === cur} onPress={() => onChange(index)}>
         <SwitchText selected={index === cur}>{option.label}</SwitchText>
       </SwitchButton>
     ))}

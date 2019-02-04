@@ -22,7 +22,7 @@ interface FormikTextInputProps {
   placeholder?: string;
 }
 
-const FormikTextInput: React.SFC<FormikTextInputProps & TextInputProps & FieldProps> = ({
+const FormikTextInput: React.FC<FormikTextInputProps & TextInputProps & FieldProps> = ({
   field: { name, value },
   form: { touched, errors, handleChange },
   placeholder,
@@ -35,7 +35,7 @@ const FormikTextInput: React.SFC<FormikTextInputProps & TextInputProps & FieldPr
       placeholder={placeholder}
       secureTextEntry={secureTextEntry}
     />
-    {errors[name] && touched[name] && <FormError>{errors[name]}</FormError>}
+    {errors[name] && touched[name] && <FormError>{errors[name] as string}</FormError>}
   </FormGroup>
 );
 

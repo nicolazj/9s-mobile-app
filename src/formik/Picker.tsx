@@ -21,7 +21,7 @@ interface FormikPickerProps {
   placeholder: string;
 }
 
-const FormikPicker: React.SFC<FormikPickerProps & FieldProps> = ({
+const FormikPicker: React.FC<FormikPickerProps & FieldProps> = ({
   field: { name, value },
   form: { touched, errors, handleChange },
   options,
@@ -38,7 +38,7 @@ const FormikPicker: React.SFC<FormikPickerProps & FieldProps> = ({
         isNullable
         placeholder={placeholder}
       />
-      {errors[name] && touched[name] && <FormError>{errors[name]}</FormError>}
+      {errors[name] && touched[name] && <FormError>{errors[name] as string}</FormError>}
     </FormGroup>
   );
 };
