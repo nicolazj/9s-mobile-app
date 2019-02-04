@@ -36,7 +36,6 @@ class SignIn extends React.Component<Props> {
         await agent.token.exchange(companies[0].companyUuid);
         this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
       } else {
-        // FIXME companies
       }
     } catch (err) {
       Alert.alert('Log in failed', 'Unable to sign in, try again later');

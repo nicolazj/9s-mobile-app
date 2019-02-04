@@ -24,8 +24,7 @@ const ButtonText = styled(P.Text)<SProps>`
 interface Props extends SProps {
   title: string;
 }
-// FIXME type is incorrect
-const Button: React.SFC<Props & TouchableNativeFeedbackProps & TouchableOpacityProps> = ({
+const Button: React.FC<Props & TouchableNativeFeedbackProps & TouchableOpacityProps> = ({
   title,
   danger,
   ...props

@@ -20,8 +20,7 @@ const SelectText = styled(P.Text)`
 interface Props {
   title: string;
 }
-// FIXME type is incorrect
-const Select: React.SFC<Props & TouchableNativeFeedbackProps & TouchableOpacityProps> = ({ title, ...props }) => (
+const Select: React.FC<Props & TouchableNativeFeedbackProps & TouchableOpacityProps> = ({ title, ...props }) => (
   <SelectTouchable {...props}>
     <View>
       <SelectText> {title}</SelectText>

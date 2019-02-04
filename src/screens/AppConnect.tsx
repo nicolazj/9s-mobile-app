@@ -2,10 +2,13 @@ import { Constants, Linking, WebBrowser } from 'expo';
 import React from 'react';
 import { Image, Text } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
+
 import agent from '../agent';
+import Button from '../components/Button';
 import Select from '../components/Select';
 import Lock from '../Lock';
 import * as P from '../primitives';
+import { SCREENS } from '../routes/constants';
 import { scale } from '../scale';
 import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
@@ -153,6 +156,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
           <P.Container vcenter>
             <AppImg style={{}} source={{ uri: appDetail.app.logo }} resizeMode="contain" />
             <P.H2>SUCCEEDED</P.H2>
+            <Button onPress={() => this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD])} title="Done" />
           </P.Container>
         )}
 

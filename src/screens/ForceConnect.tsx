@@ -6,9 +6,7 @@ import agent from '../agent';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import { scale } from '../scale';
-import activityStatusState, {
-  ActivityStatusState,
-} from '../states/ActivityStatus';
+import activityStatusState, { ActivityStatusState } from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import authContainer, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
@@ -42,8 +40,7 @@ const AvaibleApp = styled(P.Touchable)`
 `;
 const AvaibleAppTextView = styled(View)`
   flex: 1;
-  margin: ${scale(10)}px;
-  margin-left: 0;
+  margin: ${scale(4)}px;
 `;
 const AvaibleAppLabel = styled(P.Text)`
   font-size: ${scale(12)}px;
@@ -70,9 +67,7 @@ class ForceConnect extends React.Component<Props> {
       agent.user.spoke.get('mobile'),
       agent.user.service.list(),
     ]);
-    const fullApps = await Promise.all(
-      apps.map(app => agent.user.service.get(app.key))
-    );
+    const fullApps = await Promise.all(apps.map(app => agent.user.service.get(app.key)));
     appState.setState({ connections, spokes, apps: fullApps });
     activityStatusState.dismiss();
   };
@@ -84,7 +79,7 @@ class ForceConnect extends React.Component<Props> {
   render() {
     const [appState] = this.props.states;
     return (
-      <P.Container style={{ backgroundColor: '#fff' }}>
+      <P.Container padding style={{ backgroundColor: '#fff' }}>
         <ScrollView>
           <Title style={{ textAlign: 'center' }}>Connect your apps</Title>
           <SubTitle style={{ textAlign: 'center', color: '#999' }}>
@@ -106,9 +101,4 @@ class ForceConnect extends React.Component<Props> {
   }
 }
 
-export default SubscribeHOC([
-  appState,
-  userState,
-  authContainer,
-  activityStatusState,
-])(withNavigation(ForceConnect));
+export default SubscribeHOC([appState, userState, authContainer, activityStatusState])(withNavigation(ForceConnect));
