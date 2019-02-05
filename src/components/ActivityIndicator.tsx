@@ -3,7 +3,7 @@ import { ActivityIndicator, View } from 'react-native';
 import { Subscribe } from 'unstated';
 import { Text } from '../primitives';
 import { scale } from '../scale';
-import ActicityStatus from '../states/ActivityStatus';
+import activityStatus, { ActivityStatusState } from '../states/ActivityStatus';
 import styled, { th } from '../styled';
 
 const BG = styled(View)`
@@ -33,8 +33,8 @@ const AI = styled(ActivityIndicator).attrs(props => ({
   color: th('color.main')(props),
 }))``;
 export default () => (
-  <Subscribe to={[ActicityStatus]}>
-    {(acticityStatus: ActicityStatus) =>
+  <Subscribe to={[activityStatus]}>
+    {(acticityStatus: ActivityStatusState) =>
       acticityStatus.state.show ? (
         <BG>
           <Wrapper>

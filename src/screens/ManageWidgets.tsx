@@ -111,7 +111,7 @@ export class ManageWidgets extends React.Component<Props, State> {
               <SortableList
                 sortingEnabled={true}
                 scrollEnabled={false}
-                data={activeWidgetsShowed.reduce((p, cur, i) => {
+                data={activeWidgetsShowed.reduce((p: { [key: string]: Widget }, cur, i) => {
                   p[cur.id] = cur;
                   return p;
                 }, {})}

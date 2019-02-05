@@ -41,7 +41,7 @@ export class SignUpCompany extends React.Component<Props, State> {
       industries,
     });
   }
-  onPress = async values => {
+  onPress = async (values: object) => {
     const [activityStatusState, userState] = this.props.states;
 
     const signUpPayload = this.props.navigation.state.params as SignUpPayload;
