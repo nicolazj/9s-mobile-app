@@ -64,7 +64,7 @@ export class SignUpCompany extends React.Component<Props, State> {
       activityStatusState.show('Switching  company');
 
       await agent.token.exchange(company.companyUuid);
-      this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
+      this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
       console.log(JSON.stringify(err, null, 2));
       Alert.alert('Log in failed', 'Unable to sign in, try again later');

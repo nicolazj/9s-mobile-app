@@ -1,10 +1,36 @@
+import React from 'react';
 import { createStackNavigator, NavigationScreenProps } from 'react-navigation';
 
+import * as P from '../primitives';
 import AppConnect from '../screens/AppConnect';
 import AppDetail from '../screens/AppDetail';
 import ForceConnect from '../screens/ForceConnect';
-import { IThemeInterface, th } from '../styled';
+import authState, { AuthState } from '../states/Auth';
+import { SubscribeHOC } from '../states/helper';
+import styled, { th } from '../styled';
 import { SCREENS } from './constants';
+
+const LogoutBtn = styled(P.Touchable)`
+  padding: 10px;
+`;
+const LogoutText = styled(P.Text)`
+  color: ${th('color.main')};
+`;
+
+const Logout_: React.FC<{ states: [AuthState]; navProps: NavigationScreenProps }> = ({
+  states,
+  navProps: { navigation },
+}) => (
+  <LogoutBtn
+    onPress={() => {
+      const [authState] = states;
+      authState.clear();
+      navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
+    }}>
+    <LogoutText>Log out</LogoutText>
+  </LogoutBtn>
+);
+const Logout = SubscribeHOC([authState])(Logout_) as React.FC<{ navProps: NavigationScreenProps }>;
 
 export default createStackNavigator(
   {
@@ -19,6 +45,8 @@ export default createStackNavigator(
             shadowOpacity: 0, // remove shadow on iOS
             borderBottomWidth: 0,
           },
+
+          headerLeft: <Logout navProps={props} />,
         };
       },
     },

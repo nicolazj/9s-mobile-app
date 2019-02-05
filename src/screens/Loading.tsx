@@ -26,8 +26,8 @@ export class AuthLoadingScreen extends React.Component<Props> {
     const { onboarding } = cookieState.state;
     const loggedIn = await this.checkingLogin();
     if (loggedIn) {
-      let connection = 1;
-      if (connection > 0) {
+      let connection = await agent.company.connection.list();
+      if (connection.length > 0) {
         this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
       } else {
         this.props.navigation.navigate(SCREENS[SCREENS.FORCE_CONNECT]);
