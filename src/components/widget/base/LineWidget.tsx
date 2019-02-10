@@ -75,7 +75,7 @@ export class LineWidget extends React.Component<Props> {
         data: gd.value.map((v, i) => {
           return {
             value: v,
-            label_key: extras[i].label_key,
+            label_key: extras[i].label_key || '',
           };
         }),
       };

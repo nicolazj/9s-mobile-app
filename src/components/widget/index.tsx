@@ -100,13 +100,11 @@ class WidgetComp extends React.Component<Props, State> {
       error: false,
       maxHeight: 300,
     };
-    this.height = new Value(
-      props.sample ? this.state.maxHeight : HEIGHT_COLLAPSED
-    );
+    this.height = new Value(props.sample ? this.state.maxHeight : HEIGHT_COLLAPSED);
   }
   componentDidCatch(error: any, info: any) {
     // You can also log the error to an error reporting service
-    console.log(error, info);
+    console.log('errrrrrrrrrrr', error, info);
     this.setState({ error: true });
   }
   onShowHidePress = () => {
@@ -140,6 +138,9 @@ class WidgetComp extends React.Component<Props, State> {
     const Widget = getWidgetByKey(widget.key);
     const app = appState.getApp(widget.attributes.origin);
     if (!Widget || !app) return null;
+
+    console.log(widget);
+
     return (
       <WidgetContainer>
         <WidgetHeader>
@@ -147,12 +148,7 @@ class WidgetComp extends React.Component<Props, State> {
             <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
             <WidgetAppIcon source={{ uri: app.squareLogo }} />
           </WidgetTitleWrapper>
-          {hasData && (
-            <WidgetOp
-              title={collapsed ? 'Show' : 'Hide'}
-              onPress={this.onShowHidePress}
-            />
-          )}
+          {hasData && <WidgetOp title={collapsed ? 'Show' : 'Hide'} onPress={this.onShowHidePress} />}
         </WidgetHeader>
         <WidgetWrapper style={{ height: this.height }}>
           <View onLayout={this.setMaxHeight}>
@@ -162,8 +158,7 @@ class WidgetComp extends React.Component<Props, State> {
               </ErrorBoundary>
             ) : (
               <NoDataPromp>
-                Sorry, we can't find your information. Check if your app
-                contains any data or start making use of it
+                Sorry, we can't find your information. Check if your app contains any data or start making use of it
               </NoDataPromp>
             )}
 
@@ -172,12 +167,9 @@ class WidgetComp extends React.Component<Props, State> {
                 <Link
                   title="what does this mean?"
                   onPress={() => {
-                    this.props.navigation.navigate(
-                      SCREENS[SCREENS.WIDGET_INFO],
-                      {
-                        key: widget.key,
-                      }
-                    );
+                    this.props.navigation.navigate(SCREENS[SCREENS.WIDGET_INFO], {
+                      key: widget.key,
+                    });
                   }}
                 />
               </WidgetFooter>

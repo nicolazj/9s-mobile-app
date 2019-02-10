@@ -14,7 +14,7 @@ function formatYAxis(value: number, index: number) {
   return value > 1000 ? (value / 1000).toFixed(1) + 'K' : value.toString();
 }
 function formatter(value: number) {
-  return value;
+  return value.toString();
 }
 export class WidgetComp extends LineWidget {
   render() {
