@@ -15,7 +15,7 @@ interface Props {
   collapsed: boolean;
 }
 
-const WidgetComp: React.FC<Props> = ({ widget, collapsed }) => {
+const TopPerformingCampaigns: React.FC<Props> = ({ widget, collapsed }) => {
   const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
     return {
       title: ['Best', 'Worst'][dIndex],
@@ -39,4 +39,4 @@ const WidgetComp: React.FC<Props> = ({ widget, collapsed }) => {
   );
 };
 
-export default WidgetComp;
+export default TopPerformingCampaigns;

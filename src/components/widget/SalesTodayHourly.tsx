@@ -16,7 +16,7 @@ function formatYAxis(value: number, index: number) {
 function formatter(value: number) {
   return value.toString();
 }
-export class WidgetComp extends LineWidget {
+export class SalesTodayHourly extends LineWidget {
   render() {
     const { widget } = this.props;
     const { curTick } = this.state;
@@ -45,4 +45,4 @@ export class WidgetComp extends LineWidget {
   }
 }
 
-export default withTheme(WidgetComp);
+export default withTheme(SalesTodayHourly);

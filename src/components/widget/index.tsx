@@ -139,8 +139,6 @@ class WidgetComp extends React.Component<Props, State> {
     const app = appState.getApp(widget.attributes.origin);
     if (!Widget || !app) return null;
 
-    console.log(widget);
-
     return (
       <WidgetContainer>
         <WidgetHeader>

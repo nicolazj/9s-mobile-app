@@ -40,6 +40,7 @@ class TableChart extends React.Component<Props, State> {
   };
   render() {
     const { collapsed, tabs } = this.props;
+    if (!tabs) return null;
     const { cur } = this.state;
     const data = tabs[cur];
     let { header, rows, formatters } = data;
@@ -52,11 +53,7 @@ class TableChart extends React.Component<Props, State> {
           <Row key="head">
             {React.Children.map(header, (key, key_index) => {
               return (
-                <ColText
-                  key={key_index}
-                  grow={rowWidths[key_index]}
-                  style={{ textAlign: rowAligns[key_index] }}
-                >
+                <ColText key={key_index} grow={rowWidths[key_index]} style={{ textAlign: rowAligns[key_index] }}>
                   {key}
                 </ColText>
               );
@@ -72,8 +69,7 @@ class TableChart extends React.Component<Props, State> {
                     key={key}
                     grow={rowWidths[key_index]}
                     strong={d.strong === true}
-                    style={{ textAlign: rowAligns[key_index] }}
-                  >
+                    style={{ textAlign: rowAligns[key_index] }}>
                     {formatters[key_index](key)}
                   </ColText>
                 );

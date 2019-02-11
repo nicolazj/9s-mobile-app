@@ -13,7 +13,7 @@ function formatXAxis(value: number, index: number, data: Data) {
   return label;
 }
 
-export class WidgetComp extends LineWidget {
+export class WebsiteGoalConversions extends LineWidget {
   render() {
     const { widget } = this.props;
     const { curTick } = this.state;
@@ -36,7 +36,7 @@ export class WidgetComp extends LineWidget {
   }
 }
 
-export default withTheme(WidgetComp);
+export default withTheme(WebsiteGoalConversions);
 
 export const sample: Widget = {
   alertSettings: [],

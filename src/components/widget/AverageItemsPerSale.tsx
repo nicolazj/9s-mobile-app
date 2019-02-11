@@ -16,7 +16,7 @@ function formatYAxis(value: number, index: number) {
   return value > 1000 ? (value / 1000).toFixed(1) + 'K' : value.toString();
 }
 
-export class WidgetComp extends LineWidget {
+export class AverageItemsPerSale extends LineWidget {
   render() {
     const { widget } = this.props;
     const { curTick } = this.state;
@@ -46,4 +46,4 @@ export class WidgetComp extends LineWidget {
   }
 }
 
-export default withTheme(WidgetComp);
+export default withTheme(AverageItemsPerSale);

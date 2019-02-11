@@ -14,7 +14,7 @@ interface Props {
   collapsed: boolean;
 }
 
-const WidgetComp: React.FC<Props> = ({ widget, collapsed }) => {
+const CashCommitments: React.FC<Props> = ({ widget, collapsed }) => {
   const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
     return {
       header: ['Name', 'Opened', 'Clicked'],
@@ -32,4 +32,4 @@ const WidgetComp: React.FC<Props> = ({ widget, collapsed }) => {
   return <TableChart tabs={data} collapsed={collapsed} />;
 };
 
-export default WidgetComp;
+export default CashCommitments;

@@ -1,7 +1,9 @@
 import { Constants, Linking, WebBrowser } from 'expo';
 import React from 'react';
-import { Image, Text } from 'react-native';
+import { Image, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
+
+import { Ionicons } from '@expo/vector-icons';
 
 import agent from '../agent';
 import Button from '../components/Button';
@@ -10,14 +12,15 @@ import Lock from '../Lock';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import { scale } from '../scale';
+import activityStatus, { ActivityStatusState } from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
-import styled from '../styled';
+import styled, { th } from '../styled';
 import { ACTIVITY_TYPES, Entity, Workflow } from '../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState];
+  states: [AppState, ActivityStatusState];
 }
 
 interface State {
@@ -30,6 +33,27 @@ const AppImg = styled(Image)`
   width: ${scale(200)}px;
   align-self: center;
 `;
+
+const Title = styled(P.H2)`
+  color: #aaa;
+`;
+const SubTitle = styled(P.Text)`
+  color: #aaa;
+`;
+const Container = styled(P.Container)`
+  background-color: #fff;
+`;
+const ConnectText = styled(P.Text)`
+  color: ${th('color.main')};
+  padding: 0 4px;
+`;
+const Row = styled(View)`
+  flex-direction: row;
+  align-items: center;
+`;
+const Icon = styled(Ionicons).attrs(props => ({
+  color: th('color.main')(props),
+}))``;
 export class AppConnectScreen extends React.Component<Props, State> {
   state = {
     entities: [],
@@ -43,7 +67,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
   async startConnection() {
     try {
       const appKey = this.props.navigation.getParam('key');
-      const [appState] = this.props.states;
+      const [appState, activityStatus] = this.props.states;
       const appDetail = appState.appDetail(appKey);
 
       let { connection } = appDetail;
@@ -102,8 +126,10 @@ export class AppConnectScreen extends React.Component<Props, State> {
 
             case ACTIVITY_TYPES.GET_AVAILABLE_ENTITIES:
               if (connection) {
+                activityStatus.show('Loading entities');
                 const entities = await company.entities.list(connection.id);
                 this.setState({ entities });
+                activityStatus.dismiss();
               }
               break;
 
@@ -137,27 +163,36 @@ export class AppConnectScreen extends React.Component<Props, State> {
     const { step } = this.state;
 
     return (
-      <P.Container padding>
+      <Container padding>
         {step === ACTIVITY_TYPES.CLIENT_INIT && (
-          <P.Container hcenter>
-            <P.H2>Connect to {appDetail.app.name}</P.H2>
+          <P.Container vcenter hcenter>
+            <Title>Connect to {appDetail.app.name}</Title>
           </P.Container>
         )}
         {step === ACTIVITY_TYPES.SUBMIT_ENTITY && (
-          <P.Container hcenter>
-            <P.H2>Select an entity</P.H2>
-            <Text>Select one of the following entities for your account</Text>
+          <Container hcenter>
+            <Title>Select an entity</Title>
+            <SubTitle>Select one of the following entities for your account</SubTitle>
             {this.state.entities.map(e => (
               <Select title={e.name} onPress={() => this.chooseEntity(e)} key={e.id} />
             ))}
-          </P.Container>
+          </Container>
         )}
         {step === ACTIVITY_TYPES.SUCCEEDED && (
-          <P.Container vcenter>
-            <AppImg style={{}} source={{ uri: appDetail.app.logo }} resizeMode="contain" />
-            <P.H2>SUCCEEDED</P.H2>
+          <Container vcenter hcenter>
+            <AppImg source={{ uri: appDetail.app.logo }} resizeMode="contain" />
+
+            <Row>
+              <Icon name="ios-checkmark-circle-outline" size={24} />
+              <ConnectText>Connected</ConnectText>
+            </Row>
+
+            <SubTitle>
+              We're busy setting up your widgets for you. Here are some examples of what they'll look like when they're
+              ready.
+            </SubTitle>
             <Button onPress={() => this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD])} title="Done" />
-          </P.Container>
+          </Container>
         )}
 
         {step === ACTIVITY_TYPES.ERRORED && (
@@ -165,7 +200,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
             <P.H2>ERRORED</P.H2>
           </P.Container>
         )}
-      </P.Container>
+      </Container>
     );
   }
   chooseEntity(e: Entity) {
@@ -173,4 +208,4 @@ export class AppConnectScreen extends React.Component<Props, State> {
   }
 }
 
-export default SubscribeHOC([appState])(AppConnectScreen);
+export default SubscribeHOC([appState, activityStatus])(AppConnectScreen);

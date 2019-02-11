@@ -16,7 +16,7 @@ function formatYAxis(value: number, index: number) {
 function formatter(value: number) {
   return numeral(value).format('$0,0.00');
 }
-export class WidgetComp extends LineWidget {
+export class TotalSalesToday extends LineWidget {
   render() {
     const { widget } = this.props;
     const { curTick } = this.state;
@@ -45,4 +45,4 @@ export class WidgetComp extends LineWidget {
   }
 }
 
-export default withTheme(WidgetComp);
+export default withTheme(TotalSalesToday);

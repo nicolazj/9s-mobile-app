@@ -16,7 +16,7 @@ interface Props {
 
 const id = (t: any) => t;
 
-const WidgetComp: React.FC<Props> = ({ widget, collapsed }) => {
+const TopSellingProducts: React.FC<Props> = ({ widget, collapsed }) => {
   const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
     return {
       title: ['Best', 'Worst'][dIndex],
@@ -32,7 +32,8 @@ const WidgetComp: React.FC<Props> = ({ widget, collapsed }) => {
       }),
     };
   });
-  return <TableChart data={data} collapsed={collapsed} />;
+  console.log(data);
+  return <TableChart tabs={data} collapsed={collapsed} />;
 };
 
-export default WidgetComp;
+export default TopSellingProducts;

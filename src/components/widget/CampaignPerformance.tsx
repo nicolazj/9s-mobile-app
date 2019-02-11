@@ -3,13 +3,7 @@ import { View } from 'react-native';
 
 import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
-import {
-  Header,
-  IndexTitle,
-  IndexTitles,
-  IndexVal,
-  IndexVals,
-} from './base/LineWidget';
+import { Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from './base/LineWidget';
 
 function formatter(value: number) {
   return value + '0%';
@@ -21,7 +15,7 @@ interface Props {
 }
 const id = (t: any) => t;
 
-const WidgetComp: React.FC<Props> = ({ widget, collapsed }) => {
+const CampaignPerformance: React.FC<Props> = ({ widget, collapsed }) => {
   const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
     return {
       header: ['Name', 'Opened', 'Clicked'],
@@ -53,4 +47,4 @@ const WidgetComp: React.FC<Props> = ({ widget, collapsed }) => {
   );
 };
 
-export default WidgetComp;
+export default CampaignPerformance;

@@ -12,7 +12,7 @@ function formatXAxis(value: number, index: number, data: Data) {
   return label[0];
 }
 
-export class WidgetComp extends LineWidget {
+export class BussinessGrowth extends LineWidget {
   render() {
     const { widget } = this.props;
     const { curTick } = this.state;
@@ -35,4 +35,4 @@ export class WidgetComp extends LineWidget {
   }
 }
 
-export default withTheme(WidgetComp);
+export default withTheme(BussinessGrowth);
