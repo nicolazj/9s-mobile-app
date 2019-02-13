@@ -96,13 +96,14 @@ class AppList extends React.Component<Props> {
     const [appState, __, ___, activityStatusState] = this.props.states;
     activityStatusState.show('Loading');
 
-    const [connections, spokes, apps] = await Promise.all([
+    const [connections, spokes, apps, samples] = await Promise.all([
       agent.company.connection.list(),
       agent.user.spoke.get('mobile'),
       agent.user.service.list(),
+      agent.misc.widget.sample(),
     ]);
     const fullApps = await Promise.all(apps.map(app => agent.user.service.get(app.key)));
-    appState.setState({ connections, spokes, apps: fullApps });
+    appState.setState({ connections, spokes, apps: fullApps, samples });
     activityStatusState.dismiss();
   };
 

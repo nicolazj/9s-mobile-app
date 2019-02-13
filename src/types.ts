@@ -98,6 +98,19 @@ export interface Widget {
   id: string;
   key: string;
 }
+
+export interface WidgetSample {
+  description: string;
+  key: string;
+  displayName: string;
+  categoriy: any;
+  services: string[];
+  extras: Array<{ label_key: string; value_1: number; value_2: number }>;
+  graphData: Array<{
+    data_set_name: string;
+    value: number[];
+  }>;
+}
 export interface App {
   description: string;
   features: string[];

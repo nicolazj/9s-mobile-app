@@ -1,9 +1,10 @@
 import { Container } from 'unstated';
-import { App, Connection, Spoke } from '../types';
+import { App, Connection, Spoke, WidgetSample } from '../types';
 interface State {
   spokes: Spoke[];
   connections: Connection[];
   apps: App[];
+  samples: WidgetSample[];
 }
 export interface AppDetail {
   appKey: string;
@@ -15,6 +16,7 @@ export class AppState extends Container<State> {
     spokes: [],
     connections: [],
     apps: [],
+    samples: [],
   } as State;
   get activeConnections() {
     return this.state.connections.filter(c => c.status === 'ACTIVE');

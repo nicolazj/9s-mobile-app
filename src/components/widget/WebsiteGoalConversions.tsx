@@ -39,7 +39,6 @@ export class WebsiteGoalConversions extends LineWidget {
 export default withTheme(WebsiteGoalConversions);
 
 export const sample: Widget = {
-  alertSettings: [],
   attributes: {
     active: true,
     categories: [
@@ -65,7 +64,7 @@ export const sample: Widget = {
     status: 'ACTIVE',
   },
   data: {
-    dataSets: null,
+    dataSets: [],
     extras: [
       {
         label_key: 'd.7',
@@ -116,5 +115,4 @@ export const sample: Widget = {
   },
   id: 'bb2e8f8c-8dc9-434c-83a7-e3ca6ad1efca',
   key: 'website-conversions',
-  origin: 'googleanalytics',
 };

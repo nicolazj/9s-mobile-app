@@ -16,6 +16,7 @@ const SwitchView = styled(View)`
   border-radius: 4px;
   width: ${scale(120)}px;
   overflow: hidden;
+  margin: 4px 0;
 `;
 const SwitchButton = styled(P.Touchable)<{ selected: boolean }>`
   padding: 6px 10px;

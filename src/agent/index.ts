@@ -2,6 +2,7 @@ import auth, { AuthState } from '../states/Auth';
 import { ClientConfig } from '../types';
 import companyAgent from './company';
 import config from './config';
+import miscAgent from './misc';
 import publicAgent from './public';
 import tokenAgent from './token';
 import userAgent from './user';
@@ -19,6 +20,9 @@ export const APIClient = (config: ClientConfig) => (auth: AuthState) => {
     },
     get company() {
       return companyAgent(config, auth);
+    },
+    get misc() {
+      return miscAgent();
     },
   };
 };
