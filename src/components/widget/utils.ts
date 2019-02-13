@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Widget } from '../../types';
 import AverageItemsPerSale from './AverageItemsPerSale';
 import AverageSpendPerSale from './AverageSpendPerSale';
 import AvItemsPerSaleToday from './AvItemsPerSaleToday';
@@ -8,7 +7,7 @@ import AvItemsPerSaleTodayHourly from './AvItemsPerSaleTodayHourly';
 import AvSpendPerSaleToday from './AvSpendPerSaleToday';
 import AvSpendPerSaleTodayHourly from './AvSpendPerSaleTodayHourly';
 import BussinessGrowth from './BussinessGrowth';
-import CampaignPerformance, { sample as CampaignPerformanceSample } from './CampaignPerformance';
+import CampaignPerformance from './CampaignPerformance';
 import CashCommitments from './CashCommitments';
 import CashPositionAndCoverage from './CashPositionAndCoverage';
 import GrossProfit from './GrossProfit';
@@ -21,12 +20,12 @@ import SalesByWeek from './SalesByWeek';
 import SalesTodayHourly from './SalesTodayHourly';
 import SalesTransactionsToday from './SalesTransactionsToday';
 import SalesTransactionsTodayHourly from './SalesTransactionsTodayHourly';
-import TopPerformingCampaigns, { sample as TopPerformingCampaignsSample } from './TopPerformingCampaigns';
+import TopPerformingCampaigns from './TopPerformingCampaigns';
 import TopSellingProducts from './TopSellingProducts';
 import TopSellingProductsToday from './TopSellingProductsToday';
 import TotalSalesToday from './TotalSalesToday';
-import widgetWebsiteGoalConversions, { sample as widgetWebsiteGoalConversionsSample } from './WebsiteGoalConversions';
-import widgetWebsiteTraffic, { sample as widgetWebsiteTrafficSample } from './WebsiteTraffic';
+import widgetWebsiteGoalConversions from './WebsiteGoalConversions';
+import widgetWebsiteTraffic from './WebsiteTraffic';
 
 interface WidgetMap {
   [key: string]: React.ComponentType<any>;
@@ -59,23 +58,8 @@ const widgetsMap: WidgetMap = {
   'campaign-performance': CampaignPerformance,
   'top-performing-campaigns': TopPerformingCampaigns,
 };
-interface WidgetDataMap {
-  [key: string]: Widget;
-}
-const WidgetDataMap: WidgetDataMap = {
-  'website-conversions': widgetWebsiteGoalConversionsSample,
-  'website-traffic': widgetWebsiteTrafficSample,
-  'campaign-performance': CampaignPerformanceSample,
-  'top-performing-campaigns': TopPerformingCampaignsSample,
-};
 
 export const getWidgetByKey = (key: string) => {
   const widget = widgetsMap[key];
-
   return widget;
-};
-
-export const getWidgetSampleByKey = (key: string): Widget => {
-  const sample = WidgetDataMap[key];
-  return sample;
 };

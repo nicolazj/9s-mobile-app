@@ -36,6 +36,9 @@ export class AppState extends Container<State> {
   getApp(appKey: string) {
     return this.state.apps.find(app => app.key === appKey);
   }
+  getSample(appKey: string) {
+    return this.state.samples.find(sample => sample.key === appKey);
+  }
   appDetail(appKey: string) {
     return {
       appKey,
