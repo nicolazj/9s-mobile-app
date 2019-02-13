@@ -103,7 +103,7 @@ export interface WidgetSample {
   description: string;
   key: string;
   displayName: string;
-  categoriy: any;
+  category: any;
   services: string[];
   extras: Array<{ label_key: string; value_1: number; value_2: number }>;
   graphData: Array<{
