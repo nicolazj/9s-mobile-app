@@ -28,13 +28,19 @@ export class Settings extends React.Component<Props> {
   render() {
     const [userState, authState] = this.props.states;
     const { me, companies } = userState.state;
-    const company = companies ? companies.find(c => c.companyUuid === authState.state.companyUuid) : null;
+    const company = companies
+      ? companies.find(c => c.companyUuid === authState.state.companyUuid)
+      : null;
     return (
       <P.Container>
         <ScrollView>
           <Title>Account</Title>
           <List style={{ backgroundColor: '#fff' }}>
-            <ListItem>
+            <ListItem
+              onPress={() => {
+                this.props.navigation.push(SCREENS[SCREENS.UPDATE_PROFILE]);
+              }}
+            >
               <Left>
                 <Text>User profile</Text>
               </Left>
@@ -45,7 +51,11 @@ export class Settings extends React.Component<Props> {
                 <Ionicons name="ios-arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem>
+            <ListItem
+              onPress={() => {
+                this.props.navigation.push(SCREENS[SCREENS.UPDATE_COMPANY]);
+              }}
+            >
               <Left>
                 <Text>Company profile</Text>
               </Left>
@@ -68,7 +78,13 @@ export class Settings extends React.Component<Props> {
                 <Ionicons name="ios-arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem onPress={() => WebBrowser.openBrowserAsync('https://support.9spokes.com/hc/en-us')}>
+            <ListItem
+              onPress={() =>
+                WebBrowser.openBrowserAsync(
+                  'https://support.9spokes.com/hc/en-us'
+                )
+              }
+            >
               <Left>
                 <Text>Help center</Text>
               </Left>
@@ -81,7 +97,12 @@ export class Settings extends React.Component<Props> {
 
           <List style={{ backgroundColor: '#fff' }}>
             <ListItem
-              onPress={() => WebBrowser.openBrowserAsync('https://www.9spokes.com/legal/terms-and-conditions/')}>
+              onPress={() =>
+                WebBrowser.openBrowserAsync(
+                  'https://www.9spokes.com/legal/terms-and-conditions/'
+                )
+              }
+            >
               <Left>
                 <Text>Terms and conditions</Text>
               </Left>
@@ -89,7 +110,13 @@ export class Settings extends React.Component<Props> {
                 <Ionicons name="ios-arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem onPress={() => WebBrowser.openBrowserAsync('https://www.9spokes.com/legal/privacy-notice/')}>
+            <ListItem
+              onPress={() =>
+                WebBrowser.openBrowserAsync(
+                  'https://www.9spokes.com/legal/privacy-notice/'
+                )
+              }
+            >
               <Left>
                 <Text>Privacy policy</Text>
               </Left>
