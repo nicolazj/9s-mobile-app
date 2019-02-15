@@ -8,6 +8,8 @@ interface Props {
 
 const PView = styled(View)`
   flex-direction: row;
+  position: absolute;
+  bottom: 160px;
 `;
 
 const Dot = styled(View)<{ selected: boolean }>`
@@ -18,9 +20,7 @@ const Dot = styled(View)<{ selected: boolean }>`
   background-color: ${p => (p.selected ? '#333' : '#999')};
 `;
 const PaginationIndicator: React.FC<Props> = ({ current = 0, length }) => {
-  const renderIndicatorItem = (index: number, selected: boolean) => (
-    <Dot selected={selected} key={index} />
-  );
+  const renderIndicatorItem = (index: number, selected: boolean) => <Dot selected={selected} key={index} />;
 
   const renderIndicators = () => {
     const indicators = [];

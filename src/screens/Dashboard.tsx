@@ -6,7 +6,6 @@ import agent from '../agent';
 import WidgetComp from '../components/widget';
 import * as P from '../primitives';
 import { Widget } from '../types';
-
 interface State {
   widgets: Widget[];
   refreshing: boolean;

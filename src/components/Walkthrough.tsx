@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Dimensions,
-  FlatList,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  View,
-} from 'react-native';
+import { Dimensions, FlatList, NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native';
 
 import PaginationIndicator from './PaginationIndicator';
 
@@ -31,14 +25,14 @@ export default class Walkthrough extends React.Component<Props, State> {
     this.setState({ index: pageNum });
   };
 
-  renderItem = ({ item }: { item: React.ReactNode }) => (
-    <View style={[{ flex: 1, width }]}>{item}</View>
+  renderItem = ({ item, index }: { item: React.ReactElement<any>; index: number }) => (
+    <View style={[{ flex: 1, width }]}>{React.cloneElement(item, { current: index === this.state.index })}</View>
   );
 
   render = () => (
     <View style={{ flex: 1, alignItems: 'center' }}>
       <FlatList
-        style={{ flex: 1 }}
+        style={{ flex: 1, backgroundColor: '#fff' }}
         data={this.props.children}
         onMomentumScrollEnd={this.onScrollEnd}
         keyExtractor={this.extractItemKey}
@@ -49,10 +43,7 @@ export default class Walkthrough extends React.Component<Props, State> {
         directionalLockEnabled
         renderItem={this.renderItem}
       />
-      <PaginationIndicator
-        length={this.props.children.length}
-        current={this.state.index}
-      />
+      <PaginationIndicator length={this.props.children.length} current={this.state.index} />
     </View>
   );
 }

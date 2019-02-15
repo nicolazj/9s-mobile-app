@@ -6,17 +6,17 @@ import Icon from '@expo/vector-icons';
 
 import Root from './src/Root';
 
-interface Props {
-  skipLoadingScreen: boolean;
+interface State {
+  isLoadingComplete: boolean;
 }
 
-export default class App extends React.Component<Props> {
-  state = {
+export default class App extends React.Component<any, State> {
+  state: State = {
     isLoadingComplete: false,
   };
 
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+    if (!this.state.isLoadingComplete) {
       return (
         <AppLoading
           startAsync={this.loadResourcesAsync}
@@ -40,8 +40,11 @@ export default class App extends React.Component<Props> {
       Asset.loadAsync([require('./assets/onboarding2.jpeg')]),
       Asset.loadAsync([require('./assets/onboarding3.jpeg')]),
       Asset.loadAsync([require('./assets/onboarding4.jpeg')]),
+      Asset.loadAsync([require('./assets/ob1.mp4')]),
+      Asset.loadAsync([require('./assets/ob2.mp4')]),
+      Asset.loadAsync([require('./assets/ob3.mp4')]),
       Font.loadAsync({
-        ...Icon.Ionicons.font,
+        ...(Icon.Ionicons as any).font,
       }),
     ]).then(() => {
       return;
@@ -49,8 +52,6 @@ export default class App extends React.Component<Props> {
   };
 
   handleLoadingError = (error: Error) => {
-    // In this case, you might want to report the error to your error
-    // reporting service, for example Sentry
     console.warn(error);
   };
 

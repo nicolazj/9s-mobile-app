@@ -6,9 +6,10 @@ import styled, { th } from '../styled';
 
 interface SProps {
   danger?: boolean;
+  invert?: boolean;
 }
 const ButtonTouchable = styled(P.Touchable)<SProps>`
-  background-color: ${props => (props.danger ? '#fff' : th('color.main'))};
+  background-color: ${props => (props.danger || props.invert ? '#fff' : th('color.main'))};
   border: 1px solid ${props => (props.danger ? th('color.danger') : th('color.main'))};
   width: 100%;
   border-radius: 5px;
@@ -19,7 +20,7 @@ const ButtonTouchable = styled(P.Touchable)<SProps>`
 
 const ButtonText = styled(P.Text)<SProps>`
   text-align: center;
-  color: ${props => (props.danger ? th('color.danger') : '#fff')};
+  color: ${props => (props.danger ? th('color.danger') : props.invert ? th('color.main') : '#fff')};
 `;
 interface Props extends SProps {
   title: string;
@@ -27,11 +28,14 @@ interface Props extends SProps {
 const Button: React.FC<Props & TouchableNativeFeedbackProps & TouchableOpacityProps> = ({
   title,
   danger,
+  invert,
   ...props
 }) => (
-  <ButtonTouchable danger={danger} {...props}>
+  <ButtonTouchable danger={danger} invert={invert} {...props}>
     <View>
-      <ButtonText danger={danger}>{title}</ButtonText>
+      <ButtonText danger={danger} invert={invert}>
+        {title}
+      </ButtonText>
     </View>
   </ButtonTouchable>
 );
