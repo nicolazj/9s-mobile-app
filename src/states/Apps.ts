@@ -1,5 +1,8 @@
+import _groupby from 'lodash.groupby';
 import { Container } from 'unstated';
+
 import { App, Connection, Spoke, WidgetSample } from '../types';
+
 interface State {
   spokes: Spoke[];
   connections: Connection[];
@@ -38,6 +41,9 @@ export class AppState extends Container<State> {
   }
   getSample(appKey: string) {
     return this.state.samples.find(sample => sample.key === appKey);
+  }
+  getGroupedSample() {
+    return _groupby(this.state.samples, s => s.category);
   }
   appDetail(appKey: string) {
     return {

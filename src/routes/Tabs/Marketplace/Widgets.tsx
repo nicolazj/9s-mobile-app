@@ -1,9 +1,11 @@
 import React from 'react';
-import { View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
+import WidgetList from '../../../screens/WidgetList';
+import { SCREENS } from '../../constants';
+
 export default createStackNavigator(
-  { AppList: () => <View /> },
+  { [SCREENS[SCREENS.WIDGET_LIST]]: WidgetList },
   {
     defaultNavigationOptions: {
       header: null,
