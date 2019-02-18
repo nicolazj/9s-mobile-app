@@ -9,6 +9,7 @@ import appState, { AppState } from '../states/Apps';
 import authContainer, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
+import { Widget, WidgetSample } from '../types';
 
 const { width } = Dimensions.get('window');
 

@@ -7,7 +7,7 @@ import * as P from '../primitives';
 import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
 import styled from '../styled';
-import { App, Widget, WidgetSample } from '../types';
+import { App, WidgetSample } from '../types';
 import { transform } from './WidgetList';
 
 const Desc = styled(P.Text)`
@@ -28,7 +28,6 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
   const [appState] = states;
   const sample = appState.getSample(key) as WidgetSample;
 
-  console.log(sample);
   return (
     <P.Container padding>
       <WidgetComp sample={true} widget={transform(sample)} />

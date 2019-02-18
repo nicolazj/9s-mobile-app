@@ -106,10 +106,11 @@ export interface WidgetSample {
   category: any;
   services: string[];
   extras: Array<{ label_key: string; value_1: number; value_2: number }>;
-  graphData: Array<{
+  graph_data: Array<{
     data_set_name: string;
     value: number[];
   }>;
+  data_sets: any;
 }
 export interface App {
   description: string;
