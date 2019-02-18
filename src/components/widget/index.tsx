@@ -152,7 +152,7 @@ class WidgetComp extends React.Component<Props, State> {
         <WidgetHeader>
           <WidgetTitleWrapper style={{ flexDirection: 'row' }}>
             <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
-            <WidgetAppIcon source={{ uri: app.squareLogo }} />
+            {!sample && <WidgetAppIcon source={{ uri: app.squareLogo }} />}
           </WidgetTitleWrapper>
           {hasData && !sample && <WidgetOp title={collapsed ? 'Show' : 'Hide'} onPress={this.onShowHidePress} />}
         </WidgetHeader>
