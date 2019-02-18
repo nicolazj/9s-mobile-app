@@ -20,6 +20,7 @@ export class SalesTodayHourly extends LineWidget {
   render() {
     const { widget } = this.props;
     const { curTick } = this.state;
+
     const data = this.getData();
     return (
       <View>

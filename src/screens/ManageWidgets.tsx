@@ -99,7 +99,6 @@ export class ManageWidgets extends React.Component<Props, State> {
     );
 
     const getIcon = (appKey: string) => appState.getApp(appKey)!.squareLogo;
-    console.log('keys', activeWidgetsShowed.map(w => w.id));
     return (
       <ScrollView scrollEnabled={scrollEnabled}>
         <P.Container style={{ backgroundColor: '#fff' }}>

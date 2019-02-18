@@ -1,7 +1,7 @@
 import { Constants, Linking, WebBrowser } from 'expo';
 import React from 'react';
 import { Image, View } from 'react-native';
-import { NavigationScreenProp } from 'react-navigation';
+import { NavigationActions, NavigationScreenProp, StackActions } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -135,11 +135,13 @@ export class AppConnectScreen extends React.Component<Props, State> {
 
             case ACTIVITY_TYPES.SUBMIT_AUTHORIZATION:
               if (connection && authResult) {
+                activityStatus.show('Connecting');
                 await company.connection.sendAuth(connection.id, {
                   ...authResult.queryParams,
                   callback: step.id,
                   serviceID: appKey,
                 });
+                activityStatus.dismiss();
               } else throw 'no auth result';
               break;
           }
@@ -191,7 +193,17 @@ export class AppConnectScreen extends React.Component<Props, State> {
               We're busy setting up your widgets for you. Here are some examples of what they'll look like when they're
               ready.
             </SubTitle>
-            <Button onPress={() => this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD])} title="Done" />
+            <Button
+              onPress={() => {
+                const resetAction = StackActions.reset({
+                  index: 0,
+                  actions: [NavigationActions.navigate({ routeName: SCREENS[SCREENS.MARKETPLACE_HOME] })],
+                });
+                this.props.navigation.dispatch(resetAction);
+                this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
+              }}
+              title="Done"
+            />
           </Container>
         )}
 

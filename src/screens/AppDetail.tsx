@@ -58,7 +58,6 @@ export class AppDetailScreen extends React.Component<Props> {
     );
   }
   onConnect = (appDetail: AppDetail) => {
-    console.log(appDetail);
     this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT], { key: appDetail.appKey });
   };
   onRemoveConnection = async (connectionId: string, appKey: string) => {

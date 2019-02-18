@@ -20,6 +20,8 @@ export class AvSpendPerSaleTodayHourly extends LineWidget {
   render() {
     const { widget } = this.props;
     const { curTick } = this.state;
+    console.log('AvSpendPerSaleTodayHourly...', widget);
+
     const data = this.getData();
 
     return (

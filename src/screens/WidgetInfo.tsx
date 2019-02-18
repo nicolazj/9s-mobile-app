@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import WidgetComp from '../components/widget';
@@ -11,12 +11,13 @@ import { App, WidgetSample } from '../types';
 import { transform } from './WidgetList';
 
 const Desc = styled(P.Text)`
-  color: #333;
+  color: #999;
+  margin-bottom: 10px;
 `;
 const AppIcon = styled(Image)`
   margin-left: 4px;
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
 `;
 interface Props {
   navigation: NavigationScreenProp<any, any>;
@@ -29,21 +30,24 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
   const sample = appState.getSample(key) as WidgetSample;
 
   return (
-    <P.Container padding>
-      <WidgetComp sample={true} widget={transform(sample)} />
+    <ScrollView>
+      <P.Container padding>
+        <WidgetComp sample={true} widget={transform(sample)} />
 
-      <View>
-        {sample.description.split('<br>').map(p => (
-          <Desc key={p}>{p} </Desc>
-        ))}
-      </View>
-      <View>
-        {sample.services.map(s => {
-          const app = appState.getApp(s) as App;
-          return <AppIcon key={app.key} source={{ uri: app.squareLogo }} />;
-        })}
-      </View>
-    </P.Container>
+        <View>
+          {sample.description.split('<br>').map(p => (
+            <Desc key={p}>{p} </Desc>
+          ))}
+        </View>
+        <View>
+          <P.H2>Apps</P.H2>
+          {sample.services.map(s => {
+            const app = appState.getApp(s) as App;
+            return <AppIcon key={app.key} source={{ uri: app.squareLogo }} />;
+          })}
+        </View>
+      </P.Container>
+    </ScrollView>
   );
 };
 export default SubscribeHOC([appState])(WidgetInfo);

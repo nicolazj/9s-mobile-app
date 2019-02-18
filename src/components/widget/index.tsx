@@ -104,11 +104,7 @@ class WidgetComp extends React.Component<Props, State> {
     };
     this.height = new Value(props.sample ? this.state.maxHeight : HEIGHT_COLLAPSED);
   }
-  componentDidCatch(error: any, info: any) {
-    // You can also log the error to an error reporting service
-    console.log('errrrrrrrrrrr', error, info);
-    this.setState({ error: true });
-  }
+
   onShowHidePress = () => {
     Animated.timing(this.height, {
       toValue: this.state.collapsed ? this.state.maxHeight : HEIGHT_COLLAPSED,
