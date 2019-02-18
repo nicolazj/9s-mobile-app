@@ -8,6 +8,7 @@ import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
 import styled from '../styled';
 import { App, Widget, WidgetSample } from '../types';
+import { transform } from './WidgetList';
 
 const Desc = styled(P.Text)`
   color: #333;
@@ -20,11 +21,6 @@ const AppIcon = styled(Image)`
 interface Props {
   navigation: NavigationScreenProp<any, any>;
   states: [AppState];
-}
-
-function transform(sample: WidgetSample): Widget {
-  const { extras, graph_data, key, services, ...attrs } = sample;
-  return { data: { extras, graphData: graph_data }, key, attributes: { ...attrs, origin: services[0] } };
 }
 
 const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {

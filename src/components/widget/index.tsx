@@ -14,7 +14,9 @@ import { getWidgetByKey } from './utils';
 
 const { Value } = Animated;
 
-const WidgetContainer = styled(View)`
+const WidgetContainer = styled(P.Touchable).attrs(() => ({
+  activeOpacity: 1,
+}))`
   background-color: #fff;
   border-radius: 10px;
   margin: 10px 0;
@@ -137,16 +139,22 @@ class WidgetComp extends React.Component<Props, State> {
 
     const Widget = getWidgetByKey(widget.key);
     const app = appState.getApp(widget.attributes.origin);
-    if (!Widget || !app) return null;
+    if (!Widget || !app) return <P.Text>{widget.attributes.displayName} not implemented</P.Text>;
 
     return (
-      <WidgetContainer>
+      <WidgetContainer
+        onPress={() => {
+          sample &&
+            this.props.navigation.navigate(SCREENS[SCREENS.WIDGET_INFO], {
+              key: widget.key,
+            });
+        }}>
         <WidgetHeader>
           <WidgetTitleWrapper style={{ flexDirection: 'row' }}>
             <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
             <WidgetAppIcon source={{ uri: app.squareLogo }} />
           </WidgetTitleWrapper>
-          {hasData && <WidgetOp title={collapsed ? 'Show' : 'Hide'} onPress={this.onShowHidePress} />}
+          {hasData && !sample && <WidgetOp title={collapsed ? 'Show' : 'Hide'} onPress={this.onShowHidePress} />}
         </WidgetHeader>
         <WidgetWrapper style={{ height: this.height }}>
           <View onLayout={this.setMaxHeight}>
