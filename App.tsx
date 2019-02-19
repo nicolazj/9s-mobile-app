@@ -36,10 +36,6 @@ export default class App extends React.Component<any, State> {
   loadResourcesAsync = () => {
     return Promise.all([
       Asset.loadAsync([require('./assets/google.png')]),
-      Asset.loadAsync([require('./assets/onboarding1.jpeg')]),
-      Asset.loadAsync([require('./assets/onboarding2.jpeg')]),
-      Asset.loadAsync([require('./assets/onboarding3.jpeg')]),
-      Asset.loadAsync([require('./assets/onboarding4.jpeg')]),
       Asset.loadAsync([require('./assets/ob1.mp4')]),
       Asset.loadAsync([require('./assets/ob2.mp4')]),
       Asset.loadAsync([require('./assets/ob3.mp4')]),

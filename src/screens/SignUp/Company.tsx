@@ -82,7 +82,7 @@ export class SignUpCompany extends React.Component<Props, State> {
       <P.Container>
         <P.SafeArea>
           <KeyboardAwareScrollView extraHeight={Constants.statusBarHeight}>
-            <P.Container padding={true}>
+            <P.Container hasPadding>
               <Formik
                 initialValues={{
                   companyName: '',

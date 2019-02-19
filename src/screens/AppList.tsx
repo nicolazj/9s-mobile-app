@@ -137,7 +137,7 @@ class AppList extends React.Component<Props> {
     return (
       <P.Container>
         <ScrollView>
-          <P.Container padding>
+          <P.Container hasPadding>
             <View>
               <Title>My Connected Apps</Title>
             </View>
@@ -152,7 +152,7 @@ class AppList extends React.Component<Props> {
             ))}
           </ScrollView>
 
-          <P.Container padding>
+          <P.Container hasPadding>
             <View>
               <Title>Available Apps</Title>
             </View>

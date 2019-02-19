@@ -55,7 +55,7 @@ export default class Dashboard extends React.Component<any, State> {
             this.reloadWidgets();
           }}
         />
-        <P.Container padding style={{ backgroundColor: '#fff' }}>
+        <P.Container hasPadding style={{ backgroundColor: '#fff' }}>
           <StatusBar barStyle="light-content" />
           {widgets
             .filter(a => a.attributes.active && a.attributes.showOnMobile)

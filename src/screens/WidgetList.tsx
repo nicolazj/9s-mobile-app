@@ -35,7 +35,7 @@ class WidgetList extends React.Component<Props> {
           {Object.keys(groupedSamples).map(cat => {
             return (
               <View key={cat}>
-                <P.Container padding>
+                <P.Container hasPadding>
                   <P.H2>{cat}</P.H2>
                 </P.Container>
                 <ScrollView horizontal={true}>

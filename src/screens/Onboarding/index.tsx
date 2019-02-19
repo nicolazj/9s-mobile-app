@@ -9,8 +9,6 @@ import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import styled from '../../styled';
 
-const { height, width } = Dimensions.get('window');
-
 const BottomView = styled(View)`
   position: absolute;
   bottom: 0;
@@ -19,7 +17,7 @@ const BottomView = styled(View)`
 `;
 const WalkthroughView = styled(P.Container)`
   flex: 1;
-  background: #fff;
+  background-color: yellow;
 `;
 const assetsMap = [
   require('../../../assets/ob1.mp4'),
@@ -28,12 +26,14 @@ const assetsMap = [
 ];
 
 const WalkthroughSlide = ({ index, current = false }) => {
+  const { height, width } = Dimensions.get('window');
   return (
     <Video
       source={assetsMap[index]}
       rate={1.0}
       isMuted={true}
       shouldPlay={current}
+      resizeMode="contain"
       style={{
         width,
         height,

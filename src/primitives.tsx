@@ -14,8 +14,7 @@ import { scale } from './scale';
 import styled, { th } from './styled';
 
 type Intersection<A, B> = Pick<A, keyof A & keyof B>;
-export const Touchable: React.ComponentType<Intersection<TouchableNativeFeedbackProps, TouchableOpacityProps>> =
-  Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
+export const Touchable = TouchableOpacity;
 
 interface TextProps {
   children?: string | string[];
@@ -38,8 +37,8 @@ export const H3 = styled(Text)<TextProps>`
   line-height: ${scale(16 * 1.7)}px;
 `;
 interface ContainerProps {
-  padding?: boolean;
-  margin?: boolean;
+  hasPadding?: boolean;
+  hasMargin?: boolean;
   vcenter?: boolean;
   hcenter?: boolean;
   children?: React.ReactNode;
@@ -48,8 +47,8 @@ export const Container = styled(View)<ContainerProps>`
   flex: 1;
   width: 100%;
   background-color: ${th('color.view.bg')};
-  ${p => (p.padding ? `padding: 0 ${scale(10)}px` : '')};
-  ${p => (p.margin ? `padding:  ${scale(20)}px` : '')};
+  ${p => (p.hasPadding ? `padding: 0 ${scale(10)}px` : '')};
+  ${p => (p.hasMargin ? `padding:  ${scale(20)}px` : '')};
   ${p => (p.vcenter ? 'justify-content: center' : '')};
   ${p => (p.hcenter ? 'align-items: center' : '')};
 `;

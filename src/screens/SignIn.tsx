@@ -55,7 +55,7 @@ class SignIn extends React.Component<Props> {
       <Container>
         <SafeArea>
           <KeyboardAwareScrollView extraHeight={Constants.statusBarHeight}>
-            <Container padding={true}>
+            <Container hasMargin>
               <Formik
                 initialValues={{
                   username: 'nicolas.jiang@9spokes.com',

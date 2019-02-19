@@ -79,7 +79,7 @@ class ForceConnect extends React.Component<Props> {
   render() {
     const [appState] = this.props.states;
     return (
-      <P.Container padding style={{ backgroundColor: '#fff' }}>
+      <P.Container hasPadding style={{ backgroundColor: '#fff' }}>
         <ScrollView>
           <Title style={{ textAlign: 'center' }}>Connect your apps</Title>
           <SubTitle style={{ textAlign: 'center', color: '#999' }}>
