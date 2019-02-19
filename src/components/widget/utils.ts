@@ -14,6 +14,7 @@ import GrossProfit from './GrossProfit';
 import HighGrossingProductsToday from './HighGrossingProductsToday';
 import MoneyOwed from './MoneyOwed';
 import MoneyOwedMoneyOwing from './MoneyOwedMoneyOwing';
+import ProductGrossProfit from './ProductGrossProfit';
 import SalesByDay from './SalesByDay';
 import SalesByMonth from './SalesByMonth';
 import SalesByWeek from './SalesByWeek';
@@ -57,6 +58,7 @@ const widgetsMap: WidgetMap = {
   'average-item-per-sale-today': AvItemsPerSaleToday,
   'campaign-performance': CampaignPerformance,
   'top-performing-campaigns': TopPerformingCampaigns,
+  'product-gross-profit': ProductGrossProfit,
 };
 
 export const getWidgetByKey = (key: string) => {

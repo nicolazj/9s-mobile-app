@@ -135,7 +135,8 @@ class WidgetComp extends React.Component<Props, State> {
 
     const Widget = getWidgetByKey(widget.key);
     const app = appState.getApp(widget.attributes.origin);
-    if (!Widget || !app) return <P.Text>{widget.attributes.displayName} not implemented</P.Text>;
+    if (!Widget || !app)
+      return sample ? <P.Text>{widget.attributes.displayName + '|' + widget.key} not implemented</P.Text> : null;
 
     return (
       <WidgetContainer
