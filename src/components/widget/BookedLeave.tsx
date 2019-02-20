@@ -5,7 +5,7 @@ import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
 
 function formatter(value: number) {
-  return value + '%';
+  return value.toString().substring(0, 10);
 }
 const id = (t: any) => t;
 
@@ -14,12 +14,12 @@ interface Props {
   collapsed: boolean;
 }
 
-const ProductGrossProfit: React.FC<Props> = ({ widget, collapsed }) => {
+const BookedLeave: React.FC<Props> = ({ widget, collapsed }) => {
   const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
     return {
-      title: ['Best', 'Worst'][dIndex],
-      header: ['Product', 'Gross Profit'] as React.ReactNodeArray,
-      formatters: [id, formatter, formatter],
+      title: '',
+      header: ['Name', 'Starts', 'Days'] as React.ReactNodeArray,
+      formatters: [id, formatter, id],
       rows: dataSet.rows.map((row, index) => {
         return {
           data: Object.keys(row)
@@ -38,4 +38,4 @@ const ProductGrossProfit: React.FC<Props> = ({ widget, collapsed }) => {
   );
 };
 
-export default ProductGrossProfit;
+export default BookedLeave;

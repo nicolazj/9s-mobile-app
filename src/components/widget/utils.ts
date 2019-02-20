@@ -6,10 +6,12 @@ import AvItemsPerSaleToday from './AvItemsPerSaleToday';
 import AvItemsPerSaleTodayHourly from './AvItemsPerSaleTodayHourly';
 import AvSpendPerSaleToday from './AvSpendPerSaleToday';
 import AvSpendPerSaleTodayHourly from './AvSpendPerSaleTodayHourly';
+import BookedLeave from './BookedLeave';
 import BussinessGrowth from './BussinessGrowth';
 import CampaignPerformance from './CampaignPerformance';
 import CashCommitments from './CashCommitments';
 import CashPositionAndCoverage from './CashPositionAndCoverage';
+import DaysToPay from './DaysToPay';
 import GrossProfit from './GrossProfit';
 import HighGrossingProductsToday from './HighGrossingProductsToday';
 import MoneyOwed from './MoneyOwed';
@@ -18,6 +20,7 @@ import ProductGrossProfit from './ProductGrossProfit';
 import SalesByDay from './SalesByDay';
 import SalesByMonth from './SalesByMonth';
 import SalesByWeek from './SalesByWeek';
+import SalesStaffPerformance from './SalesStaffPerformance';
 import SalesTodayHourly from './SalesTodayHourly';
 import SalesTransactionsToday from './SalesTransactionsToday';
 import SalesTransactionsTodayHourly from './SalesTransactionsTodayHourly';
@@ -27,6 +30,7 @@ import TopSellingProductsToday from './TopSellingProductsToday';
 import TotalSalesToday from './TotalSalesToday';
 import widgetWebsiteGoalConversions from './WebsiteGoalConversions';
 import widgetWebsiteTraffic from './WebsiteTraffic';
+import WorkingToday from './WorkingToday';
 
 interface WidgetMap {
   [key: string]: React.ComponentType<any>;
@@ -59,6 +63,10 @@ const widgetsMap: WidgetMap = {
   'campaign-performance': CampaignPerformance,
   'top-performing-campaigns': TopPerformingCampaigns,
   'product-gross-profit': ProductGrossProfit,
+  'sales-staff-performance': SalesStaffPerformance,
+  'booked-leave': BookedLeave,
+  'working-today': WorkingToday,
+  'days-to-pay': DaysToPay,
 };
 
 export const getWidgetByKey = (key: string) => {
