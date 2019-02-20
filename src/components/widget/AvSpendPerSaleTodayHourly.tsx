@@ -3,8 +3,9 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { withTheme } from '../../styled';
-import LineChart from '../charts/LineChart';
-import LineWidget, { Data, Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from './base/LineWidget';
+import BarChart from '../charts/BarChart';
+import BarWidget from './base/BarWidget';
+import { Data, Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from './base/LineWidget';
 
 function formatXAxis(value: number, index: number, data: Data) {
   const item = data[0].data[index];
@@ -16,7 +17,7 @@ function formatYAxis(value: number, index: number) {
 function formatter(value: number) {
   return value.toString();
 }
-export class AvSpendPerSaleTodayHourly extends LineWidget {
+export class AvSpendPerSaleTodayHourly extends BarWidget {
   render() {
     const { widget } = this.props;
     const { curTick } = this.state;
@@ -27,15 +28,15 @@ export class AvSpendPerSaleTodayHourly extends LineWidget {
       <View>
         <Header>
           <IndexTitles>
-            <IndexTitle />
-            <IndexTitle />
+            <IndexTitle>Hour avg</IndexTitle>
+            <IndexTitle>Hour last week</IndexTitle>
           </IndexTitles>
           <IndexVals>
             <IndexVal>{formatter(widget.data.graphData[0].value[curTick])}</IndexVal>
             <IndexVal>{formatter(widget.data.graphData[1].value[curTick])}</IndexVal>
           </IndexVals>
         </Header>
-        <LineChart
+        <BarChart
           data={data}
           curTick={curTick}
           onTickClick={this.onTickClick}
