@@ -4,6 +4,7 @@ import { NavigationScreenProp } from 'react-navigation';
 
 import WidgetComp from '../components/widget';
 import * as P from '../primitives';
+import { SCREENS } from '../routes/constants';
 import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
 import styled from '../styled';
@@ -31,7 +32,7 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
 
   return (
     <ScrollView>
-      <P.Container padding>
+      <P.Container hasPadding>
         <WidgetComp sample={true} widget={transform(sample)} />
 
         <View>
@@ -40,10 +41,18 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
           ))}
         </View>
         <View>
-          <P.H2>Apps</P.H2>
+          <P.H2>Available ussing these Apps</P.H2>
           {sample.services.map(s => {
             const app = appState.getApp(s) as App;
-            return <AppIcon key={app.key} source={{ uri: app.squareLogo }} />;
+            return (
+              <P.Touchable
+                key={app.key}
+                onPress={() => {
+                  navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
+                }}>
+                <AppIcon source={{ uri: app.squareLogo }} />
+              </P.Touchable>
+            );
           })}
         </View>
       </P.Container>

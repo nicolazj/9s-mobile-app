@@ -165,7 +165,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
     const { step } = this.state;
 
     return (
-      <Container padding>
+      <Container hasPadding>
         {step === ACTIVITY_TYPES.CLIENT_INIT && (
           <P.Container vcenter hcenter>
             <Title>Connect to {appDetail.app.name}</Title>

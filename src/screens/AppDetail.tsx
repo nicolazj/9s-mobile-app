@@ -48,7 +48,7 @@ export class AppDetailScreen extends React.Component<Props> {
             this.reloadConnections();
           }}
         />
-        <AppDetailContainer padding>
+        <AppDetailContainer hasPadding>
           <AppImg style={{}} source={{ uri: app.logo }} resizeMode="contain" />
           {this.renderDesc(app.description)}
           {this.renderFeatures(app.features)}

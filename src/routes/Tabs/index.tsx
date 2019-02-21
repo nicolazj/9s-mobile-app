@@ -1,5 +1,7 @@
 import { createBottomTabNavigator, createStackNavigator, NavigationScreenProps } from 'react-navigation';
 
+import AppConnect from '../../screens/AppConnect';
+import AppDetail from '../../screens/AppDetail';
 import WidgetInfo from '../../screens/WidgetInfo';
 import { IThemeInterface, th } from '../../styled';
 import { SCREENS } from '../constants';
@@ -30,6 +32,30 @@ const TabsStack = createStackNavigator(
       screen: WidgetInfo,
       navigationOptions: (props: NavigationScreenProps) => {
         return {
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: th('color.header')(props.screenProps as { theme: IThemeInterface }),
+          },
+        };
+      },
+    },
+    [SCREENS[SCREENS.APP_DETAIL]]: {
+      screen: AppDetail,
+      navigationOptions: (props: NavigationScreenProps) => {
+        return {
+          title: props.navigation.getParam('key'),
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: th('color.header')(props.screenProps as { theme: IThemeInterface }),
+          },
+        };
+      },
+    },
+    [SCREENS[SCREENS.APP_CONNECT]]: {
+      screen: AppConnect,
+      navigationOptions: (props: NavigationScreenProps) => {
+        return {
+          title: props.navigation.getParam('key'),
           headerTintColor: '#fff',
           headerStyle: {
             backgroundColor: th('color.header')(props.screenProps as { theme: IThemeInterface }),

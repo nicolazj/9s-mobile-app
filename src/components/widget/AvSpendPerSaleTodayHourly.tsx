@@ -15,7 +15,7 @@ function formatYAxis(value: number, index: number) {
   return value > 1000 ? (value / 1000).toFixed(1) + 'K' : value.toString();
 }
 function formatter(value: number) {
-  return value.toString();
+  return numeral(value).format('$0,0.0');
 }
 export class AvSpendPerSaleTodayHourly extends BarWidget {
   render() {

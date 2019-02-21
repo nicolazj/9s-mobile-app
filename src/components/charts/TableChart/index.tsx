@@ -53,7 +53,10 @@ class TableChart extends React.Component<Props, State> {
           <Row key="head">
             {React.Children.map(header, (key, key_index) => {
               return (
-                <ColText key={key_index} grow={rowWidths[key_index]} style={{ textAlign: rowAligns[key_index] }}>
+                <ColText
+                  key={key_index}
+                  grow={rowWidths[key_index]}
+                  style={{ textAlign: rowAligns[key_index], color: '#999' }}>
                   {key}
                 </ColText>
               );
