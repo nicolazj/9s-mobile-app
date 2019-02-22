@@ -45,6 +45,14 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
 
         return r.data;
       },
+      update: async (data: Object) => {
+        const r = await instance.put(`/customer/customer/tenants/${tenantId}/users/${auth.state.userId}`, data, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        return r.data;
+      },
       get: async (userId: string) => {
         const r = await instance.get(`/customer/customer/tenants/${tenantId}/users/${userId}`, {});
 

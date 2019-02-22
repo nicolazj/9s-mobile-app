@@ -1,17 +1,15 @@
-import { Ionicons } from '@expo/vector-icons';
-import { WebBrowser } from 'expo';
-import { Body, Left, List, ListItem, Right, Text } from 'native-base';
+import { Body, List, ListItem } from 'native-base';
 import React from 'react';
-import { ScrollView } from 'react-native';
-import { NavigationScreenProp } from 'react-navigation';
-import Button from '../components/Button';
+import { ScrollView, TextInput } from 'react-native';
+import { NavigationEvents, NavigationScreenProp } from 'react-navigation';
+
+import agent from '../agent';
 import * as P from '../primitives';
-import { SCREENS } from '../routes/constants';
 import { scale } from '../scale';
 import authState, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
-import styled, { th } from '../styled';
+import styled from '../styled';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
@@ -21,21 +19,58 @@ const Title = styled(P.H1)`
   font-size: ${scale(24)}px;
   margin: ${scale(16)}px;
 `;
-const BodyText = styled(Text)`
-  color: ${th('color.grey')};
-`;
+
 export class Settings extends React.Component<Props> {
+  update = () => {
+    const [userState] = this.props.states;
+    const { me } = userState.state;
+    const { firstName, lastName } = me;
+    agent.user.user.update({ firstName, lastName });
+  };
   render() {
-    const [userState, authState] = this.props.states;
-    const { me, companies } = userState.state;
-    const company = companies
-      ? companies.find(c => c.companyUuid === authState.state.companyUuid)
-      : null;
+    const [userState] = this.props.states;
+    const { me } = userState.state;
     return (
       <P.Container>
+        <NavigationEvents onWillBlur={this.update} />
         <ScrollView>
-          <Title>Account</Title>
-          <BodyText>{`${me.firstName} ${me.lastName}`}</BodyText>
+          <Title>User profile</Title>
+          <List style={{ backgroundColor: '#fff' }}>
+            <ListItem>
+              <Body>
+                <TextInput
+                  placeholder="First name"
+                  placeholderTextColor="#ccc"
+                  onChangeText={text => {
+                    userState.setState({
+                      me: {
+                        ...me,
+                        firstName: text,
+                      },
+                    });
+                  }}
+                  value={me.firstName}
+                />
+              </Body>
+            </ListItem>
+            <ListItem>
+              <Body>
+                <TextInput
+                  placeholder="Last name"
+                  placeholderTextColor="#ccc"
+                  onChangeText={text => {
+                    userState.setState({
+                      me: {
+                        ...me,
+                        lastName: text,
+                      },
+                    });
+                  }}
+                  value={me.lastName}
+                />
+              </Body>
+            </ListItem>
+          </List>
         </ScrollView>
       </P.Container>
     );

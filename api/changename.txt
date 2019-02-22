@@ -1,0 +1,31 @@
+PUT https://dev.9spokes.io/api/v1/customer/customer/tenants/00000000-0000-0005-5555-555555555555/users/eebacd67-fc57-49ae-abba-e3c272f20545 HTTP/1.1
+Host: dev.9spokes.io
+Content-Type: application/json
+User-Agent: 9SpokesSIT/37 CFNetwork/976 Darwin/18.2.0
+Connection: keep-alive
+Accept: */*
+Accept-Language: en-us
+Content-Length: 40
+Accept-Encoding: br, gzip, deflate
+Authorization: Bearer eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiY3R5IjoiSldUIiwiemlwIjoiREVGIn0.gvkuZd2YL4gBjlp0tAhph_mjjr0Eha1mZd8HHVDp5_BJAXR_gV43UQ.IvKyuNuQO0_rojGGyz0T9g.FUUzVzvqGQJVU4ZTy9gS_AVyzIZiLgRwUIMpxb2O0FVRb_NY_vUh-1KFKXcJpsm5us9jcCDxiMESlD8gbCc9nXvel0tGFkoq7zmNGV9EHJaNKbDIrTT66BXS94UMh-nP1eXa-Fy0mG8_DEktNKRryK4efvEDSrnzIKIVzTxv7y9-K_JMTXIUfA5hkTXlZpaOdfcLJZNzEtK7eJbyUvdSkFMsxfULf-Y_YrtQScktTAtYwwkf3O_22Yx5Hte2XXyfOO6Hjg-cBsFDSXyzU8tgsET9VUxuMn-gs8Qt5VNVJrzLqDoJYWb4Gs20VbAsqomjoIG8AoE2YdoBJsKKikQpulkpCCPmoGfmxqKIO1_W8O6OMibcVr4-R8VOM-_VRJqc5Ka2VNVkoT-L87GhNDlDXrAjjFR5kDhIE2lvc7l6a8VcAOXQoSx0ZhTExV68iS79cwXA6LMwToFV7dlTW_IQwh6u5BP7hPg5PPEG8eFFfY3UUw9f2ZmlBFg_YrOiX-JYbqMZVQZ2HLR-jCWJo0s3AevZ_BbXzfHmf5gg9_gQtBFXMW_emU3np0Se4fggG4ZB9Kkb3NfodCXmA-kWDMzdJQcoSF1UTBhwjBK2_VTpZdj_LDVjHLb-RFqh1JSfO1xkKRkBTRIX4ZnU7cdIbZxYxp-CQg8Grvl8gHl0IrSs0P-BVZQFesGkMvvhR5X3Z58A.xESLCiMjynyrV2OKrDUpZQ
+
+{"lastName":"She's","firstName":"Issue"}
+HTTP/1.1 200 OK
+Date: Thu, 21 Feb 2019 22:47:18 GMT
+Content-Type: application/hal+json;charset=UTF-8
+Connection: keep-alive
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+X-Robots-Tag: noindex, nofollow, nosnippet, noarchive
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-XSS-Protection: 1; mode=block
+X-UA-Compatible: IE=edge
+X-Robots-Tag: noindex, nofollow, nosnippet, noarchive
+Content-Length: 45
+
+{"id":"eebacd67-fc57-49ae-abba-e3c272f20545"}
