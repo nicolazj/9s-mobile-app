@@ -1,7 +1,7 @@
 import { Constants, Linking, WebBrowser } from 'expo';
 import { Body, Left, List, ListItem, Right, Text } from 'native-base';
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { Alert, ScrollView } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -28,6 +28,9 @@ const BodyText = styled(Text)`
 `;
 
 export class Settings extends React.Component<Props> {
+  debug = () => {
+    Alert.alert(Constants.linkingUri);
+  };
   reportProblem = () => {
     const [userContainer, authContainer] = this.props.states;
     const company = userContainer.state.companies.find(c => c.companyUuid === authContainer.state.companyUuid);
@@ -137,7 +140,7 @@ export class Settings extends React.Component<Props> {
           </List>
           <Title>About</Title>
           <List style={{ backgroundColor: '#fff' }}>
-            <ListItem>
+            <ListItem onPress={this.debug}>
               <Left>
                 <Text>App version</Text>
               </Left>

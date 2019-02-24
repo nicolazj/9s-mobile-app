@@ -23,6 +23,7 @@
     },
     "android": {
       "package": "com.nspokes.app"
-    }
+    },
+    "scheme": "nsp"
   }
 }

@@ -20,7 +20,9 @@ const WidgetContainer = styled(P.Touchable).attrs(() => ({
   background-color: #fff;
   border-radius: 10px;
   margin: 10px 0;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.1);
 `;
 const WidgetHeader = styled(View)`
   border-bottom-color: #ccc;

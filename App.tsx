@@ -1,4 +1,4 @@
-import { AppLoading, Asset, Font, Constants } from 'expo';
+import { AppLoading, Asset, Font } from 'expo';
 import React from 'react';
 import { View } from 'react-native';
 
