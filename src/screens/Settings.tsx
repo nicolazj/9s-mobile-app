@@ -1,9 +1,11 @@
-import { Ionicons } from '@expo/vector-icons';
-import { WebBrowser } from 'expo';
+import { Constants, Linking, WebBrowser } from 'expo';
 import { Body, Left, List, ListItem, Right, Text } from 'native-base';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
+
+import { Ionicons } from '@expo/vector-icons';
+
 import Button from '../components/Button';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
@@ -24,7 +26,36 @@ const Title = styled(P.H1)`
 const BodyText = styled(Text)`
   color: ${th('color.grey')};
 `;
+
 export class Settings extends React.Component<Props> {
+  reportProblem = () => {
+    const [userContainer, authContainer] = this.props.states;
+    const company = userContainer.state.companies.find(c => c.companyUuid === authContainer.state.companyUuid);
+    const { me } = userContainer.state;
+    const texts = [
+      'Hey 9Spokes team!',
+      '',
+      "Something's not right in the app and it would be great if you could have a look at it",
+      '',
+      'Here are my details:',
+      'Name:',
+      `${me.firstName} ${me.lastName}`,
+      '',
+      'Company name:',
+      company ? company.companyName : '',
+      '',
+      '9Spokes username:',
+      me.emailAddress,
+      '',
+      'Device info:',
+      JSON.stringify(Constants.platform, null, 2),
+      '',
+      'Tell us about the issue',
+      'Thanks',
+    ];
+
+    Linking.openURL('mailto:support@9spokes.com?subject=Mobile QUery&body=' + texts.join('\n'));
+  };
   render() {
     const [userState, authState] = this.props.states;
     const { me, companies } = userState.state;
@@ -65,7 +96,7 @@ export class Settings extends React.Component<Props> {
           </List>
           <Title>Support</Title>
           <List style={{ backgroundColor: '#fff' }}>
-            <ListItem>
+            <ListItem onPress={this.reportProblem}>
               <Left>
                 <Text>Report a problem</Text>
               </Left>
