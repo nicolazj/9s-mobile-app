@@ -208,8 +208,9 @@ export class AppConnectScreen extends React.Component<Props, State> {
         )}
 
         {step === ACTIVITY_TYPES.ERRORED && (
-          <P.Container vcenter>
-            <P.H2>ERRORED</P.H2>
+          <P.Container vcenter hcenter>
+            <P.H2>Ooops</P.H2>
+            <SubTitle>please try again</SubTitle>
           </P.Container>
         )}
       </Container>

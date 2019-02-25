@@ -1,6 +1,8 @@
+import { WebBrowser } from 'expo';
 import React from 'react';
 import { Alert, Image, ScrollView, Text, View } from 'react-native';
 import { NavigationEvents, NavigationScreenProp } from 'react-navigation';
+
 import agent from '../agent';
 import Button from '../components/Button';
 import { Container } from '../primitives';
@@ -9,6 +11,7 @@ import { scale } from '../scale';
 import appState, { AppDetail, AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
 import styled from '../styled';
+
 interface Props {
   navigation: NavigationScreenProp<any, any>;
   states: [AppState];
@@ -90,6 +93,9 @@ export class AppDetailScreen extends React.Component<Props> {
     const [appState] = this.props.states;
     appState.setState({ connections });
   };
+  getTrial = async (appDetail: AppDetail) => {
+    WebBrowser.openBrowserAsync(appDetail.app.trial.tryUrl);
+  };
   renderButtons() {
     const appKey = this.props.navigation.getParam('key');
     const [appState] = this.props.states;
@@ -107,7 +113,7 @@ export class AppDetailScreen extends React.Component<Props> {
     if (!connection) {
       return [
         <Button key="connect" title="Connect" onPress={() => this.onConnect(appDetail)} />,
-        <Button key="trial" title="Get a trial" />,
+        <Button key="trial" title="Get a trial" onPress={() => this.getTrial(appDetail)} />,
       ];
     } else if (connection.status === 'ACTIVE') {
       return removeConnectionButton;

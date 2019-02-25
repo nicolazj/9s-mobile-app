@@ -123,7 +123,9 @@ export interface App {
   pricing: any;
   shortName: string;
   summary: string;
-  trial: any;
+  trial: {
+    tryUrl: string;
+  };
   logo: string;
   squareLogo: string;
 }
