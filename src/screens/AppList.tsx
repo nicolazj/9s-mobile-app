@@ -103,7 +103,6 @@ class AppList extends React.Component<Props> {
       agent.misc.widget.sample(),
     ]);
     const fullApps = await Promise.all(apps.map(app => agent.user.service.get(app.key)));
-    console.log(fullApps);
     appState.setState({ connections, spokes, apps: fullApps, samples });
     activityStatusState.dismiss();
   };

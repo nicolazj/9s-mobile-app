@@ -88,17 +88,10 @@ class Lines extends PureComponent<Props> {
       .range([left, width - right])
       .clamp(false);
 
-    const paths = this.createPaths({
-      data: mappedData,
-      x,
-      y,
-    });
-
     const barsArr = this.createBars({
       data: mappedData,
       x,
       y,
-      height,
     });
 
     const ticks = getTicks(yMin, yMax, numberOfTicks);
@@ -111,7 +104,7 @@ class Lines extends PureComponent<Props> {
       ticks,
       width,
       height,
-      paths,
+
       curTick,
       onTickClick,
     };
@@ -177,22 +170,21 @@ class Lines extends PureComponent<Props> {
     data,
     x,
     y,
-    height,
   }: {
     data: MappedData;
     x: scale.ScaleLinear<number, number>;
     y: scale.ScaleLinear<number, number>;
-    height: number;
   }) {
     const width = x(1) - x(0);
-
+    const y0 = y(0);
+    console.log(y0);
     const bars = data.map((line, index) => {
       return line.map(bar => {
         return {
           x: x(bar.x) + (width / 3) * (index - 1),
-          y: y(bar.y),
-          height: height - y(bar.y),
           width: width / 3,
+          y: y(bar.y),
+          height: y0 - y(bar.y),
         };
       });
     });

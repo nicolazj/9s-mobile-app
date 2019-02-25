@@ -1,3 +1,4 @@
+import { copyFile } from 'fs';
 import numeral from 'numeral';
 import React from 'react';
 import { View } from 'react-native';
