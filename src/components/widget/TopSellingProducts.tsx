@@ -32,7 +32,6 @@ const TopSellingProducts: React.FC<Props> = ({ widget, collapsed }) => {
       }),
     };
   });
-  console.log(data);
   return <TableChart tabs={data} collapsed={collapsed} />;
 };
 

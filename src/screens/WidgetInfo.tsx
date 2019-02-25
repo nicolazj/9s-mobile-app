@@ -29,7 +29,6 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
   const key = navigation.getParam('key');
   const [appState] = states;
   const sample = appState.getSample(key) as WidgetSample;
-
   return (
     <ScrollView>
       <P.Container hasPadding>

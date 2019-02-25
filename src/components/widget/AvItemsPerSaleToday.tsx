@@ -26,8 +26,8 @@ export class AvItemsPerSaleToday extends LineWidget {
       <View>
         <Header>
           <IndexTitles>
-            <IndexTitle />
-            <IndexTitle />
+            <IndexTitle>Day avg</IndexTitle>
+            <IndexTitle>Day last week</IndexTitle>
           </IndexTitles>
           <IndexVals>
             <IndexVal>{formatter(widget.data.graphData[0].value[curTick])}</IndexVal>

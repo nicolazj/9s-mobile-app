@@ -6,7 +6,7 @@ import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
 
 function formatter(value: number) {
-  return numeral(value).format('$0,0.00');
+  return value + '%';
 }
 
 interface Props {
@@ -19,13 +19,15 @@ const id = (t: any) => t;
 const HighGrossingProductsToday: React.FC<Props> = ({ widget, collapsed }) => {
   const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
     return {
+      header: ['Product', 'Sales', 'Revenue'],
+
       formatters: [t, id, formatter],
       rows: dataSet.rows.map((row, index) => {
         return {
           data: Object.keys(row)
             .sort()
             .map(k => row[k]),
-          showWhenCollapsed: index === 0 || index === 1,
+          showWhenCollapsed: index === 0,
         };
       }),
     };

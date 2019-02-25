@@ -18,7 +18,6 @@ interface Props {
 const id = (t: any) => t;
 
 const DaysToPay: React.FC<Props> = ({ widget, collapsed }) => {
-  console.log(widget);
   return (
     <View>
       <Header>

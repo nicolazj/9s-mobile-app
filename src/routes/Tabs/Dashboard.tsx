@@ -21,7 +21,6 @@ const DashboardStack = createStackNavigator(
         headerRight: (
           <P.Touchable
             onPress={() => {
-              console.log('h');
               navigation.navigate(SCREENS[SCREENS.MANAGE_WIDGETS]);
             }}>
             <P.Text style={{ color: '#fff' }}>Edit</P.Text>

@@ -10,7 +10,6 @@ import Button from '../components/Button';
 import Delimiter from '../components/Delimiter';
 import Link from '../components/Link';
 import { GoogleButton } from '../components/SocialButton';
-import { isDev } from '../env';
 import { FormikTextInput, FormTitle } from '../formik';
 import { Container, SafeArea, Text } from '../primitives';
 import { SCREENS } from '../routes/constants';
@@ -24,7 +23,6 @@ interface Props {
   navigation: NavigationScreenProp<any, any>;
   states: [ActivityStatusState, UserState];
 }
-console.log(process.env);
 class SignIn extends React.Component<Props> {
   onPress = async (values: SignInPayload) => {
     const [activityStatusState] = this.props.states;
@@ -60,8 +58,8 @@ class SignIn extends React.Component<Props> {
             <Container hasMargin>
               <Formik
                 initialValues={{
-                  username: isDev ? 'ooo@gmail.com' : '',
-                  password: isDev ? 'Qwer1234' : '',
+                  username: __DEV__ ? 'ooo@gmail.com' : '',
+                  password: __DEV__ ? 'Qwer1234' : '',
                 }}
                 validationSchema={object().shape({
                   password,
