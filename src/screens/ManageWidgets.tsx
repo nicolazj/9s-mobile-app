@@ -61,6 +61,7 @@ export class ManageWidgets extends React.Component<Props, State> {
 
     this.setState({ widgets });
   }
+
   toggle = (widget: Widget, show: boolean) => {
     agent.company.widget.updateAttrs(widget.id, {
       order: widget.attributes.order,

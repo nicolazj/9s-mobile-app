@@ -177,7 +177,6 @@ class Lines extends PureComponent<Props> {
   }) {
     const width = x(1) - x(0);
     const y0 = y(0);
-    console.log(y0);
     const bars = data.map((line, index) => {
       return line.map(bar => {
         return {
