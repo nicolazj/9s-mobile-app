@@ -4,8 +4,8 @@ import React from 'react';
 import { Alert, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
-import { Container as UnContainer } from 'unstated';
 import * as Yup from 'yup';
+
 import agent from '../../agent';
 import Button from '../../components/Button';
 import Link from '../../components/Link';
@@ -15,16 +15,11 @@ import { SCREENS } from '../../routes/constants';
 import activityStatusState, { ActivityStatusState } from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
 import userState, { UserState } from '../../states/User';
-import { SignUpPayload } from '../../types';
+import { Industry, SignUpPayload } from '../../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
   states: [ActivityStatusState, UserState];
-}
-
-interface Industry {
-  displayName: string;
-  industryUUID: string;
 }
 
 interface State {

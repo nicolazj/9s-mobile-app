@@ -45,6 +45,12 @@ export interface ClientState {
   userAuth?: UserAuthResp;
   companyAuth?: AuthResp;
 }
+
+export interface Industry {
+  displayName: string;
+  industryUUID: string;
+  active: boolean;
+}
 export interface Connection {
   appKey: string;
   createdAt: string;

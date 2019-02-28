@@ -84,7 +84,7 @@ export class Settings extends React.Component<Props> {
             </ListItem>
             <ListItem
               onPress={() => {
-                this.props.navigation.push(SCREENS[SCREENS.UPDATE_COMPANY]);
+                // this.props.navigation.push(SCREENS[SCREENS.UPDATE_COMPANY]);
               }}>
               <Left>
                 <Text>Company profile</Text>

@@ -16,9 +16,7 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
       if (auth.hasCompany() && !auth.isCompanyTokenValid()) {
         await token(cconfig, auth).refreshCompanyToken();
       }
-      config.headers.Authorization = `Bearer ${
-        auth.state.companyAuth.access_token
-      }`;
+      config.headers.Authorization = `Bearer ${auth.state.companyAuth.access_token}`;
       return config;
     },
     error => {
@@ -50,14 +48,11 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
     widget: {
       list: async () => {
         try {
-          const r = await instance.get(
-            `/widget/tenants/${tenantId}/users/${userId}/companies/${companyUuid}/widgets`,
-            {
-              headers: {
-                'X-API-Version': 3,
-              },
-            }
-          );
+          const r = await instance.get(`/widget/tenants/${tenantId}/users/${userId}/companies/${companyUuid}/widgets`, {
+            headers: {
+              'X-API-Version': 3,
+            },
+          });
 
           const {
             _embedded: { widgets },
@@ -121,9 +116,7 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
         return connections as Connection[];
       },
       list: async () => {
-        const r = await instance.get(
-          `/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections`
-        );
+        const r = await instance.get(`/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections`);
 
         const {
           _embedded: { connections },
@@ -193,11 +186,7 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
       },
     },
     workflow: {
-      update: async (
-        workflowId: string,
-        activityId: string,
-        stepId: string
-      ) => {
+      update: async (workflowId: string, activityId: string, stepId: string) => {
         const r = await instance.put(
           `/connections/connections/tenants/${tenantId}/company/${companyUuid}/workflow/${workflowId}?activityId=${activityId}&stepId=${stepId}`,
           null

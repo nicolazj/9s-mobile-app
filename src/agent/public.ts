@@ -1,6 +1,7 @@
 import axios from 'axios';
+
 import { AuthState } from '../states/Auth';
-import { ClientConfig, SignUpPayload } from '../types';
+import { ClientConfig, Industry, SignUpPayload } from '../types';
 import token from './token';
 
 export default (cconfig: ClientConfig, auth: AuthState) => {
@@ -64,7 +65,11 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
     },
     industry: {
       get: async () => {
-        const r = await instance.get(
+        const r = await instance.get<{
+          _embedded: {
+            industries: Industry[];
+          };
+        }>(
           `/catalogue/catalogue/tenants/${tenantId}/industries`,
 
           {
@@ -77,7 +82,7 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
         const {
           _embedded: { industries },
         } = r.data;
-        return industries;
+        return industries.filter(i => i.active);
       },
     },
   };

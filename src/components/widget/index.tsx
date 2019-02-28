@@ -69,7 +69,7 @@ interface State {
   maxHeight: number;
 }
 
-const HEIGHT_COLLAPSED = 60;
+const HEIGHT_COLLAPSED = scale(60);
 
 class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
   constructor(props) {
