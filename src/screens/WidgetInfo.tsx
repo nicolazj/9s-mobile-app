@@ -9,6 +9,7 @@ import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
 import styled from '../styled';
 import { App, WidgetSample } from '../types';
+import { ConnectedApp, ConnectedAppImg, ConnectedAppLabel } from './AppList';
 import { transform } from './WidgetList';
 
 const Desc = styled(P.Text)`
@@ -31,7 +32,7 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
   const sample = appState.getSample(key) as WidgetSample;
   return (
     <ScrollView>
-      <P.Container hasPadding>
+      <P.Container hasPadding style={{ backgroundColor: '#fff' }}>
         <WidgetComp sample={true} widget={transform(sample)} />
 
         <View>
@@ -39,19 +40,22 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
             <Desc key={p}>{p} </Desc>
           ))}
         </View>
-        <View>
-          <P.H2>Available ussing these Apps</P.H2>
+        <View style={{ paddingBottom: 30 }}>
+          <P.H3>Available using these Apps</P.H3>
           {sample.services.map(s => {
             const app = appState.getApp(s) as App;
             return (
-              <P.Touchable
+              <ConnectedApp
                 key={app.key}
                 onPress={() => {
                   navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
                 }}
               >
-                <AppIcon source={{ uri: app.squareLogo }} />
-              </P.Touchable>
+                <ConnectedAppImg source={{ uri: app.squareLogo }} />
+                <ConnectedAppLabel>
+                  {app.shortName || app.name}
+                </ConnectedAppLabel>
+              </ConnectedApp>
             );
           })}
         </View>
