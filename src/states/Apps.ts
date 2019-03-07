@@ -30,7 +30,9 @@ export class AppState extends Container<State> {
   }
   get availableApps() {
     const activeConnections = this.activeConnections.map(c => c.appKey);
-    const supportedApps = ([] as string[]).concat(...this.state.spokes.map(s => s.services));
+    const supportedApps = ([] as string[]).concat(
+      ...this.state.spokes.map(s => s.services)
+    );
 
     return this.state.apps
       .filter(app => supportedApps.includes(app.key))
@@ -39,8 +41,13 @@ export class AppState extends Container<State> {
   getApp(appKey: string) {
     return this.state.apps.find(app => app.key === appKey);
   }
-  getSample(appKey: string) {
-    return this.state.samples.find(sample => sample.key === appKey);
+  getSample(widgetKey: string) {
+    return this.state.samples.find(sample => sample.key === widgetKey);
+  }
+  getSamplesByAppKey(appKey: string) {
+    return this.state.samples.filter(sample =>
+      sample.services.includes(appKey)
+    );
   }
   getGroupedSample() {
     return _groupby(this.state.samples, s => s.category);

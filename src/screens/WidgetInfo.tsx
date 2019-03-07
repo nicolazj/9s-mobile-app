@@ -48,7 +48,8 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
                 key={app.key}
                 onPress={() => {
                   navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
-                }}>
+                }}
+              >
                 <AppIcon source={{ uri: app.squareLogo }} />
               </P.Touchable>
             );
