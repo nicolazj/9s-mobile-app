@@ -10,11 +10,10 @@ import Tabs from './Tabs';
 const MainNavigator = createSwitchNavigator(
   {
     Tabs,
+    ForceConnect,
+    Auth,
     [SCREENS[SCREENS.LOADING]]: Loading,
     [SCREENS[SCREENS.ONBOARDING]]: Onboarding,
-    ForceConnect,
-
-    Auth,
   },
   {
     initialRouteName: SCREENS[SCREENS.LOADING],

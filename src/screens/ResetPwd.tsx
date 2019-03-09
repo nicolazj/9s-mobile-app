@@ -6,7 +6,7 @@ import agent from '../agent';
 import Button from '../components/Button';
 import Link from '../components/Link';
 import { FormDesc, FormikTextInput, FormTitle } from '../formik';
-import { Container, SafeArea, Text } from '../primitives';
+import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import { object, username } from '../validations';
 interface Props {
@@ -29,14 +29,17 @@ export default class ResetPwd extends React.Component<Props> {
   render() {
     const { done } = this.state;
     return (
-      <Container>
-        <SafeArea>
+      <P.Container>
+        <P.SafeArea>
           {done ? (
-            <Container padding hcenter vcenter>
-              <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://via.placeholder.com/150' }} />
+            <P.Container padding hcenter vcenter>
+              <Image
+                style={{ width: 150, height: 150 }}
+                source={{ uri: 'https://via.placeholder.com/150' }}
+              />
               <FormTitle>Email sent!</FormTitle>
-              <Text>Check your inbox for a link to </Text>
-              <Text> reset your password</Text>
+              <P.Text>Check your inbox for a link to </P.Text>
+              <P.Text> reset your password</P.Text>
               <Link
                 title="Done"
                 onPress={() => {
@@ -44,9 +47,9 @@ export default class ResetPwd extends React.Component<Props> {
                 }}
                 style={{ margin: 20 }}
               />
-            </Container>
+            </P.Container>
           ) : (
-            <Container padding>
+            <P.Container padding>
               <Formik
                 initialValues={{
                   email: '',
@@ -54,22 +57,30 @@ export default class ResetPwd extends React.Component<Props> {
                 validationSchema={object().shape({
                   email: username,
                 })}
-                onSubmit={this.onPress}>
+                onSubmit={this.onPress}
+              >
                 {({ handleSubmit }) => (
                   <View>
-                    <FormTitle style={{ marginBottom: 30 }}>Reset your password</FormTitle>
+                    <FormTitle style={{ marginBottom: 30 }}>
+                      Reset your password
+                    </FormTitle>
                     <FormDesc>
-                      No problem! Enter your email address and we will send you a link to reset your password
+                      No problem! Enter your email address and we will send you
+                      a link to reset your password
                     </FormDesc>
-                    <Field name="email" component={FormikTextInput} placeholder="Email" />
+                    <Field
+                      name="email"
+                      component={FormikTextInput}
+                      placeholder="Email"
+                    />
                     <Button title="Reset password" onPress={handleSubmit} />
                   </View>
                 )}
               </Formik>
-            </Container>
+            </P.Container>
           )}
-        </SafeArea>
-      </Container>
+        </P.SafeArea>
+      </P.Container>
     );
   }
 }

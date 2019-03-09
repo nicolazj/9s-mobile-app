@@ -10,9 +10,11 @@ import Delimiter from '../../components/Delimiter';
 import Link from '../../components/Link';
 import { GoogleButton } from '../../components/SocialButton';
 import { FormikTextInput, FormTitle } from '../../formik';
-import { Container, SafeArea, Text } from '../../primitives';
+import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
-import activityStatusState, { ActivityStatusState } from '../../states/ActivityStatus';
+import activityStatusState, {
+  ActivityStatusState,
+} from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
 import { SignUpPayload } from '../../types';
 import { name, object, password, username } from '../../validations';
@@ -30,7 +32,10 @@ export class SignUp extends React.Component<Props> {
       activityStatusState.show('Checking email');
       const userExisted = await agent.public.user.isExisted(values.userName);
       if (!userExisted) {
-        this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP_COMPANY], values);
+        this.props.navigation.navigate(
+          SCREENS[SCREENS.SIGN_UP_COMPANY],
+          values
+        );
       } else {
         Alert.alert('Error', 'Username existed');
       }
@@ -45,10 +50,10 @@ export class SignUp extends React.Component<Props> {
   }
   render() {
     return (
-      <Container>
-        <SafeArea>
+      <P.Container>
+        <P.SafeArea>
           <KeyboardAwareScrollView extraHeight={Constants.statusBarHeight}>
-            <Container hasPadding>
+            <P.Container hasPadding>
               <Formik
                 initialValues={{
                   userName:
@@ -65,21 +70,41 @@ export class SignUp extends React.Component<Props> {
                   password,
                   userName: username,
                 })}
-                onSubmit={this.onPress}>
+                onSubmit={this.onPress}
+              >
                 {({ handleSubmit }) => (
                   <View style={{ flex: 1 }}>
-                    <FormTitle style={{ marginBottom: 20 }}>Create an account</FormTitle>
-                    <Field name="firstName" component={FormikTextInput} placeholder="First name" />
-                    <Field name="lastName" component={FormikTextInput} placeholder="Last name" />
-                    <Field name="userName" component={FormikTextInput} placeholder="Email" />
-                    <Field name="password" component={FormikTextInput} placeholder="Password" secureTextEntry={true} />
+                    <FormTitle style={{ marginBottom: 20 }}>
+                      Create an account
+                    </FormTitle>
+                    <Field
+                      name="firstName"
+                      component={FormikTextInput}
+                      placeholder="First name"
+                    />
+                    <Field
+                      name="lastName"
+                      component={FormikTextInput}
+                      placeholder="Last name"
+                    />
+                    <Field
+                      name="userName"
+                      component={FormikTextInput}
+                      placeholder="Email"
+                    />
+                    <Field
+                      name="password"
+                      component={FormikTextInput}
+                      placeholder="Password"
+                      secureTextEntry={true}
+                    />
                     <Button title="Proceed" onPress={handleSubmit} />
                   </View>
                 )}
               </Formik>
               <Delimiter />
               <GoogleButton onPress={this.googleLogin} />
-            </Container>
+            </P.Container>
           </KeyboardAwareScrollView>
           <View
             style={{
@@ -89,12 +114,18 @@ export class SignUp extends React.Component<Props> {
               position: 'absolute',
               bottom: 20,
               width: '100%',
-            }}>
-            <Text>Already have an account? </Text>
-            <Link title="Log in" onPress={() => this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN])} />
+            }}
+          >
+            <P.Text>Already have an account? </P.Text>
+            <Link
+              title="Log in"
+              onPress={() =>
+                this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN])
+              }
+            />
           </View>
-        </SafeArea>
-      </Container>
+        </P.SafeArea>
+      </P.Container>
     );
   }
 }

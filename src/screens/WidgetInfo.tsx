@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import WidgetComp from '../components/widget';
@@ -16,11 +16,7 @@ const Desc = styled(P.Text)`
   color: #999;
   margin-bottom: 10px;
 `;
-const AppIcon = styled(Image)`
-  margin-left: 4px;
-  width: 48px;
-  height: 48px;
-`;
+
 interface Props {
   navigation: NavigationScreenProp<any, any>;
   states: [AppState];

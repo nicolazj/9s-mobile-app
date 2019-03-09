@@ -11,9 +11,11 @@ import Delimiter from '../components/Delimiter';
 import Link from '../components/Link';
 import { GoogleButton } from '../components/SocialButton';
 import { FormikTextInput, FormTitle } from '../formik';
-import { Container, SafeArea, Text } from '../primitives';
+import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import activityStatusState, { ActivityStatusState } from '../states/ActivityStatus';
+import activityStatusState, {
+  ActivityStatusState,
+} from '../states/ActivityStatus';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
 import { SignInPayload } from '../types';
@@ -46,16 +48,17 @@ class SignIn extends React.Component<Props> {
   googleLogin() {
     console.log('google login');
     Google.logInAsync({
-      iosClientId: '248650621080-vp9dkt8bjb5d5bvlqhcfb4r54s4ip0r4.apps.googleusercontent.com',
+      iosClientId:
+        '248650621080-vp9dkt8bjb5d5bvlqhcfb4r54s4ip0r4.apps.googleusercontent.com',
       scopes: ['openid', 'email', 'profile', 'email', 'profile'],
     });
   }
   render() {
     return (
-      <Container>
-        <SafeArea>
+      <P.Container>
+        <P.SafeArea>
           <KeyboardAwareScrollView extraHeight={Constants.statusBarHeight}>
-            <Container hasMargin>
+            <P.Container hasMargin>
               <Formik
                 initialValues={{
                   username: __DEV__ ? 'ooo@gmail.com' : '',
@@ -65,19 +68,31 @@ class SignIn extends React.Component<Props> {
                   password,
                   username,
                 })}
-                onSubmit={this.onPress}>
+                onSubmit={this.onPress}
+              >
                 {({ handleSubmit }) => (
                   <View style={{ flex: 1 }}>
                     <FormTitle style={{ marginBottom: 150 }}>Login</FormTitle>
-                    <Field name="username" component={FormikTextInput} placeholder="Email" />
+                    <Field
+                      name="username"
+                      component={FormikTextInput}
+                      placeholder="Email"
+                    />
 
-                    <Field name="password" component={FormikTextInput} placeholder="Password" secureTextEntry={true} />
+                    <Field
+                      name="password"
+                      component={FormikTextInput}
+                      placeholder="Password"
+                      secureTextEntry={true}
+                    />
                     <View style={{ flexDirection: 'row', marginBottom: 15 }}>
-                      <Text>Can't Log In? </Text>
+                      <P.Text>Can't Log In? </P.Text>
                       <Link
                         title="Reset Password"
                         onPress={() => {
-                          this.props.navigation.navigate(SCREENS[SCREENS.RESET_PWD]);
+                          this.props.navigation.navigate(
+                            SCREENS[SCREENS.RESET_PWD]
+                          );
                         }}
                       />
                     </View>
@@ -88,7 +103,7 @@ class SignIn extends React.Component<Props> {
               </Formik>
               <Delimiter />
               <GoogleButton onPress={this.googleLogin} />
-            </Container>
+            </P.Container>
           </KeyboardAwareScrollView>
           <View
             style={{
@@ -98,12 +113,18 @@ class SignIn extends React.Component<Props> {
               position: 'absolute',
               bottom: 20,
               width: '100%',
-            }}>
-            <Text>Don't have an account? </Text>
-            <Link title="Signup" onPress={() => this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP])} />
+            }}
+          >
+            <P.Text>Don't have an account? </P.Text>
+            <Link
+              title="Signup"
+              onPress={() =>
+                this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP])
+              }
+            />
           </View>
-        </SafeArea>
-      </Container>
+        </P.SafeArea>
+      </P.Container>
     );
   }
 }
