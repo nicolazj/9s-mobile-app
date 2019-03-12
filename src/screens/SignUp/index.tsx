@@ -55,15 +55,24 @@ export class SignUp extends React.Component<Props> {
           <KeyboardAwareScrollView extraHeight={Constants.statusBarHeight}>
             <P.Container hasPadding>
               <Formik
-                initialValues={{
-                  userName:
-                    Math.random()
-                      .toString(36)
-                      .substring(7) + '@gmail.com',
-                  password: 'Qwer1234',
-                  firstName: 'n',
-                  lastName: 'j',
-                }}
+                initialValues={
+                  __DEV__
+                    ? {
+                        userName:
+                          Math.random()
+                            .toString(36)
+                            .substring(7) + '@gmail.com',
+                        password: 'Qwer1234',
+                        firstName: 'n',
+                        lastName: 'j',
+                      }
+                    : {
+                        userName: '',
+                        password: '',
+                        firstName: '',
+                        lastName: '',
+                      }
+                }
                 validationSchema={object().shape({
                   firstName: name,
                   lastName: name,

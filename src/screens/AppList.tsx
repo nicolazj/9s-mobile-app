@@ -28,7 +28,9 @@ const Title = styled(P.H1)`
   margin-left: 0;
 `;
 
-export const ConnectedApp = styled(P.Touchable)`
+export const ConnectedApp = styled(P.Touchable)<{
+  children: React.ReactNode;
+}>`
   flex: 1;
   width: 100px;
   align-items: center;
@@ -52,7 +54,9 @@ const AvaibleAppContainer = styled(P.Container)`
   border-top-width: 1px;
   border-bottom-width: 1px;
 `;
-const AvaibleApp = styled(P.Touchable)`
+const AvaibleApp = styled(P.Touchable)<{
+  children: React.ReactNode;
+}>`
   flex-direction: row;
   flex: 1;
   border-bottom-color: #eee;

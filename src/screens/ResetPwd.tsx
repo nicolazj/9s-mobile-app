@@ -32,7 +32,7 @@ export default class ResetPwd extends React.Component<Props> {
       <P.Container>
         <P.SafeArea>
           {done ? (
-            <P.Container padding hcenter vcenter>
+            <P.Container hasPadding hcenter vcenter>
               <Image
                 style={{ width: 150, height: 150 }}
                 source={{ uri: 'https://via.placeholder.com/150' }}
@@ -49,7 +49,7 @@ export default class ResetPwd extends React.Component<Props> {
               />
             </P.Container>
           ) : (
-            <P.Container padding>
+            <P.Container hasPadding>
               <Formik
                 initialValues={{
                   email: '',

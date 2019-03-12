@@ -1,12 +1,12 @@
 import { WebBrowser } from 'expo';
 import React from 'react';
-import { Alert, Dimensions, Image, ScrollView, Text, View } from 'react-native';
+import { Alert, Dimensions, Image, ScrollView, View } from 'react-native';
 import { NavigationEvents, NavigationScreenProp } from 'react-navigation';
 
 import agent from '../agent';
 import Button from '../components/Button';
 import WidgetComp from '../components/widget';
-import { Container } from '../primitives';
+import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import { scale } from '../scale';
 import appState, { AppDetail, AppState } from '../states/Apps';
@@ -20,7 +20,7 @@ interface Props {
   navigation: NavigationScreenProp<any, any>;
   states: [AppState];
 }
-const AppDetailContainer = styled(Container)`
+const AppDetailContainer = styled(P.Container)`
   background: #fff;
 `;
 const AppImg = styled(Image)`
@@ -28,14 +28,14 @@ const AppImg = styled(Image)`
   width: ${scale(200)}px;
   align-self: center;
 `;
-const KeyFeatureTitle = styled(Text)`
+const KeyFeatureTitle = styled(P.Text)`
   font-weight: bold;
   margin-bottom: 5px;
 `;
 const DescView = styled(View)`
   margin-bottom: 20px;
 `;
-const DescText = styled(Text)`
+const DescText = styled(P.Text)`
   color: #666;
 `;
 

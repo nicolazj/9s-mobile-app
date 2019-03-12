@@ -1,7 +1,7 @@
 import { Video } from 'expo';
 import React from 'react';
 import { Dimensions, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
+import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import Button from '../../components/Button';
 import Walkthrough from '../../components/Walkthrough';
@@ -25,7 +25,7 @@ const assetsMap = [
   require('../../../assets/ob3.mp4'),
 ];
 
-const WalkthroughSlide = ({ index, current = false }) => {
+const WalkthroughSlide = ({ index = 0, current = false }) => {
   const { height, width } = Dimensions.get('window');
   return (
     <Video
@@ -42,12 +42,14 @@ const WalkthroughSlide = ({ index, current = false }) => {
   );
 };
 
-const WalkthroughScreen = ({ navigation }) => {
+const WalkthroughScreen: React.FC<{
+  navigation: NavigationScreenProp<any, any>;
+}> = ({ navigation }) => {
   const length = 3;
   return (
     <WalkthroughView>
       <Walkthrough>
-        {new Array(length).fill().map((_, i) => (
+        {new Array(length).fill(0).map((_, i) => (
           <WalkthroughSlide index={i} key={i} />
         ))}
       </Walkthrough>

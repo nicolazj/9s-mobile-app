@@ -1,19 +1,14 @@
 import React from 'react';
 import {
-  Platform,
   SafeAreaView,
   Text as Text_,
-  TouchableNativeFeedback,
-  TouchableNativeFeedbackProps,
   TouchableOpacity,
-  TouchableOpacityProps,
   View,
 } from 'react-native';
 
 import { scale } from './scale';
 import styled, { th } from './styled';
 
-type Intersection<A, B> = Pick<A, keyof A & keyof B>;
 export const Touchable = TouchableOpacity;
 
 interface TextProps {

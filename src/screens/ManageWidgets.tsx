@@ -14,11 +14,14 @@ import { SubscribeHOC } from '../states/helper';
 import styled from '../styled';
 import { Widget } from '../types';
 
+interface withChildren {
+  children: React.ReactNode;
+}
 const Title = styled(P.Text)`
   color: #999;
   padding: 0 ${scale(10)}px;
 `;
-const Group = styled(View)`
+const Group = styled(View)<withChildren>`
   margin-bottom: 20px;
   padding-top: 10px;
 `;
@@ -31,14 +34,14 @@ const List = styled(View)`
   background-color: #fff;
   padding: 10px 0;
 `;
-const ListItem = styled(View)`
+const ListItem = styled(View)<withChildren>`
   padding: 10px;
   flex-direction: row;
   border-bottom-color: #ddd;
   border-bottom-width: 1px;
   align-items: center;
 `;
-const Cell = styled(View)`
+const Cell = styled(View)<withChildren>`
   padding: 0 10px;
 `;
 
@@ -93,7 +96,9 @@ export class ManageWidgets extends React.Component<Props, State> {
       .sort((a, b) => {
         return a.attributes.order - b.attributes.order;
       });
-    const activeWidgetsShowed = activeWidgets.filter(w => w.attributes.showOnMobile);
+    const activeWidgetsShowed = activeWidgets.filter(
+      w => w.attributes.showOnMobile
+    );
     const activeWidgetsNotShowedGrouped = _groupby(
       activeWidgets.filter(w => !w.attributes.showOnMobile),
       'attributes.origin'
@@ -111,10 +116,13 @@ export class ManageWidgets extends React.Component<Props, State> {
               <SortableList
                 sortingEnabled={true}
                 scrollEnabled={false}
-                data={activeWidgetsShowed.reduce((p: { [key: string]: Widget }, cur, i) => {
-                  p[cur.id] = cur;
-                  return p;
-                }, {})}
+                data={activeWidgetsShowed.reduce(
+                  (p: { [key: string]: Widget }, cur, i) => {
+                    p[cur.id] = cur;
+                    return p;
+                  },
+                  {}
+                )}
                 order={activeWidgetsShowed.map(w => w.id)}
                 onChangeOrder={(orders: string[]) => {
                   this.orders = orders;
@@ -145,10 +153,18 @@ export class ManageWidgets extends React.Component<Props, State> {
                   this.setState({ widgets });
                   // need to execute this one by one, otherwise database can not handle it.
                   for (let payload of toUpdate) {
-                    await agent.company.widget.updateAttrs(...(payload as [string, any]));
+                    await agent.company.widget.updateAttrs(
+                      ...(payload as [string, any])
+                    );
                   }
                 }}
-                renderRow={({ data: widget, active }: { data: Widget; active: boolean }) => {
+                renderRow={({
+                  data: widget,
+                  active,
+                }: {
+                  data: Widget;
+                  active: boolean;
+                }) => {
                   return (
                     <SortableRow key={widget.id} active={active}>
                       <ListItem key={widget.id}>
@@ -156,15 +172,22 @@ export class ManageWidgets extends React.Component<Props, State> {
                           <P.Touchable
                             onPress={() => {
                               this.toggle(widget, false);
-                            }}>
-                            <Ionicons name="ios-remove-circle" size={24} color="#ff3b30" />
+                            }}
+                          >
+                            <Ionicons
+                              name="ios-remove-circle"
+                              size={24}
+                              color="#ff3b30"
+                            />
                           </P.Touchable>
                         </Cell>
                         <Cell style={{ flex: 2 }}>
                           <P.Text>{widget.attributes.displayName}</P.Text>
                         </Cell>
                         <Cell>
-                          <AppIcon source={{ uri: getIcon(widget.attributes.origin) }} />
+                          <AppIcon
+                            source={{ uri: getIcon(widget.attributes.origin) }}
+                          />
                         </Cell>
                         <Cell>
                           <Ionicons name="ios-reorder" size={30} color="#999" />
@@ -188,15 +211,22 @@ export class ManageWidgets extends React.Component<Props, State> {
                         <P.Touchable
                           onPress={() => {
                             this.toggle(widget, true);
-                          }}>
-                          <Ionicons name="ios-add-circle" size={24} color="#4cd964" />
+                          }}
+                        >
+                          <Ionicons
+                            name="ios-add-circle"
+                            size={24}
+                            color="#4cd964"
+                          />
                         </P.Touchable>
                       </Cell>
                       <Cell style={{ flex: 2 }}>
                         <P.Text>{widget.attributes.displayName}</P.Text>
                       </Cell>
                       <Cell>
-                        <AppIcon source={{ uri: getIcon(widget.attributes.origin) }} />
+                        <AppIcon
+                          source={{ uri: getIcon(widget.attributes.origin) }}
+                        />
                       </Cell>
                       <Cell>
                         <Ionicons name="ios-reorder" size={30} color="#fff" />

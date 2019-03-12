@@ -13,7 +13,7 @@ interface State {
   refreshing: boolean;
 }
 
-const ScrollView = styled(SV)`
+const ScrollView = styled(SV)<{ children: React.ReactNode }>`
   background-color: ${th('color.view.bg')};
 `;
 export default class Dashboard extends React.Component<any, State> {
