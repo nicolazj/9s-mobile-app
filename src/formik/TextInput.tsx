@@ -22,20 +22,26 @@ interface FormikTextInputProps {
   placeholder?: string;
 }
 
-const FormikTextInput: React.FC<FormikTextInputProps & TextInputProps & FieldProps> = ({
+const FormikTextInput: React.FC<
+  FormikTextInputProps &
+    TextInputProps &
+    FieldProps & { innerRef: React.Ref<any> }
+> = ({
   field: { name, value },
   form: { touched, errors, handleChange },
-  placeholder,
-  secureTextEntry,
+  innerRef,
+  ...props
 }) => (
   <FormGroup>
     <TextInput
       value={value}
       onChangeText={handleChange(name)}
-      placeholder={placeholder}
-      secureTextEntry={secureTextEntry}
+      ref={innerRef}
+      {...props}
     />
-    {errors[name] && touched[name] && <FormError>{errors[name] as string}</FormError>}
+    {errors[name] && touched[name] && (
+      <FormError>{errors[name] as string}</FormError>
+    )}
   </FormGroup>
 );
 

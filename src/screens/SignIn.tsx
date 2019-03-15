@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { Constants, Google } from 'expo';
 import { Field, Formik } from 'formik';
 import React from 'react';
@@ -25,7 +26,14 @@ interface Props {
   navigation: NavigationScreenProp<any, any>;
   states: [ActivityStatusState, UserState];
 }
-class SignIn extends React.Component<Props> {
+interface State {
+  focus: string;
+}
+class SignIn extends React.Component<Props, State> {
+  state: State = {
+    focus: '',
+  };
+  passwordRef = React.createRef();
   onPress = async (values: SignInPayload) => {
     const [activityStatusState] = this.props.states;
 
@@ -40,7 +48,15 @@ class SignIn extends React.Component<Props> {
       } else {
       }
     } catch (err) {
-      Alert.alert('Log in failed', 'Unable to sign in, try again later');
+      if (err.response) {
+        if (
+          err.response.data.error_description === 'INVALID_USERNAME_OR_PASSWORD'
+        ) {
+          Alert.alert('Log in failed', 'Invalid username or password');
+        }
+      } else {
+        Alert.alert('Log in failed', 'Unable to sign in, try again later');
+      }
     } finally {
       activityStatusState.dismiss();
     }
@@ -53,7 +69,11 @@ class SignIn extends React.Component<Props> {
       scopes: ['openid', 'email', 'profile', 'email', 'profile'],
     });
   }
+  focusPassword = () => {
+    this.passwordRef.current.focus();
+  };
   render() {
+    console.log(this.state.focus, 'focus');
     return (
       <P.Container>
         <P.SafeArea>
@@ -77,6 +97,8 @@ class SignIn extends React.Component<Props> {
                       name="username"
                       component={FormikTextInput}
                       placeholder="Email"
+                      returnKeyType="next"
+                      onSubmitEditing={this.focusPassword}
                     />
 
                     <Field
@@ -84,6 +106,8 @@ class SignIn extends React.Component<Props> {
                       component={FormikTextInput}
                       placeholder="Password"
                       secureTextEntry={true}
+                      innerRef={this.passwordRef}
+                      onSubmitEditing={handleSubmit}
                     />
                     <View style={{ flexDirection: 'row', marginBottom: 15 }}>
                       <P.Text>Can't Log In? </P.Text>
