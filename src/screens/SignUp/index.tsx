@@ -1,9 +1,10 @@
 import { Constants } from 'expo';
 import { Field, Formik } from 'formik';
 import React from 'react';
-import { Alert, View } from 'react-native';
+import { Alert, TextInput, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
+
 import agent from '../../agent';
 import Button from '../../components/Button';
 import Delimiter from '../../components/Delimiter';
@@ -25,6 +26,28 @@ interface Props {
 }
 
 export class SignUp extends React.Component<Props> {
+  refPassword = React.createRef<TextInput>();
+
+  refEmail = React.createRef<TextInput>();
+
+  refLastName = React.createRef<TextInput>();
+
+  focusPassword = () => {
+    if (this.refPassword.current) {
+      this.refPassword.current.focus();
+    }
+  };
+  focucLastName = () => {
+    if (this.refLastName.current) {
+      this.refLastName.current.focus();
+    }
+  };
+  focusEmail = () => {
+    if (this.refEmail.current) {
+      this.refEmail.current.focus();
+    }
+  };
+
   onPress = async (values: SignUpPayload) => {
     const [activityStatusState] = this.props.states as [ActivityStatusState];
 
@@ -90,22 +113,33 @@ export class SignUp extends React.Component<Props> {
                       name="firstName"
                       component={FormikTextInput}
                       placeholder="First name"
+                      returnKeyType="next"
+                      onSubmitEditing={this.focucLastName}
                     />
                     <Field
                       name="lastName"
                       component={FormikTextInput}
                       placeholder="Last name"
+                      innerRef={this.refLastName}
+                      returnKeyType="next"
+                      onSubmitEditing={this.focusEmail}
                     />
                     <Field
                       name="userName"
                       component={FormikTextInput}
                       placeholder="Email"
+                      innerRef={this.refEmail}
+                      returnKeyType="next"
+                      onSubmitEditing={this.focusPassword}
                     />
                     <Field
                       name="password"
                       component={FormikTextInput}
                       placeholder="Password"
+                      innerRef={this.refPassword}
                       secureTextEntry={true}
+                      returnKeyType="next"
+                      onSubmitEditing={handleSubmit}
                     />
                     <Button title="Proceed" onPress={handleSubmit} />
                   </View>

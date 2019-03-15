@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { Constants, Google } from 'expo';
 import { Field, Formik } from 'formik';
 import React from 'react';
-import { Alert, View } from 'react-native';
+import { Alert, TextInput, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
 
@@ -26,14 +26,15 @@ interface Props {
   navigation: NavigationScreenProp<any, any>;
   states: [ActivityStatusState, UserState];
 }
-interface State {
-  focus: string;
-}
-class SignIn extends React.Component<Props, State> {
-  state: State = {
-    focus: '',
+
+class SignIn extends React.Component<Props> {
+  refPassword = React.createRef<TextInput>();
+
+  focusPassword = () => {
+    if (this.refPassword.current) {
+      this.refPassword.current.focus();
+    }
   };
-  passwordRef = React.createRef();
   onPress = async (values: SignInPayload) => {
     const [activityStatusState] = this.props.states;
 
@@ -69,11 +70,8 @@ class SignIn extends React.Component<Props, State> {
       scopes: ['openid', 'email', 'profile', 'email', 'profile'],
     });
   }
-  focusPassword = () => {
-    this.passwordRef.current.focus();
-  };
+
   render() {
-    console.log(this.state.focus, 'focus');
     return (
       <P.Container>
         <P.SafeArea>
@@ -106,7 +104,7 @@ class SignIn extends React.Component<Props, State> {
                       component={FormikTextInput}
                       placeholder="Password"
                       secureTextEntry={true}
-                      innerRef={this.passwordRef}
+                      innerRef={this.refPassword}
                       onSubmitEditing={handleSubmit}
                     />
                     <View style={{ flexDirection: 'row', marginBottom: 15 }}>
