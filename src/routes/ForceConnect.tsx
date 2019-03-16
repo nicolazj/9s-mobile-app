@@ -7,7 +7,7 @@ import AppDetail from '../screens/AppDetail';
 import ForceConnect from '../screens/ForceConnect';
 import authState, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
-import styled, { th } from '../styled';
+import styled, { IThemeInterface, th } from '../styled';
 import { SCREENS } from './constants';
 
 const LogoutBtn = styled(P.Touchable)`
@@ -17,20 +17,23 @@ const LogoutText = styled(P.Text)`
   color: ${th('color.main')};
 `;
 
-const Logout_: React.FC<{ states: [AuthState]; navProps: NavigationScreenProps }> = ({
-  states,
-  navProps: { navigation },
-}) => (
+const Logout_: React.FC<{
+  states: [AuthState];
+  navProps: NavigationScreenProps;
+}> = ({ states, navProps: { navigation } }) => (
   <LogoutBtn
     onPress={() => {
       const [authState] = states;
       authState.clear();
       navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
-    }}>
+    }}
+  >
     <LogoutText>Log out</LogoutText>
   </LogoutBtn>
 );
-const Logout = SubscribeHOC([authState])(Logout_) as React.FC<{ navProps: NavigationScreenProps }>;
+const Logout = SubscribeHOC([authState])(Logout_) as React.FC<{
+  navProps: NavigationScreenProps;
+}>;
 
 export default createStackNavigator(
   {
@@ -55,6 +58,10 @@ export default createStackNavigator(
       navigationOptions: (props: NavigationScreenProps) => {
         return {
           title: props.navigation.getParam('key'),
+          headerTintColor: th('color.header')(props.screenProps as {
+            theme: IThemeInterface;
+          }),
+
           headerStyle: {
             backgroundColor: '#fff',
             elevation: 0, // remove shadow on Android
@@ -69,6 +76,9 @@ export default createStackNavigator(
       screen: AppConnect,
       navigationOptions: (props: NavigationScreenProps) => {
         return {
+          headerTintColor: th('color.header')(props.screenProps as {
+            theme: IThemeInterface;
+          }),
           title: props.navigation.getParam('key'),
         };
       },

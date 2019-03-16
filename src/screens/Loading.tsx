@@ -26,8 +26,8 @@ export class AuthLoadingScreen extends React.Component<Props> {
     const { onboarding } = cookieState.state;
     const loggedIn = await this.checkingLogin();
     if (loggedIn) {
-      let connection = await agent.company.connection.list();
-      if (connection.length > 0) {
+      let connections = await agent.company.connection.list();
+      if (connections.filter(conn => conn.status === 'ACTIVE').length > 0) {
         this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
       } else {
         this.props.navigation.navigate(SCREENS[SCREENS.FORCE_CONNECT]);
@@ -66,4 +66,6 @@ export class AuthLoadingScreen extends React.Component<Props> {
   }
 }
 
-export default SubscribeHOC([authState, userState, cookieState])(AuthLoadingScreen);
+export default SubscribeHOC([authState, userState, cookieState])(
+  AuthLoadingScreen
+);
