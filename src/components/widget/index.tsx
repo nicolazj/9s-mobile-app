@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Image, LayoutChangeEvent, View } from 'react-native';
+import { Alert, Animated, Image, LayoutChangeEvent, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import * as P from '../../primitives';
@@ -8,7 +8,7 @@ import { scale } from '../../scale';
 import appState, { AppState } from '../../states/Apps';
 import { SubscribeHOC } from '../../states/helper';
 import styled from '../../styled';
-import { Widget } from '../../types';
+import { Widget, WidgetSample } from '../../types';
 import Link from '../Link';
 import { getWidgetByKey } from './utils';
 
@@ -104,7 +104,9 @@ class WidgetComp extends React.Component<Props, State> {
       error: false,
       maxHeight: 300,
     };
-    this.height = new Value(props.sample ? this.state.maxHeight : HEIGHT_COLLAPSED);
+    this.height = new Value(
+      props.sample ? this.state.maxHeight : HEIGHT_COLLAPSED
+    );
   }
 
   onShowHidePress = () => {
@@ -129,6 +131,23 @@ class WidgetComp extends React.Component<Props, State> {
       maxHeight: height,
     });
   };
+  gotoWidgetInfo = (widget: Widget) => {
+    const { key } = widget;
+    const [appState] = this.props.states;
+    const sample = appState.getSample(key);
+    if (sample) {
+      this.props.navigation.navigate(SCREENS[SCREENS.WIDGET_INFO], {
+        key: widget.key,
+      });
+    } else {
+      Alert.alert(
+        'No information found',
+        `Unable to find information for ${
+          widget.attributes.displayName
+        }, try again later.`
+      );
+    }
+  };
   render() {
     const { widget, sample } = this.props;
     const [appState] = this.props.states;
@@ -138,7 +157,11 @@ class WidgetComp extends React.Component<Props, State> {
     const Widget = getWidgetByKey(widget.key);
     const app = appState.getApp(widget.attributes.origin);
     if (!Widget || !app)
-      return sample ? <P.Text>{widget.attributes.displayName + '|' + widget.key} not implemented</P.Text> : null;
+      return sample ? (
+        <P.Text>
+          {widget.attributes.displayName + '|' + widget.key} not implemented
+        </P.Text>
+      ) : null;
 
     return (
       <WidgetContainer
@@ -147,13 +170,19 @@ class WidgetComp extends React.Component<Props, State> {
             this.props.navigation.navigate(SCREENS[SCREENS.WIDGET_INFO], {
               key: widget.key,
             });
-        }}>
+        }}
+      >
         <WidgetHeader>
           <WidgetTitleWrapper style={{ flexDirection: 'row' }}>
             <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
             {!sample && <WidgetAppIcon source={{ uri: app.squareLogo }} />}
           </WidgetTitleWrapper>
-          {hasData && !sample && <WidgetOp title={collapsed ? 'Show' : 'Hide'} onPress={this.onShowHidePress} />}
+          {hasData && !sample && (
+            <WidgetOp
+              title={collapsed ? 'Show' : 'Hide'}
+              onPress={this.onShowHidePress}
+            />
+          )}
         </WidgetHeader>
         <WidgetWrapper style={{ height: this.height }}>
           <View onLayout={this.setMaxHeight}>
@@ -163,7 +192,8 @@ class WidgetComp extends React.Component<Props, State> {
               </ErrorBoundary>
             ) : (
               <NoDataPromp>
-                Sorry, we can't find your information. Check if your app contains any data or start making use of it
+                Sorry, we can't find your information. Check if your app
+                contains any data or start making use of it
               </NoDataPromp>
             )}
 
@@ -171,11 +201,7 @@ class WidgetComp extends React.Component<Props, State> {
               <WidgetFooter>
                 <Link
                   title="what does this mean?"
-                  onPress={() => {
-                    this.props.navigation.navigate(SCREENS[SCREENS.WIDGET_INFO], {
-                      key: widget.key,
-                    });
-                  }}
+                  onPress={() => this.gotoWidgetInfo(widget)}
                 />
               </WidgetFooter>
             )}

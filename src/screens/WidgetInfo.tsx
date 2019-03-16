@@ -26,6 +26,7 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
   const key = navigation.getParam('key');
   const [appState] = states;
   const sample = appState.getSample(key) as WidgetSample;
+  console.log(sample);
   return (
     <ScrollView>
       <P.Container hasPadding style={{ backgroundColor: '#fff' }}>
@@ -38,22 +39,24 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
         </View>
         <View style={{ paddingBottom: 30 }}>
           <P.H3>Available using these Apps</P.H3>
-          {sample.services.map(s => {
-            const app = appState.getApp(s) as App;
-            return (
-              <ConnectedApp
-                key={app.key}
-                onPress={() => {
-                  navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
-                }}
-              >
-                <ConnectedAppImg source={{ uri: app.squareLogo }} />
-                <ConnectedAppLabel>
-                  {app.shortName || app.name}
-                </ConnectedAppLabel>
-              </ConnectedApp>
-            );
-          })}
+          <ScrollView horizontal={true} style={{ backgroundColor: '#fff' }}>
+            {sample.services.map(s => {
+              const app = appState.getApp(s) as App;
+              return (
+                <ConnectedApp
+                  key={app.key}
+                  onPress={() => {
+                    navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
+                  }}
+                >
+                  <ConnectedAppImg source={{ uri: app.squareLogo }} />
+                  <ConnectedAppLabel>
+                    {app.shortName || app.name}
+                  </ConnectedAppLabel>
+                </ConnectedApp>
+              );
+            })}
+          </ScrollView>
         </View>
       </P.Container>
     </ScrollView>
