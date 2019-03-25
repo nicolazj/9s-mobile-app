@@ -191,20 +191,20 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
           `/connections/connections/tenants/${tenantId}/company/${companyUuid}/workflow/${workflowId}?activityId=${activityId}&stepId=${stepId}`,
           null
         );
-        return r.data.workflow;
+        return r.data.workflow as Workflow;
       },
       resume: async (appKey: string) => {
         const r = await instance.get(
           `/connections/connections/tenants/${tenantId}/company/${companyUuid}/workflow/resume?appKey=${appKey}&outcome=connect`
         );
-        return r.data.workflow;
+        return r.data.workflow as Workflow;
       },
       reconnect: async (appKey: string) => {
         const r = await instance.post(
           `/connections/connections/tenants/${tenantId}/company/${companyUuid}/workflow?appKey=${appKey}&outcome=reconnect`,
           null
         );
-        return r.data.workflow;
+        return r.data.workflow as Workflow;
       },
       create: async (appKey: string) => {
         const r = await instance.post(
