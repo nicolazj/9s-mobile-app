@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StatusBar, View } from 'react-native';
+import { ActivityIndicator, Alert, StatusBar, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import agent from '../agent';
@@ -22,19 +22,23 @@ export class AuthLoadingScreen extends React.Component<Props> {
 
   // Fetch the token from storage then navigate to our appropriate place
   bootstrapAsync = async () => {
-    const [, , cookieState] = this.props.states;
-    const { onboarding } = cookieState.state;
-    const loggedIn = await this.checkingLogin();
-    if (loggedIn) {
-      let connections = await agent.company.connection.list();
-      if (connections.filter(conn => conn.status === 'ACTIVE').length > 0) {
-        this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
-      } else {
-        this.props.navigation.navigate(SCREENS[SCREENS.FORCE_CONNECT]);
-      }
-    } else if (!onboarding) {
-      this.props.navigation.navigate(SCREENS[SCREENS.ONBOARDING]);
-    } else this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
+    try {
+      const [, , cookieState] = this.props.states;
+      const { onboarding } = cookieState.state;
+      const loggedIn = await this.checkingLogin();
+      if (loggedIn) {
+        let connections = await agent.company.connection.list();
+        if (connections.filter(conn => conn.status === 'ACTIVE').length > 0) {
+          this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
+        } else {
+          this.props.navigation.navigate(SCREENS[SCREENS.FORCE_CONNECT]);
+        }
+      } else if (!onboarding) {
+        this.props.navigation.navigate(SCREENS[SCREENS.ONBOARDING]);
+      } else this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
+    } catch (err) {
+      Alert.alert('please try again later');
+    }
   };
   // Render any loading content that you like here
   render() {

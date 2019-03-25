@@ -3,11 +3,11 @@ import React from 'react';
 import { Dimensions, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
-import Button from '../../components/Button';
-import Walkthrough from '../../components/Walkthrough';
-import * as P from '../../primitives';
-import { SCREENS } from '../../routes/constants';
-import styled from '../../styled';
+import Button from '../components/Button';
+import Walkthrough from '../components/Walkthrough';
+import * as P from '../primitives';
+import { SCREENS } from '../routes/constants';
+import styled from '../styled';
 
 const BottomView = styled(View)`
   position: absolute;
@@ -20,9 +20,9 @@ const WalkthroughView = styled(P.Container)`
   background-color: yellow;
 `;
 const assetsMap = [
-  require('../../../assets/ob1.mp4'),
-  require('../../../assets/ob2.mp4'),
-  require('../../../assets/ob3.mp4'),
+  require('../../assets/ob1.mp4'),
+  require('../../assets/ob2.mp4'),
+  require('../../assets/ob3.mp4'),
 ];
 
 const WalkthroughSlide = ({ index = 0, current = false }) => {

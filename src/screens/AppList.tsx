@@ -1,13 +1,12 @@
 import React from 'react';
-import { Image, Linking, ScrollView, View } from 'react-native';
+import { Alert, Image, Linking, ScrollView, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
-import { scale } from '../scale';
 
 import agent from '../agent';
-
 import Link from '../components/Link';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
+import { scale } from '../scale';
 import activityStatusState, {
   ActivityStatusState,
 } from '../states/ActivityStatus';
@@ -101,18 +100,22 @@ class AppList extends React.Component<Props> {
   fetchApps = async () => {
     const [appState, __, ___, activityStatusState] = this.props.states;
     activityStatusState.show('Loading');
-
-    const [connections, spokes, apps, samples] = await Promise.all([
-      agent.company.connection.list(),
-      agent.user.spoke.get('mobile'),
-      agent.user.service.list(),
-      agent.misc.widget.sample(),
-    ]);
-    const fullApps = await Promise.all(
-      apps.map(app => agent.user.service.get(app.key))
-    );
-    appState.setState({ connections, spokes, apps: fullApps, samples });
-    activityStatusState.dismiss();
+    try {
+      const [connections, spokes, apps, samples] = await Promise.all([
+        agent.company.connection.list(),
+        agent.user.spoke.get('mobile'),
+        agent.user.service.list(),
+        agent.misc.widget.sample(),
+      ]);
+      const fullApps = await Promise.all(
+        apps.map(app => agent.user.service.get(app.key))
+      );
+      appState.setState({ connections, spokes, apps: fullApps, samples });
+    } catch (err) {
+      Alert.alert('please try again later');
+    } finally {
+      activityStatusState.dismiss();
+    }
   };
 
   onPress(app: App) {
