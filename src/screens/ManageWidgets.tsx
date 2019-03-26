@@ -206,32 +206,33 @@ export class ManageWidgets extends React.Component<Props, State> {
                 <Title>{key.toUpperCase()}</Title>
                 <List>
                   {activeWidgetsNotShowedGrouped[key].map(widget => (
-                    <ListItem key={widget.id}>
-                      <Cell>
-                        <P.Touchable
-                          onPress={() => {
-                            this.toggle(widget, true);
-                          }}
-                        >
+                    <P.Touchable
+                      key={widget.id}
+                      onPress={() => {
+                        this.toggle(widget, true);
+                      }}
+                    >
+                      <ListItem key={widget.id}>
+                        <Cell>
                           <Ionicons
                             name="ios-add-circle"
                             size={24}
                             color="#4cd964"
                           />
-                        </P.Touchable>
-                      </Cell>
-                      <Cell style={{ flex: 2 }}>
-                        <P.Text>{widget.attributes.displayName}</P.Text>
-                      </Cell>
-                      <Cell>
-                        <AppIcon
-                          source={{ uri: getIcon(widget.attributes.origin) }}
-                        />
-                      </Cell>
-                      <Cell>
-                        <Ionicons name="ios-reorder" size={30} color="#fff" />
-                      </Cell>
-                    </ListItem>
+                        </Cell>
+                        <Cell style={{ flex: 2 }}>
+                          <P.Text>{widget.attributes.displayName}</P.Text>
+                        </Cell>
+                        <Cell>
+                          <AppIcon
+                            source={{ uri: getIcon(widget.attributes.origin) }}
+                          />
+                        </Cell>
+                        <Cell>
+                          <Ionicons name="ios-reorder" size={30} color="#fff" />
+                        </Cell>
+                      </ListItem>
+                    </P.Touchable>
                   ))}
                 </List>
               </Group>

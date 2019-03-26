@@ -153,22 +153,27 @@ class AppList extends React.Component<Props> {
     return (
       <P.Container>
         <ScrollView>
-          <P.Container hasPadding>
-            <View>
-              <Title>My Connected Apps</Title>
-            </View>
-          </P.Container>
-
-          <ScrollView horizontal={true} style={{ backgroundColor: '#fff' }}>
-            {appState.purchasedApps.map((app: App) => (
-              <ConnectedApp key={app.key} onPress={() => this.onPress(app)}>
-                <ConnectedAppImg source={{ uri: app.squareLogo }} />
-                <ConnectedAppLabel>
-                  {app.shortName || app.name}
-                </ConnectedAppLabel>
-              </ConnectedApp>
-            ))}
-          </ScrollView>
+          {appState.purchasedApps.length > 0 && [
+            <P.Container key="connected-app-title" hasPadding>
+              <View>
+                <Title>My Connected Apps</Title>
+              </View>
+            </P.Container>,
+            <ScrollView
+              key="connected-app-view"
+              horizontal={true}
+              style={{ backgroundColor: '#fff' }}
+            >
+              {appState.purchasedApps.map((app: App) => (
+                <ConnectedApp key={app.key} onPress={() => this.onPress(app)}>
+                  <ConnectedAppImg source={{ uri: app.squareLogo }} />
+                  <ConnectedAppLabel>
+                    {app.shortName || app.name}
+                  </ConnectedAppLabel>
+                </ConnectedApp>
+              ))}
+            </ScrollView>,
+          ]}
 
           <P.Container hasPadding>
             <View>
