@@ -41,7 +41,7 @@
     "@types/d3-array": "^1.2.4",
     "@types/d3-scale": "^2.0.2",
     "@types/d3-shape": "^1.2.7",
-    "@types/expo": "^31.0.1",
+    "@types/expo": "^32.0.9",
     "@types/expo__vector-icons": "^6.2.3",
     "@types/jwt-decode": "^2.2.1",
     "@types/lodash.get": "^4.4.4",

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "389821969379",
+    "firebase_url": "https://spokes-test-ios.firebaseio.com",
+    "project_id": "spokes-test-ios",
+    "storage_bucket": "spokes-test-ios.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389821969379:android:f968efbb41d1fa7a",
+        "android_client_info": {
+          "package_name": "host.exp.exponent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389821969379-ecdbflrmc2gqd8sn85njsmu7jqu4j30j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVYFVcRHjJc1PyQj53BB-SdyX13lSbYCU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

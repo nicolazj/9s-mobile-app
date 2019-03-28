@@ -19,10 +19,17 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "host.exp.exponent",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.389821969379-lkl7f5vf9fderj2pemt39o00scmjncg3"
+        }
+      }
     },
     "android": {
-      "package": "com.nspokes.app"
+      "package": "host.exp.exponent",
+      "googleServicesFile": "./google-services.json"
     },
     "scheme": "nsp"
   }

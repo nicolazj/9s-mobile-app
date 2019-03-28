@@ -51,14 +51,7 @@ export class SignUpCompany extends React.Component<Props, State> {
 
       activityStatusState.show('Creating Company');
       const company = await agent.user.company.create(values);
-      const companies = await agent.user.company.list();
-      userState.setState({
-        companies,
-      });
-
-      activityStatusState.show('Switching  company');
-
-      await agent.token.exchange(company.companyUuid);
+      console.log('create company:', company);
       this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
       console.log(JSON.stringify(err, null, 2));

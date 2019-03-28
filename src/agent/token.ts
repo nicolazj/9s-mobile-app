@@ -60,7 +60,19 @@ export default (config: ClientConfig, auth: AuthState) => {
       await auth.setUser(data);
       return data;
     },
+    oauth: async (oauth_token: string) => {
+      const { data } = await instance.post<UserAuthResp>(
+        `/token?grant_type=oauth_token`,
+        qs.stringify({
+          oauth_token,
+          oauth_token_party: 'google',
+        })
+      );
 
+      setExipresAt(data);
+      await auth.setUser(data);
+      return data;
+    },
     public: async () => {
       const { data } = await instance.post<AuthResp>(`/token?grant_type=public_access`, qs.stringify({ device_id }));
 
