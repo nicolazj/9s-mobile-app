@@ -15,22 +15,23 @@ import { SocialButon } from './SocialButton';
 const GoogleButton = (props: any) => {
   const googleLogin = async () => {
     try {
+      log('start google login');
       const result = await Google.logInAsync({
         clientId: GOOGLE_CLIENT_ID,
         scopes: ['openid', 'email', 'profile'],
         behavior: 'web',
       });
 
-      console.log('google auth result:', result);
+      log('google auth result:', result);
 
-      const { accessToken } = result;
-
-      const [activityStatusState] = props.states;
-
-      activityStatusState.show('Logging in');
-      await agent.token.oauth(accessToken);
-      activityStatusState.dismiss();
-      props.navigation.navigate(SCREENS[SCREENS.LOADING]);
+      if (result.type === 'success') {
+        const { accessToken } = result;
+        const [activityStatusState] = props.states;
+        activityStatusState.show('Logging in');
+        await agent.token.oauth(accessToken);
+        activityStatusState.dismiss();
+        props.navigation.navigate(SCREENS[SCREENS.LOADING]);
+      }
     } catch (err) {
       Alert.alert('try again later');
     }

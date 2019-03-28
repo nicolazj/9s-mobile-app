@@ -82,7 +82,7 @@ class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
   }
 
   componentDidCatch(error, info) {
-    console.log(error, info);
+    log(error, info);
   }
 
   render() {

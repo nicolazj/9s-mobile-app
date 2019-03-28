@@ -1,7 +1,11 @@
 import { Constants, Linking, WebBrowser } from 'expo';
 import React from 'react';
 import { Image, View } from 'react-native';
-import { NavigationActions, NavigationScreenProp, StackActions } from 'react-navigation';
+import {
+  NavigationActions,
+  NavigationScreenProp,
+  StackActions,
+} from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -9,6 +13,7 @@ import agent from '../agent';
 import Button from '../components/Button';
 import Select from '../components/Select';
 import Lock from '../Lock';
+import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import { scale } from '../scale';
@@ -76,11 +81,11 @@ export class AppConnectScreen extends React.Component<Props, State> {
       try {
         workflow = await company.workflow.create(appKey);
       } catch (err) {
-        console.log('create workflow err');
+        log('create workflow err');
         try {
           workflow = await company.workflow.resume(appKey);
         } catch (err) {
-          console.log('resume workflow err');
+          log('resume workflow err');
 
           workflow = await company.workflow.reconnect(appKey);
         }
@@ -91,7 +96,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
       while (activities.length > 0) {
         const act = activities[0];
         for (const step of act.steps) {
-          console.log('doing', act.type);
+          log('doing', act.type);
           this.setState({ step: act.type });
 
           switch (act.type) {
@@ -107,20 +112,25 @@ export class AppConnectScreen extends React.Component<Props, State> {
               break;
 
             case ACTIVITY_TYPES.REDIRECT_USER_AGENT:
-              console.log('redirectUrl', Constants.linkingUri);
-              const r = (await WebBrowser.openAuthSessionAsync(step.href)) as { type: string; url: string };
+              log('redirectUrl', Constants.linkingUri);
+              const r = (await WebBrowser.openAuthSessionAsync(step.href)) as {
+                type: string;
+                url: string;
+              };
               if (r.type === 'success') {
                 authResult = Linking.parse(r.url);
-                console.log('authResult', authResult);
+                log('authResult', authResult);
               }
-              console.log('cancel !!!!');
+              log('cancel !!!!');
               break;
 
             case ACTIVITY_TYPES.SUBMIT_ENTITY:
               const entity = await Lock.hold();
-              console.log('select entity', entity);
+              log('select entity', entity);
               if (connection) {
-                await company.entities.put(connection.id, { _embedded: { selectedEntity: entity.id } });
+                await company.entities.put(connection.id, {
+                  _embedded: { selectedEntity: entity.id },
+                });
               }
               break;
 
@@ -147,7 +157,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
           }
 
           const r = await company.workflow.update(workflow.id, act.id, step.id);
-          console.log(r);
+          log(r);
           activities.shift();
           activities = activities.concat(r.activities);
         }
@@ -174,9 +184,15 @@ export class AppConnectScreen extends React.Component<Props, State> {
         {step === ACTIVITY_TYPES.SUBMIT_ENTITY && (
           <Container hcenter>
             <Title>Select an entity</Title>
-            <SubTitle>Select one of the following entities for your account</SubTitle>
+            <SubTitle>
+              Select one of the following entities for your account
+            </SubTitle>
             {this.state.entities.map(e => (
-              <Select title={e.name} onPress={() => this.chooseEntity(e)} key={e.id} />
+              <Select
+                title={e.name}
+                onPress={() => this.chooseEntity(e)}
+                key={e.id}
+              />
             ))}
           </Container>
         )}
@@ -190,14 +206,18 @@ export class AppConnectScreen extends React.Component<Props, State> {
             </Row>
 
             <SubTitle>
-              We're busy setting up your widgets for you. Here are some examples of what they'll look like when they're
-              ready.
+              We're busy setting up your widgets for you. Here are some examples
+              of what they'll look like when they're ready.
             </SubTitle>
             <Button
               onPress={() => {
                 const resetAction = StackActions.reset({
                   index: 0,
-                  actions: [NavigationActions.navigate({ routeName: SCREENS[SCREENS.MARKETPLACE_HOME] })],
+                  actions: [
+                    NavigationActions.navigate({
+                      routeName: SCREENS[SCREENS.MARKETPLACE_HOME],
+                    }),
+                  ],
                 });
                 this.props.navigation.dispatch(resetAction);
                 this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);

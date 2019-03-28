@@ -3,6 +3,7 @@ import { ScrollView, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import WidgetComp from '../components/widget';
+import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import appState, { AppState } from '../states/Apps';
@@ -26,7 +27,7 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
   const key = navigation.getParam('key');
   const [appState] = states;
   const sample = appState.getSample(key) as WidgetSample;
-  console.log(sample);
+  log(sample);
   return (
     <ScrollView>
       <P.Container hasPadding style={{ backgroundColor: '#fff' }}>

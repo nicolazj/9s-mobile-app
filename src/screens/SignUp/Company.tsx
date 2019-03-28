@@ -9,10 +9,18 @@ import * as Yup from 'yup';
 import agent from '../../agent';
 import Button from '../../components/Button';
 import Link from '../../components/Link';
-import { FormDesc, FormikPicker, FormikTextInput, FormTitle } from '../../formik';
+import {
+  FormDesc,
+  FormikPicker,
+  FormikTextInput,
+  FormTitle,
+} from '../../formik';
+import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
-import activityStatusState, { ActivityStatusState } from '../../states/ActivityStatus';
+import activityStatusState, {
+  ActivityStatusState,
+} from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
 import userState, { UserState } from '../../states/User';
 import { Industry, SignUpPayload } from '../../types';
@@ -45,16 +53,19 @@ export class SignUpCompany extends React.Component<Props, State> {
       await agent.public.user.create(signUpPayload);
 
       activityStatusState.show('Logging in');
-      await agent.token.login({ username: signUpPayload.userName, password: signUpPayload.password });
+      await agent.token.login({
+        username: signUpPayload.userName,
+        password: signUpPayload.password,
+      });
       const me = await agent.user.user.me();
       userState.setState({ me });
 
       activityStatusState.show('Creating Company');
       const company = await agent.user.company.create(values);
-      console.log('create company:', company);
+      log('create company:', company);
       this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
-      console.log(JSON.stringify(err, null, 2));
+      log(JSON.stringify(err, null, 2));
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
       activityStatusState.dismiss();
@@ -62,10 +73,12 @@ export class SignUpCompany extends React.Component<Props, State> {
   };
 
   render() {
-    const options = this.state.industries.map(({ displayName, industryUUID }: Industry) => ({
-      value: industryUUID,
-      label: displayName,
-    }));
+    const options = this.state.industries.map(
+      ({ displayName, industryUUID }: Industry) => ({
+        value: industryUUID,
+        label: displayName,
+      })
+    );
     return (
       <P.Container>
         <P.SafeArea>
@@ -80,11 +93,18 @@ export class SignUpCompany extends React.Component<Props, State> {
                   companyName: Yup.string().required('Required'),
                   industryUuid: Yup.string().required('Required'),
                 })}
-                onSubmit={this.onPress}>
+                onSubmit={this.onPress}
+              >
                 {({ handleSubmit }) => (
                   <View style={{ flex: 1 }}>
-                    <FormTitle style={{ marginBottom: 20 }}>Company Profile</FormTitle>
-                    <Field name="companyName" component={FormikTextInput} placeholder="Company name" />
+                    <FormTitle style={{ marginBottom: 20 }}>
+                      Company Profile
+                    </FormTitle>
+                    <Field
+                      name="companyName"
+                      component={FormikTextInput}
+                      placeholder="Company name"
+                    />
                     <Field
                       name="industryUuid"
                       component={FormikPicker}
@@ -98,12 +118,18 @@ export class SignUpCompany extends React.Component<Props, State> {
                         alignItems: 'center',
                         marginBottom: 15,
                         flexWrap: 'wrap',
-                      }}>
-                      <FormDesc> By tapping proceed, you are accepting the </FormDesc>
+                      }}
+                    >
+                      <FormDesc>
+                        {' '}
+                        By tapping proceed, you are accepting the{' '}
+                      </FormDesc>
                       <Link
                         title="Terms & Conditions"
                         onPress={() => {
-                          WebBrowser.openBrowserAsync('https://www.9spokes.com/legal/terms-and-conditions/');
+                          WebBrowser.openBrowserAsync(
+                            'https://www.9spokes.com/legal/terms-and-conditions/'
+                          );
                         }}
                       />
                       <FormDesc> related to 9Spokes Dashboard.</FormDesc>

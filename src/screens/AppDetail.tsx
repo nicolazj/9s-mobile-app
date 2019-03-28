@@ -6,6 +6,7 @@ import { NavigationEvents, NavigationScreenProp } from 'react-navigation';
 import agent from '../agent';
 import Button from '../components/Button';
 import WidgetComp from '../components/widget';
+import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import { scale } from '../scale';
@@ -14,6 +15,7 @@ import { SubscribeHOC } from '../states/helper';
 import styled from '../styled';
 import { WidgetSample } from '../types';
 import { transform } from './WidgetList';
+
 const { width } = Dimensions.get('window');
 
 interface Props {
@@ -83,7 +85,7 @@ export class AppDetailScreen extends React.Component<Props> {
         {
           text: 'Cancel',
           onPress: () => {
-            console.log('cancel');
+            log('cancel');
           },
           style: 'cancel',
         },

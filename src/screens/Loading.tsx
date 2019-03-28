@@ -3,6 +3,7 @@ import { ActivityIndicator, Alert, StatusBar, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import agent from '../agent';
+import log from '../logging';
 import { SCREENS } from '../routes/constants';
 import authState, { AuthState } from '../states/Auth';
 import cookieState, { CookieState } from '../states/Cookie';
@@ -73,10 +74,12 @@ export class AuthLoadingScreen extends React.Component<Props> {
       userState.setState({ companies });
       return true;
     } catch (err) {
-      console.log(JSON.stringify(err, null, 2));
+      log(JSON.stringify(err, null, 2));
       return false;
     }
   }
 }
 
-export default SubscribeHOC([authState, userState, cookieState])(AuthLoadingScreen);
+export default SubscribeHOC([authState, userState, cookieState])(
+  AuthLoadingScreen
+);

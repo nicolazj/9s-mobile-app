@@ -1,4 +1,4 @@
-import { AuthSession, Constants, Google, WebBrowser } from 'expo';
+import { Constants } from 'expo';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, TextInput, View } from 'react-native';
@@ -25,7 +25,6 @@ interface Props {
   navigation: NavigationScreenProp<any, any>;
   states: [ActivityStatusState, UserState];
 }
-
 class SignIn extends React.Component<Props> {
   refPassword = React.createRef<TextInput>();
 
@@ -109,7 +108,7 @@ class SignIn extends React.Component<Props> {
                 )}
               </Formik>
               <Delimiter />
-              <GoogleButton onPress={this.googleLogin} />
+              <GoogleButton />
             </P.Container>
           </KeyboardAwareScrollView>
           <View

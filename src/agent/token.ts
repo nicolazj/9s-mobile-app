@@ -1,5 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
+
+import log from '../logging';
 import { AuthState } from '../states/Auth';
 import { AuthResp, ClientConfig, SignInPayload, UserAuthResp } from '../types';
 
@@ -22,7 +24,7 @@ export default (config: ClientConfig, auth: AuthState) => {
       return response;
     },
     err => {
-      console.log(JSON.stringify(err, null, 2));
+      log(JSON.stringify(err, null, 2));
       return Promise.reject(err);
     }
   );
@@ -54,7 +56,10 @@ export default (config: ClientConfig, auth: AuthState) => {
       return data;
     },
     login: async (payload: SignInPayload) => {
-      const { data } = await instance.post<UserAuthResp>(`/token?grant_type=password`, qs.stringify(payload));
+      const { data } = await instance.post<UserAuthResp>(
+        `/token?grant_type=password`,
+        qs.stringify(payload)
+      );
 
       setExipresAt(data);
       await auth.setUser(data);
@@ -74,7 +79,10 @@ export default (config: ClientConfig, auth: AuthState) => {
       return data;
     },
     public: async () => {
-      const { data } = await instance.post<AuthResp>(`/token?grant_type=public_access`, qs.stringify({ device_id }));
+      const { data } = await instance.post<AuthResp>(
+        `/token?grant_type=public_access`,
+        qs.stringify({ device_id })
+      );
 
       setExipresAt(data);
       await auth.setState({ publicAuth: data });
