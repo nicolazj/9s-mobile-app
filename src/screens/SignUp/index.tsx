@@ -8,8 +8,8 @@ import { NavigationScreenProp } from 'react-navigation';
 import agent from '../../agent';
 import Button from '../../components/Button';
 import Delimiter from '../../components/Delimiter';
+import GoogleButton from '../../components/GoogleButton';
 import Link from '../../components/Link';
-import { GoogleButton } from '../../components/SocialButton';
 import { FormikTextInput, FormTitle } from '../../formik';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
@@ -68,9 +68,7 @@ export class SignUp extends React.Component<Props> {
       activityStatusState.dismiss();
     }
   };
-  googleLogin() {
-    console.log('google login');
-  }
+
   render() {
     return (
       <P.Container>
@@ -146,7 +144,7 @@ export class SignUp extends React.Component<Props> {
                 )}
               </Formik>
               <Delimiter />
-              <GoogleButton onPress={this.googleLogin} />
+              <GoogleButton />
             </P.Container>
           </KeyboardAwareScrollView>
           <View

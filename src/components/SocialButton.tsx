@@ -44,7 +44,3 @@ export const SocialButon = ({ title, icon, ...props }) => (
     </ViewParent>
   </SocialButtonWrapper>
 );
-
-export const GoogleButton = (props: any) => (
-  <SocialButon title="Log in with Google" icon={require('../../assets/google.png')} {...props} />
-);

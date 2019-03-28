@@ -6,15 +6,16 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { NavigationScreenProp } from 'react-navigation';
 
 import agent from '../agent';
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_ID_REVERSED } from '../agent/config';
 import Button from '../components/Button';
 import Delimiter from '../components/Delimiter';
+import GoogleButton from '../components/GoogleButton';
 import Link from '../components/Link';
-import { GoogleButton } from '../components/SocialButton';
 import { FormikTextInput, FormTitle } from '../formik';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import activityStatusState, { ActivityStatusState } from '../states/ActivityStatus';
+import activityStatusState, {
+  ActivityStatusState,
+} from '../states/ActivityStatus';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
 import { SignInPayload } from '../types';
@@ -42,7 +43,9 @@ class SignIn extends React.Component<Props> {
       this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
       if (err.response) {
-        if (err.response.data.error_description === 'INVALID_USERNAME_OR_PASSWORD') {
+        if (
+          err.response.data.error_description === 'INVALID_USERNAME_OR_PASSWORD'
+        ) {
           Alert.alert('Log in failed', 'Invalid username or password');
         }
       } else {
@@ -51,21 +54,6 @@ class SignIn extends React.Component<Props> {
     } finally {
       activityStatusState.dismiss();
     }
-  };
-  googleLogin = async () => {
-    console.log('google login');
-    const result = await Google.logInAsync({
-      clientId: GOOGLE_CLIENT_ID,
-      scopes: ['openid', 'email', 'profile'],
-      behavior: 'web',
-    });
-
-    console.log('google auth result:', result);
-
-    const { accessToken } = result;
-
-    await agent.token.oauth(accessToken);
-    this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
   };
 
   render() {
@@ -83,7 +71,8 @@ class SignIn extends React.Component<Props> {
                   password,
                   username,
                 })}
-                onSubmit={this.onPress}>
+                onSubmit={this.onPress}
+              >
                 {({ handleSubmit }) => (
                   <View style={{ flex: 1 }}>
                     <FormTitle style={{ marginBottom: 150 }}>Login</FormTitle>
@@ -108,7 +97,9 @@ class SignIn extends React.Component<Props> {
                       <Link
                         title="Reset Password"
                         onPress={() => {
-                          this.props.navigation.navigate(SCREENS[SCREENS.RESET_PWD]);
+                          this.props.navigation.navigate(
+                            SCREENS[SCREENS.RESET_PWD]
+                          );
                         }}
                       />
                     </View>
@@ -129,9 +120,15 @@ class SignIn extends React.Component<Props> {
               position: 'absolute',
               bottom: 20,
               width: '100%',
-            }}>
+            }}
+          >
             <P.Text>Don't have an account? </P.Text>
-            <Link title="Signup" onPress={() => this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP])} />
+            <Link
+              title="Signup"
+              onPress={() =>
+                this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP])
+              }
+            />
           </View>
         </P.SafeArea>
       </P.Container>
