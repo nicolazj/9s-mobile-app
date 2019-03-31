@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "expo-ts",
+    "name": "9Spokes dashboard",
     "description": "This project is really great.",
-    "slug": "expo-ts",
+    "slug": "9spokes-dashboard",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
