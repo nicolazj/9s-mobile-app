@@ -117,34 +117,20 @@ export class AppDetailScreen extends React.Component<Props> {
         key="remove"
         title="Remove connection"
         danger
-        onPress={() =>
-          connection && this.onRemoveConnection(connection.id, appKey)
-        }
+        onPress={() => connection && this.onRemoveConnection(connection.id, appKey)}
       />
     );
 
     if (!connection) {
       return [
-        <Button
-          key="connect"
-          title="Connect"
-          onPress={() => this.onConnect(appDetail)}
-        />,
-        <Button
-          key="trial"
-          title="Get a trial"
-          onPress={() => this.getTrial(appDetail)}
-        />,
+        <Button key="connect" title="Connect" onPress={() => this.onConnect(appDetail)} />,
+        <Button key="trial" title="Get a trial" onPress={() => this.getTrial(appDetail)} />,
       ];
     } else if (connection.status === 'ACTIVE') {
       return removeConnectionButton;
     } else {
       return [
-        <Button
-          key="resume"
-          title="Resume"
-          onPress={() => this.onConnect(appDetail)}
-        />,
+        <Button key="resume" title="Resume" onPress={() => this.onConnect(appDetail)} />,
         removeConnectionButton,
       ];
     }

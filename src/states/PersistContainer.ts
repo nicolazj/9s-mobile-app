@@ -7,9 +7,7 @@ interface PersistConfig {
   storage: any;
 }
 
-export default abstract class PersistContainer<
-  T extends object
-> extends Container<T> {
+export default abstract class PersistContainer<T extends object> extends Container<T> {
   abstract get config(): PersistConfig;
   constructor() {
     super();

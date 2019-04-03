@@ -51,9 +51,7 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
                   }}
                 >
                   <ConnectedAppImg source={{ uri: app.squareLogo }} />
-                  <ConnectedAppLabel>
-                    {app.shortName || app.name}
-                  </ConnectedAppLabel>
+                  <ConnectedAppLabel>{app.shortName || app.name}</ConnectedAppLabel>
                 </ConnectedApp>
               );
             })}

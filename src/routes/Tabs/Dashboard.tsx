@@ -22,13 +22,17 @@ const DashboardStack = createStackNavigator(
           <P.Touchable
             onPress={() => {
               navigation.navigate(SCREENS[SCREENS.MANAGE_WIDGETS]);
-            }}>
+            }}
+          >
             <P.Text style={{ color: '#fff' }}>Edit</P.Text>
           </P.Touchable>
         ),
       }),
     },
-    [SCREENS[SCREENS.MANAGE_WIDGETS]]: { screen: ManageWidgetsScreen, navigationOptions: { title: 'Manage Widgets' } },
+    [SCREENS[SCREENS.MANAGE_WIDGETS]]: {
+      screen: ManageWidgetsScreen,
+      navigationOptions: { title: 'Manage Widgets' },
+    },
   },
   {
     mode: 'modal',

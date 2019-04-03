@@ -80,6 +80,4 @@ export class AuthLoadingScreen extends React.Component<Props> {
   }
 }
 
-export default SubscribeHOC([authState, userState, cookieState])(
-  AuthLoadingScreen
-);
+export default SubscribeHOC([authState, userState, cookieState])(AuthLoadingScreen);

@@ -24,7 +24,7 @@ const BodyText = styled(Text)`
 export class Settings extends React.Component<Props> {
   render() {
     const [userState, authState] = this.props.states;
-    const { me, companies } = userState.state;
+    const { companies } = userState.state;
     const company = companies
       ? companies.find(c => c.companyUuid === authState.state.companyUuid)
       : null;

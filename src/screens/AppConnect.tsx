@@ -1,11 +1,7 @@
 import { Constants, Linking, WebBrowser } from 'expo';
 import React from 'react';
 import { Image, View } from 'react-native';
-import {
-  NavigationActions,
-  NavigationScreenProp,
-  StackActions,
-} from 'react-navigation';
+import { NavigationActions, NavigationScreenProp, StackActions } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -184,15 +180,9 @@ export class AppConnectScreen extends React.Component<Props, State> {
         {step === ACTIVITY_TYPES.SUBMIT_ENTITY && (
           <Container hcenter>
             <Title>Select an entity</Title>
-            <SubTitle>
-              Select one of the following entities for your account
-            </SubTitle>
+            <SubTitle>Select one of the following entities for your account</SubTitle>
             {this.state.entities.map(e => (
-              <Select
-                title={e.name}
-                onPress={() => this.chooseEntity(e)}
-                key={e.id}
-              />
+              <Select title={e.name} onPress={() => this.chooseEntity(e)} key={e.id} />
             ))}
           </Container>
         )}
@@ -206,8 +196,8 @@ export class AppConnectScreen extends React.Component<Props, State> {
             </Row>
 
             <SubTitle>
-              We're busy setting up your widgets for you. Here are some examples
-              of what they'll look like when they're ready.
+              We're busy setting up your widgets for you. Here are some examples of what they'll
+              look like when they're ready.
             </SubTitle>
             <Button
               onPress={() => {
