@@ -636,7 +636,6 @@
 "@types/expo@^32.0.9":
   version "32.0.9"
   resolved "https://registry.yarnpkg.com/@types/expo/-/expo-32.0.9.tgz#f32ec58e22159232a5246048ae09a9441007b9e9"
-  integrity sha512-9NvR7AkpM9B4SJ+/WptMWQi0nKNJzMQx/rWDBk3EJWsQf6aYv4/jfbacCN8n68xkbLYtvZNiS2VUKUIX/YX3iQ==
   dependencies:
     "@types/fbemitter" "*"
     "@types/react" "*"
@@ -672,7 +671,6 @@
 "@types/lodash.groupby@^4.6.4":
   version "4.6.4"
   resolved "https://registry.yarnpkg.com/@types/lodash.groupby/-/lodash.groupby-4.6.4.tgz#4dbb730b0a8ad46915b7406d1e247cfd7a79b288"
-  integrity sha512-WvjZ0XtKdNUNGwY0udB3DiP3PC4mW6L3ESkJudA+LsgB2+LCUXUu3Pa+idzenLqBbMOcbBeAWPmEWSvyH0VWjw==
   dependencies:
     "@types/lodash" "*"
 
@@ -709,9 +707,16 @@
     "@types/react" "*"
     "@types/react-native" "*"
 
-"@types/react-native@*", "@types/react-native@^0.57.0":
+"@types/react-native@*":
   version "0.57.27"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.27.tgz#d12a66836f330bf3b6364a44f662b92660170ff4"
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/react" "*"
+
+"@types/react-native@^0.57.42":
+  version "0.57.42"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.42.tgz#06ad92cd1378146402b7667de13cb7b935d194d6"
   dependencies:
     "@types/prop-types" "*"
     "@types/react" "*"
@@ -3225,7 +3230,6 @@ lodash.get@^4.4.2:
 lodash.groupby@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.groupby/-/lodash.groupby-4.6.0.tgz#0b08a1dcf68397c397855c3239783832df7403d1"
-  integrity sha1-Cwih3PaDl8OXhVwyOXg4Mt90A9E=
 
 lodash.map@^4.6.0:
   version "4.6.0"
@@ -4368,7 +4372,6 @@ react-native-screens@1.0.0-alpha.15:
 react-native-sortable-list@^0.0.22:
   version "0.0.22"
   resolved "https://registry.yarnpkg.com/react-native-sortable-list/-/react-native-sortable-list-0.0.22.tgz#f23d2626ef0e625836205d46e48b97eb04169ec0"
-  integrity sha512-glMJMmXl5hTCPH3jHpZlt6+kGFyood+NeX5/QS/0od+A7VsCh9MOmsgGsPRlFrI0Hw45V55L6MZuoE6yiViquQ==
   dependencies:
     prop-types "^15.5.10"
 

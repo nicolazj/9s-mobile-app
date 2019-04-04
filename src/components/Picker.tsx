@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
   Animated,
   Modal,
@@ -6,22 +7,55 @@ import {
   Platform,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
+  ViewStyle,
 } from 'react-native';
 
 const isIOS = Platform.OS === 'ios';
 
-class Picker extends Component {
-  static defaultProps = {
+interface Item {
+  label: string;
+  value: any;
+}
+interface Props {
+  isNullable: boolean;
+  androidPickerMode: 'dialog' | 'dropdown' | undefined;
+  title: string;
+  placeholder: string;
+  items: Item[];
+  item?: Item;
+  disabled: boolean;
+  containerStyle: ViewStyle;
+  style: ViewStyle;
+  labelStyle: TextStyle;
+  placeholderStyle: TextStyle;
+  onItemChange: (value: any) => void;
+  doneText?: string;
+}
+interface State {
+  selectedItem?: Item;
+  showPicker: boolean;
+  fadeAnim: Animated.Value;
+}
+class Picker extends Component<Props, State> {
+  static defaultProps: Props = {
     isNullable: false,
     androidPickerMode: 'dialog',
     title: '',
     placeholder: '',
+    items: [],
+    disabled: false,
+    onItemChange: () => {},
+    containerStyle: {},
+    style: {},
+    labelStyle: {},
+    placeholderStyle: {},
   };
 
-  state = {
+  state: State = {
     selectedItem:
       this.props.item !== null
         ? this.props.items.find(item => item === this.props.item)
@@ -33,7 +67,9 @@ class Picker extends Component {
   };
 
   onItemChange = (value: any) => {
-    const items = this.props.isNullable ? [{ value: '', label: '' }, ...this.props.items] : this.props.items;
+    const items = this.props.isNullable
+      ? [{ value: '', label: '' }, ...this.props.items]
+      : this.props.items;
 
     const newSelectedItem = items.find(item => value === item.value);
 
@@ -70,21 +106,33 @@ class Picker extends Component {
   };
 
   renderPickerItems() {
-    const items = this.props.isNullable ? [{ value: '', label: '' }, ...this.props.items] : this.props.items;
+    const items = this.props.isNullable
+      ? [{ value: '', label: '' }, ...this.props.items]
+      : this.props.items;
     return items.map(item => {
       return <RNPicker.Item label={item.label} value={item.value} key={item.label} />;
     });
   }
 
-  renderPlaceholder = (): string => {
+  renderPlaceholder = () => {
     if (this.props.item && this.props.item.label) {
-      return <Text style={[styles.labelStyle, this.props.labelStyle]}>{this.props.item.label} </Text>;
+      return (
+        <Text style={[styles.labelStyle, this.props.labelStyle]}>{this.props.item.label}</Text>
+      );
     } else {
       if (!this.props.isNullable) {
-        return <Text style={[styles.labelStyle, this.props.labelStyle]}>{this.state.selectedItem.label} </Text>;
+        return (
+          <Text style={[styles.labelStyle, this.props.labelStyle]}>
+            {this.state.selectedItem && this.state.selectedItem.label}
+          </Text>
+        );
       }
     }
-    return <Text style={[styles.placeholderStyle, this.props.placeholderStyle]}> {this.props.placeholder} </Text>;
+    return (
+      <Text style={[styles.placeholderStyle, this.props.placeholderStyle]}>
+        {this.props.placeholder}
+      </Text>
+    );
   };
 
   renderDoneBar() {
@@ -112,7 +160,8 @@ class Picker extends Component {
           visible={this.state.showPicker}
           transparent
           animationType="slide"
-          supportedOrientations={['portrait', 'landscape']}>
+          supportedOrientations={['portrait', 'landscape']}
+        >
           <TouchableOpacity style={styles.blurTouchable} onPress={this.togglePicker}>
             <Animated.View
               style={{
@@ -125,7 +174,10 @@ class Picker extends Component {
 
           {this.renderDoneBar()}
           <View style={styles.iosPickerContainer}>
-            <RNPicker onValueChange={this.onItemChange} selectedValue={this.state.selectedItem.value}>
+            <RNPicker
+              onValueChange={this.onItemChange}
+              selectedValue={this.state.selectedItem && this.state.selectedItem.value}
+            >
               {this.renderPickerItems()}
             </RNPicker>
           </View>
@@ -142,9 +194,10 @@ class Picker extends Component {
           <RNPicker
             prompt={this.props.title}
             onValueChange={this.onItemChange}
-            selectedValue={this.state.selectedItem.value}
+            selectedValue={this.state.selectedItem && this.state.selectedItem.value}
             mode={this.props.androidPickerMode}
-            enabled={!this.props.disabled}>
+            enabled={!this.props.disabled}
+          >
             {this.renderPickerItems()}
           </RNPicker>
         </View>
