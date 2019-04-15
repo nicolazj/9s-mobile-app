@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import { ClientConfig } from '../types';
 
 const config: ClientConfig = {
-  baseURL: 'https://dev.9spokes.io/api/v1',
+  baseURL: 'https://nsp-tst.9spokes.io/api/v1',
   tenantId: '00000000-0000-0005-5555-555555555555',
   appKey: 'mobileSmudgeLocal',
   appSecret: 'F5EBea3qyTj6z4jPUgdxRQNnxHsE6uX',
@@ -18,8 +18,7 @@ export const GOOGLE_CLIENT_ID =
         .split('.')
         .reverse()
         .join('.')
-    : JSON.parse(Constants.manifest.android.googleServicesFile).client[0]
-        .oauth_client[0].client_id;
+    : JSON.parse(Constants.manifest.android.googleServicesFile).client[0].oauth_client[0].client_id;
 export const GOOGLE_CLIENT_ID_REVERSED = GOOGLE_CLIENT_ID.split('.')
   .reverse()
   .join('.');

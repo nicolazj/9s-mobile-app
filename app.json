@@ -20,15 +20,15 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "host.exp.exponent",
+      "bundleIdentifier": "com.ninespokes.dashboard",
       "config": {
         "googleSignIn": {
-          "reservedClientId": "com.googleusercontent.apps.248650621080-vp9dkt8bjb5d5bvlqhcfb4r54s4ip0r4"
+          "reservedClientId": "com.googleusercontent.apps.248650621080-rg06iv2se65geg6i1s45esi3fpc30jub"
         }
       }
     },
     "android": {
-      "package": "host.exp.exponent",
+      "package": "com.ninespokes.dashboard",
       "googleServicesFile": "./google-services.json"
     },
     "scheme": "nsp"

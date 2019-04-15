@@ -13,9 +13,7 @@ import Link from '../components/Link';
 import { FormikTextInput, FormTitle } from '../formik';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import activityStatusState, {
-  ActivityStatusState,
-} from '../states/ActivityStatus';
+import activityStatusState, { ActivityStatusState } from '../states/ActivityStatus';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
 import { SignInPayload } from '../types';
@@ -42,9 +40,7 @@ class SignIn extends React.Component<Props> {
       this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
       if (err.response) {
-        if (
-          err.response.data.error_description === 'INVALID_USERNAME_OR_PASSWORD'
-        ) {
+        if (err.response.data.error_description === 'INVALID_USERNAME_OR_PASSWORD') {
           Alert.alert('Log in failed', 'Invalid username or password');
         }
       } else {
@@ -63,15 +59,14 @@ class SignIn extends React.Component<Props> {
             <P.Container hasMargin>
               <Formik
                 initialValues={{
-                  username: '',
-                  password: '',
+                  username: __DEV__ ? 'ooo@gmail.com' : '',
+                  password: __DEV__ ? 'Qwer1234' : '',
                 }}
                 validationSchema={object().shape({
                   password,
                   username,
                 })}
-                onSubmit={this.onPress}
-              >
+                onSubmit={this.onPress}>
                 {({ handleSubmit }) => (
                   <View style={{ flex: 1 }}>
                     <FormTitle style={{ marginBottom: 150 }}>Login</FormTitle>
@@ -96,9 +91,7 @@ class SignIn extends React.Component<Props> {
                       <Link
                         title="Reset Password"
                         onPress={() => {
-                          this.props.navigation.navigate(
-                            SCREENS[SCREENS.RESET_PWD]
-                          );
+                          this.props.navigation.navigate(SCREENS[SCREENS.RESET_PWD]);
                         }}
                       />
                     </View>
@@ -119,15 +112,9 @@ class SignIn extends React.Component<Props> {
               position: 'absolute',
               bottom: 20,
               width: '100%',
-            }}
-          >
+            }}>
             <P.Text>Don't have an account? </P.Text>
-            <Link
-              title="Signup"
-              onPress={() =>
-                this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP])
-              }
-            />
+            <Link title="Signup" onPress={() => this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP])} />
           </View>
         </P.SafeArea>
       </P.Container>
