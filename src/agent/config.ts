@@ -4,11 +4,11 @@ import { Platform } from 'react-native';
 import { ClientConfig } from '../types';
 
 const config: ClientConfig = {
-  baseURL: 'https://nsp-tst.9spokes.io/api/v1',
+  baseURL: 'https://9spokes.io/api/v1',
   tenantId: '00000000-0000-0005-5555-555555555555',
-  appKey: 'mobileSmudgeLocal',
-  appSecret: 'F5EBea3qyTj6z4jPUgdxRQNnxHsE6uX',
-  device_id: '8275AC55-257C-448C-8097-EC7F13DB51C1',
+  appKey: 'e1b7c74f966b4c2f8c4bc030c17dbae2',
+  appSecret: 'YzyyGtD6Z591X10VacDduJbagzQXWMED',
+  device_id: '9B0C6B82-6C80-4452-A600-A68E156AE88B',
 };
 
 // bundle id com.9spokes.dashboard
