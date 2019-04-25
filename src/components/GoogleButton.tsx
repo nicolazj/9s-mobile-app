@@ -1,7 +1,8 @@
 import { Google } from 'expo';
 import React from 'react';
 import { Alert } from 'react-native';
-import { withNavigation } from 'react-navigation';
+import { NavigationScreenProp, withNavigation } from 'react-navigation';
+import log from '../logging';
 
 import agent from '../agent';
 import { GOOGLE_CLIENT_ID } from '../agent/config';
@@ -12,10 +13,14 @@ import activityStatusState, {
 import { SubscribeHOC } from '../states/helper';
 import { SocialButon } from './SocialButton';
 
-const GoogleButton = (props: any) => {
+interface Props {
+  states: [ActivityStatusState];
+  navigation: NavigationScreenProp<any, any>;
+}
+
+const GoogleButton: React.FC<Props> = props => {
   const googleLogin = async () => {
     try {
-      log('start google login');
       const result = await Google.logInAsync({
         clientId: GOOGLE_CLIENT_ID,
         scopes: ['openid', 'email', 'profile'],
