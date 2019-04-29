@@ -1,8 +1,8 @@
 import React from 'react';
-import { TouchableNativeFeedbackProps, TouchableOpacityProps, View } from 'react-native';
+import { TouchableOpacityProps, View } from 'react-native';
+
 import * as P from '../primitives';
-import { scale } from '../scale';
-import styled, { th } from '../styled';
+import styled, { scale, th } from '../styled';
 
 interface SProps {
   danger?: boolean;
@@ -25,12 +25,7 @@ const ButtonText = styled(P.Text)<SProps>`
 interface Props extends SProps {
   title: string;
 }
-const Button: React.FC<Props & TouchableNativeFeedbackProps & TouchableOpacityProps> = ({
-  title,
-  danger,
-  invert,
-  ...props
-}) => (
+const Button: React.FC<Props & TouchableOpacityProps> = ({ title, danger, invert, ...props }) => (
   <ButtonTouchable danger={danger} invert={invert} {...props}>
     <View>
       <ButtonText danger={danger} invert={invert}>

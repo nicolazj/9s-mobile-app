@@ -9,10 +9,9 @@ import WidgetComp from '../components/widget';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import { scale } from '../scale';
 import appState, { AppDetail, AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
-import styled from '../styled';
+import styled, { scale } from '../styled';
 import { WidgetSample } from '../types';
 import { transform } from './WidgetList';
 
@@ -129,10 +128,7 @@ export class AppDetailScreen extends React.Component<Props> {
     } else if (connection.status === 'ACTIVE') {
       return removeConnectionButton;
     } else {
-      return [
-        <Button key="resume" title="Resume" onPress={() => this.onConnect(appDetail)} />,
-        removeConnectionButton,
-      ];
+      return [<Button key="resume" title="Resume" onPress={() => this.onConnect(appDetail)} />, removeConnectionButton];
     }
   }
   renderDesc(desc: string) {

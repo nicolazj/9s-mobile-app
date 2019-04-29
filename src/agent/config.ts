@@ -14,11 +14,11 @@ const config: ClientConfig = {
 // bundle id com.9spokes.dashboard
 export const GOOGLE_CLIENT_ID =
   Platform.OS === 'ios'
-    ? Constants.manifest.ios.config.googleSignIn.reservedClientId
-        .split('.')
+    ? Constants.manifest
+        .ios!.config!.googleSignIn!.reservedClientId!.split('.')
         .reverse()
         .join('.')
-    : JSON.parse(Constants.manifest.android.googleServicesFile).client[0].oauth_client[0].client_id;
+    : JSON.parse(Constants.manifest.android!.googleServicesFile!).client[0].oauth_client[0].client_id;
 export const GOOGLE_CLIENT_ID_REVERSED = GOOGLE_CLIENT_ID.split('.')
   .reverse()
   .join('.');

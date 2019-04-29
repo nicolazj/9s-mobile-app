@@ -4,11 +4,10 @@ import { ScrollView } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import * as P from '../primitives';
-import { scale } from '../scale';
 import authState, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
-import styled, { th } from '../styled';
+import styled, { scale, th } from '../styled';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
@@ -25,9 +24,7 @@ export class Settings extends React.Component<Props> {
   render() {
     const [userState, authState] = this.props.states;
     const { companies } = userState.state;
-    const company = companies
-      ? companies.find(c => c.companyUuid === authState.state.companyUuid)
-      : null;
+    const company = companies ? companies.find(c => c.companyUuid === authState.state.companyUuid) : null;
     return (
       <P.Container>
         <ScrollView>

@@ -2,10 +2,9 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 
 import * as P from '../../primitives';
-import { scale } from '../../scale';
 import DashboardScreen from '../../screens/Dashboard';
 import ManageWidgetsScreen from '../../screens/ManageWidgets';
-import { IThemeInterface, th } from '../../styled';
+import { IThemeInterface, scale, th } from '../../styled';
 import { SCREENS } from '../constants';
 import { getTabNavOpts } from './helper';
 
@@ -22,8 +21,7 @@ const DashboardStack = createStackNavigator(
           <P.Touchable
             onPress={() => {
               navigation.navigate(SCREENS[SCREENS.MANAGE_WIDGETS]);
-            }}
-          >
+            }}>
             <P.Text style={{ color: '#fff' }}>Edit</P.Text>
           </P.Touchable>
         ),

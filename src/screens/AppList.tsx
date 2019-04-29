@@ -6,15 +6,12 @@ import agent from '../agent';
 import Link from '../components/Link';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import { scale } from '../scale';
-import activityStatusState, {
-  ActivityStatusState,
-} from '../states/ActivityStatus';
+import activityStatusState, { ActivityStatusState } from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import authContainer, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
-import styled, { th } from '../styled';
+import styled, { scale, th } from '../styled';
 import { App } from '../types';
 
 interface Props {
@@ -107,9 +104,7 @@ class AppList extends React.Component<Props> {
         agent.user.service.list(),
         agent.misc.widget.sample(),
       ]);
-      const fullApps = await Promise.all(
-        apps.map(app => agent.user.service.get(app.key))
-      );
+      const fullApps = await Promise.all(apps.map(app => agent.user.service.get(app.key)));
       appState.setState({ connections, spokes, apps: fullApps, samples });
     } catch (err) {
       Alert.alert('please try again later');
@@ -123,9 +118,7 @@ class AppList extends React.Component<Props> {
   }
   suggestApp = () => {
     const [_, userContainer, authContainer] = this.props.states;
-    const company = userContainer.state.companies.find(
-      c => c.companyUuid === authContainer.state.companyUuid
-    );
+    const company = userContainer.state.companies.find(c => c.companyUuid === authContainer.state.companyUuid);
     const { me } = userContainer.state;
     const texts = [
       'Hey 9Spokes team!',
@@ -143,10 +136,7 @@ class AppList extends React.Component<Props> {
       me.emailAddress,
     ];
 
-    Linking.openURL(
-      'mailto:support@9spokes.com?subject=App Support Request&body=' +
-        texts.join('\n')
-    );
+    Linking.openURL('mailto:support@9spokes.com?subject=App Support Request&body=' + texts.join('\n'));
   };
   render() {
     const [appState] = this.props.states;
@@ -159,17 +149,11 @@ class AppList extends React.Component<Props> {
                 <Title>My Connected Apps</Title>
               </View>
             </P.Container>,
-            <ScrollView
-              key="connected-app-view"
-              horizontal={true}
-              style={{ backgroundColor: '#fff' }}
-            >
+            <ScrollView key="connected-app-view" horizontal={true} style={{ backgroundColor: '#fff' }}>
               {appState.purchasedApps.map((app: App) => (
                 <ConnectedApp key={app.key} onPress={() => this.onPress(app)}>
                   <ConnectedAppImg source={{ uri: app.squareLogo }} />
-                  <ConnectedAppLabel>
-                    {app.shortName || app.name}
-                  </ConnectedAppLabel>
+                  <ConnectedAppLabel>{app.shortName || app.name}</ConnectedAppLabel>
                 </ConnectedApp>
               ))}
             </ScrollView>,
@@ -196,10 +180,7 @@ class AppList extends React.Component<Props> {
           </AvaibleAppContainer>
 
           <SuggestAppLink>
-            <Link
-              title="Dont't see your apps? Tell us what you use"
-              onPress={this.suggestApp}
-            />
+            <Link title="Dont't see your apps? Tell us what you use" onPress={this.suggestApp} />
           </SuggestAppLink>
         </ScrollView>
       </P.Container>
@@ -207,9 +188,4 @@ class AppList extends React.Component<Props> {
   }
 }
 
-export default SubscribeHOC([
-  appState,
-  userState,
-  authContainer,
-  activityStatusState,
-])(AppList);
+export default SubscribeHOC([appState, userState, authContainer, activityStatusState])(AppList);

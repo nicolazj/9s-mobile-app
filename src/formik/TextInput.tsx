@@ -1,11 +1,9 @@
 import { FieldProps } from 'formik';
 import React from 'react';
-import { TextInputProps } from 'react-native';
-import { TextInput as TextInput_ } from 'react-native';
-import { FormError, FormGroup } from './Misc';
+import { TextInput as TextInput_, TextInputProps } from 'react-native';
 
-import { scale } from '../scale';
-import styled, { th } from '../styled';
+import styled, { scale, th } from '../styled';
+import { FormError, FormGroup } from './Misc';
 
 const TextInput = styled(TextInput_).attrs(props => ({
   selectionColor: th('color.main')(props),
@@ -22,26 +20,15 @@ interface FormikTextInputProps {
   placeholder?: string;
 }
 
-const FormikTextInput: React.FC<
-  FormikTextInputProps &
-    TextInputProps &
-    FieldProps & { innerRef: React.Ref<any> }
-> = ({
+const FormikTextInput: React.FC<FormikTextInputProps & TextInputProps & FieldProps & { innerRef: React.Ref<any> }> = ({
   field: { name, value },
   form: { touched, errors, handleChange },
   innerRef,
   ...props
 }) => (
   <FormGroup>
-    <TextInput
-      value={value}
-      onChangeText={handleChange(name)}
-      ref={innerRef}
-      {...props}
-    />
-    {errors[name] && touched[name] && (
-      <FormError>{errors[name] as string}</FormError>
-    )}
+    <TextInput value={value} onChangeText={handleChange(name)} ref={innerRef} {...props} />
+    {errors[name] && touched[name] && <FormError>{errors[name] as string}</FormError>}
   </FormGroup>
 );
 

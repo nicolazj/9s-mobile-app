@@ -1,9 +1,10 @@
-import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import styled, { IThemeInterface, th, withTheme } from '../styled';
+
+import { Ionicons } from '@expo/vector-icons';
 
 import { Text } from '../primitives';
-import { scale } from '../scale';
+import styled, { IThemeInterface, scale, th, withTheme } from '../styled';
+
 interface IconProps {
   focused: boolean;
   name: string;

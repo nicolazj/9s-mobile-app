@@ -2,8 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 import * as P from '../../../primitives';
-import { scale } from '../../../scale';
-import styled, { th, withTheme } from '../../../styled';
+import styled, { scale, th, withTheme } from '../../../styled';
 import { DataTab } from '../../../types';
 import Switch from '../../Switch';
 

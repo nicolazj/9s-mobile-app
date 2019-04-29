@@ -1,7 +1,7 @@
 import { Constants, Linking, WebBrowser } from 'expo';
 import { Body, Left, List, ListItem, Right, Text } from 'native-base';
 import React from 'react';
-import { Alert, ScrollView } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -9,11 +9,10 @@ import { Ionicons } from '@expo/vector-icons';
 import Button from '../components/Button';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import { scale } from '../scale';
 import authState, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
-import styled, { th } from '../styled';
+import styled, { scale, th } from '../styled';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
@@ -149,7 +148,8 @@ export class Settings extends React.Component<Props> {
               </Right>
             </ListItem>
           </List>
-          <P.Container hasMargin>
+
+          <P.Container hasMargin={true}>
             <Button title="Log out" onPress={this.handleLogout} />
           </P.Container>
         </ScrollView>

@@ -2,8 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import t from '../../../i18n/en';
 import * as P from '../../../primitives';
-import { scale } from '../../../scale';
-import styled, { IThemeInterface } from '../../../styled';
+import styled, { IThemeInterface, scale } from '../../../styled';
 import { Widget } from '../../../types';
 
 interface Props {

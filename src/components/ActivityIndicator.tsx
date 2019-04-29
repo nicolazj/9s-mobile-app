@@ -1,10 +1,10 @@
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { Subscribe } from 'unstated';
+
 import { Text } from '../primitives';
-import { scale } from '../scale';
 import activityStatus, { ActivityStatusState } from '../states/ActivityStatus';
-import styled, { th } from '../styled';
+import styled, { scale, th } from '../styled';
 
 const BG = styled(View)`
   position: absolute;

@@ -12,11 +12,10 @@ import Lock from '../Lock';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import { scale } from '../scale';
 import activityStatus, { ActivityStatusState } from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
-import styled, { th } from '../styled';
+import styled, { scale, th } from '../styled';
 import { ACTIVITY_TYPES, Entity, Workflow } from '../types';
 
 interface Props {
@@ -196,8 +195,8 @@ export class AppConnectScreen extends React.Component<Props, State> {
             </Row>
 
             <SubTitle>
-              We're busy setting up your widgets for you. Here are some examples of what they'll
-              look like when they're ready.
+              We're busy setting up your widgets for you. Here are some examples of what they'll look like when they're
+              ready.
             </SubTitle>
             <Button
               onPress={() => {

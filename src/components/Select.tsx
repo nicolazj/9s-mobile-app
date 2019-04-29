@@ -1,8 +1,8 @@
 import React from 'react';
 import { TouchableNativeFeedbackProps, TouchableOpacityProps, View } from 'react-native';
+
 import * as P from '../primitives';
-import { scale } from '../scale';
-import styled, { th } from '../styled';
+import styled, { scale, th } from '../styled';
 
 const SelectTouchable = styled(P.Touchable)`
   border-bottom-color: #ccc;

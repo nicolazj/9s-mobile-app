@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, View } from 'react-native';
+
 import * as P from '../primitives';
-import { scale } from '../scale';
-import styled, { th } from '../styled';
+import styled, { scale, th } from '../styled';
 
 const SocialButtonWrapper = styled(P.Touchable)`
   border: 1px solid ${th('color.grey')};

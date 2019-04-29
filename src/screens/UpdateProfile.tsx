@@ -5,11 +5,10 @@ import { NavigationEvents, NavigationScreenProp } from 'react-navigation';
 
 import agent from '../agent';
 import * as P from '../primitives';
-import { scale } from '../scale';
 import authState, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
-import styled from '../styled';
+import styled, { scale } from '../styled';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;

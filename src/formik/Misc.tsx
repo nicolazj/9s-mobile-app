@@ -1,7 +1,8 @@
 import { View } from 'react-native';
+
 import * as P from '../primitives';
-import { scale } from '../scale';
-import styled, { th } from '../styled';
+import styled, { scale, th } from '../styled';
+
 export const FormGroup = styled(View)`
   height: ${scale(60)}px;
   width: 100%;

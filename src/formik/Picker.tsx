@@ -1,8 +1,8 @@
 import { FieldProps, Formik } from 'formik';
 import React from 'react';
+
 import Picker_ from '../components/Picker';
-import { scale } from '../scale';
-import styled, { th } from '../styled';
+import styled, { scale, th } from '../styled';
 import { FormError, FormGroup } from './Misc';
 
 export const Picker = styled(Picker_)`

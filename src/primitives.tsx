@@ -1,33 +1,23 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  Text as Text_,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { SafeAreaView, Text as Text_, TouchableOpacity, View } from 'react-native';
 
-import { scale } from './scale';
-import styled, { th } from './styled';
+import styled, { scale, th } from './styled';
 
 export const Touchable = TouchableOpacity;
 
-interface TextProps {
-  children?: string | string[];
-}
-export const Text = styled(Text_)<TextProps>`
+export const Text = styled(Text_)`
   font-size: ${scale(14)}px;
   font-family: 'System';
   font-weight: 400;
 `;
-export const H1 = styled(Text)<TextProps>`
+export const H1 = styled(Text)`
   font-size: ${scale(28)}px;
   line-height: ${scale(28 * 1.7)}px;
 `;
-export const H2 = styled(Text)<TextProps>`
+export const H2 = styled(Text)`
   font-size: ${scale(22)}px;
   line-height: ${scale(22 * 1.7)}px;
 `;
-export const H3 = styled(Text)<TextProps>`
+export const H3 = styled(Text)`
   font-size: ${scale(16)}px;
   line-height: ${scale(16 * 1.7)}px;
 `;
@@ -36,7 +26,6 @@ interface ContainerProps {
   hasMargin?: boolean;
   vcenter?: boolean;
   hcenter?: boolean;
-  children?: React.ReactNode;
 }
 export const Container = styled(View)<ContainerProps>`
   flex: 1;
@@ -48,8 +37,6 @@ export const Container = styled(View)<ContainerProps>`
   ${p => (p.hcenter ? 'align-items: center' : '')};
 `;
 
-export const SafeArea = styled(SafeAreaView)<{
-  children?: React.ReactNode;
-}>`
+export const SafeArea = styled(SafeAreaView)`
   flex: 1;
 `;
