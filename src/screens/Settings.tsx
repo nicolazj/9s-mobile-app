@@ -1,7 +1,7 @@
 import { Constants, Linking, WebBrowser } from 'expo';
 import { Body, Left, List, ListItem, Right, Text } from 'native-base';
 import React from 'react';
-import { Alert, ScrollView, View } from 'react-native';
+import { Alert, AsyncStorage, ScrollView, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -32,7 +32,9 @@ export class Settings extends React.Component<Props> {
   };
   reportProblem = () => {
     const [userContainer, authContainer] = this.props.states;
-    const company = userContainer.state.companies.find(c => c.companyUuid === authContainer.state.companyUuid);
+    const company = userContainer.state.companies.find(
+      c => c.companyUuid === authContainer.state.companyUuid
+    );
     const { me } = userContainer.state;
     const texts = [
       'Hey 9Spokes team!',
@@ -56,12 +58,16 @@ export class Settings extends React.Component<Props> {
       'Thanks',
     ];
 
-    Linking.openURL('mailto:support@9spokes.com?subject=Mobile QUery&body=' + texts.join('\n'));
+    Linking.openURL(
+      'mailto:support@9spokes.com?subject=Mobile QUery&body=' + texts.join('\n')
+    );
   };
   render() {
     const [userState, authState] = this.props.states;
     const { me, companies } = userState.state;
-    const company = companies ? companies.find(c => c.companyUuid === authState.state.companyUuid) : null;
+    const company = companies
+      ? companies.find(c => c.companyUuid === authState.state.companyUuid)
+      : null;
     return (
       <P.Container>
         <ScrollView>
@@ -70,7 +76,8 @@ export class Settings extends React.Component<Props> {
             <ListItem
               onPress={() => {
                 this.props.navigation.push(SCREENS[SCREENS.UPDATE_PROFILE]);
-              }}>
+              }}
+            >
               <Left>
                 <Text>User profile</Text>
               </Left>
@@ -84,7 +91,8 @@ export class Settings extends React.Component<Props> {
             <ListItem
               onPress={() => {
                 // this.props.navigation.push(SCREENS[SCREENS.UPDATE_COMPANY]);
-              }}>
+              }}
+            >
               <Left>
                 <Text>Company profile</Text>
               </Left>
@@ -107,7 +115,13 @@ export class Settings extends React.Component<Props> {
                 <Ionicons name="ios-arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem onPress={() => WebBrowser.openBrowserAsync('https://support.9spokes.com/hc/en-us')}>
+            <ListItem
+              onPress={() =>
+                WebBrowser.openBrowserAsync(
+                  'https://support.9spokes.com/hc/en-us'
+                )
+              }
+            >
               <Left>
                 <Text>Help center</Text>
               </Left>
@@ -120,7 +134,12 @@ export class Settings extends React.Component<Props> {
 
           <List style={{ backgroundColor: '#fff' }}>
             <ListItem
-              onPress={() => WebBrowser.openBrowserAsync('https://www.9spokes.com/legal/terms-and-conditions/')}>
+              onPress={() =>
+                WebBrowser.openBrowserAsync(
+                  'https://www.9spokes.com/legal/terms-and-conditions/'
+                )
+              }
+            >
               <Left>
                 <Text>Terms and conditions</Text>
               </Left>
@@ -128,7 +147,13 @@ export class Settings extends React.Component<Props> {
                 <Ionicons name="ios-arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem onPress={() => WebBrowser.openBrowserAsync('https://www.9spokes.com/legal/privacy-notice/')}>
+            <ListItem
+              onPress={() =>
+                WebBrowser.openBrowserAsync(
+                  'https://www.9spokes.com/legal/privacy-notice/'
+                )
+              }
+            >
               <Left>
                 <Text>Privacy policy</Text>
               </Left>
@@ -148,7 +173,21 @@ export class Settings extends React.Component<Props> {
               </Right>
             </ListItem>
           </List>
-
+          <Title />
+          <List style={{ backgroundColor: '#fff' }}>
+            <ListItem
+              onPress={() => {
+                AsyncStorage.clear();
+              }}
+            >
+              <Left>
+                <Text>Clear Cache</Text>
+              </Left>
+              <Right>
+                <Text />
+              </Right>
+            </ListItem>
+          </List>
           <P.Container hasMargin={true}>
             <Button title="Log out" onPress={this.handleLogout} />
           </P.Container>

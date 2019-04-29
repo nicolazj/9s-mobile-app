@@ -12,7 +12,6 @@ interface State {
   userId: UserId;
   companyUuid: CompanyUuid;
 }
-
 export class AuthState extends PersistContainer<State> {
   get config() {
     return {
@@ -37,13 +36,25 @@ export class AuthState extends PersistContainer<State> {
     });
   }
   isPublicTokenValid() {
-    return this.state && this.state.publicAuth && this.state.publicAuth.expires_at > Date.now();
+    return (
+      this.state &&
+      this.state.publicAuth &&
+      this.state.publicAuth.expires_at > Date.now()
+    );
   }
   isUserTokenValid() {
-    return this.state && this.state.userAuth && this.state.userAuth.expires_at > Date.now();
+    return (
+      this.state &&
+      this.state.userAuth &&
+      this.state.userAuth.expires_at > Date.now()
+    );
   }
   isCompanyTokenValid() {
-    return this.state && this.state.companyAuth && this.state.companyAuth.expires_at > Date.now();
+    return (
+      this.state &&
+      this.state.companyAuth &&
+      this.state.companyAuth.expires_at > Date.now()
+    );
   }
   hasUserId() {
     return this.state && this.state.userId;
