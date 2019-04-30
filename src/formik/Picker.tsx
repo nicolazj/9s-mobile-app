@@ -34,11 +34,13 @@ const FormikPicker: React.FC<FormikPickerProps & FieldProps> = ({
       <Picker
         onItemChange={o => handleChange(name)(o.value)}
         items={options}
-        item={item ? item : null}
+        item={item ? item : undefined}
         isNullable
         placeholder={placeholder}
       />
-      {errors[name] && touched[name] && <FormError>{errors[name] as string}</FormError>}
+      {errors[name] && touched[name] && (
+        <FormError>{errors[name] as string}</FormError>
+      )}
     </FormGroup>
   );
 };

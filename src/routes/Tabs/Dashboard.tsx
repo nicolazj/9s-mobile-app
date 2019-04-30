@@ -21,7 +21,8 @@ const DashboardStack = createStackNavigator(
           <P.Touchable
             onPress={() => {
               navigation.navigate(SCREENS[SCREENS.MANAGE_WIDGETS]);
-            }}>
+            }}
+          >
             <P.Text style={{ color: '#fff' }}>Edit</P.Text>
           </P.Touchable>
         ),
@@ -38,11 +39,16 @@ const DashboardStack = createStackNavigator(
       return {
         headerTintColor: '#fff',
         headerStyle: {
-          backgroundColor: th('color.header')(props.screenProps as { theme: IThemeInterface }),
+          backgroundColor: th('color.header')(props.screenProps as {
+            theme: IThemeInterface;
+          }),
         },
       };
     },
-    navigationOptions: getTabNavOpts({ title: 'Dashboard', icon: 'trending-up' }),
+    navigationOptions: getTabNavOpts({
+      title: 'Dashboard',
+      icon: 'trending-up',
+    }),
   }
 );
 
