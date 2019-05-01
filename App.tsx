@@ -1,11 +1,12 @@
 import { AppLoading, Asset, Font } from 'expo';
 import React from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 
 import Icon from '@expo/vector-icons';
 
 import Root from './src/Root';
-
+import log from './src/logging';
+log('aaaaaaaaaaaaa');
 interface State {
   isLoadingComplete: boolean;
 }
