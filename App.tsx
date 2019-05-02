@@ -6,7 +6,6 @@ import Icon from '@expo/vector-icons';
 
 import Root from './src/Root';
 import log from './src/logging';
-log('aaaaaaaaaaaaa');
 interface State {
   isLoadingComplete: boolean;
 }
