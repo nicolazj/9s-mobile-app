@@ -56,7 +56,7 @@ export default class Dashboard extends React.Component<any, State> {
               return a.attributes.order - b.attributes.order;
             })
             .map(w => (
-              <WidgetComp key={w.id} widget={w} />
+              <WidgetComp key={w.id} widget={w} sample={false} />
             ))}
         </P.Container>
       </ScrollView>
