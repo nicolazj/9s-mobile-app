@@ -152,8 +152,8 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
             appKey,
           })
         );
-        const location = r.request.responseHeaders.Location;
-        const arr = location.split('/');
+        const { location, Location } = r.request.responseHeaders;
+        const arr = (location || Location).split('/');
         const connection = { id: arr[arr.length - 1] };
 
         return connection as Connection;
