@@ -13,7 +13,9 @@ import Link from '../../components/Link';
 import { FormikTextInput, FormTitle } from '../../formik';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
-import activityStatusState, { ActivityStatusState } from '../../states/ActivityStatus';
+import activityStatusState, {
+  ActivityStatusState,
+} from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
 import { SignUpPayload } from '../../types';
 import { name, object, password, username } from '../../validations';
@@ -53,7 +55,10 @@ export class SignUp extends React.Component<Props> {
       activityStatusState.show('Checking email');
       const userExisted = await agent.public.user.isExisted(values.userName);
       if (!userExisted) {
-        this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP_COMPANY], values);
+        this.props.navigation.navigate(
+          SCREENS[SCREENS.SIGN_UP_COMPANY],
+          values
+        );
       } else {
         Alert.alert('Error', 'Username existed');
       }
@@ -69,7 +74,7 @@ export class SignUp extends React.Component<Props> {
       <P.Container>
         <P.SafeArea>
           <KeyboardAwareScrollView extraHeight={Constants.statusBarHeight}>
-            <P.Container hasPadding>
+            <P.Container hasMargin>
               <Formik
                 initialValues={
                   __DEV__
@@ -99,7 +104,9 @@ export class SignUp extends React.Component<Props> {
               >
                 {({ handleSubmit }) => (
                   <View style={{ flex: 1 }}>
-                    <FormTitle style={{ marginBottom: 20 }}>Create an account</FormTitle>
+                    <FormTitle style={{ marginBottom: 20 }}>
+                      Create an account
+                    </FormTitle>
                     <Field
                       name="firstName"
                       component={FormikTextInput}
@@ -139,23 +146,23 @@ export class SignUp extends React.Component<Props> {
               <Delimiter />
               <GoogleButton />
             </P.Container>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginBottom: 15,
+                justifyContent: 'center',
+                width: '100%',
+              }}
+            >
+              <P.Text>Already have an account? </P.Text>
+              <Link
+                title="Log in"
+                onPress={() =>
+                  this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN])
+                }
+              />
+            </View>
           </KeyboardAwareScrollView>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginBottom: 15,
-              justifyContent: 'center',
-              position: 'absolute',
-              bottom: 20,
-              width: '100%',
-            }}
-          >
-            <P.Text>Already have an account? </P.Text>
-            <Link
-              title="Log in"
-              onPress={() => this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN])}
-            />
-          </View>
         </P.SafeArea>
       </P.Container>
     );

@@ -111,7 +111,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
               break;
 
             case ACTIVITY_TYPES.REDIRECT_USER_AGENT:
-              log('redirectUrl', Constants.linkingUri);
+              log('redirectUrl...', Constants.linkingUri);
               const r = (await WebBrowser.openAuthSessionAsync(step.href)) as {
                 type: string;
                 url: string;
@@ -154,7 +154,6 @@ export class AppConnectScreen extends React.Component<Props, State> {
               } else throw 'no auth result';
               break;
           }
-
           const r = await company.workflow.update(workflow.id, act.id, step.id);
           log(r);
           activities.shift();

@@ -111,25 +111,23 @@ class SignIn extends React.Component<Props> {
               <Delimiter />
               <GoogleButton />
             </P.Container>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginBottom: 15,
+                justifyContent: 'center',
+                width: '100%',
+              }}
+            >
+              <P.Text>Don't have an account? </P.Text>
+              <Link
+                title="Signup"
+                onPress={() =>
+                  this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP])
+                }
+              />
+            </View>
           </KeyboardAwareScrollView>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginBottom: 15,
-              justifyContent: 'center',
-              position: 'absolute',
-              bottom: 20,
-              width: '100%',
-            }}
-          >
-            <P.Text>Don't have an account? </P.Text>
-            <Link
-              title="Signup"
-              onPress={() =>
-                this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP])
-              }
-            />
-          </View>
         </P.SafeArea>
       </P.Container>
     );
