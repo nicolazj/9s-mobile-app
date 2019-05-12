@@ -1,0 +1,888 @@
+diff --git a/node_modules/expo/AppEntry.js b/node_modules/expo/AppEntry.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/README.md b/node_modules/expo/README.md
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/AR.js b/node_modules/expo/build/AR.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/AR.js.map b/node_modules/expo/build/AR.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Amplitude.js b/node_modules/expo/build/Amplitude.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Amplitude.js.map b/node_modules/expo/build/Amplitude.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/AuthSession.js b/node_modules/expo/build/AuthSession.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/AuthSession.js.map b/node_modules/expo/build/AuthSession.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Branch.js b/node_modules/expo/build/Branch.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Branch.js.map b/node_modules/expo/build/Branch.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Brightness.js b/node_modules/expo/build/Brightness.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Brightness.js.map b/node_modules/expo/build/Brightness.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Calendar.js b/node_modules/expo/build/Calendar.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Calendar.js.map b/node_modules/expo/build/Calendar.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/DangerZone.js b/node_modules/expo/build/DangerZone.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/DangerZone.js.map b/node_modules/expo/build/DangerZone.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/DocumentPicker.js b/node_modules/expo/build/DocumentPicker.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/DocumentPicker.js.map b/node_modules/expo/build/DocumentPicker.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/ErrorRecovery.js b/node_modules/expo/build/ErrorRecovery.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/ErrorRecovery.js.map b/node_modules/expo/build/ErrorRecovery.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Expo.js b/node_modules/expo/build/Expo.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Expo.js.map b/node_modules/expo/build/Expo.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Facebook.js b/node_modules/expo/build/Facebook.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Facebook.js.map b/node_modules/expo/build/Facebook.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Fingerprint.js b/node_modules/expo/build/Fingerprint.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Fingerprint.js.map b/node_modules/expo/build/Fingerprint.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/GestureHandler.js b/node_modules/expo/build/GestureHandler.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/GestureHandler.js.map b/node_modules/expo/build/GestureHandler.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Google.js b/node_modules/expo/build/Google.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Google.js.map b/node_modules/expo/build/Google.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Haptic.js b/node_modules/expo/build/Haptic.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Haptic.js.map b/node_modules/expo/build/Haptic.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Icon.js b/node_modules/expo/build/Icon.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Icon.js.map b/node_modules/expo/build/Icon.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/ImageManipulator.js b/node_modules/expo/build/ImageManipulator.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/ImageManipulator.js.map b/node_modules/expo/build/ImageManipulator.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/ImagePicker.js b/node_modules/expo/build/ImagePicker.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/ImagePicker.js.map b/node_modules/expo/build/ImagePicker.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/IntentLauncherAndroid.js b/node_modules/expo/build/IntentLauncherAndroid.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/IntentLauncherAndroid.js.map b/node_modules/expo/build/IntentLauncherAndroid.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/KeepAwake.js b/node_modules/expo/build/KeepAwake.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/KeepAwake.js.map b/node_modules/expo/build/KeepAwake.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Linking.js b/node_modules/expo/build/Linking.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Linking.js.map b/node_modules/expo/build/Linking.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Localization.js b/node_modules/expo/build/Localization.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Localization.js.map b/node_modules/expo/build/Localization.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/MailComposer.js b/node_modules/expo/build/MailComposer.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/MailComposer.js.map b/node_modules/expo/build/MailComposer.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Notifications.js b/node_modules/expo/build/Notifications.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Notifications.js.map b/node_modules/expo/build/Notifications.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Payments.js b/node_modules/expo/build/Payments.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Payments.js.map b/node_modules/expo/build/Payments.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Pedometer.js b/node_modules/expo/build/Pedometer.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Pedometer.js.map b/node_modules/expo/build/Pedometer.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/SQLite.js b/node_modules/expo/build/SQLite.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/SQLite.js.map b/node_modules/expo/build/SQLite.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/ScreenOrientation.js b/node_modules/expo/build/ScreenOrientation.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/ScreenOrientation.js.map b/node_modules/expo/build/ScreenOrientation.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/SecureStore.js b/node_modules/expo/build/SecureStore.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/SecureStore.js.map b/node_modules/expo/build/SecureStore.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Speech.js b/node_modules/expo/build/Speech.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Speech.js.map b/node_modules/expo/build/Speech.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/StoreReview.js b/node_modules/expo/build/StoreReview.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/StoreReview.js.map b/node_modules/expo/build/StoreReview.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Svg.js b/node_modules/expo/build/Svg.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Svg.js.map b/node_modules/expo/build/Svg.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Updates.js b/node_modules/expo/build/Updates.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Updates.js.map b/node_modules/expo/build/Updates.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Util.js b/node_modules/expo/build/Util.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/Util.js.map b/node_modules/expo/build/Util.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/WebBrowser.js b/node_modules/expo/build/WebBrowser.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/WebBrowser.js.map b/node_modules/expo/build/WebBrowser.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__mocks__/Constants-development.js b/node_modules/expo/build/__mocks__/Constants-development.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__mocks__/Constants-development.js.map b/node_modules/expo/build/__mocks__/Constants-development.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Amplitude-test.js b/node_modules/expo/build/__tests__/Amplitude-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Amplitude-test.js.map b/node_modules/expo/build/__tests__/Amplitude-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/AuthSession-test.js b/node_modules/expo/build/__tests__/AuthSession-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/AuthSession-test.js.map b/node_modules/expo/build/__tests__/AuthSession-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Constants-test.js b/node_modules/expo/build/__tests__/Constants-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Constants-test.js.map b/node_modules/expo/build/__tests__/Constants-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/ErrorRecovery-test.js b/node_modules/expo/build/__tests__/ErrorRecovery-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/ErrorRecovery-test.js.map b/node_modules/expo/build/__tests__/ErrorRecovery-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Expo-test.js b/node_modules/expo/build/__tests__/Expo-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Expo-test.js.map b/node_modules/expo/build/__tests__/Expo-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Facebook-test.js b/node_modules/expo/build/__tests__/Facebook-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Facebook-test.js.map b/node_modules/expo/build/__tests__/Facebook-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Font-test.js b/node_modules/expo/build/__tests__/Font-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Font-test.js.map b/node_modules/expo/build/__tests__/Font-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Location-test.js b/node_modules/expo/build/__tests__/Location-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Location-test.js.map b/node_modules/expo/build/__tests__/Location-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Notifications-test.js b/node_modules/expo/build/__tests__/Notifications-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Notifications-test.js.map b/node_modules/expo/build/__tests__/Notifications-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/SecureStore-test.js b/node_modules/expo/build/__tests__/SecureStore-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/SecureStore-test.js.map b/node_modules/expo/build/__tests__/SecureStore-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Segment-test.js b/node_modules/expo/build/__tests__/Segment-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/Segment-test.js.map b/node_modules/expo/build/__tests__/Segment-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/WebBrowser-test.js b/node_modules/expo/build/__tests__/WebBrowser-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/__tests__/WebBrowser-test.js.map b/node_modules/expo/build/__tests__/WebBrowser-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/apisAreAvailable.js b/node_modules/expo/build/apisAreAvailable.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/apisAreAvailable.js.map b/node_modules/expo/build/apisAreAvailable.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/av/AV.js b/node_modules/expo/build/av/AV.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/av/AV.js.map b/node_modules/expo/build/av/AV.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/av/Audio.js b/node_modules/expo/build/av/Audio.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/av/Audio.js.map b/node_modules/expo/build/av/Audio.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/av/Audio/AudioAvailability.js b/node_modules/expo/build/av/Audio/AudioAvailability.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/av/Audio/AudioAvailability.js.map b/node_modules/expo/build/av/Audio/AudioAvailability.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/av/Audio/Recording.js b/node_modules/expo/build/av/Audio/Recording.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/av/Audio/Recording.js.map b/node_modules/expo/build/av/Audio/Recording.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/av/Audio/Sound.js b/node_modules/expo/build/av/Audio/Sound.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/av/Audio/Sound.js.map b/node_modules/expo/build/av/Audio/Sound.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/av/Video.js b/node_modules/expo/build/av/Video.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/av/Video.js.map b/node_modules/expo/build/av/Video.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/effects/BlurView.android.js b/node_modules/expo/build/effects/BlurView.android.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/effects/BlurView.android.js.map b/node_modules/expo/build/effects/BlurView.android.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/effects/BlurView.ios.js b/node_modules/expo/build/effects/BlurView.ios.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/effects/BlurView.ios.js.map b/node_modules/expo/build/effects/BlurView.ios.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/effects/LinearGradient.js b/node_modules/expo/build/effects/LinearGradient.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/effects/LinearGradient.js.map b/node_modules/expo/build/effects/LinearGradient.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/effects/NativeLinearGradient.android.js b/node_modules/expo/build/effects/NativeLinearGradient.android.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/effects/NativeLinearGradient.android.js.map b/node_modules/expo/build/effects/NativeLinearGradient.android.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/effects/NativeLinearGradient.ios.js b/node_modules/expo/build/effects/NativeLinearGradient.ios.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/effects/NativeLinearGradient.ios.js.map b/node_modules/expo/build/effects/NativeLinearGradient.ios.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/environment/__tests__/validate-test.js b/node_modules/expo/build/environment/__tests__/validate-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/environment/__tests__/validate-test.js.map b/node_modules/expo/build/environment/__tests__/validate-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/environment/logging.js b/node_modules/expo/build/environment/logging.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/environment/logging.js.map b/node_modules/expo/build/environment/logging.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/environment/validate.js b/node_modules/expo/build/environment/validate.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/environment/validate.js.map b/node_modules/expo/build/environment/validate.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/AdIconView.js b/node_modules/expo/build/facebook-ads/AdIconView.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/AdIconView.js.map b/node_modules/expo/build/facebook-ads/AdIconView.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/AdMediaView.js b/node_modules/expo/build/facebook-ads/AdMediaView.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/AdMediaView.js.map b/node_modules/expo/build/facebook-ads/AdMediaView.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/AdSettings.js b/node_modules/expo/build/facebook-ads/AdSettings.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/AdSettings.js.map b/node_modules/expo/build/facebook-ads/AdSettings.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/AdTriggerView.js b/node_modules/expo/build/facebook-ads/AdTriggerView.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/AdTriggerView.js.map b/node_modules/expo/build/facebook-ads/AdTriggerView.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/BannerAd.js b/node_modules/expo/build/facebook-ads/BannerAd.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/BannerAd.js.map b/node_modules/expo/build/facebook-ads/BannerAd.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/InterstitialAdManager.js b/node_modules/expo/build/facebook-ads/InterstitialAdManager.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/InterstitialAdManager.js.map b/node_modules/expo/build/facebook-ads/InterstitialAdManager.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/NativeAdsManager.js b/node_modules/expo/build/facebook-ads/NativeAdsManager.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/NativeAdsManager.js.map b/node_modules/expo/build/facebook-ads/NativeAdsManager.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/index.js b/node_modules/expo/build/facebook-ads/index.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/index.js.map b/node_modules/expo/build/facebook-ads/index.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/withNativeAd.js b/node_modules/expo/build/facebook-ads/withNativeAd.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/facebook-ads/withNativeAd.js.map b/node_modules/expo/build/facebook-ads/withNativeAd.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/launch/AppLoading.js b/node_modules/expo/build/launch/AppLoading.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/launch/AppLoading.js.map b/node_modules/expo/build/launch/AppLoading.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/launch/AppLoadingNativeWrapper.js b/node_modules/expo/build/launch/AppLoadingNativeWrapper.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/launch/AppLoadingNativeWrapper.js.map b/node_modules/expo/build/launch/AppLoadingNativeWrapper.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/launch/RootErrorBoundary.js b/node_modules/expo/build/launch/RootErrorBoundary.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/launch/RootErrorBoundary.js.map b/node_modules/expo/build/launch/RootErrorBoundary.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/launch/SplashScreen.js b/node_modules/expo/build/launch/SplashScreen.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/launch/SplashScreen.js.map b/node_modules/expo/build/launch/SplashScreen.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/launch/registerRootComponent.js b/node_modules/expo/build/launch/registerRootComponent.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/launch/registerRootComponent.js.map b/node_modules/expo/build/launch/registerRootComponent.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/LogSerialization.js b/node_modules/expo/build/logs/LogSerialization.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/LogSerialization.js.map b/node_modules/expo/build/logs/LogSerialization.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/Logs.js b/node_modules/expo/build/logs/Logs.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/Logs.js.map b/node_modules/expo/build/logs/Logs.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/RemoteConsole.js b/node_modules/expo/build/logs/RemoteConsole.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/RemoteConsole.js.map b/node_modules/expo/build/logs/RemoteConsole.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/RemoteLogging.js b/node_modules/expo/build/logs/RemoteLogging.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/RemoteLogging.js.map b/node_modules/expo/build/logs/RemoteLogging.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/__tests__/LogSerialization-test.js b/node_modules/expo/build/logs/__tests__/LogSerialization-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/__tests__/LogSerialization-test.js.map b/node_modules/expo/build/logs/__tests__/LogSerialization-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/__tests__/Logs-test.js b/node_modules/expo/build/logs/__tests__/Logs-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/__tests__/Logs-test.js.map b/node_modules/expo/build/logs/__tests__/Logs-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/__tests__/RemoteConsole-test.js b/node_modules/expo/build/logs/__tests__/RemoteConsole-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/__tests__/RemoteConsole-test.js.map b/node_modules/expo/build/logs/__tests__/RemoteConsole-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/__tests__/RemoteLogging-test.js b/node_modules/expo/build/logs/__tests__/RemoteLogging-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/__tests__/RemoteLogging-test.js.map b/node_modules/expo/build/logs/__tests__/RemoteLogging-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/__tests__/RemoteLogs-test.js b/node_modules/expo/build/logs/__tests__/RemoteLogs-test.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/logs/__tests__/RemoteLogs-test.js.map b/node_modules/expo/build/logs/__tests__/RemoteLogs-test.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/takeSnapshotAsync.js b/node_modules/expo/build/takeSnapshotAsync.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/takeSnapshotAsync.js.map b/node_modules/expo/build/takeSnapshotAsync.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/timer/polyfillNextTick.js b/node_modules/expo/build/timer/polyfillNextTick.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/build/timer/polyfillNextTick.js.map b/node_modules/expo/build/timer/polyfillNextTick.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/AR.ts b/node_modules/expo/src/AR.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Amplitude.ts b/node_modules/expo/src/Amplitude.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/AuthSession.ts b/node_modules/expo/src/AuthSession.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Branch.ts b/node_modules/expo/src/Branch.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Brightness.ts b/node_modules/expo/src/Brightness.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Calendar.ts b/node_modules/expo/src/Calendar.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/DangerZone.ts b/node_modules/expo/src/DangerZone.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/DocumentPicker.ts b/node_modules/expo/src/DocumentPicker.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/ErrorRecovery.ts b/node_modules/expo/src/ErrorRecovery.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Expo.ts b/node_modules/expo/src/Expo.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Facebook.ts b/node_modules/expo/src/Facebook.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Fingerprint.ts b/node_modules/expo/src/Fingerprint.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/GestureHandler.ts b/node_modules/expo/src/GestureHandler.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Google.ts b/node_modules/expo/src/Google.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Haptic.ts b/node_modules/expo/src/Haptic.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Icon.ts b/node_modules/expo/src/Icon.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/ImageManipulator.ts b/node_modules/expo/src/ImageManipulator.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/ImagePicker.ts b/node_modules/expo/src/ImagePicker.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/IntentLauncherAndroid.ts b/node_modules/expo/src/IntentLauncherAndroid.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/KeepAwake.ts b/node_modules/expo/src/KeepAwake.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Linking.ts b/node_modules/expo/src/Linking.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Localization.ts b/node_modules/expo/src/Localization.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/MailComposer.ts b/node_modules/expo/src/MailComposer.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Notifications.ts b/node_modules/expo/src/Notifications.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Payments.ts b/node_modules/expo/src/Payments.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Pedometer.ts b/node_modules/expo/src/Pedometer.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/SQLite.ts b/node_modules/expo/src/SQLite.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/ScreenOrientation.ts b/node_modules/expo/src/ScreenOrientation.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/SecureStore.ts b/node_modules/expo/src/SecureStore.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Speech.ts b/node_modules/expo/src/Speech.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/StoreReview.ts b/node_modules/expo/src/StoreReview.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Svg.ts b/node_modules/expo/src/Svg.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Updates.ts b/node_modules/expo/src/Updates.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/Util.ts b/node_modules/expo/src/Util.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/WebBrowser.ts b/node_modules/expo/src/WebBrowser.ts
+old mode 100644
+new mode 100755
+index 20cc7e1..e3909c2
+--- a/node_modules/expo/src/WebBrowser.ts
++++ b/node_modules/expo/src/WebBrowser.ts
+@@ -25,7 +25,10 @@ function dismissBrowser(): void {
+   ExponentWebBrowser.dismissBrowser();
+ }
+ 
+-async function openAuthSessionAsync(url: string, redirectUrl: string): Promise<AuthSessionResult> {
++async function openAuthSessionAsync(
++  url: string,
++  redirectUrl: string
++): Promise<AuthSessionResult> {
+   if (_authSessionIsNativelySupported()) {
+     return ExponentWebBrowser.openAuthSessionAsync(url, redirectUrl);
+   } else {
+@@ -58,14 +61,17 @@ async function _openAuthSessionPolyfillAsync(
+   startUrl: string,
+   returnUrl: string
+ ): Promise<AuthSessionResult> {
+-  if (_redirectHandler) {
+-    throw new Error(
+-      `The WebBrowser's auth session is in an invalid state with a redirect handler set when it should not be`
+-    );
+-  }
++  // if (_redirectHandler) {
++  //   throw new Error(
++  //     `The WebBrowser's auth session is in an invalid state with a redirect handler set when it should not be`
++  //   );
++  // }
+ 
+   try {
+-    return await Promise.race([openBrowserAsync(startUrl), _waitForRedirectAsync(returnUrl)]);
++    return await Promise.race([
++      openBrowserAsync(startUrl),
++      _waitForRedirectAsync(returnUrl),
++    ]);
+   } finally {
+     dismissBrowser();
+     if (!_redirectHandler) {
+diff --git a/node_modules/expo/src/__mocks__/Constants-development.ts b/node_modules/expo/src/__mocks__/Constants-development.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/Amplitude-test.ts b/node_modules/expo/src/__tests__/Amplitude-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/AuthSession-test.ts b/node_modules/expo/src/__tests__/AuthSession-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/Constants-test.ts b/node_modules/expo/src/__tests__/Constants-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/ErrorRecovery-test.ts b/node_modules/expo/src/__tests__/ErrorRecovery-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/Expo-test.ts b/node_modules/expo/src/__tests__/Expo-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/Facebook-test.ts b/node_modules/expo/src/__tests__/Facebook-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/Font-test.ts b/node_modules/expo/src/__tests__/Font-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/Location-test.ts b/node_modules/expo/src/__tests__/Location-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/Notifications-test.ts b/node_modules/expo/src/__tests__/Notifications-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/SecureStore-test.ts b/node_modules/expo/src/__tests__/SecureStore-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/Segment-test.ts b/node_modules/expo/src/__tests__/Segment-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/WebBrowser-test.ts b/node_modules/expo/src/__tests__/WebBrowser-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/__snapshots__/AuthSession-test.ts.snap b/node_modules/expo/src/__tests__/__snapshots__/AuthSession-test.ts.snap
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/__snapshots__/Expo-test.ts.snap b/node_modules/expo/src/__tests__/__snapshots__/Expo-test.ts.snap
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/__snapshots__/Facebook-test.ts.snap b/node_modules/expo/src/__tests__/__snapshots__/Facebook-test.ts.snap
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/__snapshots__/Font-test.ts.snap b/node_modules/expo/src/__tests__/__snapshots__/Font-test.ts.snap
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/__snapshots__/Notifications-test.ts.snap b/node_modules/expo/src/__tests__/__snapshots__/Notifications-test.ts.snap
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/__tests__/__snapshots__/SecureStore-test.ts.snap b/node_modules/expo/src/__tests__/__snapshots__/SecureStore-test.ts.snap
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/apisAreAvailable.ts b/node_modules/expo/src/apisAreAvailable.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/av/AV.ts b/node_modules/expo/src/av/AV.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/av/Audio.ts b/node_modules/expo/src/av/Audio.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/av/Audio/AudioAvailability.ts b/node_modules/expo/src/av/Audio/AudioAvailability.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/av/Audio/Recording.ts b/node_modules/expo/src/av/Audio/Recording.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/av/Audio/Sound.ts b/node_modules/expo/src/av/Audio/Sound.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/av/Video.tsx b/node_modules/expo/src/av/Video.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/effects/BlurView.android.tsx b/node_modules/expo/src/effects/BlurView.android.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/effects/BlurView.d.ts b/node_modules/expo/src/effects/BlurView.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/effects/BlurView.ios.tsx b/node_modules/expo/src/effects/BlurView.ios.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/effects/LinearGradient.tsx b/node_modules/expo/src/effects/LinearGradient.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/effects/NativeLinearGradient.android.tsx b/node_modules/expo/src/effects/NativeLinearGradient.android.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/effects/NativeLinearGradient.d.ts b/node_modules/expo/src/effects/NativeLinearGradient.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/effects/NativeLinearGradient.ios.tsx b/node_modules/expo/src/effects/NativeLinearGradient.ios.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/environment/__tests__/validate-test.ts b/node_modules/expo/src/environment/__tests__/validate-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/environment/logging.ts b/node_modules/expo/src/environment/logging.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/environment/validate.ts b/node_modules/expo/src/environment/validate.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/facebook-ads/AdIconView.tsx b/node_modules/expo/src/facebook-ads/AdIconView.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/facebook-ads/AdMediaView.tsx b/node_modules/expo/src/facebook-ads/AdMediaView.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/facebook-ads/AdSettings.ts b/node_modules/expo/src/facebook-ads/AdSettings.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/facebook-ads/AdTriggerView.tsx b/node_modules/expo/src/facebook-ads/AdTriggerView.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/facebook-ads/BannerAd.tsx b/node_modules/expo/src/facebook-ads/BannerAd.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/facebook-ads/InterstitialAdManager.ts b/node_modules/expo/src/facebook-ads/InterstitialAdManager.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/facebook-ads/NativeAdsManager.tsx b/node_modules/expo/src/facebook-ads/NativeAdsManager.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/facebook-ads/index.ts b/node_modules/expo/src/facebook-ads/index.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/facebook-ads/withNativeAd.tsx b/node_modules/expo/src/facebook-ads/withNativeAd.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/launch/AppLoading.tsx b/node_modules/expo/src/launch/AppLoading.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/launch/AppLoadingNativeWrapper.tsx b/node_modules/expo/src/launch/AppLoadingNativeWrapper.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/launch/RootErrorBoundary.tsx b/node_modules/expo/src/launch/RootErrorBoundary.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/launch/SplashScreen.ts b/node_modules/expo/src/launch/SplashScreen.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/launch/registerRootComponent.tsx b/node_modules/expo/src/launch/registerRootComponent.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/logs/LogSerialization.ts b/node_modules/expo/src/logs/LogSerialization.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/logs/Logs.ts b/node_modules/expo/src/logs/Logs.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/logs/RemoteConsole.ts b/node_modules/expo/src/logs/RemoteConsole.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/logs/RemoteLogging.ts b/node_modules/expo/src/logs/RemoteLogging.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/logs/__tests__/LogSerialization-test.tsx b/node_modules/expo/src/logs/__tests__/LogSerialization-test.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/logs/__tests__/Logs-test.ts b/node_modules/expo/src/logs/__tests__/Logs-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/logs/__tests__/RemoteConsole-test.ts b/node_modules/expo/src/logs/__tests__/RemoteConsole-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/logs/__tests__/RemoteLogging-test.ts b/node_modules/expo/src/logs/__tests__/RemoteLogging-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/logs/__tests__/RemoteLogs-test.ts b/node_modules/expo/src/logs/__tests__/RemoteLogs-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/logs/__tests__/__snapshots__/LogSerialization-test.tsx.snap b/node_modules/expo/src/logs/__tests__/__snapshots__/LogSerialization-test.tsx.snap
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/logs/__tests__/__snapshots__/RemoteConsole-test.ts.snap b/node_modules/expo/src/logs/__tests__/__snapshots__/RemoteConsole-test.ts.snap
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/logs/__tests__/__snapshots__/RemoteLogging-test.ts.snap b/node_modules/expo/src/logs/__tests__/__snapshots__/RemoteLogging-test.ts.snap
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/takeSnapshotAsync.ts b/node_modules/expo/src/takeSnapshotAsync.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/timer/polyfillNextTick.ts b/node_modules/expo/src/timer/polyfillNextTick.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/ts-declarations/console.d.ts b/node_modules/expo/src/ts-declarations/console.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/ts-declarations/global.d.ts b/node_modules/expo/src/ts-declarations/global.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/ts-declarations/process.d.ts b/node_modules/expo/src/ts-declarations/process.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/src/ts-declarations/react.d.ts b/node_modules/expo/src/ts-declarations/react.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/tools/LogReporter.js b/node_modules/expo/tools/LogReporter.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo/tools/hashAssetFiles.js b/node_modules/expo/tools/hashAssetFiles.js
+old mode 100644
+new mode 100755

@@ -112,15 +112,20 @@ export class AppConnectScreen extends React.Component<Props, State> {
 
             case ACTIVITY_TYPES.REDIRECT_USER_AGENT:
               log('redirectUrl...', Constants.linkingUri);
-              const r = (await WebBrowser.openAuthSessionAsync(step.href)) as {
+              const r = (await WebBrowser.openAuthSessionAsync(
+                step.href,
+                Constants.linkingUri
+              )) as {
                 type: string;
                 url: string;
               };
               if (r.type === 'success') {
+                log('sucess', r);
                 authResult = Linking.parse(r.url);
                 log('authResult', authResult);
+              } else {
+                log('cancel !!!!');
               }
-              log('cancel !!!!');
               break;
 
             case ACTIVITY_TYPES.SUBMIT_ENTITY:

@@ -8,7 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "lint": "tslint  -c tslint.json 'src/**/*.{ts,tsx}'"
+    "lint": "tslint  -c tslint.json 'src/**/*.{ts,tsx}'",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@types/react-native": "^0.57.42",
@@ -24,7 +25,9 @@
     "lodash.groupby": "^4.6.0",
     "native-base": "^2.8.1",
     "numeral": "^2.0.6",
+    "patch-package": "^6.1.2",
     "polished": "^2.3.0",
+    "postinstall-postinstall": "^2.0.0",
     "qs": "^6.5.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.1.tar.gz",
