@@ -1,42 +1,43 @@
 {
   "project_info": {
-    "project_number": "248650621080",
-    "firebase_url": "https://widgetdata-909.firebaseio.com",
-    "project_id": "widgetdata-909",
-    "storage_bucket": "widgetdata-909.appspot.com"
+    "project_number": "11165695686",
+    "firebase_url": "https://spokes-reactnative-app.firebaseio.com",
+    "project_id": "spokes-reactnative-app",
+    "storage_bucket": "spokes-reactnative-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:248650621080:android:20a7241f6c6d8fab",
+        "mobilesdk_app_id": "1:11165695686:android:20a7241f6c6d8fab",
         "android_client_info": {
           "package_name": "com.ninespokes.dashboard"
         }
       },
       "oauth_client": [
         {
-          "client_id": "248650621080-e7lr4tjeprdam5aif518quhh223hrikm.apps.googleusercontent.com",
+          "client_id": "11165695686-b04m9oj8eqqritpfk1g2fhd8lpv02iih.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ninespokes.dashboard",
+            "certificate_hash": "ee23b01abc683797a37ad54861b7b20c93666ebe"
+          }
+        },
+        {
+          "client_id": "11165695686-sr0hokb3intgj1jslhjujve7hcbn7b7c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDPZR01SPncpL6zyua6dDIv51jKDkv2Qbw"
+          "current_key": "AIzaSyD1UXEMHgHWn6ZXRuZWCQ0qUo4Vq2fONmI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "248650621080-e7lr4tjeprdam5aif518quhh223hrikm.apps.googleusercontent.com",
+              "client_id": "11165695686-sr0hokb3intgj1jslhjujve7hcbn7b7c.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "248650621080-rg06iv2se65geg6i1s45esi3fpc30jub.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.ninespokes.dashboard"
-              }
             }
           ]
         }

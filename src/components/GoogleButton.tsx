@@ -2,13 +2,13 @@ import { Google } from 'expo';
 import React from 'react';
 import { Alert } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
-import log from '../logging';
 
 import agent from '../agent';
 import { GOOGLE_CLIENT_ID } from '../agent/config';
+import log from '../logging';
 import { SCREENS } from '../routes/constants';
 import activityStatusState, {
-  ActivityStatusState,
+    ActivityStatusState
 } from '../states/ActivityStatus';
 import { SubscribeHOC } from '../states/helper';
 import { SocialButon } from './SocialButton';
@@ -18,6 +18,7 @@ interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
+log('GOOGLE_CLIENT_ID', GOOGLE_CLIENT_ID);
 const GoogleButton: React.FC<Props> = props => {
   const googleLogin = async () => {
     try {
@@ -34,11 +35,13 @@ const GoogleButton: React.FC<Props> = props => {
         const [activityStatusState] = props.states;
         activityStatusState.show('Logging in');
         await agent.token.oauth(accessToken);
-        activityStatusState.dismiss();
         props.navigation.navigate(SCREENS[SCREENS.LOADING]);
       }
     } catch (err) {
+      log('google login error', err);
       Alert.alert('try again later');
+    } finally {
+      activityStatusState.dismiss();
     }
   };
 

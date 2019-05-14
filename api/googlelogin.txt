@@ -1,0 +1,1 @@
+GET /o/oauth2/v2/auth?gidas=1&response_type=code&scope=openid%20email%20profile%20email%20profile&verifier=65400194&hl=en-NZ&redirect_uri=com.googleusercontent.apps.248650621080-vp9dkt8bjb5d5bvlqhcfb4r54s4ip0r4%3A%2Foauth2callback&client_id=248650621080-vp9dkt8bjb5d5bvlqhcfb4r54s4ip0r4.apps.googleusercontent.com&gpsdk=gid-4.1.2 HTTP/1.1
