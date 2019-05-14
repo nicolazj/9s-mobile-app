@@ -170,6 +170,18 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
         );
         return r.data;
       },
+      sendAccount: async (id: string, selectedAccount: any) => {
+        const r = await instance.put(
+          `/connections/connections/tenants/${tenantId}/company/${companyUuid}/connections/${id}/accounts`,
+          selectedAccount,
+          {
+            headers: {
+              'Content-Type': 'application/hal+json',
+            },
+          }
+        );
+        return r.data;
+      },
     },
     entities: {
       list: async (id: string) => {

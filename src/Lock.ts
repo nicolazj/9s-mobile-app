@@ -1,5 +1,4 @@
-import { Entity } from './types';
-class Lock<T> {
+export default class Lock<T> {
   resolve?: (value?: T | PromiseLike<T> | undefined) => void;
   hold() {
     return new Promise<T>(resolve => {
@@ -12,5 +11,3 @@ class Lock<T> {
     }
   }
 }
-
-export default new Lock<Entity>();

@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert, Animated, Image, LayoutChangeEvent, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
+import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import appState, { AppState } from '../../states/Apps';
@@ -70,23 +71,25 @@ interface State {
 
 const HEIGHT_COLLAPSED = scale(60);
 
-class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
-  constructor(props) {
+class ErrorBoundary extends React.Component<any, { error: any }> {
+  constructor(props: any) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { error: null };
   }
 
-  static getDerivedStateFromError(error) {
-    return { hasError: true };
-  }
+  componentDidCatch(error, errorInfo) {
+    log(error, errorInfo);
 
-  componentDidCatch(error, info) {
-    log(error, info);
+    // Catch errors in any components below and re-render with error message
+    this.setState({
+      error: error,
+    });
+    // You can also log error messages to an error reporting service here
   }
 
   render() {
-    if (this.state.hasError) {
-      return <NoDataPromp>Error</NoDataPromp>;
+    if (this.state.error) {
+      return <NoDataPromp>Oops, please try again later.</NoDataPromp>;
     }
 
     return this.props.children;

@@ -1,11 +1,15 @@
 import { AppLoading, Asset, Font } from 'expo';
 import React from 'react';
-import { View, Platform } from 'react-native';
+import { View } from 'react-native';
 
 import Icon from '@expo/vector-icons';
 
 import Root from './src/Root';
-import log from './src/logging';
+import Sentry from 'sentry-expo';
+Sentry.config(
+  'https://fb67f15df45e4a2ea788e003f7a7a501@sentry.io/1457806'
+).install();
+
 interface State {
   isLoadingComplete: boolean;
 }

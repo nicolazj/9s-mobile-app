@@ -3,7 +3,13 @@ import { View } from 'react-native';
 
 import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
-import { Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from './base/LineWidget';
+import {
+  Header,
+  IndexTitle,
+  IndexTitles,
+  IndexVal,
+  IndexVals,
+} from './base/LineWidget';
 
 function formatter(value: number) {
   return value + '0%';

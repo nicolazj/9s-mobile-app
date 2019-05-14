@@ -31,6 +31,18 @@
       "package": "com.ninespokes.dashboard",
       "googleServicesFile": "./google-services.json"
     },
-    "scheme": "nsp"
+    "scheme": "nsp",
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "9spokes",
+            "project": "9spokes-app",
+            "authToken": "955affd9955f474596fe6354b0966f6ecddc46ba6bb946eba7d0b417ab7ad6f8"
+          }
+        }
+      ]
+    }
   }
 }

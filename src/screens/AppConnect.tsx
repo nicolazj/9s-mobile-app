@@ -1,10 +1,9 @@
 import { Constants, Linking, WebBrowser } from 'expo';
+import { Field, Formik } from 'formik';
 import React from 'react';
 import { Image, View } from 'react-native';
 import {
-  NavigationActions,
-  NavigationScreenProp,
-  StackActions,
+    NavigationActions, NavigationScreenProp, StackActions
 } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -12,6 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import agent from '../agent';
 import Button from '../components/Button';
 import Select from '../components/Select';
+import { FormikTextInput, FormTitle } from '../formik';
 import Lock from '../Lock';
 import log from '../logging';
 import * as P from '../primitives';
@@ -21,6 +21,7 @@ import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
 import styled, { scale, th } from '../styled';
 import { ACTIVITY_TYPES, Entity, Workflow } from '../types';
+import { object, requiredString } from '../validations';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
@@ -58,6 +59,11 @@ const Row = styled(View)`
 const Icon = styled(Ionicons).attrs(props => ({
   color: th('color.main')(props),
 }))``;
+
+const entityLock = new Lock<Entity>();
+
+const accountLock = new Lock<{ account: string }>();
+
 export class AppConnectScreen extends React.Component<Props, State> {
   state = {
     entities: [],
@@ -111,7 +117,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
               break;
 
             case ACTIVITY_TYPES.REDIRECT_USER_AGENT:
-              log('redirectUrl...', Constants.linkingUri);
+              log('redirecting user to ...', step.href);
               const r = (await WebBrowser.openAuthSessionAsync(
                 step.href,
                 Constants.linkingUri
@@ -129,7 +135,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
               break;
 
             case ACTIVITY_TYPES.SUBMIT_ENTITY:
-              const entity = await Lock.hold();
+              const entity = await entityLock.hold();
               log('select entity', entity);
               if (connection) {
                 await company.entities.put(connection.id, {
@@ -146,7 +152,18 @@ export class AppConnectScreen extends React.Component<Props, State> {
                 activityStatus.dismiss();
               }
               break;
+            case ACTIVITY_TYPES.SUBMIT_ACCOUNT:
+              console.log('SUBMIT_ACCOUNT');
 
+              const account = await accountLock.hold();
+
+              if (connection) {
+                await company.connection.sendAccount(connection.id, {
+                  _embedded: account,
+                });
+              }
+
+              break;
             case ACTIVITY_TYPES.SUBMIT_AUTHORIZATION:
               if (connection && authResult) {
                 activityStatus.show('Connecting');
@@ -200,6 +217,40 @@ export class AppConnectScreen extends React.Component<Props, State> {
             ))}
           </Container>
         )}
+        {step === ACTIVITY_TYPES.SUBMIT_ACCOUNT && (
+          <Container hcenter>
+            <Title>Select an account</Title>
+            <SubTitle>
+              Please provide the following credentials to connect your {appKey}
+              account
+            </SubTitle>
+            <Container hasMargin>
+              <Formik
+                initialValues={{
+                  selectedAccount: '',
+                }}
+                validationSchema={object().shape({
+                  selectedAccount: requiredString,
+                })}
+                onSubmit={this.submitAccount}
+              >
+                {({ handleSubmit }) => (
+                  <View style={{ flex: 1 }}>
+                    <Field
+                      name="selectedAccount"
+                      component={FormikTextInput}
+                      placeholder="Store name"
+                      returnKeyType="next"
+                    />
+
+                    <Button title="Continue" onPress={handleSubmit} />
+                  </View>
+                )}
+              </Formik>
+            </Container>
+          </Container>
+        )}
+
         {step === ACTIVITY_TYPES.SUCCEEDED && (
           <Container vcenter hcenter>
             <AppImg source={{ uri: appDetail.app.logo }} resizeMode="contain" />
@@ -241,7 +292,11 @@ export class AppConnectScreen extends React.Component<Props, State> {
     );
   }
   chooseEntity(e: Entity) {
-    Lock.release(e);
+    entityLock.release(e);
+  }
+
+  submitAccount(values) {
+    accountLock.release(values);
   }
 }
 
