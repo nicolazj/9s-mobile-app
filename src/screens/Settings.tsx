@@ -100,9 +100,7 @@ export class Settings extends React.Component<Props> {
               <Body>
                 <BodyText>{company && company.companyName}</BodyText>
               </Body>
-              <Right>
-                <Ionicons name="ios-arrow-forward" />
-              </Right>
+              <Right />
             </ListItem>
           </List>
           <Title>Support</Title>
