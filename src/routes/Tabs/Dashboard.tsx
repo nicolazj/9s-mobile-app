@@ -23,7 +23,7 @@ const DashboardStack = createStackNavigator(
               navigation.navigate(SCREENS[SCREENS.MANAGE_WIDGETS]);
             }}
           >
-            <P.Text style={{ color: '#fff' }}>Edit</P.Text>
+            <P.Text style={{ color: '#fff' }}>Manage</P.Text>
           </P.Touchable>
         ),
       }),

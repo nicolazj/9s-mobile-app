@@ -27,10 +27,7 @@ const BodyText = styled(Text)`
 `;
 
 export class Settings extends React.Component<Props> {
-  debug = () => {
-    Alert.alert(Constants.linkingUri);
-    Alert.alert(Constants.appOwnership);
-  };
+  debug = () => {};
   reportProblem = () => {
     const [userContainer, authContainer] = this.props.states;
     const company = userContainer.state.companies.find(
