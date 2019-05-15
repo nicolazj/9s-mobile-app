@@ -11,7 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import agent from '../agent';
 import Button from '../components/Button';
 import Select from '../components/Select';
-import { FormikTextInput, FormTitle } from '../formik';
+import { FormikTextInput } from '../formik';
 import Lock from '../Lock';
 import log from '../logging';
 import * as P from '../primitives';
@@ -198,9 +198,9 @@ export class AppConnectScreen extends React.Component<Props, State> {
     return (
       <Container hasPadding>
         {step === ACTIVITY_TYPES.CLIENT_INIT && (
-          <P.Container vcenter hcenter>
+          <Container vcenter hcenter>
             <Title>Connect to {appDetail.app.name}</Title>
-          </P.Container>
+          </Container>
         )}
         {step === ACTIVITY_TYPES.SUBMIT_ENTITY && (
           <Container hcenter>
@@ -283,10 +283,10 @@ export class AppConnectScreen extends React.Component<Props, State> {
         )}
 
         {step === ACTIVITY_TYPES.ERRORED && (
-          <P.Container vcenter hcenter>
+          <Container vcenter hcenter>
             <P.H2>Ooops</P.H2>
             <SubTitle>please try again</SubTitle>
-          </P.Container>
+          </Container>
         )}
       </Container>
     );
