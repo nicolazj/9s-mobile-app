@@ -2,7 +2,9 @@ import { Constants } from 'expo';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, TextInput, View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {
+    KeyboardAwareScrollView
+} from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
 
 import agent from '../agent';
@@ -14,7 +16,7 @@ import { FormikTextInput, FormTitle } from '../formik';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import activityStatusState, {
-  ActivityStatusState,
+    ActivityStatusState
 } from '../states/ActivityStatus';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
@@ -60,7 +62,11 @@ class SignIn extends React.Component<Props> {
     return (
       <P.Container>
         <P.SafeArea>
-          <KeyboardAwareScrollView extraHeight={Constants.statusBarHeight}>
+          <KeyboardAwareScrollView
+            extraHeight={Constants.statusBarHeight}
+            extraScrollHeight={10}
+            enableOnAndroid
+          >
             <P.Container hasMargin>
               <Formik
                 initialValues={{

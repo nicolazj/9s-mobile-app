@@ -2,8 +2,10 @@ import { Constants } from 'expo';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, TextInput, View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+    KeyboardAwareScrollView
+} from 'react-native-keyboard-aware-scroll-view';
+import { Header, NavigationScreenProp } from 'react-navigation';
 
 import agent from '../../agent';
 import Button from '../../components/Button';
@@ -14,7 +16,7 @@ import { FormikTextInput, FormTitle } from '../../formik';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import activityStatusState, {
-  ActivityStatusState,
+    ActivityStatusState
 } from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
 import { SignUpPayload } from '../../types';
@@ -37,7 +39,7 @@ export class SignUp extends React.Component<Props> {
       this.refPassword.current.focus();
     }
   };
-  focucLastName = () => {
+  focusLastName = () => {
     if (this.refLastName.current) {
       this.refLastName.current.focus();
     }
@@ -73,7 +75,11 @@ export class SignUp extends React.Component<Props> {
     return (
       <P.Container>
         <P.SafeArea>
-          <KeyboardAwareScrollView extraHeight={Constants.statusBarHeight}>
+          <KeyboardAwareScrollView
+            extraHeight={Constants.statusBarHeight + Header.HEIGHT}
+            extraScrollHeight={10}
+            enableOnAndroid
+          >
             <P.Container hasMargin>
               <Formik
                 initialValues={
@@ -112,7 +118,7 @@ export class SignUp extends React.Component<Props> {
                       component={FormikTextInput}
                       placeholder="First name"
                       returnKeyType="next"
-                      onSubmitEditing={this.focucLastName}
+                      onSubmitEditing={this.focusLastName}
                     />
                     <Field
                       name="lastName"
