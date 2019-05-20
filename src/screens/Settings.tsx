@@ -57,7 +57,7 @@ export class Settings extends React.Component<Props> {
     ];
 
     Linking.openURL(
-      'mailto:support@9spokes.com?subject=Mobile QUery&body=' + texts.join('\n')
+      'mailto:support@9spokes.com?subject=Mobile Query&body=' + texts.join('\n')
     );
   };
   render() {
@@ -170,21 +170,8 @@ export class Settings extends React.Component<Props> {
             </ListItem>
           </List>
           <Title />
-          <List style={{ backgroundColor: '#fff' }}>
-            <ListItem
-              onPress={() => {
-                AsyncStorage.clear();
-              }}
-            >
-              <Left>
-                <Text>Clear Cache</Text>
-              </Left>
-              <Right>
-                <Text />
-              </Right>
-            </ListItem>
-          </List>
-          <P.Container hasMargin={true}>
+
+          <P.Container hasMargin>
             <Button title="Log out" onPress={this.handleLogout} />
           </P.Container>
         </ScrollView>
@@ -194,6 +181,7 @@ export class Settings extends React.Component<Props> {
   handleLogout = () => {
     const [_, authState] = this.props.states;
     authState.clear();
+    AsyncStorage.clear();
     this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
   };
 }
