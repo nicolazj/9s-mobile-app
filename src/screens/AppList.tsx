@@ -1,22 +1,22 @@
 import React from 'react';
-import { Alert, Image, Linking, ScrollView, View } from 'react-native';
+import { Alert, Image, ScrollView, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import agent from '../agent';
-import Link from '../components/Link';
+import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import activityStatusState, { ActivityStatusState } from '../states/ActivityStatus';
+import activityStatusState, {
+    ActivityStatusState
+} from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
-import authContainer, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
-import userState, { UserState } from '../states/User';
 import styled, { scale, th } from '../styled';
 import { App } from '../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState, UserState, AuthState, ActivityStatusState];
+  states: [AppState, ActivityStatusState];
 }
 
 const Title = styled(P.H1)`
@@ -85,17 +85,12 @@ const AvaibleAppOpText = styled(P.Text)`
   font-size: ${scale(24)}px;
 `;
 
-const SuggestAppLink = styled(View)`
-  align-items: center;
-  padding-top: ${scale(20)}px;
-  padding-bottom: ${scale(50)}px;
-`;
 class AppList extends React.Component<Props> {
   componentDidMount() {
     this.fetchApps();
   }
   fetchApps = async () => {
-    const [appState, __, ___, activityStatusState] = this.props.states;
+    const [appState, activityStatusState] = this.props.states;
     activityStatusState.show('Loading');
     try {
       const [connections, spokes, apps, samples] = await Promise.all([
@@ -104,7 +99,9 @@ class AppList extends React.Component<Props> {
         agent.user.service.list(),
         agent.misc.widget.sample(),
       ]);
-      const fullApps = await Promise.all(apps.map(app => agent.user.service.get(app.key)));
+      const fullApps = await Promise.all(
+        apps.map(app => agent.user.service.get(app.key))
+      );
       appState.setState({ connections, spokes, apps: fullApps, samples });
     } catch (err) {
       Alert.alert('please try again later');
@@ -116,28 +113,7 @@ class AppList extends React.Component<Props> {
   onPress(app: App) {
     this.props.navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
   }
-  suggestApp = () => {
-    const [_, userContainer, authContainer] = this.props.states;
-    const company = userContainer.state.companies.find(c => c.companyUuid === authContainer.state.companyUuid);
-    const { me } = userContainer.state;
-    const texts = [
-      'Hey 9Spokes team!',
-      '',
-      "A service that I use isn't currently supported on the 9Spokes mobile app and it would be great if you could consider supporting it!",
-      '',
-      'Here are my details:',
-      'Name:',
-      `${me.firstName} ${me.lastName}`,
-      '',
-      'Company name:',
-      company ? company.companyName : '',
-      '',
-      '9Spokes username:',
-      me.emailAddress,
-    ];
 
-    Linking.openURL('mailto:support@9spokes.com?subject=App Support Request&body=' + texts.join('\n'));
-  };
   render() {
     const [appState] = this.props.states;
     return (
@@ -149,11 +125,17 @@ class AppList extends React.Component<Props> {
                 <Title>My Connected Apps</Title>
               </View>
             </P.Container>,
-            <ScrollView key="connected-app-view" horizontal={true} style={{ backgroundColor: '#fff' }}>
+            <ScrollView
+              key="connected-app-view"
+              horizontal={true}
+              style={{ backgroundColor: '#fff' }}
+            >
               {appState.purchasedApps.map((app: App) => (
                 <ConnectedApp key={app.key} onPress={() => this.onPress(app)}>
                   <ConnectedAppImg source={{ uri: app.squareLogo }} />
-                  <ConnectedAppLabel>{app.shortName || app.name}</ConnectedAppLabel>
+                  <ConnectedAppLabel>
+                    {app.shortName || app.name}
+                  </ConnectedAppLabel>
                 </ConnectedApp>
               ))}
             </ScrollView>,
@@ -179,13 +161,11 @@ class AppList extends React.Component<Props> {
             ))}
           </AvaibleAppContainer>
 
-          <SuggestAppLink>
-            <Link title="Dont't see your apps? Tell us what you use" onPress={this.suggestApp} />
-          </SuggestAppLink>
+          <SuggestAppLink />
         </ScrollView>
       </P.Container>
     );
   }
 }
 
-export default SubscribeHOC([appState, userState, authContainer, activityStatusState])(AppList);
+export default SubscribeHOC([appState, activityStatusState])(AppList);

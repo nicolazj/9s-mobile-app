@@ -88,7 +88,7 @@ export class Settings extends React.Component<Props> {
             </ListItem>
             <ListItem
               onPress={() => {
-                // this.props.navigation.push(SCREENS[SCREENS.UPDATE_COMPANY]);
+                this.props.navigation.push(SCREENS[SCREENS.UPDATE_COMPANY]);
               }}
             >
               <Left>
@@ -97,7 +97,9 @@ export class Settings extends React.Component<Props> {
               <Body>
                 <BodyText>{company && company.companyName}</BodyText>
               </Body>
-              <Right />
+              <Right>
+                <Ionicons name="ios-arrow-forward" />
+              </Right>
             </ListItem>
           </List>
           <Title>Support</Title>

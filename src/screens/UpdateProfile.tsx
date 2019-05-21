@@ -1,4 +1,4 @@
-import { Body, List, ListItem } from 'native-base';
+import { Body, Left, List, ListItem, Text } from 'native-base';
 import React from 'react';
 import { ScrollView, TextInput } from 'react-native';
 import { NavigationEvents, NavigationScreenProp } from 'react-navigation';
@@ -8,7 +8,7 @@ import * as P from '../primitives';
 import authState, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
-import styled, { scale } from '../styled';
+import styled, { scale, th } from '../styled';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
@@ -18,7 +18,9 @@ const Title = styled(P.H1)`
   font-size: ${scale(24)}px;
   margin: ${scale(16)}px;
 `;
-
+const BodyText = styled(Text)`
+  color: ${th('color.grey')};
+`;
 export class Settings extends React.Component<Props> {
   update = () => {
     const [userState] = this.props.states;
@@ -36,6 +38,9 @@ export class Settings extends React.Component<Props> {
           <Title>User profile</Title>
           <List style={{ backgroundColor: '#fff' }}>
             <ListItem>
+              <Left>
+                <Text>First name</Text>
+              </Left>
               <Body>
                 <TextInput
                   placeholder="First name"
@@ -53,6 +58,9 @@ export class Settings extends React.Component<Props> {
               </Body>
             </ListItem>
             <ListItem>
+              <Left>
+                <Text>Last name</Text>
+              </Left>
               <Body>
                 <TextInput
                   placeholder="Last name"
@@ -67,6 +75,15 @@ export class Settings extends React.Component<Props> {
                   }}
                   value={me.lastName}
                 />
+              </Body>
+            </ListItem>
+
+            <ListItem>
+              <Left>
+                <Text>Email</Text>
+              </Left>
+              <Body>
+                <BodyText>{me.emailAddress}</BodyText>
               </Body>
             </ListItem>
           </List>

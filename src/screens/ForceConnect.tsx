@@ -3,9 +3,12 @@ import { Image, ScrollView, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import agent from '../agent';
+import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import activityStatusState, { ActivityStatusState } from '../states/ActivityStatus';
+import activityStatusState, {
+    ActivityStatusState
+} from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import authContainer, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
@@ -66,7 +69,9 @@ class ForceConnect extends React.Component<Props> {
       agent.user.spoke.get('mobile'),
       agent.user.service.list(),
     ]);
-    const fullApps = await Promise.all(apps.map(app => agent.user.service.get(app.key)));
+    const fullApps = await Promise.all(
+      apps.map(app => agent.user.service.get(app.key))
+    );
     appState.setState({ connections, spokes, apps: fullApps });
     activityStatusState.dismiss();
   };
@@ -94,10 +99,16 @@ class ForceConnect extends React.Component<Props> {
               </AvaibleApp>
             ))}
           </AvaibleAppContainer>
+          <SuggestAppLink />
         </ScrollView>
       </P.Container>
     );
   }
 }
 
-export default SubscribeHOC([appState, userState, authContainer, activityStatusState])(withNavigation(ForceConnect));
+export default SubscribeHOC([
+  appState,
+  userState,
+  authContainer,
+  activityStatusState,
+])(withNavigation(ForceConnect));

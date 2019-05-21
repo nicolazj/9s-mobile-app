@@ -16,8 +16,7 @@ interface State {
 const interval = 5000;
 export default class Walkthrough extends React.Component<Props, State> {
   private list: any;
-  private timer1?: number;
-  private timer2?: number;
+  private timer?: number;
 
   constructor(props: Props) {
     super(props);
@@ -47,18 +46,21 @@ export default class Walkthrough extends React.Component<Props, State> {
   );
 
   componentDidMount() {
-    this.timer1 = (setTimeout(() => {
-      this.list.scrollToOffset({ offset: width });
-      this.setState({ index: 1 });
+    this.timer = (setInterval(() => {
+      let next = this.state.index + 1;
+
+      if (this.list) {
+        this.list.scrollToOffset({ offset: width * next });
+        this.setState({ index: next });
+      }
+
+      if (next === this.props.children.length - 1) {
+        clearInterval(this.timer!);
+      }
     }, interval) as unknown) as number;
-    this.timer2 = (setTimeout(() => {
-      this.list.scrollToOffset({ offset: width * 2 });
-      this.setState({ index: 2 });
-    }, interval * 2) as unknown) as number;
   }
   cancelTimer = () => {
-    clearTimeout(this.timer1!);
-    clearTimeout(this.timer2!);
+    clearTimeout(this.timer!);
   };
 
   render = () => (
