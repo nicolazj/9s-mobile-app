@@ -1,5 +1,7 @@
 import React from 'react';
-import { ActivityIndicator, Alert, StatusBar, View } from 'react-native';
+import {
+    ActivityIndicator, Alert, AsyncStorage, StatusBar, View
+} from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import agent from '../agent';
@@ -48,6 +50,7 @@ export class AuthLoadingScreen extends React.Component<Props> {
       } else this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
     } catch (err) {
       Alert.alert('please try again later');
+      AsyncStorage.clear();
     }
   };
   // Render any loading content that you like here
@@ -80,4 +83,6 @@ export class AuthLoadingScreen extends React.Component<Props> {
   }
 }
 
-export default SubscribeHOC([authState, userState, cookieState])(AuthLoadingScreen);
+export default SubscribeHOC([authState, userState, cookieState])(
+  AuthLoadingScreen
+);
