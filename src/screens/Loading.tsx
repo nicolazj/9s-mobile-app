@@ -1,6 +1,10 @@
 import React from 'react';
 import {
-    ActivityIndicator, Alert, AsyncStorage, StatusBar, View
+  ActivityIndicator,
+  Alert,
+  AsyncStorage,
+  StatusBar,
+  View,
 } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
@@ -35,7 +39,7 @@ export class AuthLoadingScreen extends React.Component<Props> {
           companies,
         });
 
-        if (companies.length === 1) {
+        if (companies.length > 0) {
           await agent.token.exchange(companies[0].companyUuid);
         }
 

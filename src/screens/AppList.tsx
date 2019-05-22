@@ -7,7 +7,7 @@ import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import activityStatusState, {
-    ActivityStatusState
+  ActivityStatusState,
 } from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
