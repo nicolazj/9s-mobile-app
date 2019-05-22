@@ -5,7 +5,9 @@ import { View } from 'react-native';
 import t from '../../i18n/en';
 import { withTheme } from '../../styled';
 import LineChart from '../charts/LineChart';
-import LineWidget, { Data, Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from './base/LineWidget';
+import LineWidget, {
+    Data, Header, IndexTitle, IndexTitles, IndexVal, IndexVals
+} from './base/LineWidget';
 
 function formatXAxis(value: number, index: number, data: Data) {
   const item = data[0].data[index];
@@ -15,15 +17,15 @@ function formatXAxis(value: number, index: number, data: Data) {
 function formatYAxis(value: number, index: number) {
   return value > 1000 ? (value / 1000).toFixed(1) + 'K' : value.toString();
 }
-function formatter(value: number) {
-  return numeral(value).format('$0,0.0');
-}
+
 export class CashPositionAndCoverage extends LineWidget {
   render() {
-    const { widget } = this.props;
+    const { widget, symbol } = this.props;
     const { curTick } = this.state;
     const data = this.getData();
-
+    function formatter(value: number) {
+      return symbol + numeral(value).format(`0,0.0`);
+    }
     return (
       <View>
         <Header>
@@ -33,7 +35,9 @@ export class CashPositionAndCoverage extends LineWidget {
           </IndexTitles>
           <IndexVals>
             <IndexVal>{widget.data.graphData[0].value[curTick]}</IndexVal>
-            <IndexVal>{formatter(widget.data.graphData[1].value[curTick])}</IndexVal>
+            <IndexVal>
+              {formatter(widget.data.graphData[1].value[curTick])}
+            </IndexVal>
           </IndexVals>
         </Header>
         <LineChart

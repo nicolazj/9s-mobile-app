@@ -7,16 +7,19 @@ import { NavigationScreenProp } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 
 import Button from '../components/Button';
+import Switch from '../components/Switch';
+import { currencyMaps } from '../currency';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import authState, { AuthState } from '../states/Auth';
+import cookieState, { CookieState } from '../states/Cookie';
 import { SubscribeHOC } from '../states/helper';
 import userState, { UserState } from '../states/User';
 import styled, { scale, th } from '../styled';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [UserState, AuthState];
+  states: [UserState, AuthState, CookieState];
 }
 const Title = styled(P.H1)`
   font-size: ${scale(24)}px;
@@ -61,7 +64,7 @@ export class Settings extends React.Component<Props> {
     );
   };
   render() {
-    const [userState, authState] = this.props.states;
+    const [userState, authState, cookieState] = this.props.states;
     const { me, companies } = userState.state;
     const company = companies
       ? companies.find(c => c.companyUuid === authState.state.companyUuid)
@@ -100,6 +103,27 @@ export class Settings extends React.Component<Props> {
               <Right>
                 <Ionicons name="ios-arrow-forward" />
               </Right>
+            </ListItem>
+            <ListItem>
+              <Left>
+                <Text>Currency </Text>
+              </Left>
+              <Body>
+                <Switch
+                  cur={currencyMaps.findIndex(
+                    c => c.currency === cookieState.state.currency
+                  )}
+                  options={currencyMaps.map((c, i) => ({
+                    label: c.currency,
+                    value: i,
+                  }))}
+                  onChange={(index: number) =>
+                    cookieState.setState({
+                      currency: currencyMaps[index].currency,
+                    })
+                  }
+                />
+              </Body>
             </ListItem>
           </List>
           <Title>Support</Title>
@@ -187,4 +211,4 @@ export class Settings extends React.Component<Props> {
     this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
   };
 }
-export default SubscribeHOC([userState, authState])(Settings);
+export default SubscribeHOC([userState, authState, cookieState])(Settings);

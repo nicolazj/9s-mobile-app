@@ -5,9 +5,6 @@ import { View } from 'react-native';
 import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
 
-function formatter(value: number) {
-  return numeral(value).format('$0,0.00');
-}
 const id = (t: any) => t;
 
 interface Props {
@@ -15,7 +12,14 @@ interface Props {
   collapsed: boolean;
 }
 
-const SalesStaffPerformance: React.FC<Props> = ({ widget, collapsed }) => {
+const SalesStaffPerformance: React.FC<Props> = ({
+  widget,
+  collapsed,
+  symbol,
+}) => {
+  function formatter(value: number) {
+    return symbol + numeral(value).format(`0,0.00`);
+  }
   const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
     return {
       title: ['Best', 'Worst'][dIndex],

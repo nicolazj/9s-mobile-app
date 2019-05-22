@@ -2,10 +2,12 @@ import React from 'react';
 import { Alert, Animated, Image, LayoutChangeEvent, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
+import { getSymbol } from '../../currency';
 import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import appState, { AppState } from '../../states/Apps';
+import cookieState, { CookieState } from '../../states/Cookie';
 import { SubscribeHOC } from '../../states/helper';
 import styled, { scale } from '../../styled';
 import { Widget } from '../../types';
@@ -61,7 +63,7 @@ interface Props {
   widget: Widget;
   sample?: boolean;
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState];
+  states: [AppState, CookieState];
 }
 interface State {
   collapsed: boolean;
@@ -153,8 +155,9 @@ class WidgetComp extends React.Component<Props, State> {
   };
   render() {
     const { widget, sample } = this.props;
-    const [appState] = this.props.states;
+    const [appState, cookieState] = this.props.states;
     const { collapsed } = this.state;
+    const symbol = getSymbol(cookieState.state.currency);
     const hasData = !!widget.data.extras || widget.data.dataSets;
 
     const Widget = getWidgetByKey(widget.key);
@@ -168,10 +171,7 @@ class WidgetComp extends React.Component<Props, State> {
     return (
       <WidgetContainer
         onPress={() => {
-          sample &&
-            this.props.navigation.navigate(SCREENS[SCREENS.WIDGET_INFO], {
-              key: widget.key,
-            });
+          sample && this.gotoWidgetInfo(widget);
         }}
       >
         <WidgetHeader>
@@ -190,7 +190,7 @@ class WidgetComp extends React.Component<Props, State> {
           <View onLayout={this.setMaxHeight}>
             {hasData ? (
               <ErrorBoundary>
-                <Widget widget={widget} collapsed={collapsed} />
+                <Widget widget={widget} {...{ collapsed, symbol }} />
               </ErrorBoundary>
             ) : (
               <NoDataPromp>
@@ -214,4 +214,6 @@ class WidgetComp extends React.Component<Props, State> {
   }
 }
 
-export default SubscribeHOC([appState])(withNavigation(WidgetComp));
+export default SubscribeHOC([appState, cookieState])(
+  withNavigation(WidgetComp)
+);

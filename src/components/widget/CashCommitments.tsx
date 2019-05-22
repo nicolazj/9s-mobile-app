@@ -5,16 +5,16 @@ import t from '../../i18n/en';
 import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
 
-function formatter(value: number) {
-  return numeral(value).format('$0,0.00');
-}
-
 interface Props {
   widget: Widget;
   collapsed: boolean;
+  symbol: string;
 }
 
-const CashCommitments: React.FC<Props> = ({ widget, collapsed }) => {
+const CashCommitments: React.FC<Props> = ({ widget, collapsed, symbol }) => {
+  function formatter(value: number) {
+    return symbol + numeral(value).format(`0,0.00`);
+  }
   const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
     return {
       header: ['Name', 'Opened', 'Clicked'],

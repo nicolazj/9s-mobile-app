@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+
 import t from '../../../i18n/en';
 import * as P from '../../../primitives';
 import styled, { IThemeInterface, scale } from '../../../styled';
@@ -8,6 +9,7 @@ import { Widget } from '../../../types';
 interface Props {
   widget: Widget;
   theme: IThemeInterface;
+  symbol: string;
 }
 export const Header = styled(View)`
   padding: 10px;
