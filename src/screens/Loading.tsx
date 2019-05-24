@@ -23,10 +23,9 @@ export class AuthLoadingScreen extends React.Component<Props> {
     this.bootstrapAsync();
   }
 
-  // Fetch the token from storage then navigate to our appropriate place
   bootstrapAsync = async () => {
     try {
-      const [, , cookieState] = this.props.states;
+      const [_, userState, cookieState] = this.props.states;
       const { onboarding } = cookieState.state;
       const loggedIn = await this.checkingLogin();
       if (loggedIn) {
@@ -34,9 +33,18 @@ export class AuthLoadingScreen extends React.Component<Props> {
         userState.setState({
           companies,
         });
-
+        let companyUuid = null;
+        const existedcompanyUuid = cookieState.state.companyUuid;
         if (companies.length === 1) {
-          await agent.token.exchange(companies[0].companyUuid);
+          companyUuid = companies[0].companyUuid;
+        } else if (existedcompanyUuid) {
+          if (companies.find(c => c.companyUuid === existedcompanyUuid)) {
+            companyUuid = existedcompanyUuid;
+          }
+        }
+        if (companyUuid) {
+          await cookieState.setState({ companyUuid });
+          await agent.token.exchange(companyUuid);
           let connections = await agent.company.connection.list();
           if (connections.filter(conn => conn.status === 'ACTIVE').length > 0) {
             this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);

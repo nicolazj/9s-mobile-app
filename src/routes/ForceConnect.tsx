@@ -23,9 +23,7 @@ const Logout_: React.FC<{
 }> = ({ states, navProps: { navigation } }) => (
   <LogoutBtn
     onPress={() => {
-      const [authState] = states;
-      authState.clear();
-      navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
+      navigation.navigate(SCREENS[SCREENS.LOGOUT]);
     }}
   >
     <LogoutText>Log out</LogoutText>

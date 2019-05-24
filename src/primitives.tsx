@@ -1,4 +1,6 @@
-import { SafeAreaView, Text as Text_, TouchableOpacity, View } from 'react-native';
+import {
+    SafeAreaView, Text as Text_, TouchableOpacity, View
+} from 'react-native';
 
 import styled, { scale, th } from './styled';
 
@@ -20,6 +22,13 @@ export const H2 = styled(Text)`
 export const H3 = styled(Text)`
   font-size: ${scale(16)}px;
   line-height: ${scale(16 * 1.7)}px;
+`;
+export const Title = styled(H1)`
+  font-size: ${scale(24)}px;
+  margin: ${scale(16)}px;
+`;
+export const SubTitle = styled(Text)`
+  color: #aaa;
 `;
 interface ContainerProps {
   hasPadding?: boolean;

@@ -1,12 +1,13 @@
 import { Constants, Linking, WebBrowser } from 'expo';
 import { Body, Left, List, ListItem, Right, Text } from 'native-base';
 import React from 'react';
-import { Alert, AsyncStorage, ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
 
 import Button from '../components/Button';
+import Link from '../components/Link';
 import Switch from '../components/Switch';
 import { currencyMaps } from '../currency';
 import * as P from '../primitives';
@@ -27,6 +28,13 @@ const Title = styled(P.H1)`
 `;
 const BodyText = styled(Text)`
   color: ${th('color.grey')};
+`;
+
+const SwitchCompanyBtn = styled(Link)`
+  position: absolute;
+  right: ${scale(24)}px;
+  top: ${scale(24)}px;
+  padding: 5px;
 `;
 
 export class Settings extends React.Component<Props> {
@@ -73,6 +81,14 @@ export class Settings extends React.Component<Props> {
       <P.Container>
         <ScrollView>
           <Title>Account</Title>
+          {companies.length > 1 && (
+            <SwitchCompanyBtn
+              title="Change Company"
+              onPress={() => {
+                this.props.navigation.push(SCREENS[SCREENS.SWITCH_COMPANY]);
+              }}
+            />
+          )}
           <List style={{ backgroundColor: '#fff' }}>
             <ListItem
               onPress={() => {
@@ -205,10 +221,7 @@ export class Settings extends React.Component<Props> {
     );
   }
   handleLogout = () => {
-    const [_, authState] = this.props.states;
-    authState.clear();
-    AsyncStorage.clear();
-    this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
+    this.props.navigation.navigate(SCREENS[SCREENS.LOGOUT]);
   };
 }
 export default SubscribeHOC([userState, authState, cookieState])(Settings);

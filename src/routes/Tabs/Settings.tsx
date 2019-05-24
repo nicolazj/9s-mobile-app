@@ -1,6 +1,7 @@
 import { createStackNavigator } from 'react-navigation';
 
 import SettingsScreen from '../../screens/Settings';
+import SwitchCompany from '../../screens/SwitchCompany';
 import UpdateCompany from '../../screens/UpdateCompany';
 import UpdateProfile from '../../screens/UpdateProfile';
 import { IThemeInterface, th } from '../../styled';
@@ -20,6 +21,10 @@ const SettingsStack = createStackNavigator(
     [SCREENS[SCREENS.UPDATE_COMPANY]]: {
       screen: UpdateCompany,
       navigationOptions: { title: 'Update company' },
+    },
+    [SCREENS[SCREENS.SWITCH_COMPANY]]: {
+      screen: SwitchCompany,
+      navigationOptions: { title: '' },
     },
   },
   {

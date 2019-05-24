@@ -95,7 +95,9 @@ export class ManageWidgets extends React.Component<Props, State> {
       .sort((a, b) => {
         return a.attributes.order - b.attributes.order;
       });
-    const activeWidgetsShowed = activeWidgets.filter(w => w.attributes.showOnMobile);
+    const activeWidgetsShowed = activeWidgets.filter(
+      w => w.attributes.showOnMobile
+    );
     const activeWidgetsNotShowedGrouped = _groupby(
       activeWidgets.filter(w => !w.attributes.showOnMobile),
       'attributes.origin'
@@ -108,15 +110,18 @@ export class ManageWidgets extends React.Component<Props, State> {
           <StatusBar barStyle="light-content" />
           <P.H1 style={{ textAlign: 'center' }}>Manage</P.H1>
           <Group>
-            <Title>DASHBOARD</Title>
+            <P.Title>DASHBOARD</P.Title>
             <List>
               <SortableList
                 sortingEnabled={true}
                 scrollEnabled={false}
-                data={activeWidgetsShowed.reduce((p: { [key: string]: Widget }, cur, i) => {
-                  p[cur.id] = cur;
-                  return p;
-                }, {})}
+                data={activeWidgetsShowed.reduce(
+                  (p: { [key: string]: Widget }, cur, i) => {
+                    p[cur.id] = cur;
+                    return p;
+                  },
+                  {}
+                )}
                 order={activeWidgetsShowed.map(w => w.id)}
                 onChangeOrder={(orders: string[]) => {
                   this.orders = orders;
@@ -147,10 +152,18 @@ export class ManageWidgets extends React.Component<Props, State> {
                   this.setState({ widgets });
                   // need to execute this one by one, otherwise database can not handle it.
                   for (let payload of toUpdate) {
-                    await agent.company.widget.updateAttrs(...(payload as [string, any]));
+                    await agent.company.widget.updateAttrs(
+                      ...(payload as [string, any])
+                    );
                   }
                 }}
-                renderRow={({ data: widget, active }: { data: Widget; active: boolean }) => {
+                renderRow={({
+                  data: widget,
+                  active,
+                }: {
+                  data: Widget;
+                  active: boolean;
+                }) => {
                   return (
                     <SortableRow key={widget.id} active={active}>
                       <ListItem key={widget.id}>
@@ -158,15 +171,22 @@ export class ManageWidgets extends React.Component<Props, State> {
                           <P.Touchable
                             onPress={() => {
                               this.toggle(widget, false);
-                            }}>
-                            <Ionicons name="ios-remove-circle" size={24} color="#ff3b30" />
+                            }}
+                          >
+                            <Ionicons
+                              name="ios-remove-circle"
+                              size={24}
+                              color="#ff3b30"
+                            />
                           </P.Touchable>
                         </Cell>
                         <Cell style={{ flex: 2 }}>
                           <P.Text>{widget.attributes.displayName}</P.Text>
                         </Cell>
                         <Cell>
-                          <AppIcon source={{ uri: getIcon(widget.attributes.origin) }} />
+                          <AppIcon
+                            source={{ uri: getIcon(widget.attributes.origin) }}
+                          />
                         </Cell>
                         <Cell>
                           <Ionicons name="ios-reorder" size={30} color="#999" />
@@ -189,16 +209,23 @@ export class ManageWidgets extends React.Component<Props, State> {
                       key={widget.id}
                       onPress={() => {
                         this.toggle(widget, true);
-                      }}>
+                      }}
+                    >
                       <ListItem key={widget.id}>
                         <Cell>
-                          <Ionicons name="ios-add-circle" size={24} color="#4cd964" />
+                          <Ionicons
+                            name="ios-add-circle"
+                            size={24}
+                            color="#4cd964"
+                          />
                         </Cell>
                         <Cell style={{ flex: 2 }}>
                           <P.Text>{widget.attributes.displayName}</P.Text>
                         </Cell>
                         <Cell>
-                          <AppIcon source={{ uri: getIcon(widget.attributes.origin) }} />
+                          <AppIcon
+                            source={{ uri: getIcon(widget.attributes.origin) }}
+                          />
                         </Cell>
                         <Cell>
                           <Ionicons name="ios-reorder" size={30} color="#fff" />

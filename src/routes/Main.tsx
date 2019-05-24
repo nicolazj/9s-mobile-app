@@ -1,6 +1,7 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import Loading from '../screens/Loading';
+import Logout from '../screens/Logout';
 import Onboarding from '../screens/Onboarding';
 import SwitchCompany from '../screens/SwitchCompany';
 import Auth from './Auth';
@@ -16,6 +17,7 @@ const MainNavigator = createSwitchNavigator(
     [SCREENS[SCREENS.LOADING]]: Loading,
     [SCREENS[SCREENS.ONBOARDING]]: Onboarding,
     [SCREENS[SCREENS.SWITCH_COMPANY]]: SwitchCompany,
+    [SCREENS[SCREENS.LOGOUT]]: Logout,
   },
   {
     initialRouteName: SCREENS[SCREENS.LOADING],

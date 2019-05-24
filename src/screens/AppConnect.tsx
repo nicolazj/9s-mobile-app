@@ -39,12 +39,6 @@ const AppImg = styled(Image)`
   align-self: center;
 `;
 
-const Title = styled(P.H2)`
-  color: #aaa;
-`;
-const SubTitle = styled(P.Text)`
-  color: #aaa;
-`;
 const Container = styled(P.Container)`
   background-color: #fff;
 `;
@@ -199,15 +193,15 @@ export class AppConnectScreen extends React.Component<Props, State> {
       <Container hasPadding>
         {step === ACTIVITY_TYPES.CLIENT_INIT && (
           <Container vcenter hcenter>
-            <Title>Connect to {appDetail.app.name}</Title>
+            <P.Title>Connect to {appDetail.app.name}</P.Title>
           </Container>
         )}
         {step === ACTIVITY_TYPES.SUBMIT_ENTITY && (
           <Container hcenter>
-            <Title>Select an entity</Title>
-            <SubTitle>
+            <P.Title>Select an entity</P.Title>
+            <P.SubTitle>
               Select one of the following entities for your account
-            </SubTitle>
+            </P.SubTitle>
             {this.state.entities.map(e => (
               <Select
                 title={e.name}
@@ -219,11 +213,11 @@ export class AppConnectScreen extends React.Component<Props, State> {
         )}
         {step === ACTIVITY_TYPES.SUBMIT_ACCOUNT && (
           <Container hcenter>
-            <Title>Select an account</Title>
-            <SubTitle>
+            <P.Title>Select an account</P.Title>
+            <P.SubTitle>
               Please provide the following credentials to connect your {appKey}
               account
-            </SubTitle>
+            </P.SubTitle>
             <Container hasMargin>
               <Formik
                 initialValues={{
@@ -260,10 +254,10 @@ export class AppConnectScreen extends React.Component<Props, State> {
               <ConnectText>Connected</ConnectText>
             </Row>
 
-            <SubTitle>
+            <P.SubTitle>
               We're busy setting up your widgets for you. Here are some examples
               of what they'll look like when they're ready.
-            </SubTitle>
+            </P.SubTitle>
             <Button
               onPress={() => {
                 const resetAction = StackActions.reset({
@@ -285,7 +279,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
         {step === ACTIVITY_TYPES.ERRORED && (
           <Container vcenter hcenter>
             <P.H2>Ooops</P.H2>
-            <SubTitle>please try again</SubTitle>
+            <P.SubTitle>please try again</P.SubTitle>
           </Container>
         )}
       </Container>

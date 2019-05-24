@@ -5,6 +5,7 @@ import PersistContainer from './PersistContainer';
 interface State {
   onboarding: boolean;
   currency: string;
+  companyUuid?: string;
 }
 
 export class CookieState extends PersistContainer<State> {
@@ -19,6 +20,12 @@ export class CookieState extends PersistContainer<State> {
     onboarding: false,
     currency: 'GBP',
   };
+
+  clear() {
+    this.setState({
+      companyUuid: undefined,
+    });
+  }
 }
 
 export default new CookieState();

@@ -5,6 +5,7 @@ export enum SCREENS {
   LOADING,
   SIGN_IN,
   SIGN_UP,
+  LOGOUT,
   SIGN_UP_COMPANY,
   RESET_PWD,
   APP_LIST,

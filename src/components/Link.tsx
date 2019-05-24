@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+
 import * as P from '../primitives';
 import styled, { th } from '../styled';
 
