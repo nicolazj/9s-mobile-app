@@ -6,7 +6,7 @@
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -41,6 +41,10 @@
             "project": "9spokes-app",
             "authToken": "955affd9955f474596fe6354b0966f6ecddc46ba6bb946eba7d0b417ab7ad6f8"
           }
+        },
+        {
+          "file": "./build.js",
+          "config": {}
         }
       ]
     }

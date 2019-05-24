@@ -1,7 +1,7 @@
 import { Constants, Linking, WebBrowser } from 'expo';
 import { Body, Left, List, ListItem, Right, Text } from 'native-base';
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { Alert, ScrollView } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -10,6 +10,7 @@ import Button from '../components/Button';
 import Link from '../components/Link';
 import Switch from '../components/Switch';
 import { currencyMaps } from '../currency';
+import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import authState, { AuthState } from '../states/Auth';
@@ -38,7 +39,9 @@ const SwitchCompanyBtn = styled(Link)`
 `;
 
 export class Settings extends React.Component<Props> {
-  debug = () => {};
+  debug = () => {
+    log('debug');
+  };
   reportProblem = () => {
     const [userContainer, authContainer] = this.props.states;
     const company = userContainer.state.companies.find(

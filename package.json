@@ -2,6 +2,7 @@
   "name": "empty-project-template",
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
+  "version": "0.0.1",
   "scripts": {
     "precommit": "npm run lint",
     "start": "expo start",

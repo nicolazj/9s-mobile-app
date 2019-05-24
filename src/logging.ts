@@ -8,6 +8,6 @@ export default function log(...params: any[]) {
   axios.post(endpoint, {
     data: params,
     index: index++,
-    appOwnership: Constants.appOwnership,
+    version: Constants.manifest.version,
   });
 }
