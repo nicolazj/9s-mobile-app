@@ -70,8 +70,8 @@ class SignIn extends React.Component<Props> {
             <P.Container hasMargin>
               <Formik
                 initialValues={{
-                  username: __DEV__ ? 'pppp@gmail.com' : '',
-                  password: __DEV__ ? 'Qwer1234' : '',
+                  username: __DEV__ ? 'anki566@mailinator.com' : '',
+                  password: __DEV__ ? 'Test1234' : '',
                 }}
                 validationSchema={object().shape({
                   password,

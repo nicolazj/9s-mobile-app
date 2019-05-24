@@ -1,10 +1,6 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  AsyncStorage,
-  StatusBar,
-  View,
+    ActivityIndicator, Alert, AsyncStorage, StatusBar, View
 } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
@@ -39,15 +35,16 @@ export class AuthLoadingScreen extends React.Component<Props> {
           companies,
         });
 
-        if (companies.length > 0) {
+        if (companies.length === 1) {
           await agent.token.exchange(companies[0].companyUuid);
-        }
-
-        let connections = await agent.company.connection.list();
-        if (connections.filter(conn => conn.status === 'ACTIVE').length > 0) {
-          this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
+          let connections = await agent.company.connection.list();
+          if (connections.filter(conn => conn.status === 'ACTIVE').length > 0) {
+            this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
+          } else {
+            this.props.navigation.navigate(SCREENS[SCREENS.FORCE_CONNECT]);
+          }
         } else {
-          this.props.navigation.navigate(SCREENS[SCREENS.FORCE_CONNECT]);
+          this.props.navigation.navigate(SCREENS[SCREENS.SWITCH_COMPANY]);
         }
       } else if (!onboarding) {
         this.props.navigation.navigate(SCREENS[SCREENS.ONBOARDING]);

@@ -1,4 +1,5 @@
 import React from 'react';
+
 export interface ClientConfig {
   baseURL: string;
   tenantId: string;
@@ -18,6 +19,7 @@ export interface Company {
   companyName: string;
   companyUuid: string;
   industryUuid: string;
+  isActive?: number;
 }
 export interface AuthResp {
   access_token: string;
