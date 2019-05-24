@@ -20,40 +20,20 @@ interface Props {
 export class AuthLoadingScreen extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
+  }
+  componentDidMount() {
     this.bootstrapAsync();
   }
 
   bootstrapAsync = async () => {
     try {
-      const [_, userState, cookieState] = this.props.states;
+      const [_, __, cookieState] = this.props.states;
       const { onboarding } = cookieState.state;
       const loggedIn = await this.checkingLogin();
       if (loggedIn) {
-        const companies = await agent.user.company.list();
-        userState.setState({
-          companies,
+        this.props.navigation.navigate(SCREENS[SCREENS.SWITCH_COMPANY], {
+          auto: true,
         });
-        let companyUuid = null;
-        const existedcompanyUuid = cookieState.state.companyUuid;
-        if (companies.length === 1) {
-          companyUuid = companies[0].companyUuid;
-        } else if (existedcompanyUuid) {
-          if (companies.find(c => c.companyUuid === existedcompanyUuid)) {
-            companyUuid = existedcompanyUuid;
-          }
-        }
-        if (companyUuid) {
-          await cookieState.setState({ companyUuid });
-          await agent.token.exchange(companyUuid);
-          let connections = await agent.company.connection.list();
-          if (connections.filter(conn => conn.status === 'ACTIVE').length > 0) {
-            this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
-          } else {
-            this.props.navigation.navigate(SCREENS[SCREENS.FORCE_CONNECT]);
-          }
-        } else {
-          this.props.navigation.navigate(SCREENS[SCREENS.SWITCH_COMPANY]);
-        }
       } else if (!onboarding) {
         this.props.navigation.navigate(SCREENS[SCREENS.ONBOARDING]);
       } else this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
@@ -62,7 +42,6 @@ export class AuthLoadingScreen extends React.Component<Props> {
       AsyncStorage.clear();
     }
   };
-  // Render any loading content that you like here
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
