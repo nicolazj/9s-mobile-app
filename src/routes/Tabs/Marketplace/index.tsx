@@ -1,12 +1,10 @@
-import { createMaterialTopTabNavigator, createStackNavigator, NavigationScreenProps } from 'react-navigation';
+import {
+    createMaterialTopTabNavigator, createStackNavigator, NavigationScreenProps
+} from 'react-navigation';
 
 import { IThemeInterface, th } from '../../../styled';
 import { SCREENS } from '../../constants';
-
-import AppConnect from '../../../screens/AppConnect';
-import AppDetail from '../../../screens/AppDetail';
 import { getTabNavOpts } from '../helper';
-
 import Apps from './Apps';
 import Widgets from './Widgets';
 
@@ -34,22 +32,9 @@ const Marketplace = createMaterialTopTabNavigator(
 
 const MarketplaceStack = createStackNavigator(
   {
-    [SCREENS[SCREENS.MARKETPLACE_HOME]]: { screen: Marketplace, navigationOptions: { title: 'Marketplace' } },
-    [SCREENS[SCREENS.APP_DETAIL]]: {
-      screen: AppDetail,
-      navigationOptions: (props: NavigationScreenProps) => {
-        return {
-          title: props.navigation.getParam('key'),
-        };
-      },
-    },
-    [SCREENS[SCREENS.APP_CONNECT]]: {
-      screen: AppConnect,
-      navigationOptions: (props: NavigationScreenProps) => {
-        return {
-          title: props.navigation.getParam('key'),
-        };
-      },
+    [SCREENS[SCREENS.MARKETPLACE_HOME]]: {
+      screen: Marketplace,
+      navigationOptions: { title: 'Marketplace' },
     },
   },
   {
@@ -57,7 +42,9 @@ const MarketplaceStack = createStackNavigator(
       return {
         headerTintColor: '#fff',
         headerStyle: {
-          backgroundColor: th('color.header')(props.screenProps as { theme: IThemeInterface }),
+          backgroundColor: th('color.header')(props.screenProps as {
+            theme: IThemeInterface;
+          }),
         },
       };
     },

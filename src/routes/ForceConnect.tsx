@@ -5,8 +5,6 @@ import * as P from '../primitives';
 import AppConnect from '../screens/AppConnect';
 import AppDetail from '../screens/AppDetail';
 import ForceConnect from '../screens/ForceConnect';
-import authState, { AuthState } from '../states/Auth';
-import { SubscribeHOC } from '../states/helper';
 import styled, { IThemeInterface, th } from '../styled';
 import { SCREENS } from './constants';
 
@@ -17,10 +15,9 @@ const LogoutText = styled(P.Text)`
   color: ${th('color.main')};
 `;
 
-const Logout_: React.FC<{
-  states: [AuthState];
+const Logout: React.FC<{
   navProps: NavigationScreenProps;
-}> = ({ states, navProps: { navigation } }) => (
+}> = ({ navProps: { navigation } }) => (
   <LogoutBtn
     onPress={() => {
       navigation.navigate(SCREENS[SCREENS.LOGOUT]);
@@ -29,9 +26,6 @@ const Logout_: React.FC<{
     <LogoutText>Log out</LogoutText>
   </LogoutBtn>
 );
-const Logout = SubscribeHOC([authState])(Logout_) as React.FC<{
-  navProps: NavigationScreenProps;
-}>;
 
 export default createStackNavigator(
   {
@@ -39,48 +33,33 @@ export default createStackNavigator(
       screen: ForceConnect,
       navigationOptions: (props: NavigationScreenProps) => {
         return {
-          title: props.navigation.getParam('key'),
-          headerStyle: {
-            backgroundColor: '#fff',
-            elevation: 0, // remove shadow on Android
-            shadowOpacity: 0, // remove shadow on iOS
-            borderBottomWidth: 0,
-          },
-
           headerLeft: <Logout navProps={props} />,
         };
       },
     },
     [SCREENS[SCREENS.APP_DETAIL]]: {
       screen: AppDetail,
-      navigationOptions: (props: NavigationScreenProps) => {
-        return {
-          title: props.navigation.getParam('key'),
-          headerTintColor: th('color.header')(props.screenProps as {
-            theme: IThemeInterface;
-          }),
-
-          headerStyle: {
-            backgroundColor: '#fff',
-            elevation: 0, // remove shadow on Android
-            shadowOpacity: 0, // remove shadow on iOS
-            borderBottomWidth: 0,
-          },
-        };
-      },
     },
 
     [SCREENS[SCREENS.APP_CONNECT]]: {
       screen: AppConnect,
-      navigationOptions: (props: NavigationScreenProps) => {
-        return {
-          headerTintColor: th('color.header')(props.screenProps as {
-            theme: IThemeInterface;
-          }),
-          title: props.navigation.getParam('key'),
-        };
-      },
     },
   },
-  {}
+  {
+    defaultNavigationOptions: (props: any) => {
+      return {
+        title: props.navigation.getParam('key'),
+        headerTintColor: th('color.header')(props.screenProps as {
+          theme: IThemeInterface;
+        }),
+
+        headerStyle: {
+          backgroundColor: '#fff',
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        },
+      };
+    },
+  }
 );

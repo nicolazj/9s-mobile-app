@@ -1,4 +1,6 @@
-import { createBottomTabNavigator, createStackNavigator, NavigationScreenProps } from 'react-navigation';
+import {
+    createBottomTabNavigator, createStackNavigator, NavigationScreenProps
+} from 'react-navigation';
 
 import AppConnect from '../../screens/AppConnect';
 import AppDetail from '../../screens/AppDetail';
@@ -30,42 +32,28 @@ const TabsStack = createStackNavigator(
     },
     [SCREENS[SCREENS.WIDGET_INFO]]: {
       screen: WidgetInfo,
-      navigationOptions: (props: NavigationScreenProps) => {
-        return {
-          headerTintColor: '#fff',
-          headerStyle: {
-            backgroundColor: th('color.header')(props.screenProps as { theme: IThemeInterface }),
-          },
-        };
-      },
     },
     [SCREENS[SCREENS.APP_DETAIL]]: {
       screen: AppDetail,
-      navigationOptions: (props: NavigationScreenProps) => {
-        return {
-          title: props.navigation.getParam('key'),
-          headerTintColor: '#fff',
-          headerStyle: {
-            backgroundColor: th('color.header')(props.screenProps as { theme: IThemeInterface }),
-          },
-        };
-      },
     },
     [SCREENS[SCREENS.APP_CONNECT]]: {
       screen: AppConnect,
-      navigationOptions: (props: NavigationScreenProps) => {
-        return {
-          title: props.navigation.getParam('key'),
-          headerTintColor: '#fff',
-          headerStyle: {
-            backgroundColor: th('color.header')(props.screenProps as { theme: IThemeInterface }),
-          },
-        };
-      },
     },
   },
   {
     mode: 'modal',
+    defaultNavigationOptions: (props: any) => {
+      return {
+        title: props.navigation.getParam('key'),
+
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: th('color.header')(props.screenProps as {
+            theme: IThemeInterface;
+          }),
+        },
+      };
+    },
   }
 );
 
