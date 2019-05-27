@@ -19,6 +19,7 @@ interface Options {
 interface FormikPickerProps {
   options: Options[];
   placeholder: string;
+  title: string;
 }
 
 const FormikPicker: React.FC<FormikPickerProps & FieldProps> = ({
@@ -26,6 +27,7 @@ const FormikPicker: React.FC<FormikPickerProps & FieldProps> = ({
   form: { touched, errors, handleChange },
   options,
   placeholder,
+  title,
 }) => {
   const item = options.find(o => o.value === value);
 
@@ -34,9 +36,10 @@ const FormikPicker: React.FC<FormikPickerProps & FieldProps> = ({
       <Picker
         onItemChange={o => handleChange(name)(o.value)}
         items={options}
-        item={item ? item : undefined}
-        isNullable
+        item={item ? item : null}
+        isNullable={false}
         placeholder={placeholder}
+        title={title}
       />
       {errors[name] && touched[name] && (
         <FormError>{errors[name] as string}</FormError>
