@@ -3,11 +3,11 @@ import { View } from 'react-native';
 
 import styled from '../../../styled';
 import { Data } from '../../widget/base/LineWidget';
+import Grid from '../Grid';
+import Legend from '../Legend';
+import XAxis from '../XAxis';
+import YAxis from '../YAxis';
 import Bar from './Bar';
-import Grid from './Grid';
-import Legend from './Legend';
-import XAxis from './XAxis';
-import YAxis from './YAxis';
 
 interface Props {
   data: Data;
@@ -20,7 +20,7 @@ interface Props {
 export const ChartWrapper = styled(View)`
   padding: 0px 20px;
 `;
-class LineChartWrapper extends React.PureComponent<Props> {
+class BarChartWrapper extends React.PureComponent<Props> {
   render() {
     const { data, onTickClick, formatXAxis, formatYAxis, curTick } = this.props;
     const xAxisHeight = 30;
@@ -40,8 +40,8 @@ class LineChartWrapper extends React.PureComponent<Props> {
               style={{ flex: 1 }}
               yAccessor={({ item: { value } }) => value}
               onTickClick={onTickClick}
-              curTick={curTick}>
-              {/* <Indicator /> */}
+              curTick={curTick}
+            >
               <Grid />
             </Bar>
 
@@ -64,4 +64,4 @@ class LineChartWrapper extends React.PureComponent<Props> {
   }
 }
 
-export default LineChartWrapper;
+export default BarChartWrapper;

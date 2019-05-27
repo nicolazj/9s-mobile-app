@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react';
 import { LayoutChangeEvent, Text, View, ViewStyle } from 'react-native';
 import { G, Svg, Text as SVGText } from 'react-native-svg';
 
-import { Data } from '../../widget/base/LineWidget';
+import { Data } from '../widget/base/LineWidget';
 import { getDomain, getTicks } from './utils';
 
 interface Props {
@@ -41,7 +41,15 @@ class YAxis extends PureComponent<Props, State> {
   } as State;
 
   render() {
-    const { style, data, yAccessor, numberOfTicks, formatLabel, svg, children } = this.props;
+    const {
+      style,
+      data,
+      yAccessor,
+      numberOfTicks,
+      formatLabel,
+      svg,
+      children,
+    } = this.props;
 
     const { height, width } = this.state;
 
@@ -70,7 +78,11 @@ class YAxis extends PureComponent<Props, State> {
     const ticks = getTicks(min, max, numberOfTicks);
     const longestValue = ticks
       .map((value, index) => formatLabel(value, index))
-      .reduce((prev, curr) => (prev.toString().length > curr.toString().length ? prev : curr), '');
+      .reduce(
+        (prev, curr) =>
+          prev.toString().length > curr.toString().length ? prev : curr,
+        ''
+      );
 
     const extraProps = {
       y,
@@ -81,7 +93,9 @@ class YAxis extends PureComponent<Props, State> {
     return (
       <View style={[style]}>
         <View style={{ flexGrow: 1 }} onLayout={event => this._onLayout(event)}>
-          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>{longestValue}</Text>
+          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>
+            {longestValue}
+          </Text>
           <Svg
             style={{
               position: 'absolute',
@@ -89,11 +103,15 @@ class YAxis extends PureComponent<Props, State> {
               left: 0,
               height,
               width,
-            }}>
+            }}
+          >
             <G>
-              {React.Children.map(children as React.ReactElement<any>[], child => {
-                return React.cloneElement(child, extraProps);
-              })}
+              {React.Children.map(
+                children as React.ReactElement<any>[],
+                child => {
+                  return React.cloneElement(child, extraProps);
+                }
+              )}
               {ticks.map((value, index) => {
                 return (
                   <SVGText
@@ -103,7 +121,8 @@ class YAxis extends PureComponent<Props, State> {
                     alignmentBaseline={'middle'}
                     {...svg}
                     key={index}
-                    y={y(value)}>
+                    y={y(value)}
+                  >
                     {formatLabel(value, index)}
                   </SVGText>
                 );

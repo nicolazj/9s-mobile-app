@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react';
 import { LayoutChangeEvent, Text, View, ViewStyle } from 'react-native';
 import Svg, { G, Text as SVGText } from 'react-native-svg';
 
-import { Data } from '../../widget/base/LineWidget';
+import { Data } from '../widget/base/LineWidget';
 
 interface Props {
   data: Data;
@@ -35,7 +35,15 @@ class XAxis extends PureComponent<Props> {
   };
 
   render() {
-    const { style, data, xAccessor, formatLabel, numberOfTicks, svg, children } = this.props;
+    const {
+      style,
+      data,
+      xAccessor,
+      formatLabel,
+      numberOfTicks,
+      svg,
+      children,
+    } = this.props;
 
     const { height, width } = this.state;
     if (data.length === 0) {
@@ -71,7 +79,9 @@ class XAxis extends PureComponent<Props> {
     return (
       <View style={style}>
         <View style={{ flexGrow: 1 }} onLayout={event => this._onLayout(event)}>
-          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>{longestValue}</Text>
+          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>
+            {longestValue}
+          </Text>
           <Svg
             style={{
               position: 'absolute',
@@ -79,11 +89,15 @@ class XAxis extends PureComponent<Props> {
               left: 0,
               height,
               width,
-            }}>
+            }}
+          >
             <G>
-              {React.Children.map(children as React.ReactElement<any>[], child => {
-                return React.cloneElement(child, extraProps);
-              })}
+              {React.Children.map(
+                children as React.ReactElement<any>[],
+                child => {
+                  return React.cloneElement(child, extraProps);
+                }
+              )}
               {ticks.map((value, index) => {
                 return (
                   <SVGText
@@ -92,7 +106,8 @@ class XAxis extends PureComponent<Props> {
                     alignmentBaseline={'hanging'}
                     {...svg}
                     key={index}
-                    x={x(value)}>
+                    x={x(value)}
+                  >
                     {formatLabel(value, index)}
                   </SVGText>
                 );

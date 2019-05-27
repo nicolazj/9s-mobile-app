@@ -3,12 +3,12 @@ import { View } from 'react-native';
 
 import styled from '../../../styled';
 import { Data } from '../../widget/base/LineWidget';
-import Grid from './Grid';
+import Grid from '../Grid';
+import Legend from '../Legend';
+import XAxis from '../XAxis';
+import YAxis from '../YAxis';
 import Indicator from './Indicator';
-import Legend from './Legend';
 import Lines from './Lines';
-import XAxis from './XAxis';
-import YAxis from './YAxis';
 
 interface Props {
   data: Data;
@@ -41,7 +41,8 @@ class LineChartWrapper extends React.PureComponent<Props> {
               style={{ flex: 1 }}
               yAccessor={({ item: { value } }) => value}
               onTickClick={onTickClick}
-              curTick={curTick}>
+              curTick={curTick}
+            >
               <Indicator />
               <Grid />
             </Lines>

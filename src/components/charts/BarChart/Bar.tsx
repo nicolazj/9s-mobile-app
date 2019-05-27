@@ -6,7 +6,7 @@ import { LayoutChangeEvent, View, ViewStyle } from 'react-native';
 import Svg, { Rect } from 'react-native-svg';
 
 import { Data } from '../../widget/base/LineWidget';
-import { getDomain, getTicks } from './utils';
+import { getDomain, getTicks } from '../utils';
 
 export type MappedData = {
   x: number;
@@ -128,9 +128,12 @@ class Lines extends PureComponent<Props> {
                 });
               })
               .reverse()}
-            {React.Children.map(children as React.ReactElement<any>[], child => {
-              return React.cloneElement(child, extraProps);
-            })}
+            {React.Children.map(
+              children as React.ReactElement<any>[],
+              child => {
+                return React.cloneElement(child, extraProps);
+              }
+            )}
           </Svg>
         </View>
       </View>

@@ -49,8 +49,7 @@ export function timeInWord(milisec: number) {
 export type Data = {
   legend: string;
   svg: {
-    stroke: string;
-    strokeWidth: number;
+    fill: string;
   };
   data: {
     value: number;
