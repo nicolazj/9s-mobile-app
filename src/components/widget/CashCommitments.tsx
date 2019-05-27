@@ -17,14 +17,13 @@ const CashCommitments: React.FC<Props> = ({ widget, collapsed, symbol }) => {
   }
   const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
     return {
-      header: ['Name', 'Opened', 'Clicked'],
       formatters: [t, formatter],
       rows: dataSet.rows.map((row, index) => {
         return {
           data: Object.keys(row)
             .sort()
             .map(k => row[k]),
-          showWhenCollapsed: index === 0,
+          showWhenCollapsed: index === dataSet.rows.length - 1,
         };
       }),
     };

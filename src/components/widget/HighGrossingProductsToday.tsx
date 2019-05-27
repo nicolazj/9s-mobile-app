@@ -19,7 +19,7 @@ const id = (t: any) => t;
 const HighGrossingProductsToday: React.FC<Props> = ({ widget, collapsed }) => {
   const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
     return {
-      header: ['Product', 'Sales', 'Revenue'],
+      header: ['Product', 'Revenue', 'Variance'],
 
       formatters: [t, id, formatter],
       rows: dataSet.rows.map((row, index) => {
