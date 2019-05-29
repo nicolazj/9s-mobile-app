@@ -47,7 +47,7 @@ const SuggestAppLink: React.FC<Props> = ({ states }) => {
   return (
     <SuggestAppLink_>
       <Link
-        title="Dont't see your apps? Tell us what you use"
+        title="Don't see your apps? Tell us what you use"
         onPress={suggestApp}
       />
     </SuggestAppLink_>
