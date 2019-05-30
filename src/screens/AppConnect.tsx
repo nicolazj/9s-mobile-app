@@ -3,7 +3,9 @@ import { Field, Formik } from 'formik';
 import React from 'react';
 import { Image, View } from 'react-native';
 import {
-    NavigationActions, NavigationScreenProp, StackActions
+  NavigationActions,
+  NavigationScreenProp,
+  StackActions,
 } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -264,7 +266,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
                   index: 0,
                   actions: [
                     NavigationActions.navigate({
-                      routeName: SCREENS[SCREENS.MARKETPLACE_HOME],
+                      routeName: 'Tabs',
                     }),
                   ],
                 });

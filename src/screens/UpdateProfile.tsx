@@ -80,7 +80,7 @@ export class Settings extends React.Component<Props> {
 
             <ListItem>
               <Left>
-                <Text>Email</Text>
+                <Text>Email address</Text>
               </Left>
               <Body>
                 <BodyText>{me.emailAddress}</BodyText>
