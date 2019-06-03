@@ -118,6 +118,7 @@ export class SignUpCompany extends React.Component<Props, State> {
                       component={FormikPicker}
                       placeholder="Select an industry"
                       title="Select an industry"
+                      subTitle="Choose one of our available industries that best reflects your business"
                       options={options}
                     />
                     <View

@@ -1,11 +1,42 @@
 import { FieldProps, Formik } from 'formik';
 import React from 'react';
+import { withNavigation } from 'react-navigation';
 
-import Picker_ from '../components/Picker';
+import { Text, Touchable } from '../primitives';
+import { SCREENS } from '../routes/constants';
 import styled, { scale, th } from '../styled';
 import { FormError, FormGroup } from './Misc';
 
-export const Picker = styled(Picker_)`
+const Picker__ = ({
+  navigation,
+  items,
+  item,
+  placeholder,
+  title,
+  subTitle,
+  onItemChange,
+  ...props
+}) => {
+  const update = onItemChange;
+  return (
+    <Touchable
+      {...props}
+      onPress={() => {
+        navigation.push(SCREENS[SCREENS.PICKER], {
+          items,
+          item,
+          title,
+          subTitle,
+          update,
+        });
+      }}
+    >
+      <Text>{item ? item.label : placeholder}</Text>
+    </Touchable>
+  );
+};
+
+export const Picker = styled(withNavigation(Picker__))`
   border: 1px solid ${th('color.grey')};
   width: 100%;
   padding: ${scale(16)}px;
@@ -28,6 +59,7 @@ const FormikPicker: React.FC<FormikPickerProps & FieldProps> = ({
   options,
   placeholder,
   title,
+  subTitle,
 }) => {
   const item = options.find(o => o.value === value);
 
@@ -40,6 +72,7 @@ const FormikPicker: React.FC<FormikPickerProps & FieldProps> = ({
         isNullable={false}
         placeholder={placeholder}
         title={title}
+        subTitle={subTitle}
       />
       {errors[name] && touched[name] && (
         <FormError>{errors[name] as string}</FormError>

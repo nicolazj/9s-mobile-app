@@ -1,4 +1,6 @@
 import { createStackNavigator, NavigationScreenProps } from 'react-navigation';
+
+import Picker from '../screens/Picker';
 import ResetPwd from '../screens/ResetPwd';
 import SignIn from '../screens/SignIn';
 import SignUp from '../screens/SignUp';
@@ -38,34 +40,30 @@ export default createStackNavigator(
 
     signUp: {
       screen: signUp,
-      navigationOptions: (props: NavigationScreenProps) => {
-        return {
-          headerTintColor: th('color.header')(props.screenProps as { theme: IThemeInterface }),
-          headerStyle: {
-            backgroundColor: th('color.view.bg')(props.screenProps as { theme: IThemeInterface }),
-            elevation: 0, // remove shadow on Android
-            shadowOpacity: 0, // remove shadow on iOS
-            borderBottomWidth: 0,
-          },
-        };
-      },
     },
     [SCREENS[SCREENS.RESET_PWD]]: {
       screen: ResetPwd,
-      navigationOptions: (props: NavigationScreenProps) => {
-        return {
-          headerTintColor: th('color.header')(props.screenProps as { theme: IThemeInterface }),
-          headerStyle: {
-            backgroundColor: th('color.view.bg')(props.screenProps as { theme: IThemeInterface }),
-            elevation: 0, // remove shadow on Android
-            shadowOpacity: 0, // remove shadow on iOS
-            borderBottomWidth: 0,
-          },
-        };
-      },
+    },
+    [SCREENS[SCREENS.PICKER]]: {
+      screen: Picker,
     },
   },
   {
     mode: 'modal',
+    defaultNavigationOptions: (props: NavigationScreenProps) => {
+      return {
+        headerTintColor: th('color.header')(props.screenProps as {
+          theme: IThemeInterface;
+        }),
+        headerStyle: {
+          backgroundColor: th('color.view.bg')(props.screenProps as {
+            theme: IThemeInterface;
+          }),
+          elevation: 0, // remove shadow on Android
+          shadowOpacity: 0, // remove shadow on iOS
+          borderBottomWidth: 0,
+        },
+      };
+    },
   }
 );
