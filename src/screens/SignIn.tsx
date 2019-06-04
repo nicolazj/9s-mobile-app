@@ -44,6 +44,8 @@ class SignIn extends React.Component<Props> {
       await agent.token.login(values);
       this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
+      log('login error', err);
+
       if (err.response) {
         if (
           err.response.data.error_description === 'INVALID_USERNAME_OR_PASSWORD'
@@ -51,7 +53,6 @@ class SignIn extends React.Component<Props> {
           Alert.alert('Log in failed', 'Invalid username or password');
         }
       } else {
-        log('login error', err);
         Alert.alert('Log in failed', 'Unable to sign in, try again later');
       }
     } finally {
