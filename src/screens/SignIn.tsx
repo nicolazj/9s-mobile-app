@@ -13,6 +13,7 @@ import Delimiter from '../components/Delimiter';
 import GoogleButton from '../components/GoogleButton';
 import Link from '../components/Link';
 import { FormikTextInput, FormTitle } from '../formik';
+import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import activityStatusState, {
@@ -50,7 +51,7 @@ class SignIn extends React.Component<Props> {
           Alert.alert('Log in failed', 'Invalid username or password');
         }
       } else {
-        console.log(err);
+        log('login error', err);
         Alert.alert('Log in failed', 'Unable to sign in, try again later');
       }
     } finally {
