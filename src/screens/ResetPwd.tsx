@@ -2,13 +2,16 @@ import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, Image, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
+
 import agent from '../agent';
 import Button from '../components/Button';
 import Link from '../components/Link';
 import { FormDesc, FormikTextInput, FormTitle } from '../formik';
+import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import { object, username } from '../validations';
+
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
@@ -22,6 +25,7 @@ export default class ResetPwd extends React.Component<Props> {
       await agent.public.password.reset(values.email);
       this.setState({ done: true });
     } catch (err) {
+      log('reset error', err);
       Alert.alert('Reset password failed', 'try again later');
     }
   };

@@ -38,6 +38,7 @@ export class AuthLoadingScreen extends React.Component<Props> {
         this.props.navigation.navigate(SCREENS[SCREENS.ONBOARDING]);
       } else this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
     } catch (err) {
+      log('loading error', err);
       Alert.alert('please try again later');
       AsyncStorage.clear();
     }
