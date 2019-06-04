@@ -131,7 +131,6 @@ export class SignUpCompany extends React.Component<Props, State> {
                       }}
                     >
                       <FormDesc>
-                        {' '}
                         By tapping proceed, you are accepting the{' '}
                       </FormDesc>
                       <Link

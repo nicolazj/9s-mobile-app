@@ -1,27 +1,46 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
+import { NavigationScreenProp } from 'react-navigation';
 
 import Select from '../components/Select';
 import * as P from '../primitives';
+import { Options } from '../types';
 
-export default ({ navigation }) => {
-  const { items, title, subTitle, update } = navigation.state.params;
+interface Props {
+  navigation: NavigationScreenProp<
+    any,
+    {
+      options: Options[];
+      placeholder: string;
+      title: string;
+      subTitle: string;
+      onUpdate: (item: Options) => void;
+    }
+  >;
+}
+
+const Picker: React.FC<Props> = ({ navigation }) => {
+  const options = navigation.getParam('options');
+  const title = navigation.getParam('title');
+  const subTitle = navigation.getParam('subTitle');
+  const onUpdate = navigation.getParam('onUpdate');
   return (
     <ScrollView>
       <P.Container hasPadding hcenter>
         <P.Title>{title}</P.Title>
         <P.SubTitle>{subTitle}</P.SubTitle>
-        {items.map(e => (
+        {options.map(o => (
           <Select
-            title={e.label}
+            title={o.label}
             onPress={() => {
-              update(e);
+              onUpdate(o);
               navigation.goBack();
             }}
-            key={e.value}
+            key={o.value}
           />
         ))}
       </P.Container>
     </ScrollView>
   );
 };
+export default Picker;
