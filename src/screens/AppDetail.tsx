@@ -1,4 +1,4 @@
-import { WebBrowser } from 'expo';
+import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import { Alert, Dimensions, Image, ScrollView, View } from 'react-native';
 import { NavigationEvents, NavigationScreenProp } from 'react-navigation';
@@ -99,16 +99,16 @@ export class AppDetailScreen extends React.Component<Props> {
   };
   reloadConnections = async () => {
     const connections = await agent.company.connection.list();
-    const [appState] = this.props.states;
-    appState.setState({ connections });
+    const [appState_] = this.props.states;
+    appState_.setState({ connections });
   };
   getTrial = async (appDetail: AppDetail) => {
     WebBrowser.openBrowserAsync(appDetail.app.trial.tryUrl);
   };
   renderButtons() {
     const appKey = this.props.navigation.getParam('key');
-    const [appState] = this.props.states;
-    const appDetail = appState.appDetail(appKey);
+    const [appState_] = this.props.states;
+    const appDetail = appState_.appDetail(appKey);
 
     const { connection, app } = appDetail;
     const removeConnectionButton = (
@@ -116,19 +116,36 @@ export class AppDetailScreen extends React.Component<Props> {
         key="remove"
         title="Remove connection"
         danger
-        onPress={() => connection && this.onRemoveConnection(connection.id, appKey)}
+        onPress={() =>
+          connection && this.onRemoveConnection(connection.id, appKey)
+        }
       />
     );
 
     if (!connection) {
       return [
-        <Button key="connect" title="Connect" onPress={() => this.onConnect(appDetail)} />,
-        <Button key="trial" title="Get a trial" onPress={() => this.getTrial(appDetail)} />,
+        <Button
+          key="connect"
+          title="Connect"
+          onPress={() => this.onConnect(appDetail)}
+        />,
+        <Button
+          key="trial"
+          title="Get a trial"
+          onPress={() => this.getTrial(appDetail)}
+        />,
       ];
     } else if (connection.status === 'ACTIVE') {
       return removeConnectionButton;
     } else {
-      return [<Button key="resume" title="Resume" onPress={() => this.onConnect(appDetail)} />, removeConnectionButton];
+      return [
+        <Button
+          key="resume"
+          title="Resume"
+          onPress={() => this.onConnect(appDetail)}
+        />,
+        removeConnectionButton,
+      ];
     }
   }
   renderDesc(desc: string) {

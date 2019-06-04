@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 
 const endpoint = 'https://enc5m7wqlpp1i.x.pipedream.net';
 let index = 0;

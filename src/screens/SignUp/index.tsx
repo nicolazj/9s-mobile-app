@@ -1,4 +1,4 @@
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, TextInput, View } from 'react-native';

@@ -1,4 +1,5 @@
-import { Constants, WebBrowser } from 'expo';
+import { WebBrowser } from 'expo';
+import Constants from 'expo-constants';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, View } from 'react-native';

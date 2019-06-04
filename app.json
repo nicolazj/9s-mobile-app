@@ -4,7 +4,7 @@
     "description": "This project is really great.",
     "slug": "9spokes-dashboard",
     "privacy": "public",
-    "sdkVersion": "31.0.0",
+    "sdkVersion": "33.0.0",
     "platforms": ["ios", "android"],
     "version": "0.0.1",
     "orientation": "portrait",

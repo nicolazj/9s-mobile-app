@@ -1,7 +1,9 @@
 import jwt from 'jwt-decode';
 import { AsyncStorage } from 'react-native';
+
 import { AuthResp, UserAuthResp } from '../types';
 import PersistContainer from './PersistContainer';
+
 type UserId = string;
 type CompanyUuid = string;
 
@@ -64,4 +66,5 @@ export class AuthState extends PersistContainer<State> {
   }
 }
 
-export default new AuthState();
+const authState = new AuthState();
+export default authState;

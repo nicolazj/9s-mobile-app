@@ -1,4 +1,5 @@
 import { Container } from 'unstated';
+
 import log from '../logging';
 
 interface PersistConfig {
@@ -7,7 +8,9 @@ interface PersistConfig {
   storage: any;
 }
 
-export default abstract class PersistContainer<T extends object> extends Container<T> {
+export default abstract class PersistContainer<
+  T extends object
+> extends Container<T> {
   abstract get config(): PersistConfig;
   constructor() {
     super();
@@ -16,6 +19,7 @@ export default abstract class PersistContainer<T extends object> extends Contain
       let config = this.config;
       try {
         let serialState = await config.storage.getItem(config.key);
+        console.log('serialState', serialState);
         if (serialState !== null) {
           let incomingState = JSON.parse(serialState);
           if (incomingState._persist_version === config.version) {
@@ -41,6 +45,8 @@ export default abstract class PersistContainer<T extends object> extends Contain
         });
       }
     };
+
+    console.log('rehydrate');
     rehydrate();
   }
 }

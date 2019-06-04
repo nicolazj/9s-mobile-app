@@ -1,4 +1,6 @@
-import { Constants, Linking, WebBrowser } from 'expo';
+import { Linking } from 'expo';
+import Constants from 'expo-constants';
+import * as WebBrowser from 'expo-web-browser';
 import { Body, Left, List, ListItem, Right, Text } from 'native-base';
 import React from 'react';
 import { Alert, ScrollView } from 'react-native';

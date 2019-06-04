@@ -7,7 +7,7 @@ import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import activityStatusState, {
-  ActivityStatusState,
+    ActivityStatusState
 } from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
@@ -90,8 +90,8 @@ class AppList extends React.Component<Props> {
     this.fetchApps();
   }
   fetchApps = async () => {
-    const [appState, activityStatusState] = this.props.states;
-    activityStatusState.show('Loading');
+    const [appState_, activityStatusState_] = this.props.states;
+    activityStatusState_.show('Loading');
     try {
       const [connections, spokes, apps, samples] = await Promise.all([
         agent.company.connection.list(),
@@ -102,11 +102,11 @@ class AppList extends React.Component<Props> {
       const fullApps = await Promise.all(
         apps.map(app => agent.user.service.get(app.key))
       );
-      appState.setState({ connections, spokes, apps: fullApps, samples });
+      appState_.setState({ connections, spokes, apps: fullApps, samples });
     } catch (err) {
       Alert.alert('please try again later');
     } finally {
-      activityStatusState.dismiss();
+      activityStatusState_.dismiss();
     }
   };
 

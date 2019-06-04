@@ -1,11 +1,16 @@
-import { AppLoading, Asset, Font } from 'expo';
+import './src/base64';
+
+import { AppLoading } from 'expo';
+import { Asset } from 'expo-asset';
+import * as Font from 'expo-font';
 import React from 'react';
 import { View } from 'react-native';
+import Sentry from 'sentry-expo';
 
-import Icon from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 import Root from './src/Root';
-import Sentry from 'sentry-expo';
+
 Sentry.config(
   'https://fb67f15df45e4a2ea788e003f7a7a501@sentry.io/1457806'
 ).install();
@@ -44,7 +49,7 @@ export default class App extends React.Component<any, State> {
       Asset.loadAsync([require('./assets/ob2.mp4')]),
       Asset.loadAsync([require('./assets/ob3.mp4')]),
       Font.loadAsync({
-        ...(Icon.Ionicons as any).font,
+        ...(Ionicons as any).font,
       }),
     ]).then(() => {
       return;

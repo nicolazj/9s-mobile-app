@@ -1,4 +1,4 @@
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
 import { ClientConfig } from '../types';
@@ -18,7 +18,8 @@ export const GOOGLE_CLIENT_ID =
         .ios!.config!.googleSignIn!.reservedClientId!.split('.')
         .reverse()
         .join('.')
-    : JSON.parse(Constants.manifest.android!.googleServicesFile!).client[0].oauth_client[0].client_id;
+    : JSON.parse(Constants.manifest.android!.googleServicesFile!).client[0]
+        .oauth_client[0].client_id;
 export const GOOGLE_CLIENT_ID_REVERSED = GOOGLE_CLIENT_ID.split('.')
   .reverse()
   .join('.');

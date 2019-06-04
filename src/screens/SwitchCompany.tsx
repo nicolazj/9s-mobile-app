@@ -52,8 +52,8 @@ export class SwitchCompany extends React.Component<Props, State> {
     }
   };
   chooseCompany = async (companyUuid: string) => {
-    const [cookieState] = this.props.states;
-    await cookieState.setState({ companyUuid });
+    const [cookieState_] = this.props.states;
+    await cookieState_.setState({ companyUuid });
     await agent.token.exchange(companyUuid);
     let connections = await agent.company.connection.list();
     if (connections.filter(conn => conn.status === 'ACTIVE').length > 0) {

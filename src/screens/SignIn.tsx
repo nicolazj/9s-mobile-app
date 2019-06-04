@@ -1,4 +1,4 @@
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, TextInput, View } from 'react-native';
@@ -36,10 +36,10 @@ class SignIn extends React.Component<Props> {
     }
   };
   onPress = async (values: SignInPayload) => {
-    const [activityStatusState] = this.props.states;
+    const [activityStatusState_] = this.props.states;
 
     try {
-      activityStatusState.show('Logging in');
+      activityStatusState_.show('Logging in');
       await agent.token.login(values);
       this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
@@ -54,7 +54,7 @@ class SignIn extends React.Component<Props> {
         Alert.alert('Log in failed', 'Unable to sign in, try again later');
       }
     } finally {
-      activityStatusState.dismiss();
+      activityStatusState_.dismiss();
     }
   };
 

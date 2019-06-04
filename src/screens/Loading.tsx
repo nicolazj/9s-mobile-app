@@ -28,8 +28,11 @@ export class AuthLoadingScreen extends React.Component<Props> {
   bootstrapAsync = async () => {
     try {
       const [_, __, cookieState] = this.props.states;
+
       const { onboarding } = cookieState.state;
+
       const loggedIn = await this.checkingLogin();
+
       if (loggedIn) {
         this.props.navigation.navigate(SCREENS[SCREENS.SWITCH_COMPANY], {
           auto: true,
@@ -38,7 +41,7 @@ export class AuthLoadingScreen extends React.Component<Props> {
         this.props.navigation.navigate(SCREENS[SCREENS.ONBOARDING]);
       } else this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
     } catch (err) {
-      Alert.alert('please try again later');
+      Alert.alert('[loading]:please try again later');
       AsyncStorage.clear();
     }
   };
@@ -52,17 +55,18 @@ export class AuthLoadingScreen extends React.Component<Props> {
   }
 
   async checkingLogin() {
-    const [authState, userState] = this.props.states;
+    let [authState_, userState_] = this.props.states;
 
-    const hasUserId = authState.hasUserId();
+    const hasUserId = authState_.hasUserId();
+
     if (!hasUserId) {
       return false;
     }
     try {
       const me = await agent.user.user.me();
-      userState.setState({ me });
+      userState_.setState({ me });
       const companies = await agent.user.company.list();
-      userState.setState({ companies });
+      userState_.setState({ companies });
       return true;
     } catch (err) {
       log(JSON.stringify(err, null, 2));

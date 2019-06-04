@@ -1,11 +1,11 @@
-import { Constants, Linking, WebBrowser } from 'expo';
+import { Linking } from 'expo';
+import Constants from 'expo-constants';
+import * as WebBrowser from 'expo-web-browser';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Image, View } from 'react-native';
 import {
-  NavigationActions,
-  NavigationScreenProp,
-  StackActions,
+    NavigationActions, NavigationScreenProp, StackActions
 } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
