@@ -13,7 +13,7 @@ import Delimiter from '../components/Delimiter';
 import GoogleButton from '../components/GoogleButton';
 import Link from '../components/Link';
 import { FormikTextInput, FormTitle } from '../formik';
-import log from '../logging';
+import log, { capture } from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import activityStatusState, {
@@ -45,7 +45,7 @@ class SignIn extends React.Component<Props> {
       this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
       log('login error', err);
-
+      capture(err);
       if (err.response) {
         if (
           err.response.data.error_description === 'INVALID_USERNAME_OR_PASSWORD'
