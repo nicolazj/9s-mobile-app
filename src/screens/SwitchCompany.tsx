@@ -63,7 +63,7 @@ export class SwitchCompany extends React.Component<Props, State> {
     }
   };
   render() {
-    const [_, userState] = this.props.states;
+    const [_, userState_] = this.props.states;
     const { manual } = this.state;
     return (
       <P.Container>
@@ -72,7 +72,7 @@ export class SwitchCompany extends React.Component<Props, State> {
             <P.Container hasMargin hcenter>
               <P.Title>Your companies </P.Title>
               <P.SubTitle>Select a company to continue</P.SubTitle>
-              {userState.state.companies
+              {userState_.state.companies
                 .filter(c => c.isActive === 1)
                 .sort((a, b) => {
                   if (a.companyName < b.companyName) {

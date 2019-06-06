@@ -1,6 +1,10 @@
 import React from 'react';
 import {
-    ActivityIndicator, Alert, AsyncStorage, StatusBar, View
+  ActivityIndicator,
+  Alert,
+  AsyncStorage,
+  StatusBar,
+  View,
 } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
@@ -27,9 +31,9 @@ export class AuthLoadingScreen extends React.Component<Props> {
 
   bootstrapAsync = async () => {
     try {
-      const [_, __, cookieState] = this.props.states;
+      const [_, __, cookieState_] = this.props.states;
 
-      const { onboarding } = cookieState.state;
+      const { onboarding } = cookieState_.state;
 
       const loggedIn = await this.checkingLogin();
 

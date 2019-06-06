@@ -7,7 +7,7 @@ import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import activityStatusState, {
-    ActivityStatusState
+  ActivityStatusState,
 } from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import authContainer, { AuthState } from '../states/Auth';
@@ -61,8 +61,8 @@ class ForceConnect extends React.Component<Props> {
     this.fetchApps();
   }
   fetchApps = async () => {
-    const [appState, , , activityStatusState] = this.props.states;
-    activityStatusState.show('Loading');
+    const [appState_, , , activityStatusState_] = this.props.states;
+    activityStatusState_.show('Loading');
 
     const [connections, spokes, apps] = await Promise.all([
       agent.company.connection.list(),
@@ -72,8 +72,8 @@ class ForceConnect extends React.Component<Props> {
     const fullApps = await Promise.all(
       apps.map(app => agent.user.service.get(app.key))
     );
-    appState.setState({ connections, spokes, apps: fullApps });
-    activityStatusState.dismiss();
+    appState_.setState({ connections, spokes, apps: fullApps });
+    activityStatusState_.dismiss();
   };
 
   onPress = (app: App) => {
@@ -81,7 +81,7 @@ class ForceConnect extends React.Component<Props> {
   };
 
   render() {
-    const [appState] = this.props.states;
+    const [appState_] = this.props.states;
     return (
       <P.Container hasPadding style={{ backgroundColor: '#fff' }}>
         <ScrollView>
@@ -90,7 +90,7 @@ class ForceConnect extends React.Component<Props> {
             Choose from our supported apps to connect to your dashboard
           </SubTitle>
           <AvaibleAppContainer>
-            {appState.availableApps.map((app: App) => (
+            {appState_.availableApps.map((app: App) => (
               <AvaibleApp key={app.key} onPress={() => this.onPress(app)}>
                 <AvaibleAppImg source={{ uri: app.squareLogo }} />
                 <AvaibleAppTextView>

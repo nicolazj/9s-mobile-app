@@ -37,11 +37,11 @@ export class UpdateCompany extends React.Component<Props, State> {
     this.setState({ industries });
   }
   render() {
-    const [userState, authState] = this.props.states;
+    const [userState_, authState_] = this.props.states;
     const { industries } = this.state;
-    const { companies } = userState.state;
+    const { companies } = userState_.state;
     const company = companies
-      ? companies.find(c => c.companyUuid === authState.state.companyUuid)
+      ? companies.find(c => c.companyUuid === authState_.state.companyUuid)
       : null;
 
     const industry =

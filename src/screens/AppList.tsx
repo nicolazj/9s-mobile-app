@@ -7,7 +7,7 @@ import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import activityStatusState, {
-    ActivityStatusState
+  ActivityStatusState,
 } from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
@@ -115,11 +115,11 @@ class AppList extends React.Component<Props> {
   }
 
   render() {
-    const [appState] = this.props.states;
+    const [appState_] = this.props.states;
     return (
       <P.Container>
         <ScrollView>
-          {appState.purchasedApps.length > 0 && [
+          {appState_.purchasedApps.length > 0 && [
             <P.Container key="connected-app-title" hasPadding>
               <View>
                 <Title>My Connected Apps</Title>
@@ -130,7 +130,7 @@ class AppList extends React.Component<Props> {
               horizontal={true}
               style={{ backgroundColor: '#fff' }}
             >
-              {appState.purchasedApps.map((app: App) => (
+              {appState_.purchasedApps.map((app: App) => (
                 <ConnectedApp key={app.key} onPress={() => this.onPress(app)}>
                   <ConnectedAppImg source={{ uri: app.squareLogo }} />
                   <ConnectedAppLabel>
@@ -147,7 +147,7 @@ class AppList extends React.Component<Props> {
             </View>
           </P.Container>
           <AvaibleAppContainer>
-            {appState.availableApps.map((app: App) => (
+            {appState_.availableApps.map((app: App) => (
               <AvaibleApp key={app.key} onPress={() => this.onPress(app)}>
                 <AvaibleAppImg source={{ uri: app.squareLogo }} />
                 <AvaibleAppTextView>

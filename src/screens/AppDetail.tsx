@@ -43,9 +43,9 @@ const DescText = styled(P.Text)`
 export class AppDetailScreen extends React.Component<Props> {
   render() {
     const appKey = this.props.navigation.getParam('key');
-    const [appState] = this.props.states;
-    const appDetail = appState.appDetail(appKey);
-    const samples = appState.getSamplesByAppKey(appKey) as WidgetSample[];
+    const [appState_] = this.props.states;
+    const appDetail = appState_.appDetail(appKey);
+    const samples = appState_.getSamplesByAppKey(appKey) as WidgetSample[];
     const { app } = appDetail;
     if (!app) {
       return null;

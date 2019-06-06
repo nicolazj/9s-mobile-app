@@ -45,11 +45,11 @@ export class Settings extends React.Component<Props> {
     log('debug');
   };
   reportProblem = () => {
-    const [userContainer, authContainer] = this.props.states;
-    const company = userContainer.state.companies.find(
-      c => c.companyUuid === authContainer.state.companyUuid
+    const [userContainer_, authContainer_] = this.props.states;
+    const company = userContainer_.state.companies.find(
+      c => c.companyUuid === authContainer_.state.companyUuid
     );
-    const { me } = userContainer.state;
+    const { me } = userContainer_.state;
     const texts = [
       'Hey 9Spokes team!',
       '',
@@ -77,10 +77,10 @@ export class Settings extends React.Component<Props> {
     );
   };
   render() {
-    const [userState, authState, cookieState] = this.props.states;
-    const { me, companies } = userState.state;
+    const [userState_, authState_, cookieState_] = this.props.states;
+    const { me, companies } = userState_.state;
     const company = companies
-      ? companies.find(c => c.companyUuid === authState.state.companyUuid)
+      ? companies.find(c => c.companyUuid === authState_.state.companyUuid)
       : null;
     return (
       <P.Container>
@@ -132,14 +132,14 @@ export class Settings extends React.Component<Props> {
               <Body>
                 <Switch
                   cur={currencyMaps.findIndex(
-                    c => c.currency === cookieState.state.currency
+                    c => c.currency === cookieState_.state.currency
                   )}
                   options={currencyMaps.map((c, i) => ({
                     label: c.currency,
                     value: i,
                   }))}
                   onChange={(index: number) =>
-                    cookieState.setState({
+                    cookieState_.setState({
                       currency: currencyMaps[index].currency,
                     })
                   }

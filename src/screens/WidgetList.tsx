@@ -4,7 +4,9 @@ import { NavigationScreenProp } from 'react-navigation';
 
 import WidgetComp from '../components/widget';
 import * as P from '../primitives';
-import activityStatusState, { ActivityStatusState } from '../states/ActivityStatus';
+import activityStatusState, {
+  ActivityStatusState,
+} from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import authContainer, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
@@ -27,8 +29,8 @@ export function transform(sample: WidgetSample): Widget {
 }
 class WidgetList extends React.Component<Props> {
   render() {
-    const [appState] = this.props.states;
-    const groupedSamples = appState.getGroupedSample();
+    const [appState_] = this.props.states;
+    const groupedSamples = appState_.getGroupedSample();
     return (
       <P.Container>
         <ScrollView>
@@ -42,8 +44,14 @@ class WidgetList extends React.Component<Props> {
                   <View style={{ flexDirection: 'row' }}>
                     {groupedSamples[cat].map(widget => {
                       return (
-                        <View key={widget.displayName} style={{ width, padding: 20 }}>
-                          <WidgetComp sample={true} widget={transform(widget)} />
+                        <View
+                          key={widget.displayName}
+                          style={{ width, padding: 20 }}
+                        >
+                          <WidgetComp
+                            sample={true}
+                            widget={transform(widget)}
+                          />
                         </View>
                       );
                     })}
@@ -58,4 +66,9 @@ class WidgetList extends React.Component<Props> {
   }
 }
 
-export default SubscribeHOC([appState, userState, authContainer, activityStatusState])(WidgetList);
+export default SubscribeHOC([
+  appState,
+  userState,
+  authContainer,
+  activityStatusState,
+])(WidgetList);

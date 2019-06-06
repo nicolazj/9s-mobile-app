@@ -1,6 +1,10 @@
 import React from 'react';
 import {
-    ActivityIndicator, Alert, AsyncStorage, StatusBar, View
+  ActivityIndicator,
+  Alert,
+  AsyncStorage,
+  StatusBar,
+  View,
 } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
@@ -24,8 +28,8 @@ export class Logout extends React.Component<Props> {
   }
 
   bootstrapAsync = async () => {
-    const [authState] = this.props.states;
-    authState.clear();
+    const [authState_] = this.props.states;
+    authState_.clear();
     cookieState.clear();
     AsyncStorage.clear();
     this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);

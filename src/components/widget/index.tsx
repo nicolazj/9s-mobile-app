@@ -138,8 +138,8 @@ class WidgetComp extends React.Component<Props, State> {
   };
   gotoWidgetInfo = (widget: Widget) => {
     const { key } = widget;
-    const [appState] = this.props.states;
-    const sample = appState.getSample(key);
+    const [appState_] = this.props.states;
+    const sample = appState_.getSample(key);
     if (sample) {
       this.props.navigation.navigate(SCREENS[SCREENS.WIDGET_INFO], {
         key: widget.key,
@@ -155,13 +155,13 @@ class WidgetComp extends React.Component<Props, State> {
   };
   render() {
     const { widget, sample } = this.props;
-    const [appState, cookieState] = this.props.states;
+    const [appState_, cookieState_] = this.props.states;
     const { collapsed } = this.state;
-    const symbol = getSymbol(cookieState.state.currency);
+    const symbol = getSymbol(cookieState_.state.currency);
     const hasData = !!widget.data.extras || widget.data.dataSets;
 
     const Widget = getWidgetByKey(widget.key);
-    const app = appState.getApp(widget.attributes.origin);
+    const app = appState_.getApp(widget.attributes.origin);
     if (!Widget || !app)
       return sample ? (
         <P.Text>

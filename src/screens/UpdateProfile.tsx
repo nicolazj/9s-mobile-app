@@ -23,14 +23,14 @@ const BodyText = styled(Text)`
 `;
 export class Settings extends React.Component<Props> {
   update = () => {
-    const [userState] = this.props.states;
-    const { me } = userState.state;
+    const [userState_] = this.props.states;
+    const { me } = userState_.state;
     const { firstName, lastName } = me;
     agent.user.user.update({ firstName, lastName });
   };
   render() {
-    const [userState] = this.props.states;
-    const { me } = userState.state;
+    const [userState_] = this.props.states;
+    const { me } = userState_.state;
     return (
       <P.Container>
         <NavigationEvents onWillBlur={this.update} />
@@ -46,7 +46,7 @@ export class Settings extends React.Component<Props> {
                   placeholder="First name"
                   placeholderTextColor="#ccc"
                   onChangeText={text => {
-                    userState.setState({
+                    userState_.setState({
                       me: {
                         ...me,
                         firstName: text,
@@ -66,7 +66,7 @@ export class Settings extends React.Component<Props> {
                   placeholder="Last name"
                   placeholderTextColor="#ccc"
                   onChangeText={text => {
-                    userState.setState({
+                    userState_.setState({
                       me: {
                         ...me,
                         lastName: text,

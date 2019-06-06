@@ -2,9 +2,7 @@ import Constants from 'expo-constants';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, TextInput, View } from 'react-native';
-import {
-    KeyboardAwareScrollView
-} from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Header, NavigationScreenProp } from 'react-navigation';
 
 import agent from '../../agent';
@@ -16,7 +14,7 @@ import { FormikTextInput, FormTitle } from '../../formik';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import activityStatusState, {
-    ActivityStatusState
+  ActivityStatusState,
 } from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
 import { SignUpPayload } from '../../types';
@@ -51,10 +49,10 @@ export class SignUp extends React.Component<Props> {
   };
 
   onPress = async (values: SignUpPayload) => {
-    const [activityStatusState] = this.props.states as [ActivityStatusState];
+    const [activityStatusState_] = this.props.states;
 
     try {
-      activityStatusState.show('Checking email');
+      activityStatusState_.show('Checking email');
       const userExisted = await agent.public.user.isExisted(values.userName);
       if (!userExisted) {
         this.props.navigation.navigate(
@@ -67,7 +65,7 @@ export class SignUp extends React.Component<Props> {
     } catch (err) {
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
-      activityStatusState.dismiss();
+      activityStatusState_.dismiss();
     }
   };
 

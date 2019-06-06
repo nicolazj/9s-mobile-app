@@ -5,7 +5,9 @@ import { Field, Formik } from 'formik';
 import React from 'react';
 import { Image, View } from 'react-native';
 import {
-    NavigationActions, NavigationScreenProp, StackActions
+  NavigationActions,
+  NavigationScreenProp,
+  StackActions,
 } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -73,8 +75,8 @@ export class AppConnectScreen extends React.Component<Props, State> {
   async startConnection() {
     try {
       const appKey = this.props.navigation.getParam('key');
-      const [appState, activityStatus] = this.props.states;
-      const appDetail = appState.appDetail(appKey);
+      const [appState_, activityStatus_] = this.props.states;
+      const appDetail = appState_.appDetail(appKey);
 
       let { connection } = appDetail;
       const company = agent.company;
@@ -142,10 +144,10 @@ export class AppConnectScreen extends React.Component<Props, State> {
 
             case ACTIVITY_TYPES.GET_AVAILABLE_ENTITIES:
               if (connection) {
-                activityStatus.show('Loading entities');
+                activityStatus_.show('Loading entities');
                 const entities = await company.entities.list(connection.id);
                 this.setState({ entities });
-                activityStatus.dismiss();
+                activityStatus_.dismiss();
               }
               break;
             case ACTIVITY_TYPES.SUBMIT_ACCOUNT:
@@ -162,13 +164,13 @@ export class AppConnectScreen extends React.Component<Props, State> {
               break;
             case ACTIVITY_TYPES.SUBMIT_AUTHORIZATION:
               if (connection && authResult) {
-                activityStatus.show('Connecting');
+                activityStatus_.show('Connecting');
                 await company.connection.sendAuth(connection.id, {
                   ...authResult.queryParams,
                   callback: step.id,
                   serviceID: appKey,
                 });
-                activityStatus.dismiss();
+                activityStatus_.dismiss();
               } else throw 'no auth result';
               break;
           }
@@ -187,8 +189,8 @@ export class AppConnectScreen extends React.Component<Props, State> {
   }
   render() {
     const appKey = this.props.navigation.getParam('key');
-    const [appState] = this.props.states;
-    const appDetail = appState.appDetail(appKey);
+    const [appState_] = this.props.states;
+    const appDetail = appState_.appDetail(appKey);
     const { step } = this.state;
 
     return (

@@ -88,7 +88,7 @@ export class ManageWidgets extends React.Component<Props, State> {
   };
   render() {
     const { widgets, scrollEnabled } = this.state;
-    const [appState] = this.props.states;
+    const [appState_] = this.props.states;
 
     const activeWidgets = widgets
       .filter(a => a.attributes.active)
@@ -103,7 +103,7 @@ export class ManageWidgets extends React.Component<Props, State> {
       'attributes.origin'
     );
 
-    const getIcon = (appKey: string) => appState.getApp(appKey)!.squareLogo;
+    const getIcon = (appKey: string) => appState_.getApp(appKey)!.squareLogo;
     return (
       <ScrollView scrollEnabled={scrollEnabled}>
         <P.Container style={{ backgroundColor: '#fff' }}>

@@ -3,9 +3,7 @@ import Constants from 'expo-constants';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, View } from 'react-native';
-import {
-    KeyboardAwareScrollView
-} from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenProp } from 'react-navigation';
 import * as Yup from 'yup';
 
@@ -13,13 +11,16 @@ import agent from '../../agent';
 import Button from '../../components/Button';
 import Link from '../../components/Link';
 import {
-    FormDesc, FormikPicker, FormikTextInput, FormTitle
+  FormDesc,
+  FormikPicker,
+  FormikTextInput,
+  FormTitle,
 } from '../../formik';
 import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import activityStatusState, {
-    ActivityStatusState
+  ActivityStatusState,
 } from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
 import userState, { UserState } from '../../states/User';
@@ -54,22 +55,22 @@ export class SignUpCompany extends React.Component<Props, State> {
     });
   }
   onPress = async (values: object) => {
-    const [activityStatusState, userState] = this.props.states;
+    const [activityStatusState_, userState_] = this.props.states;
 
     const signUpPayload = this.props.navigation.state.params as SignUpPayload;
     try {
-      activityStatusState.show('Creating account');
+      activityStatusState_.show('Creating account');
       await agent.public.user.create(signUpPayload);
 
-      activityStatusState.show('Logging in');
+      activityStatusState_.show('Logging in');
       await agent.token.login({
         username: signUpPayload.userName,
         password: signUpPayload.password,
       });
       const me = await agent.user.user.me();
-      userState.setState({ me });
+      userState_.setState({ me });
 
-      activityStatusState.show('Creating Company');
+      activityStatusState_.show('Creating Company');
       const company = await agent.user.company.create(values);
       log('create company:', company);
       this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
@@ -77,7 +78,7 @@ export class SignUpCompany extends React.Component<Props, State> {
       log(JSON.stringify(err, null, 2));
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
-      activityStatusState.dismiss();
+      activityStatusState_.dismiss();
     }
   };
 
