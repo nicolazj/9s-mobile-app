@@ -1,10 +1,6 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  AsyncStorage,
-  StatusBar,
-  View,
+    ActivityIndicator, Alert, AsyncStorage, StatusBar, View
 } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
@@ -45,7 +41,8 @@ export class AuthLoadingScreen extends React.Component<Props> {
         this.props.navigation.navigate(SCREENS[SCREENS.ONBOARDING]);
       } else this.props.navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
     } catch (err) {
-      Alert.alert('[loading]:please try again later');
+      log('loading error', err);
+      Alert.alert('please try again later');
       AsyncStorage.clear();
     }
   };

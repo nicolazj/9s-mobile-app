@@ -11,6 +11,7 @@ import Delimiter from '../../components/Delimiter';
 import GoogleButton from '../../components/GoogleButton';
 import Link from '../../components/Link';
 import { FormikTextInput, FormTitle } from '../../formik';
+import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import activityStatusState, {
@@ -63,7 +64,8 @@ export class SignUp extends React.Component<Props> {
         Alert.alert('Error', 'Username existed');
       }
     } catch (err) {
-      Alert.alert('Log in failed', 'Unable to sign in, try again later');
+      log('sign up err', err);
+      Alert.alert('Log in failed', 'Unable to sign up, try again later');
     } finally {
       activityStatusState_.dismiss();
     }

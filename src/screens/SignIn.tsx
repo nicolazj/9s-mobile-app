@@ -13,6 +13,7 @@ import Delimiter from '../components/Delimiter';
 import GoogleButton from '../components/GoogleButton';
 import Link from '../components/Link';
 import { FormikTextInput, FormTitle } from '../formik';
+import log, { capture } from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import activityStatusState, {
@@ -43,6 +44,8 @@ class SignIn extends React.Component<Props> {
       await agent.token.login(values);
       this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
+      log('login error', err);
+      capture(err);
       if (err.response) {
         if (
           err.response.data.error_description === 'INVALID_USERNAME_OR_PASSWORD'
@@ -50,7 +53,6 @@ class SignIn extends React.Component<Props> {
           Alert.alert('Log in failed', 'Invalid username or password');
         }
       } else {
-        console.log(err);
         Alert.alert('Log in failed', 'Unable to sign in, try again later');
       }
     } finally {

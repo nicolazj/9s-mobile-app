@@ -41,7 +41,6 @@ export class SignUpCompany extends React.Component<Props, State> {
   };
   async componentDidMount() {
     const industries = await agent.public.industry.get();
-    console.log(industries);
     this.setState({
       industries: industries.sort((a, b) => {
         if (a.displayName < b.displayName) {
@@ -133,7 +132,6 @@ export class SignUpCompany extends React.Component<Props, State> {
                       }}
                     >
                       <FormDesc>
-                        {' '}
                         By tapping proceed, you are accepting the{' '}
                       </FormDesc>
                       <Link

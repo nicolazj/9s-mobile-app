@@ -1,5 +1,10 @@
 import React from 'react';
 
+export interface Options {
+  label: string;
+  value: string;
+}
+
 export interface ClientConfig {
   baseURL: string;
   tenantId: string;

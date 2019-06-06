@@ -1,37 +1,51 @@
-import { FieldProps, Formik } from 'formik';
+import { FieldProps } from 'formik';
 import React from 'react';
-import { withNavigation } from 'react-navigation';
+import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
-import { Text, Touchable } from '../primitives';
+import { Text as Text_, Touchable } from '../primitives';
 import { SCREENS } from '../routes/constants';
 import styled, { scale, th } from '../styled';
+import { Options } from '../types';
 import { FormError, FormGroup } from './Misc';
 
-const Picker__ = ({
+interface Props {
+  navigation: NavigationScreenProp<any, any>;
+  options: Options[];
+  selected?: Options;
+  placeholder: string;
+  title: string;
+  subTitle: string;
+  onUpdate: (item: Options) => void;
+}
+
+const Text = styled<{ selected: boolean }>(Text_)`
+  color: ${props => (props.selected ? '#000' : th('color.grey'))};
+`;
+const Picker__: React.FC<Props> = ({
   navigation,
-  items,
-  item,
+  options,
+  selected,
   placeholder,
   title,
   subTitle,
-  onItemChange,
+  onUpdate,
   ...props
 }) => {
-  const update = onItemChange;
   return (
     <Touchable
       {...props}
       onPress={() => {
         navigation.push(SCREENS[SCREENS.PICKER], {
-          items,
-          item,
+          options,
           title,
           subTitle,
-          update,
+          onUpdate,
         });
       }}
     >
-      <Text>{item ? item.label : placeholder}</Text>
+      <Text selected={!!selected}>
+        {selected ? selected.label : placeholder}
+      </Text>
     </Touchable>
   );
 };
@@ -43,14 +57,11 @@ export const Picker = styled(withNavigation(Picker__))`
   border-radius: 5px;
 `;
 
-interface Options {
-  label: string;
-  value: string;
-}
 interface FormikPickerProps {
   options: Options[];
   placeholder: string;
   title: string;
+  subTitle: string;
 }
 
 const FormikPicker: React.FC<FormikPickerProps & FieldProps> = ({
@@ -61,15 +72,14 @@ const FormikPicker: React.FC<FormikPickerProps & FieldProps> = ({
   title,
   subTitle,
 }) => {
-  const item = options.find(o => o.value === value);
+  const selected = options.find(o => o.value === value);
 
   return (
     <FormGroup>
       <Picker
-        onItemChange={o => handleChange(name)(o.value)}
-        items={options}
-        item={item ? item : null}
-        isNullable={false}
+        onUpdate={o => handleChange(name)(o.value)}
+        options={options}
+        selected={selected}
         placeholder={placeholder}
         title={title}
         subTitle={subTitle}

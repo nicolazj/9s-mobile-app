@@ -5,9 +5,7 @@ import { Field, Formik } from 'formik';
 import React from 'react';
 import { Image, View } from 'react-native';
 import {
-  NavigationActions,
-  NavigationScreenProp,
-  StackActions,
+    NavigationActions, NavigationScreenProp, StackActions
 } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -151,8 +149,6 @@ export class AppConnectScreen extends React.Component<Props, State> {
               }
               break;
             case ACTIVITY_TYPES.SUBMIT_ACCOUNT:
-              console.log('SUBMIT_ACCOUNT');
-
               const account = await accountLock.hold();
 
               if (connection) {
