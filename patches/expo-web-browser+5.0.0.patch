@@ -1,0 +1,128 @@
+diff --git a/node_modules/expo-web-browser/README.md b/node_modules/expo-web-browser/README.md
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/android/build.gradle b/node_modules/expo-web-browser/android/build.gradle
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/android/src/main/AndroidManifest.xml b/node_modules/expo-web-browser/android/src/main/AndroidManifest.xml
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/CustomTabsActivitiesHelper.java b/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/CustomTabsActivitiesHelper.java
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/CustomTabsConnectionHelper.java b/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/CustomTabsConnectionHelper.java
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/DeferredClientActionsQueue.java b/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/DeferredClientActionsQueue.java
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/WebBrowserModule.java b/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/WebBrowserModule.java
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/WebBrowserPackage.java b/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/WebBrowserPackage.java
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/error/NoPreferredPackageFound.java b/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/error/NoPreferredPackageFound.java
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/error/PackageManagerNotFoundException.java b/node_modules/expo-web-browser/android/src/main/java/expo/modules/webbrowser/error/PackageManagerNotFoundException.java
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/build/ExpoWebBrowser.d.ts b/node_modules/expo-web-browser/build/ExpoWebBrowser.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/build/ExpoWebBrowser.js b/node_modules/expo-web-browser/build/ExpoWebBrowser.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/build/ExpoWebBrowser.js.map b/node_modules/expo-web-browser/build/ExpoWebBrowser.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/build/ExpoWebBrowser.web.d.ts b/node_modules/expo-web-browser/build/ExpoWebBrowser.web.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/build/ExpoWebBrowser.web.js b/node_modules/expo-web-browser/build/ExpoWebBrowser.web.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/build/ExpoWebBrowser.web.js.map b/node_modules/expo-web-browser/build/ExpoWebBrowser.web.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/build/WebBrowser.d.ts b/node_modules/expo-web-browser/build/WebBrowser.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/build/WebBrowser.js b/node_modules/expo-web-browser/build/WebBrowser.js
+old mode 100644
+new mode 100755
+index dbdd40b..7f9ff6f
+--- a/node_modules/expo-web-browser/build/WebBrowser.js
++++ b/node_modules/expo-web-browser/build/WebBrowser.js
+@@ -55,7 +55,9 @@ export async function openBrowserAsync(url, browserParams = {}) {
+     if (!ExponentWebBrowser.openBrowserAsync) {
+         throw new UnavailabilityError('WebBrowser', 'openBrowserAsync');
+     }
+-    return await ExponentWebBrowser.openBrowserAsync(url, browserParams);
++     await ExponentWebBrowser.openBrowserAsync(url, browserParams);
++     console.log('openBrowserAsync return'  )
++     return 
+ }
+ export function dismissBrowser() {
+     if (!ExponentWebBrowser.dismissBrowser) {
+@@ -98,14 +100,17 @@ function _authSessionIsNativelySupported() {
+ }
+ let _redirectHandler = null;
+ async function _openAuthSessionPolyfillAsync(startUrl, returnUrl) {
+-    if (_redirectHandler) {
+-        throw new Error(`The WebBrowser's auth session is in an invalid state with a redirect handler set when it should not be`);
+-    }
++    // if (_redirectHandler) {
++    //     throw new Error(`The WebBrowser's auth session is in an invalid state with a redirect handler set when it should not be`);
++    // }
+     try {
+         return await Promise.race([openBrowserAsync(startUrl), _waitForRedirectAsync(returnUrl)]);
+     }
+     finally {
+-        dismissBrowser();
++        try{
++            dismissBrowser();
++        }
++        catch(err){}
+         if (!_redirectHandler) {
+             throw new Error(`The WebBrowser auth session is in an invalid state with no redirect handler when one should be set`);
+         }
+@@ -114,6 +119,7 @@ async function _openAuthSessionPolyfillAsync(startUrl, returnUrl) {
+     }
+ }
+ function _waitForRedirectAsync(returnUrl) {
++    console.log('_waitForRedirectAsync',returnUrl)
+     return new Promise(resolve => {
+         _redirectHandler = (event) => {
+             if (event.url.startsWith(returnUrl)) {
+diff --git a/node_modules/expo-web-browser/build/WebBrowser.js.map b/node_modules/expo-web-browser/build/WebBrowser.js.map
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/ios/EXWebBrowser.podspec b/node_modules/expo-web-browser/ios/EXWebBrowser.podspec
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/ios/EXWebBrowser/EXWebBrowser.h b/node_modules/expo-web-browser/ios/EXWebBrowser/EXWebBrowser.h
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/ios/EXWebBrowser/EXWebBrowser.m b/node_modules/expo-web-browser/ios/EXWebBrowser/EXWebBrowser.m
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/src/ExpoWebBrowser.ts b/node_modules/expo-web-browser/src/ExpoWebBrowser.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/src/ExpoWebBrowser.web.ts b/node_modules/expo-web-browser/src/ExpoWebBrowser.web.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/src/WebBrowser.ts b/node_modules/expo-web-browser/src/WebBrowser.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/src/__tests__/WebBrowser-test.ts b/node_modules/expo-web-browser/src/__tests__/WebBrowser-test.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/tsconfig.json b/node_modules/expo-web-browser/tsconfig.json
+old mode 100644
+new mode 100755
+diff --git a/node_modules/expo-web-browser/unimodule.json b/node_modules/expo-web-browser/unimodule.json
+old mode 100644
+new mode 100755

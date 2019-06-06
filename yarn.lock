@@ -2545,6 +2545,13 @@ expo-av@^5.0.0:
   dependencies:
     lodash "^4.17.11"
 
+expo-av@~5.0.0:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-5.0.2.tgz#8f308fc14d7be8b3bc79d6f8dc6c270da07f94d4"
+  integrity sha512-InvEYDinIv5enZR1HM6oIKFrvFoIsXuxAKcbZmgtqeuRzeJpOLJgzEJ5XlqPDfCM9/RX2Fhv4b2mSQsL20T4IQ==
+  dependencies:
+    lodash "^4.17.11"
+
 expo-background-fetch@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/expo-background-fetch/-/expo-background-fetch-5.0.0.tgz#ed1e8014311c3613389de009ca2a6a5480c2a03d"

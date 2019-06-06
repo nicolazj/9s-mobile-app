@@ -1,4 +1,4 @@
-import { Video } from 'expo';
+import { Video } from 'expo-av';
 import React from 'react';
 import { Dimensions, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';

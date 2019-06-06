@@ -2,7 +2,9 @@ import Constants from 'expo-constants';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, TextInput, View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {
+    KeyboardAwareScrollView
+} from 'react-native-keyboard-aware-scroll-view';
 import { Header, NavigationScreenProp } from 'react-navigation';
 
 import agent from '../../agent';
@@ -15,7 +17,7 @@ import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import activityStatusState, {
-  ActivityStatusState,
+    ActivityStatusState
 } from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
 import { SignUpPayload } from '../../types';

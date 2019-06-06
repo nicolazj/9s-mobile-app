@@ -1,0 +1,67 @@
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/.eslintrc b/node_modules/react-native-keyboard-aware-scroll-view/.eslintrc
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/.flowconfig b/node_modules/react-native-keyboard-aware-scroll-view/.flowconfig
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/.travis.yml b/node_modules/react-native-keyboard-aware-scroll-view/.travis.yml
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/CODE_OF_CONDUCT.md b/node_modules/react-native-keyboard-aware-scroll-view/CODE_OF_CONDUCT.md
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/LICENSE b/node_modules/react-native-keyboard-aware-scroll-view/LICENSE
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/README.md b/node_modules/react-native-keyboard-aware-scroll-view/README.md
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/index.d.ts b/node_modules/react-native-keyboard-aware-scroll-view/index.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/index.js b/node_modules/react-native-keyboard-aware-scroll-view/index.js
+old mode 100644
+new mode 100755
+index 96105eb..d5190e6
+--- a/node_modules/react-native-keyboard-aware-scroll-view/index.js
++++ b/node_modules/react-native-keyboard-aware-scroll-view/index.js
+@@ -2,13 +2,13 @@
+ 
+ import listenToKeyboardEvents from './lib/KeyboardAwareHOC'
+ import KeyboardAwareScrollView from './lib/KeyboardAwareScrollView'
+-import KeyboardAwareListView from './lib/KeyboardAwareListView'
++// import KeyboardAwareListView from './lib/KeyboardAwareListView'
+ import KeyboardAwareFlatList from './lib/KeyboardAwareFlatList'
+ import KeyboardAwareSectionList from './lib/KeyboardAwareSectionList'
+ 
+ export {
+   listenToKeyboardEvents,
+-  KeyboardAwareListView,
++  // KeyboardAwareListView,
+   KeyboardAwareFlatList,
+   KeyboardAwareSectionList,
+   KeyboardAwareScrollView
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/jsconfig.json b/node_modules/react-native-keyboard-aware-scroll-view/jsconfig.json
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareFlatList.js b/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareFlatList.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareHOC.js b/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareHOC.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareInterface.js b/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareInterface.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareListView.js b/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareListView.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareScrollView.js b/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareScrollView.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareSectionList.js b/node_modules/react-native-keyboard-aware-scroll-view/lib/KeyboardAwareSectionList.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-keyboard-aware-scroll-view/yarn.lock b/node_modules/react-native-keyboard-aware-scroll-view/yarn.lock
+old mode 100644
+new mode 100755
