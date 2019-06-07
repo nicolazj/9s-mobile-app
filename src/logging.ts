@@ -2,6 +2,10 @@ import axios from 'axios';
 import Constants from 'expo-constants';
 import Sentry from 'sentry-expo';
 
+Sentry.config(
+  'https://fb67f15df45e4a2ea788e003f7a7a501@sentry.io/1457806'
+).install();
+
 //https://requestbin.com/r/enc5m7wqlpp1i
 const endpoint = 'https://enc5m7wqlpp1i.x.pipedream.net';
 let index = 0;

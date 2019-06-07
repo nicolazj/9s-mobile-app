@@ -1,4 +1,4 @@
-import { Google } from 'expo';
+import * as Google from 'expo-google-sign-in';
 import React from 'react';
 import { Alert } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
@@ -7,41 +7,44 @@ import agent from '../agent';
 import { GOOGLE_CLIENT_ID } from '../agent/config';
 import log from '../logging';
 import { SCREENS } from '../routes/constants';
-import activityStatusState, {
-    ActivityStatusState
-} from '../states/ActivityStatus';
-import { SubscribeHOC } from '../states/helper';
+import { useActivityStatusStore } from '../stores/activityStatus';
 import { SocialButon } from './SocialButton';
 
 interface Props {
-  states: [ActivityStatusState];
   navigation: NavigationScreenProp<any, any>;
 }
 
 log('GOOGLE_CLIENT_ID', GOOGLE_CLIENT_ID);
 const GoogleButton: React.FC<Props> = props => {
+
+  const activityStatusActions = useActivityStatusStore(store => store.actions);
+
   const googleLogin = async () => {
     try {
-      const result = await Google.logInAsync({
+
+      Google.initAsync({
         clientId: GOOGLE_CLIENT_ID,
         scopes: ['openid', 'email', 'profile'],
         behavior: 'web',
-      });
+      })
+      const result = await Google.signInAsync();
 
       log('google auth result:', result);
 
       if (result.type === 'success') {
-        const { accessToken } = result;
-        const [activityStatusState] = props.states;
-        activityStatusState.show('Logging in');
-        await agent.token.oauth(accessToken);
-        props.navigation.navigate(SCREENS[SCREENS.LOADING]);
+        const { type,user } = result;
+        activityStatusActions.show('Logging in');
+        if(type === 'success' && user){
+          await agent.token.oauth(user.auth && user.auth.accessToken);
+          props.navigation.navigate(SCREENS[SCREENS.LOADING]);
+        }else throw new Error('no user')
+      
       }
     } catch (err) {
       log('google login error', err);
       Alert.alert('try again later');
     } finally {
-      activityStatusState.dismiss();
+      activityStatusActions.dismiss();
     }
   };
 
@@ -54,6 +57,4 @@ const GoogleButton: React.FC<Props> = props => {
     />
   );
 };
-export default SubscribeHOC([activityStatusState])(
-  withNavigation(GoogleButton)
-);
+export default  withNavigation(GoogleButton)

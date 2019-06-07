@@ -18,11 +18,9 @@ import {
 import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
-import activityStatusState, {
-    ActivityStatusState
-} from '../../states/ActivityStatus';
 import { SubscribeHOC } from '../../states/helper';
 import userState, { UserState } from '../../states/User';
+import { useActivityStatusStore } from '../../stores/activityStatus';
 import { Industry, SignUpPayload } from '../../types';
 
 interface Props {
@@ -30,37 +28,43 @@ interface Props {
   states: [ActivityStatusState, UserState];
 }
 
-interface State {
-  industries: Industry[];
-}
+const SignUpCompany: React.FC<Props> = ({ states, navigation }) => {
+  const [industries, setIndustries] = React.useState<Industry[]>([]);
+  const activityStatusActions = useActivityStatusStore(store => store.actions);
 
-export class SignUpCompany extends React.Component<Props, State> {
-  state = {
-    industries: [],
-  };
-  async componentDidMount() {
-    const industries = await agent.public.industry.get();
-    this.setState({
-      industries: industries.sort((a, b) => {
-        if (a.displayName < b.displayName) {
-          return -1;
-        }
-        if (a.displayName > b.displayName) {
-          return 1;
-        }
-        return 0;
-      }),
-    });
-  }
-  onPress = async (values: object) => {
-    const [activityStatusState_, userState_] = this.props.states;
+  React.useEffect(() => {
+    let isCurrent = true;
 
-    const signUpPayload = this.props.navigation.state.params as SignUpPayload;
+    const getIndustries = async () => {
+      const ind = await agent.public.industry.get();
+      isCurrent &&
+        setIndustries(
+          ind.sort((a, b) => {
+            if (a.displayName < b.displayName) {
+              return -1;
+            }
+            if (a.displayName > b.displayName) {
+              return 1;
+            }
+            return 0;
+          })
+        );
+    };
+    getIndustries();
+    return () => {
+      isCurrent = false;
+    };
+  }, []);
+
+  const onSubmit = async (values: object) => {
+    const [userState_] = states;
+
+    const signUpPayload = navigation.state.params as SignUpPayload;
     try {
-      activityStatusState_.show('Creating account');
+      activityStatusActions.show('Creating account');
       await agent.public.user.create(signUpPayload);
 
-      activityStatusState_.show('Logging in');
+      activityStatusActions.show('Logging in');
       await agent.token.login({
         username: signUpPayload.userName,
         password: signUpPayload.password,
@@ -68,91 +72,87 @@ export class SignUpCompany extends React.Component<Props, State> {
       const me = await agent.user.user.me();
       userState_.setState({ me });
 
-      activityStatusState_.show('Creating Company');
+      activityStatusActions.show('Creating Company');
       const company = await agent.user.company.create(values);
       log('create company:', company);
-      this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
+      navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
       log(JSON.stringify(err, null, 2));
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
-      activityStatusState_.dismiss();
+      activityStatusActions.dismiss();
     }
   };
 
-  render() {
-    const options = this.state.industries.map(
-      ({ displayName, industryUUID }: Industry) => ({
-        value: industryUUID,
-        label: displayName,
-      })
-    );
-    return (
-      <P.Container>
-        <P.SafeArea>
-          <KeyboardAwareScrollView extraHeight={Constants.statusBarHeight}>
-            <P.Container hasPadding>
-              <Formik
-                initialValues={{
-                  companyName: '',
-                  industryUuid: '',
-                }}
-                validationSchema={Yup.object().shape({
-                  companyName: Yup.string().required('Required'),
-                  industryUuid: Yup.string().required('Required'),
-                })}
-                onSubmit={this.onPress}
-              >
-                {({ handleSubmit }) => (
-                  <View style={{ flex: 1 }}>
-                    <FormTitle style={{ marginBottom: 20 }}>
-                      Company Profile
-                    </FormTitle>
-                    <Field
-                      name="companyName"
-                      component={FormikTextInput}
-                      placeholder="Company name"
-                    />
-                    <Field
-                      name="industryUuid"
-                      component={FormikPicker}
-                      placeholder="Select an industry"
-                      title="Select an industry"
-                      subTitle="Choose one of our available industries that best reflects your business"
-                      options={options}
-                    />
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'flex-start',
-                        alignItems: 'center',
-                        marginBottom: 15,
-                        flexWrap: 'wrap',
+  const options = industries.map(({ displayName, industryUUID }: Industry) => ({
+    value: industryUUID,
+    label: displayName,
+  }));
+  return (
+    <P.Container>
+      <P.SafeArea>
+        <KeyboardAwareScrollView extraHeight={Constants.statusBarHeight}>
+          <P.Container hasPadding>
+            <Formik
+              initialValues={{
+                companyName: '',
+                industryUuid: '',
+              }}
+              validationSchema={Yup.object().shape({
+                companyName: Yup.string().required('Required'),
+                industryUuid: Yup.string().required('Required'),
+              })}
+              onSubmit={onSubmit}
+            >
+              {({ handleSubmit }) => (
+                <View style={{ flex: 1 }}>
+                  <FormTitle style={{ marginBottom: 20 }}>
+                    Company Profile
+                  </FormTitle>
+                  <Field
+                    name="companyName"
+                    component={FormikTextInput}
+                    placeholder="Company name"
+                  />
+                  <Field
+                    name="industryUuid"
+                    component={FormikPicker}
+                    placeholder="Select an industry"
+                    title="Select an industry"
+                    subTitle="Choose one of our available industries that best reflects your business"
+                    options={options}
+                  />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'flex-start',
+                      alignItems: 'center',
+                      marginBottom: 15,
+                      flexWrap: 'wrap',
+                    }}
+                  >
+                    <FormDesc>
+                      By tapping proceed, you are accepting the{' '}
+                    </FormDesc>
+                    <Link
+                      title="Terms & Conditions"
+                      onPress={() => {
+                        WebBrowser.openBrowserAsync(
+                          'https://www.9spokes.com/legal/terms-and-conditions/'
+                        );
                       }}
-                    >
-                      <FormDesc>
-                        By tapping proceed, you are accepting the{' '}
-                      </FormDesc>
-                      <Link
-                        title="Terms & Conditions"
-                        onPress={() => {
-                          WebBrowser.openBrowserAsync(
-                            'https://www.9spokes.com/legal/terms-and-conditions/'
-                          );
-                        }}
-                      />
-                      <FormDesc> related to 9Spokes Dashboard.</FormDesc>
-                    </View>
-                    <Button title="Proceed" onPress={handleSubmit} />
+                    />
+                    <FormDesc> related to 9Spokes Dashboard.</FormDesc>
                   </View>
-                )}
-              </Formik>
-            </P.Container>
-          </KeyboardAwareScrollView>
-        </P.SafeArea>
-      </P.Container>
-    );
-  }
-}
+                  <Button title="Proceed" onPress={handleSubmit} />
+                </View>
+              )}
+            </Formik>
+          </P.Container>
+        </KeyboardAwareScrollView>
+      </P.SafeArea>
+    </P.Container>
+  );
+};
 
-export default SubscribeHOC([activityStatusState, userState])(SignUpCompany);
+export default SubscribeHOC([userState])(SignUpCompany);

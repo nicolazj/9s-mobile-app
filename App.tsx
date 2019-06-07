@@ -1,49 +1,21 @@
-import './src/base64';
+import './src/polyfill';
 
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React from 'react';
 import { View } from 'react-native';
-import Sentry from 'sentry-expo';
 
 import { Ionicons } from '@expo/vector-icons';
 
+import { capture } from './src/logging';
 import Root from './src/Root';
 
-Sentry.config(
-  'https://fb67f15df45e4a2ea788e003f7a7a501@sentry.io/1457806'
-).install();
+const App = () => {
+  const [isLoaded, setIsLoaded] = React.useState(false);
 
-interface State {
-  isLoadingComplete: boolean;
-}
-
-export default class App extends React.Component<any, State> {
-  state: State = {
-    isLoadingComplete: false,
-  };
-
-  render() {
-    if (!this.state.isLoadingComplete) {
-      return (
-        <AppLoading
-          startAsync={this.loadResourcesAsync}
-          onError={this.handleLoadingError}
-          onFinish={this.handleFinishLoading}
-        />
-      );
-    } else {
-      return (
-        <View style={{ flex: 1 }}>
-          <Root />
-        </View>
-      );
-    }
-  }
-
-  loadResourcesAsync = () => {
-    return Promise.all([
+  const loadResourcesAsync = async () => {
+    await Promise.all([
       Asset.loadAsync([require('./assets/google.png')]),
       Asset.loadAsync([require('./assets/ob1.mp4')]),
       Asset.loadAsync([require('./assets/ob2.mp4')]),
@@ -51,16 +23,34 @@ export default class App extends React.Component<any, State> {
       Font.loadAsync({
         ...(Ionicons as any).font,
       }),
-    ]).then(() => {
-      return;
-    });
+    ]);
+    return;
   };
 
-  handleLoadingError = (error: Error) => {
+  const handleLoadingError = (error: Error) => {
     console.warn(error);
+    capture(error);
   };
 
-  handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true });
+  const handleFinishLoading = () => {
+    setIsLoaded(true);
   };
-}
+
+  if (!isLoaded) {
+    return (
+      <AppLoading
+        startAsync={loadResourcesAsync}
+        onError={handleLoadingError}
+        onFinish={handleFinishLoading}
+      />
+    );
+  } else {
+    return (
+      <View style={{ flex: 1 }}>
+        <Root />
+      </View>
+    );
+  }
+};
+
+export default App;

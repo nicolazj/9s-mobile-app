@@ -18,22 +18,19 @@ import Lock from '../Lock';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import activityStatus, { ActivityStatusState } from '../states/ActivityStatus';
 import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
+import { useActivityStatusStore } from '../stores/activityStatus';
 import styled, { scale, th } from '../styled';
 import { ACTIVITY_TYPES, Entity, Workflow } from '../types';
 import { object, requiredString } from '../validations';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState, ActivityStatusState];
+  states: [AppState, ];
 }
 
-interface State {
-  entities: Entity[];
-  step: ACTIVITY_TYPES;
-}
+
 
 const AppImg = styled(Image)`
   height: ${scale(100)}px;
@@ -56,24 +53,37 @@ const Icon = styled(Ionicons).attrs(props => ({
   color: th('color.main')(props),
 }))``;
 
-const entityLock = new Lock<Entity>();
 
-const accountLock = new Lock<{ account: string }>();
 
-export class AppConnectScreen extends React.Component<Props, State> {
-  state = {
-    entities: [],
-    step: ACTIVITY_TYPES.CLIENT_INIT,
-  } as State;
+const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
 
-  componentDidMount() {
-    this.startConnection();
-  }
 
-  async startConnection() {
+  const activityStatusActions = useActivityStatusStore(store => store.actions);
+  
+  const [entities,setEntities] =React.useState<Entity[]>([])
+  const [step,setStep] =React.useState<ACTIVITY_TYPES>(ACTIVITY_TYPES.CLIENT_INIT)
+
+  const appKey =navigation.getParam('key');
+  const [appState_, ] =states;
+
+
+  const entityLock = new Lock<Entity>();
+  const accountLock = new Lock<{ account: string }>();
+
+  const chooseEntity = (e: Entity) => {
+    entityLock.release(e);
+  };
+
+  const submitAccount = (values:any) => {
+    accountLock.release(values);
+  };
+
+  React.useEffect(() => {
+    startConnection();
+  }, []);
+
+  const startConnection = async () => {
     try {
-      const appKey = this.props.navigation.getParam('key');
-      const [appState_, activityStatus_] = this.props.states;
       const appDetail = appState_.appDetail(appKey);
 
       let { connection } = appDetail;
@@ -98,8 +108,7 @@ export class AppConnectScreen extends React.Component<Props, State> {
         const act = activities[0];
         for (const step of act.steps) {
           log('doing', act.type);
-          this.setState({ step: act.type });
-
+          setStep(act.type)
           switch (act.type) {
             case ACTIVITY_TYPES.INITIATE_CONNECTION:
               if (!connection) {
@@ -142,10 +151,10 @@ export class AppConnectScreen extends React.Component<Props, State> {
 
             case ACTIVITY_TYPES.GET_AVAILABLE_ENTITIES:
               if (connection) {
-                activityStatus_.show('Loading entities');
+                activityStatusActions.show('Loading entities');
                 const entities = await company.entities.list(connection.id);
-                this.setState({ entities });
-                activityStatus_.dismiss();
+                setEntities(entities)
+                activityStatusActions.dismiss();
               }
               break;
             case ACTIVITY_TYPES.SUBMIT_ACCOUNT:
@@ -160,13 +169,13 @@ export class AppConnectScreen extends React.Component<Props, State> {
               break;
             case ACTIVITY_TYPES.SUBMIT_AUTHORIZATION:
               if (connection && authResult) {
-                activityStatus_.show('Connecting');
+                activityStatusActions.show('Connecting');
                 await company.connection.sendAuth(connection.id, {
                   ...authResult.queryParams,
                   callback: step.id,
                   serviceID: appKey,
                 });
-                activityStatus_.dismiss();
+                activityStatusActions.dismiss();
               } else throw 'no auth result';
               break;
           }
@@ -177,121 +186,111 @@ export class AppConnectScreen extends React.Component<Props, State> {
         }
       }
       agent.company.widget.addByAppKey(appKey);
-      this.setState({ step: ACTIVITY_TYPES.SUCCEEDED });
+      setStep(ACTIVITY_TYPES.SUCCEEDED)
     } catch (err) {
       log('connect errored', err);
-      this.setState({ step: ACTIVITY_TYPES.ERRORED });
+      setStep(ACTIVITY_TYPES.ERRORED)
     }
-  }
-  render() {
-    const appKey = this.props.navigation.getParam('key');
-    const [appState_] = this.props.states;
-    const appDetail = appState_.appDetail(appKey);
-    const { step } = this.state;
+  };
 
-    return (
-      <Container hasPadding>
-        {step === ACTIVITY_TYPES.CLIENT_INIT && (
-          <Container vcenter hcenter>
-            <P.Title>Connect to {appDetail.app.name}</P.Title>
-          </Container>
-        )}
-        {step === ACTIVITY_TYPES.SUBMIT_ENTITY && (
-          <Container hcenter>
-            <P.Title>Select an entity</P.Title>
-            <P.SubTitle>
-              Select one of the following entities for your account
-            </P.SubTitle>
-            {this.state.entities.map(e => (
-              <Select
-                title={e.name}
-                onPress={() => this.chooseEntity(e)}
-                key={e.id}
-              />
-            ))}
-          </Container>
-        )}
-        {step === ACTIVITY_TYPES.SUBMIT_ACCOUNT && (
-          <Container hcenter>
-            <P.Title>Select an account</P.Title>
-            <P.SubTitle>
-              Please provide the following credentials to connect your {appKey}
-              account
-            </P.SubTitle>
-            <Container hasMargin>
-              <Formik
-                initialValues={{
-                  selectedAccount: '',
-                }}
-                validationSchema={object().shape({
-                  selectedAccount: requiredString,
-                })}
-                onSubmit={this.submitAccount}
-              >
-                {({ handleSubmit }) => (
-                  <View style={{ flex: 1 }}>
-                    <Field
-                      name="selectedAccount"
-                      component={FormikTextInput}
-                      placeholder="Store name"
-                      returnKeyType="next"
-                    />
+  
+  const appDetail = appState_.appDetail(appKey);
 
-                    <Button title="Continue" onPress={handleSubmit} />
-                  </View>
-                )}
-              </Formik>
-            </Container>
-          </Container>
-        )}
-
-        {step === ACTIVITY_TYPES.SUCCEEDED && (
-          <Container vcenter hcenter>
-            <AppImg source={{ uri: appDetail.app.logo }} resizeMode="contain" />
-
-            <Row>
-              <Icon name="ios-checkmark-circle-outline" size={24} />
-              <ConnectText>Connected</ConnectText>
-            </Row>
-
-            <P.SubTitle>
-              We're busy setting up your widgets for you. Here are some examples
-              of what they'll look like when they're ready.
-            </P.SubTitle>
-            <Button
-              onPress={() => {
-                const resetAction = StackActions.reset({
-                  index: 0,
-                  actions: [
-                    NavigationActions.navigate({
-                      routeName: 'Tabs',
-                    }),
-                  ],
-                });
-                this.props.navigation.dispatch(resetAction);
-                this.props.navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
-              }}
-              title="Done"
+  return (
+    <Container hasPadding>
+      {step === ACTIVITY_TYPES.CLIENT_INIT && (
+        <Container vcenter hcenter>
+          <P.Title>Connect to {appDetail.app.name}</P.Title>
+        </Container>
+      )}
+      {step === ACTIVITY_TYPES.SUBMIT_ENTITY && (
+        <Container hcenter>
+          <P.Title>Select an entity</P.Title>
+          <P.SubTitle>
+            Select one of the following entities for your account
+          </P.SubTitle>
+          {entities.map(e => (
+            <Select
+              title={e.name}
+              onPress={() => chooseEntity(e)}
+              key={e.id}
             />
+          ))}
+        </Container>
+      )}
+      {step === ACTIVITY_TYPES.SUBMIT_ACCOUNT && (
+        <Container hcenter>
+          <P.Title>Select an account</P.Title>
+          <P.SubTitle>
+            Please provide the following credentials to connect your {appKey}
+            account
+          </P.SubTitle>
+          <Container hasMargin>
+            <Formik
+              initialValues={{
+                selectedAccount: '',
+              }}
+              validationSchema={object().shape({
+                selectedAccount: requiredString,
+              })}
+              onSubmit={submitAccount}
+            >
+              {({ handleSubmit }) => (
+                <View style={{ flex: 1 }}>
+                  <Field
+                    name="selectedAccount"
+                    component={FormikTextInput}
+                    placeholder="Store name"
+                    returnKeyType="next"
+                  />
+
+                  <Button title="Continue" onPress={handleSubmit} />
+                </View>
+              )}
+            </Formik>
           </Container>
-        )}
+        </Container>
+      )}
 
-        {step === ACTIVITY_TYPES.ERRORED && (
-          <Container vcenter hcenter>
-            <P.H2>Ooops</P.H2>
-            <P.SubTitle>please try again</P.SubTitle>
-          </Container>
-        )}
-      </Container>
-    );
-  }
-  chooseEntity(e: Entity) {
-    entityLock.release(e);
-  }
+      {step === ACTIVITY_TYPES.SUCCEEDED && (
+        <Container vcenter hcenter>
+          <AppImg source={{ uri: appDetail.app.logo }} resizeMode="contain" />
 
-  submitAccount(values) {
-    accountLock.release(values);
-  }
-}
+          <Row>
+            <Icon name="ios-checkmark-circle-outline" size={24} />
+            <ConnectText>Connected</ConnectText>
+          </Row>
 
-export default SubscribeHOC([appState, activityStatus])(AppConnectScreen);
+          <P.SubTitle>
+            We're busy setting up your widgets for you. Here are some examples
+            of what they'll look like when they're ready.
+          </P.SubTitle>
+          <Button
+            onPress={() => {
+              const resetAction = StackActions.reset({
+                index: 0,
+                actions: [
+                  NavigationActions.navigate({
+                    routeName: 'Tabs',
+                  }),
+                ],
+              });
+             navigation.dispatch(resetAction);
+             navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
+            }}
+            title="Done"
+          />
+        </Container>
+      )}
+
+      {step === ACTIVITY_TYPES.ERRORED && (
+        <Container vcenter hcenter>
+          <P.H2>Ooops</P.H2>
+          <P.SubTitle>please try again</P.SubTitle>
+        </Container>
+      )}
+    </Container>
+  );
+};
+
+export default SubscribeHOC([appState, ])(AppConnectScreen);

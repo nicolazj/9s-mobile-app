@@ -52,7 +52,7 @@ new mode 100755
 diff --git a/node_modules/expo-web-browser/build/WebBrowser.js b/node_modules/expo-web-browser/build/WebBrowser.js
 old mode 100644
 new mode 100755
-index dbdd40b..7f9ff6f
+index dbdd40b..5593f8b
 --- a/node_modules/expo-web-browser/build/WebBrowser.js
 +++ b/node_modules/expo-web-browser/build/WebBrowser.js
 @@ -55,7 +55,9 @@ export async function openBrowserAsync(url, browserParams = {}) {
@@ -66,7 +66,7 @@ index dbdd40b..7f9ff6f
  }
  export function dismissBrowser() {
      if (!ExponentWebBrowser.dismissBrowser) {
-@@ -98,14 +100,17 @@ function _authSessionIsNativelySupported() {
+@@ -98,14 +100,19 @@ function _authSessionIsNativelySupported() {
  }
  let _redirectHandler = null;
  async function _openAuthSessionPolyfillAsync(startUrl, returnUrl) {
@@ -77,7 +77,10 @@ index dbdd40b..7f9ff6f
 +    //     throw new Error(`The WebBrowser's auth session is in an invalid state with a redirect handler set when it should not be`);
 +    // }
      try {
-         return await Promise.race([openBrowserAsync(startUrl), _waitForRedirectAsync(returnUrl)]);
+-        return await Promise.race([openBrowserAsync(startUrl), _waitForRedirectAsync(returnUrl)]);
++        openBrowserAsync(startUrl)
++        return await _waitForRedirectAsync(returnUrl);
++        // return await Promise.race([openBrowserAsync(startUrl), _waitForRedirectAsync(returnUrl)]);
      }
      finally {
 -        dismissBrowser();
@@ -88,7 +91,7 @@ index dbdd40b..7f9ff6f
          if (!_redirectHandler) {
              throw new Error(`The WebBrowser auth session is in an invalid state with no redirect handler when one should be set`);
          }
-@@ -114,6 +119,7 @@ async function _openAuthSessionPolyfillAsync(startUrl, returnUrl) {
+@@ -114,6 +121,7 @@ async function _openAuthSessionPolyfillAsync(startUrl, returnUrl) {
      }
  }
  function _waitForRedirectAsync(returnUrl) {

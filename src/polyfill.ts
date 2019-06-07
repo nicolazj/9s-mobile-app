@@ -44,6 +44,5 @@ export const atob = (input = '') => {
 
   return output;
 };
-if (!(btoa in global)) {
-  global.btoa = btoa;
-}
+
+global.btoa = global.btoa || btoa;

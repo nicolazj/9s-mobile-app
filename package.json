@@ -47,7 +47,8 @@
     "tslint": "^5.11.0",
     "typescript": "^3.1.1",
     "unstated": "^2.1.1",
-    "yup": "^0.26.6"
+    "yup": "^0.26.6",
+    "zustand": "^0.2.1"
   },
   "devDependencies": {
     "@types/d3-array": "^1.2.4",

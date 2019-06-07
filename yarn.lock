@@ -7203,3 +7203,8 @@ yup@^0.26.6:
     property-expr "^1.5.0"
     synchronous-promise "^2.0.5"
     toposort "^2.0.2"
+
+zustand@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-0.2.1.tgz#813c23cacf6b8410b12c5a7d86c4bd801f0ea827"
+  integrity sha512-A8/oxlViTJH9QlXJLxWC9CLqLGi2NfJi0ayrSFjZiKmK94o6671yoKkqrYkvVI37ytRD7blN6ZgweDq4qd8vKg==

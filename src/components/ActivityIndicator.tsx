@@ -3,7 +3,7 @@ import { ActivityIndicator, View } from 'react-native';
 import { Subscribe } from 'unstated';
 
 import { Text } from '../primitives';
-import activityStatus, { ActivityStatusState } from '../states/ActivityStatus';
+import { useActivityStatusStore } from '../stores/activityStatus';
 import styled, { scale, th } from '../styled';
 
 const BG = styled(View)`
@@ -32,17 +32,15 @@ const AI = styled(ActivityIndicator).attrs(props => ({
   size: 'large',
   color: th('color.main')(props),
 }))``;
-export default () => (
-  <Subscribe to={[activityStatus]}>
-    {(acticityStatus: ActivityStatusState) =>
-      acticityStatus.state.show ? (
-        <BG>
-          <Wrapper>
-            <Message>{acticityStatus.state.msg}</Message>
-            <AI />
-          </Wrapper>
-        </BG>
-      ) : null
-    }
-  </Subscribe>
-);
+
+export default () => {
+  const {show, msg} = useActivityStatusStore();
+  return show ? (
+    <BG>
+      <Wrapper>
+        <Message>{msg}</Message>
+        <AI />
+      </Wrapper>
+    </BG>
+  ) : null;
+};
