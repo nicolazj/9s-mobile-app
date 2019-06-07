@@ -7,16 +7,14 @@ import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import appState, { AppState } from '../states/Apps';
-import authContainer, { AuthState } from '../states/Auth';
 import { SubscribeHOC } from '../states/helper';
-import userState, { UserState } from '../states/User';
 import { useActivityStatusStore } from '../stores/activityStatus';
 import styled, { scale } from '../styled';
 import { App } from '../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState, UserState, AuthState];
+  states: [AppState];
 }
 
 const Title = styled(P.H1)`
@@ -54,9 +52,9 @@ const AvaibleAppImg = styled(Image)`
   width: ${scale(40)}px;
 `;
 
-const ForceConnect: React.FC<Props> = ({ states ,navigation }) => {
+const ForceConnect: React.FC<Props> = ({ states, navigation }) => {
   const activityStatusActions = useActivityStatusStore(store => store.actions);
-  const [appState_, , ,] = states;
+  const [appState_] = states;
 
   React.useEffect(() => {
     fetchApps();
@@ -103,6 +101,4 @@ const ForceConnect: React.FC<Props> = ({ states ,navigation }) => {
   );
 };
 
-export default SubscribeHOC([appState, userState, authContainer])(
-  withNavigation(ForceConnect)
-);
+export default SubscribeHOC([appState])(withNavigation(ForceConnect));

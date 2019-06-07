@@ -40,12 +40,12 @@ const SwitchCompanyBtn = styled(Link)`
   padding: 5px;
 `;
 
-export class Settings extends React.Component<Props> {
-  debug = () => {
-    log('debug');
-  };
-  reportProblem = () => {
-    const [userContainer_, authContainer_] = this.props.states;
+const Settings: React.FC<Props> = ({ states, navigation }) => {
+  const debug = () => {};
+
+  const [userState_, authState_, cookieState_] = states;
+
+  const reportProblem = () => {
     const company = userContainer_.state.companies.find(
       c => c.companyUuid === authContainer_.state.companyUuid
     );
@@ -76,157 +76,154 @@ export class Settings extends React.Component<Props> {
       'mailto:support@9spokes.com?subject=Mobile Query&body=' + texts.join('\n')
     );
   };
-  render() {
-    const [userState_, authState_, cookieState_] = this.props.states;
-    const { me, companies } = userState_.state;
-    const company = companies
-      ? companies.find(c => c.companyUuid === authState_.state.companyUuid)
-      : null;
-    return (
-      <P.Container>
-        <ScrollView>
-          <Title>Account</Title>
-          {companies.length > 1 && (
-            <SwitchCompanyBtn
-              title="Change Company"
-              onPress={() => {
-                this.props.navigation.push(SCREENS[SCREENS.SWITCH_COMPANY]);
-              }}
-            />
-          )}
-          <List style={{ backgroundColor: '#fff' }}>
-            <ListItem
-              onPress={() => {
-                this.props.navigation.push(SCREENS[SCREENS.UPDATE_PROFILE]);
-              }}
-            >
-              <Left>
-                <Text>User profile</Text>
-              </Left>
-              <Body>
-                <BodyText>{`${me.firstName} ${me.lastName}`}</BodyText>
-              </Body>
-              <Right>
-                <Ionicons name="ios-arrow-forward" />
-              </Right>
-            </ListItem>
-            <ListItem
-              onPress={() => {
-                this.props.navigation.push(SCREENS[SCREENS.UPDATE_COMPANY]);
-              }}
-            >
-              <Left>
-                <Text>Company profile</Text>
-              </Left>
-              <Body>
-                <BodyText>{company && company.companyName}</BodyText>
-              </Body>
-              <Right>
-                <Ionicons name="ios-arrow-forward" />
-              </Right>
-            </ListItem>
-            <ListItem>
-              <Left>
-                <Text>Currency </Text>
-              </Left>
-              <Body>
-                <Switch
-                  cur={currencyMaps.findIndex(
-                    c => c.currency === cookieState_.state.currency
-                  )}
-                  options={currencyMaps.map((c, i) => ({
-                    label: c.currency,
-                    value: i,
-                  }))}
-                  onChange={(index: number) =>
-                    cookieState_.setState({
-                      currency: currencyMaps[index].currency,
-                    })
-                  }
-                />
-              </Body>
-            </ListItem>
-          </List>
-          <Title>Support</Title>
-          <List style={{ backgroundColor: '#fff' }}>
-            <ListItem onPress={this.reportProblem}>
-              <Left>
-                <Text>Report a problem</Text>
-              </Left>
-
-              <Right>
-                <Ionicons name="ios-arrow-forward" />
-              </Right>
-            </ListItem>
-            <ListItem
-              onPress={() =>
-                WebBrowser.openBrowserAsync(
-                  'https://support.9spokes.com/hc/en-us'
-                )
-              }
-            >
-              <Left>
-                <Text>Help center</Text>
-              </Left>
-              <Right>
-                <Ionicons name="ios-arrow-forward" />
-              </Right>
-            </ListItem>
-          </List>
-          <Title>Legal</Title>
-
-          <List style={{ backgroundColor: '#fff' }}>
-            <ListItem
-              onPress={() =>
-                WebBrowser.openBrowserAsync(
-                  'https://www.9spokes.com/legal/terms-and-conditions/'
-                )
-              }
-            >
-              <Left>
-                <Text>Terms and conditions</Text>
-              </Left>
-              <Right>
-                <Ionicons name="ios-arrow-forward" />
-              </Right>
-            </ListItem>
-            <ListItem
-              onPress={() =>
-                WebBrowser.openBrowserAsync(
-                  'https://www.9spokes.com/legal/privacy-notice/'
-                )
-              }
-            >
-              <Left>
-                <Text>Privacy policy</Text>
-              </Left>
-              <Right>
-                <Ionicons name="ios-arrow-forward" />
-              </Right>
-            </ListItem>
-          </List>
-          <Title>About</Title>
-          <List style={{ backgroundColor: '#fff' }}>
-            <ListItem onPress={this.debug}>
-              <Left>
-                <Text>App version</Text>
-              </Left>
-              <Right>
-                <Text>1.0.0</Text>
-              </Right>
-            </ListItem>
-          </List>
-          <Title />
-
-          <P.Container hasMargin>
-            <Button title="Log out" onPress={this.handleLogout} />
-          </P.Container>
-        </ScrollView>
-      </P.Container>
-    );
-  }
-  handleLogout = () => {
-    this.props.navigation.navigate(SCREENS[SCREENS.LOGOUT]);
+  const handleLogout = () => {
+    navigation.navigate(SCREENS[SCREENS.LOGOUT]);
   };
-}
+  const { me, companies } = userState_.state;
+  const company = companies
+    ? companies.find(c => c.companyUuid === authState_.state.companyUuid)
+    : null;
+  return (
+    <P.Container>
+      <ScrollView>
+        <Title>Account</Title>
+        {companies.length > 1 && (
+          <SwitchCompanyBtn
+            title="Change Company"
+            onPress={() => {
+              navigation.push(SCREENS[SCREENS.SWITCH_COMPANY]);
+            }}
+          />
+        )}
+        <List style={{ backgroundColor: '#fff' }}>
+          <ListItem
+            onPress={() => {
+              navigation.push(SCREENS[SCREENS.UPDATE_PROFILE]);
+            }}
+          >
+            <Left>
+              <Text>User profile</Text>
+            </Left>
+            <Body>
+              <BodyText>{`${me.firstName} ${me.lastName}`}</BodyText>
+            </Body>
+            <Right>
+              <Ionicons name="ios-arrow-forward" />
+            </Right>
+          </ListItem>
+          <ListItem
+            onPress={() => {
+              navigation.push(SCREENS[SCREENS.UPDATE_COMPANY]);
+            }}
+          >
+            <Left>
+              <Text>Company profile</Text>
+            </Left>
+            <Body>
+              <BodyText>{company && company.companyName}</BodyText>
+            </Body>
+            <Right>
+              <Ionicons name="ios-arrow-forward" />
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Currency </Text>
+            </Left>
+            <Body>
+              <Switch
+                cur={currencyMaps.findIndex(
+                  c => c.currency === cookieState_.state.currency
+                )}
+                options={currencyMaps.map((c, i) => ({
+                  label: c.currency,
+                  value: i,
+                }))}
+                onChange={(index: number) =>
+                  cookieState_.setState({
+                    currency: currencyMaps[index].currency,
+                  })
+                }
+              />
+            </Body>
+          </ListItem>
+        </List>
+        <Title>Support</Title>
+        <List style={{ backgroundColor: '#fff' }}>
+          <ListItem onPress={reportProblem}>
+            <Left>
+              <Text>Report a problem</Text>
+            </Left>
+
+            <Right>
+              <Ionicons name="ios-arrow-forward" />
+            </Right>
+          </ListItem>
+          <ListItem
+            onPress={() =>
+              WebBrowser.openBrowserAsync(
+                'https://support.9spokes.com/hc/en-us'
+              )
+            }
+          >
+            <Left>
+              <Text>Help center</Text>
+            </Left>
+            <Right>
+              <Ionicons name="ios-arrow-forward" />
+            </Right>
+          </ListItem>
+        </List>
+        <Title>Legal</Title>
+
+        <List style={{ backgroundColor: '#fff' }}>
+          <ListItem
+            onPress={() =>
+              WebBrowser.openBrowserAsync(
+                'https://www.9spokes.com/legal/terms-and-conditions/'
+              )
+            }
+          >
+            <Left>
+              <Text>Terms and conditions</Text>
+            </Left>
+            <Right>
+              <Ionicons name="ios-arrow-forward" />
+            </Right>
+          </ListItem>
+          <ListItem
+            onPress={() =>
+              WebBrowser.openBrowserAsync(
+                'https://www.9spokes.com/legal/privacy-notice/'
+              )
+            }
+          >
+            <Left>
+              <Text>Privacy policy</Text>
+            </Left>
+            <Right>
+              <Ionicons name="ios-arrow-forward" />
+            </Right>
+          </ListItem>
+        </List>
+        <Title>About</Title>
+        <List style={{ backgroundColor: '#fff' }}>
+          <ListItem onPress={debug}>
+            <Left>
+              <Text>App version</Text>
+            </Left>
+            <Right>
+              <Text>1.0.0</Text>
+            </Right>
+          </ListItem>
+        </List>
+        <Title />
+
+        <P.Container hasMargin>
+          <Button title="Log out" onPress={handleLogout} />
+        </P.Container>
+      </ScrollView>
+    </P.Container>
+  );
+};
 export default SubscribeHOC([userState, authState, cookieState])(Settings);

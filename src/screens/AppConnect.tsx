@@ -53,7 +53,8 @@ const Icon = styled(Ionicons).attrs(props => ({
   color: th('color.main')(props),
 }))``;
 
-
+const entityLock = new Lock<Entity>();
+const accountLock = new Lock<{ account: string }>();
 
 const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
 
@@ -66,9 +67,6 @@ const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
   const appKey =navigation.getParam('key');
   const [appState_, ] =states;
 
-
-  const entityLock = new Lock<Entity>();
-  const accountLock = new Lock<{ account: string }>();
 
   const chooseEntity = (e: Entity) => {
     entityLock.release(e);
@@ -193,7 +191,7 @@ const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
     }
   };
 
-  
+
   const appDetail = appState_.appDetail(appKey);
 
   return (

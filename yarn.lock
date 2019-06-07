@@ -2662,6 +2662,13 @@ expo-google-sign-in@^5.0.0:
   dependencies:
     invariant "^2.2.4"
 
+expo-google-sign-in@~5.0.0:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/expo-google-sign-in/-/expo-google-sign-in-5.0.1.tgz#1285afd2cb605129c310ef89b555ba8a3a5f61c2"
+  integrity sha512-VwKIiG+S7uswF27RN9+WBO4dGQhmBPeqYnlBjuw3Zf8pS+tZcE5VROb1PBzyhgn4WEvGEql+40axm8fIMlensw==
+  dependencies:
+    invariant "^2.2.4"
+
 expo-haptics@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/expo-haptics/-/expo-haptics-5.0.0.tgz#0f9301c165ebcbf6024a890c0842603a244a2772"
