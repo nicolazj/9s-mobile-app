@@ -1,3 +1,4 @@
+import * as Google from 'expo-google-sign-in';
 // import * as Google from 'expo-google-sign-in';
 import React from 'react';
 import { Alert } from 'react-native';
@@ -14,38 +15,36 @@ interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
-log('GOOGLE_CLIENT_ID', GOOGLE_CLIENT_ID);
 const GoogleButton: React.FC<Props> = props => {
-
   const activityStatusActions = useActivityStatusStore(store => store.actions);
 
+  React.useEffect(() => {
+    Google.initAsync({
+      clientId: GOOGLE_CLIENT_ID,
+    });
+  }, []);
+
   const googleLogin = async () => {
-    // try {
+    try {
+      await Google.askForPlayServicesAsync();
+      const result = await Google.signInAsync();
 
-    //   Google.initAsync({
-    //     clientId: GOOGLE_CLIENT_ID,
-    //     scopes: ['openid', 'email', 'profile'],
-    //     behavior: 'web',
-    //   })
-    //   const result = await Google.signInAsync();
+      log('google auth result:', result);
 
-    //   log('google auth result:', result);
-
-    //   if (result.type === 'success') {
-    //     const { type,user } = result;
-    //     activityStatusActions.show('Logging in');
-    //     if(type === 'success' && user){
-    //       await agent.token.oauth(user.auth!.accessToken!);
-    //       props.navigation.navigate(SCREENS[SCREENS.LOADING]);
-    //     }else throw new Error('no user')
-      
-    //   }
-    // } catch (err) {
-    //   log('google login error', err);
-    //   Alert.alert('try again later');
-    // } finally {
-    //   activityStatusActions.dismiss();
-    // }
+      if (result.type === 'success') {
+        const { type, user } = result;
+        activityStatusActions.show('Logging in');
+        if (type === 'success' && user) {
+          await agent.token.oauth(user.auth!.accessToken!);
+          props.navigation.navigate(SCREENS[SCREENS.LOADING]);
+        } else throw new Error('no user');
+      }
+    } catch (err) {
+      log('google login error', err);
+      Alert.alert('try again later');
+    } finally {
+      activityStatusActions.dismiss();
+    }
   };
 
   return (
@@ -57,4 +56,4 @@ const GoogleButton: React.FC<Props> = props => {
     />
   );
 };
-export default  withNavigation(GoogleButton)
+export default withNavigation(GoogleButton);
