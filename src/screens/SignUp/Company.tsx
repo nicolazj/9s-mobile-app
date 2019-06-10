@@ -19,18 +19,20 @@ import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import { SubscribeHOC } from '../../states/helper';
-import userState, { UserState } from '../../states/User';
 import { useActivityStatusStore } from '../../stores/activityStatus';
+import { useUserStore } from '../../stores/user';
 import { Industry, SignUpPayload } from '../../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [ActivityStatusState, UserState];
 }
 
-const SignUpCompany: React.FC<Props> = ({ states, navigation }) => {
+const SignUpCompany: React.FC<Props> = ({  navigation }) => {
   const [industries, setIndustries] = React.useState<Industry[]>([]);
   const activityStatusActions = useActivityStatusStore(store => store.actions);
+  const {  actions: userActions } = useUserStore(
+    ({  actions }) => ({ actions })
+  );
 
   React.useEffect(() => {
     let isCurrent = true;
@@ -57,8 +59,6 @@ const SignUpCompany: React.FC<Props> = ({ states, navigation }) => {
   }, []);
 
   const onSubmit = async (values: object) => {
-    const [userState_] = states;
-
     const signUpPayload = navigation.state.params as SignUpPayload;
     try {
       activityStatusActions.show('Creating account');
@@ -70,7 +70,7 @@ const SignUpCompany: React.FC<Props> = ({ states, navigation }) => {
         password: signUpPayload.password,
       });
       const me = await agent.user.user.me();
-      userState_.setState({ me });
+      userActions.set({ me });
 
       activityStatusActions.show('Creating Company');
       const company = await agent.user.company.create(values);
@@ -155,4 +155,4 @@ const SignUpCompany: React.FC<Props> = ({ states, navigation }) => {
   );
 };
 
-export default SubscribeHOC([userState])(SignUpCompany);
+export default SignUpCompany;

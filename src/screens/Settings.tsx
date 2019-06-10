@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 import * as WebBrowser from 'expo-web-browser';
 import { Body, Left, List, ListItem, Right, Text } from 'native-base';
 import React from 'react';
-import { Alert, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -16,14 +16,14 @@ import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import authState, { AuthState } from '../states/Auth';
-import cookieState, { CookieState } from '../states/Cookie';
 import { SubscribeHOC } from '../states/helper';
-import userState, { UserState } from '../states/User';
+import { useAppStore } from '../stores/app';
+import { useUserStore } from '../stores/user';
 import styled, { scale, th } from '../styled';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [UserState, AuthState, CookieState];
+  states: [AuthState, ];
 }
 const Title = styled(P.H1)`
   font-size: ${scale(24)}px;
@@ -43,13 +43,19 @@ const SwitchCompanyBtn = styled(Link)`
 const Settings: React.FC<Props> = ({ states, navigation }) => {
   const debug = () => {};
 
-  const [userState_, authState_, cookieState_] = states;
+  const [ authState_, cookieState_] = states;
+  const { me, companies } = useUserStore(({ me, companies }) => ({
+    me,
+    companies,
+  }));
 
+  const { currency, actions:appActions } = useAppStore(({ currency, actions }) => ({
+    currency, actions 
+  }));
+  const { companyUuid } = authState_.state;
   const reportProblem = () => {
-    const company = userContainer_.state.companies.find(
-      c => c.companyUuid === authContainer_.state.companyUuid
-    );
-    const { me } = userContainer_.state;
+    const company = companies.find(c => c.companyUuid === companyUuid);
+
     const texts = [
       'Hey 9Spokes team!',
       '',
@@ -57,13 +63,13 @@ const Settings: React.FC<Props> = ({ states, navigation }) => {
       '',
       'Here are my details:',
       'Name:',
-      `${me.firstName} ${me.lastName}`,
+      `${me!.firstName} ${me!.lastName}`,
       '',
       'Company name:',
       company ? company.companyName : '',
       '',
       '9Spokes username:',
-      me.emailAddress,
+      me!.emailAddress,
       '',
       'Device info:',
       JSON.stringify(Constants.platform, null, 2),
@@ -79,7 +85,6 @@ const Settings: React.FC<Props> = ({ states, navigation }) => {
   const handleLogout = () => {
     navigation.navigate(SCREENS[SCREENS.LOGOUT]);
   };
-  const { me, companies } = userState_.state;
   const company = companies
     ? companies.find(c => c.companyUuid === authState_.state.companyUuid)
     : null;
@@ -105,7 +110,7 @@ const Settings: React.FC<Props> = ({ states, navigation }) => {
               <Text>User profile</Text>
             </Left>
             <Body>
-              <BodyText>{`${me.firstName} ${me.lastName}`}</BodyText>
+              <BodyText>{`${me!.firstName} ${me!.lastName}`}</BodyText>
             </Body>
             <Right>
               <Ionicons name="ios-arrow-forward" />
@@ -133,14 +138,14 @@ const Settings: React.FC<Props> = ({ states, navigation }) => {
             <Body>
               <Switch
                 cur={currencyMaps.findIndex(
-                  c => c.currency === cookieState_.state.currency
+                  c => c.currency === currency
                 )}
                 options={currencyMaps.map((c, i) => ({
                   label: c.currency,
                   value: i,
                 }))}
                 onChange={(index: number) =>
-                  cookieState_.setState({
+                  appActions.set({
                     currency: currencyMaps[index].currency,
                   })
                 }
@@ -226,4 +231,4 @@ const Settings: React.FC<Props> = ({ states, navigation }) => {
     </P.Container>
   );
 };
-export default SubscribeHOC([userState, authState, cookieState])(Settings);
+export default SubscribeHOC([ authState, ])(Settings);

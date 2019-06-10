@@ -1,5 +1,5 @@
+import Constants from 'expo-constants';
 import * as Google from 'expo-google-sign-in';
-// import * as Google from 'expo-google-sign-in';
 import React from 'react';
 import { Alert } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
@@ -13,6 +13,11 @@ import { SocialButon } from './SocialButton';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
+}
+
+const isInClient = Constants.appOwnership === 'expo';
+if (isInClient) {
+  Google.allowInClient();
 }
 
 const GoogleButton: React.FC<Props> = props => {
