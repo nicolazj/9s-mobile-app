@@ -72,6 +72,12 @@ export interface Spoke {
   type: string;
 }
 
+export interface AppDetail {
+  appKey: string;
+  connection?: Connection;
+  app?: App;
+}
+
 interface TableRowFormatter {
   (value: any): string;
 }

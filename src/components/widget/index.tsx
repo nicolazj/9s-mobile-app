@@ -6,9 +6,8 @@ import { getSymbol } from '../../currency';
 import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
-import appState, { AppState } from '../../states/Apps';
-import { SubscribeHOC } from '../../states/helper';
 import { useAppStore } from '../../stores/app';
+import { useOSPStore } from '../../stores/osp';
 import styled, { scale } from '../../styled';
 import { Widget } from '../../types';
 import Link from '../Link';
@@ -59,17 +58,8 @@ const NoDataPromp = styled(P.Text)`
   padding: 0 10px;
   color: #999;
 `;
-interface Props {
-  widget: Widget;
-  sample?: boolean;
-  navigation: NavigationScreenProp<any, any>;
-  states: [AppState];
-}
-interface State {
-  collapsed: boolean;
-  error: boolean;
-  maxHeight: number;
-}
+
+
 
 const HEIGHT_COLLAPSED = scale(60);
 
@@ -97,20 +87,28 @@ class ErrorBoundary extends React.Component<any, { error: any }> {
     return this.props.children;
   }
 }
-
+interface Props {
+  widget: Widget;
+  sample?: boolean;
+  navigation: NavigationScreenProp<any, any>;
+}
 const WidgetComp: React.FC<Props> = ({
   widget,
   sample,
-  states,
   navigation,
 }) => {
-  const [appState_] = states;
 
   const { currency,  } = useAppStore(
     ({ currency,  }) => ({
       currency,
     })
   );
+
+  const {
+    getSample,
+    getApp
+  } = useOSPStore();
+
   const symbol = getSymbol(currency);
 
   const [collapsed, setCollapsed] = React.useState(() => !sample);
@@ -141,8 +139,7 @@ const WidgetComp: React.FC<Props> = ({
   };
   const gotoWidgetInfo = (widget: Widget) => {
     const { key } = widget;
-    const [appState_] = states;
-    const sample = appState_.getSample(key);
+    const sample = getSample(key);
     if (sample) {
       navigation.navigate(SCREENS[SCREENS.WIDGET_INFO], {
         key: widget.key,
@@ -159,7 +156,7 @@ const WidgetComp: React.FC<Props> = ({
 
   const hasData = !!widget.data.extras || widget.data.dataSets;
   const Widget = getWidgetByKey(widget.key);
-  const app = appState_.getApp(widget.attributes.origin);
+  const app = getApp(widget.attributes.origin);
   if (!Widget || !app)
     return sample ? (
       <P.Text>
@@ -211,4 +208,4 @@ const WidgetComp: React.FC<Props> = ({
   );
 };
 
-export default SubscribeHOC([appState])(withNavigation(WidgetComp));
+export default (withNavigation(WidgetComp));

@@ -9,17 +9,15 @@ import WidgetComp from '../components/widget';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import appState, { AppDetail, AppState } from '../states/Apps';
-import { SubscribeHOC } from '../states/helper';
+import { useOSPStore } from '../stores/osp';
 import styled, { scale } from '../styled';
-import { WidgetSample } from '../types';
+import { AppDetail, WidgetSample } from '../types';
 import { transform } from './WidgetList';
 
 const { width } = Dimensions.get('window');
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState];
 }
 const AppDetailContainer = styled(P.Container)`
   background: #fff;
@@ -40,46 +38,27 @@ const DescText = styled(P.Text)`
   color: #666;
 `;
 
-export class AppDetailScreen extends React.Component<Props> {
-  render() {
-    const appKey = this.props.navigation.getParam('key');
-    const [appState_] = this.props.states;
-    const appDetail = appState_.appDetail(appKey);
-    const samples = appState_.getSamplesByAppKey(appKey) as WidgetSample[];
-    const { app } = appDetail;
-    if (!app) {
-      return null;
-    }
-    return (
-      <ScrollView>
-        <NavigationEvents
-          onWillFocus={() => {
-            this.reloadConnections();
-          }}
-        />
-        <AppDetailContainer hasPadding>
-          <AppImg style={{}} source={{ uri: app.logo }} resizeMode="contain" />
-          {this.renderDesc(app.description)}
-          {this.renderFeatures(app.features)}
-          {this.renderWidgets(samples)}
-          {this.renderButtons()}
-        </AppDetailContainer>
-      </ScrollView>
-    );
-  }
-  onConnect = (appDetail: AppDetail) => {
-    this.props.navigation.navigate(SCREENS[SCREENS.APP_CONNECT], {
+const AppDetailScreen: React.FC<Props> = ({ navigation }) => {
+  const appKey = navigation.getParam('key');
+  const { getAppDetail, getSamplesByAppKey, setOSPStore } = useOSPStore();
+
+  const appDetail = getAppDetail(appKey);
+  const samples = getSamplesByAppKey(appKey);
+  const { app } = appDetail;
+
+  const onConnect = (appDetail: AppDetail) => {
+    navigation.navigate(SCREENS[SCREENS.APP_CONNECT], {
       key: appDetail.appKey,
     });
   };
-  onRemoveConnection = async (connectionId: string, appKey: string) => {
+  const onRemoveConnection = async (connectionId: string, appKey: string) => {
     Alert.alert(
       'Remove connection?',
       'Are you sure you want to remove your connection ',
       [
         {
           text: 'OK',
-          onPress: () => this.removeConnection(connectionId, appKey),
+          onPress: () => removeConnection(connectionId, appKey),
         },
         {
           text: 'Cancel',
@@ -92,23 +71,20 @@ export class AppDetailScreen extends React.Component<Props> {
       { cancelable: false }
     );
   };
-  removeConnection = async (connectionId: string, appKey: string) => {
+  const removeConnection = async (connectionId: string, appKey: string) => {
     await agent.company.connection.delete(connectionId);
     await agent.company.widget.deleteByAppKey(appKey);
-    this.reloadConnections();
+    reloadConnections();
   };
-  reloadConnections = async () => {
+  const reloadConnections = async () => {
     const connections = await agent.company.connection.list();
-    const [appState_] = this.props.states;
-    appState_.setState({ connections });
+    setOSPStore({ connections });
   };
-  getTrial = async (appDetail: AppDetail) => {
+  const getTrial = async (appDetail: AppDetail) => {
     WebBrowser.openBrowserAsync(appDetail.app.trial.tryUrl);
   };
-  renderButtons() {
-    const appKey = this.props.navigation.getParam('key');
-    const [appState_] = this.props.states;
-    const appDetail = appState_.appDetail(appKey);
+  const renderButtons = () => {
+    const appKey = navigation.getParam('key');
 
     const { connection, app } = appDetail;
     const removeConnectionButton = (
@@ -116,9 +92,7 @@ export class AppDetailScreen extends React.Component<Props> {
         key="remove"
         title="Remove connection"
         danger
-        onPress={() =>
-          connection && this.onRemoveConnection(connection.id, appKey)
-        }
+        onPress={() => connection && onRemoveConnection(connection.id, appKey)}
       />
     );
 
@@ -127,12 +101,12 @@ export class AppDetailScreen extends React.Component<Props> {
         <Button
           key="connect"
           title="Connect"
-          onPress={() => this.onConnect(appDetail)}
+          onPress={() => onConnect(appDetail)}
         />,
         <Button
           key="trial"
           title="Get a trial"
-          onPress={() => this.getTrial(appDetail)}
+          onPress={() => getTrial(appDetail)}
         />,
       ];
     } else if (connection.status === 'ACTIVE') {
@@ -142,13 +116,13 @@ export class AppDetailScreen extends React.Component<Props> {
         <Button
           key="resume"
           title="Resume"
-          onPress={() => this.onConnect(appDetail)}
+          onPress={() => onConnect(appDetail)}
         />,
         removeConnectionButton,
       ];
     }
-  }
-  renderDesc(desc: string) {
+  };
+  const renderDesc = (desc: string) => {
     const paras = desc.split('<br>');
     return (
       <DescView>
@@ -157,8 +131,8 @@ export class AppDetailScreen extends React.Component<Props> {
         ))}
       </DescView>
     );
-  }
-  renderFeatures(features: string[]) {
+  };
+  const renderFeatures = (features: string[]) => {
     return (
       <DescView>
         <KeyFeatureTitle>Key features</KeyFeatureTitle>
@@ -167,8 +141,8 @@ export class AppDetailScreen extends React.Component<Props> {
         ))}
       </DescView>
     );
-  }
-  renderWidgets(samples: WidgetSample[]) {
+  };
+  const renderWidgets = (samples: WidgetSample[]) => {
     return (
       <DescView>
         <KeyFeatureTitle>Supported widgets</KeyFeatureTitle>
@@ -185,6 +159,26 @@ export class AppDetailScreen extends React.Component<Props> {
         </ScrollView>
       </DescView>
     );
+  };
+
+  if (!app) {
+    return null;
   }
-}
-export default SubscribeHOC([appState])(AppDetailScreen);
+  return (
+    <ScrollView>
+      <NavigationEvents
+        onWillFocus={() => {
+          reloadConnections();
+        }}
+      />
+      <AppDetailContainer hasPadding>
+        <AppImg style={{}} source={{ uri: app.logo }} resizeMode="contain" />
+        {renderDesc(app.description)}
+        {renderFeatures(app.features)}
+        {renderWidgets(samples)}
+        {renderButtons()}
+      </AppDetailContainer>
+    </ScrollView>
+  );
+};
+export default AppDetailScreen;

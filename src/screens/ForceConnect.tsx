@@ -7,8 +7,8 @@ import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
 import appState, { AppState } from '../states/Apps';
-import { SubscribeHOC } from '../states/helper';
 import { useActivityStatusStore } from '../stores/activityStatus';
+import { useOSPStore } from '../stores/osp';
 import styled, { scale } from '../styled';
 import { App } from '../types';
 
@@ -52,9 +52,10 @@ const AvaibleAppImg = styled(Image)`
   width: ${scale(40)}px;
 `;
 
-const ForceConnect: React.FC<Props> = ({ states, navigation }) => {
+const ForceConnect: React.FC<Props> = ({ navigation }) => {
   const activityStatusActions = useActivityStatusStore(store => store.actions);
-  const [appState_] = states;
+
+  const { setOSPStore, availableApps } = useOSPStore();
 
   React.useEffect(() => {
     fetchApps();
@@ -70,7 +71,7 @@ const ForceConnect: React.FC<Props> = ({ states, navigation }) => {
     const fullApps = await Promise.all(
       apps.map(app => agent.user.service.get(app.key))
     );
-    appState_.setState({ connections, spokes, apps: fullApps });
+    setOSPStore({ connections, spokes, apps: fullApps });
     activityStatusActions.dismiss();
   };
 
@@ -86,7 +87,7 @@ const ForceConnect: React.FC<Props> = ({ states, navigation }) => {
           Choose from our supported apps to connect to your dashboard
         </SubTitle>
         <AvaibleAppContainer>
-          {appState_.availableApps.map((app: App) => (
+          {availableApps.map((app: App) => (
             <AvaibleApp key={app.key} onPress={() => onPress(app)}>
               <AvaibleAppImg source={{ uri: app.squareLogo }} />
               <AvaibleAppTextView>
@@ -101,4 +102,4 @@ const ForceConnect: React.FC<Props> = ({ states, navigation }) => {
   );
 };
 
-export default SubscribeHOC([appState])(withNavigation(ForceConnect));
+export default withNavigation(ForceConnect);

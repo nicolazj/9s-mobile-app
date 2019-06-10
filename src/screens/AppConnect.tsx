@@ -18,19 +18,15 @@ import Lock from '../Lock';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import appState, { AppState } from '../states/Apps';
-import { SubscribeHOC } from '../states/helper';
 import { useActivityStatusStore } from '../stores/activityStatus';
+import { useOSPStore } from '../stores/osp';
 import styled, { scale, th } from '../styled';
 import { ACTIVITY_TYPES, Entity, Workflow } from '../types';
 import { object, requiredString } from '../validations';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState, ];
 }
-
-
 
 const AppImg = styled(Image)`
   height: ${scale(100)}px;
@@ -56,23 +52,22 @@ const Icon = styled(Ionicons).attrs(props => ({
 const entityLock = new Lock<Entity>();
 const accountLock = new Lock<{ account: string }>();
 
-const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
-
-
+const AppConnectScreen: React.FC<Props> = ({ navigation }) => {
   const activityStatusActions = useActivityStatusStore(store => store.actions);
-  
-  const [entities,setEntities] =React.useState<Entity[]>([])
-  const [step,setStep] =React.useState<ACTIVITY_TYPES>(ACTIVITY_TYPES.CLIENT_INIT)
+  const { getAppDetail } = useOSPStore();
+  const [entities, setEntities] = React.useState<Entity[]>([]);
+  const [step, setStep] = React.useState<ACTIVITY_TYPES>(
+    ACTIVITY_TYPES.CLIENT_INIT
+  );
 
-  const appKey =navigation.getParam('key');
-  const [appState_, ] =states;
-
+  const appKey = navigation.getParam('key');
+  const appDetail = getAppDetail(appKey);
 
   const chooseEntity = (e: Entity) => {
     entityLock.release(e);
   };
 
-  const submitAccount = (values:any) => {
+  const submitAccount = (values: any) => {
     accountLock.release(values);
   };
 
@@ -82,8 +77,6 @@ const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
 
   const startConnection = async () => {
     try {
-      const appDetail = appState_.appDetail(appKey);
-
       let { connection } = appDetail;
       const company = agent.company;
       let workflow: Workflow;
@@ -106,7 +99,7 @@ const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
         const act = activities[0];
         for (const step of act.steps) {
           log('doing', act.type);
-          setStep(act.type)
+          setStep(act.type);
           switch (act.type) {
             case ACTIVITY_TYPES.INITIATE_CONNECTION:
               if (!connection) {
@@ -151,7 +144,7 @@ const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
               if (connection) {
                 activityStatusActions.show('Loading entities');
                 const entities = await company.entities.list(connection.id);
-                setEntities(entities)
+                setEntities(entities);
                 activityStatusActions.dismiss();
               }
               break;
@@ -184,21 +177,18 @@ const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
         }
       }
       agent.company.widget.addByAppKey(appKey);
-      setStep(ACTIVITY_TYPES.SUCCEEDED)
+      setStep(ACTIVITY_TYPES.SUCCEEDED);
     } catch (err) {
       log('connect errored', err);
-      setStep(ACTIVITY_TYPES.ERRORED)
+      setStep(ACTIVITY_TYPES.ERRORED);
     }
   };
-
-
-  const appDetail = appState_.appDetail(appKey);
 
   return (
     <Container hasPadding>
       {step === ACTIVITY_TYPES.CLIENT_INIT && (
         <Container vcenter hcenter>
-          <P.Title>Connect to {appDetail.app.name}</P.Title>
+          <P.Title>Connect to {appDetail.app!.name}</P.Title>
         </Container>
       )}
       {step === ACTIVITY_TYPES.SUBMIT_ENTITY && (
@@ -208,11 +198,7 @@ const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
             Select one of the following entities for your account
           </P.SubTitle>
           {entities.map(e => (
-            <Select
-              title={e.name}
-              onPress={() => chooseEntity(e)}
-              key={e.id}
-            />
+            <Select title={e.name} onPress={() => chooseEntity(e)} key={e.id} />
           ))}
         </Container>
       )}
@@ -252,7 +238,7 @@ const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
 
       {step === ACTIVITY_TYPES.SUCCEEDED && (
         <Container vcenter hcenter>
-          <AppImg source={{ uri: appDetail.app.logo }} resizeMode="contain" />
+          <AppImg source={{ uri: appDetail.app!.logo }} resizeMode="contain" />
 
           <Row>
             <Icon name="ios-checkmark-circle-outline" size={24} />
@@ -273,8 +259,8 @@ const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
                   }),
                 ],
               });
-             navigation.dispatch(resetAction);
-             navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
+              navigation.dispatch(resetAction);
+              navigation.navigate(SCREENS[SCREENS.DASHBOARD]);
             }}
             title="Done"
           />
@@ -291,4 +277,4 @@ const AppConnectScreen :React.FC<Props>= ({navigation,states}) => {
   );
 };
 
-export default SubscribeHOC([appState, ])(AppConnectScreen);
+export default AppConnectScreen;

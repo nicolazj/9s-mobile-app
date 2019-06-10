@@ -6,15 +6,14 @@ import agent from '../agent';
 import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import appState, { AppState } from '../states/Apps';
 import { SubscribeHOC } from '../states/helper';
 import { useActivityStatusStore } from '../stores/activityStatus';
+import { useOSPStore } from '../stores/osp';
 import styled, { scale, th } from '../styled';
 import { App } from '../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState];
 }
 
 const Title = styled(P.H1)`
@@ -83,32 +82,38 @@ const AvaibleAppOpText = styled(P.Text)`
   font-size: ${scale(24)}px;
 `;
 
-const AppList: React.FC<Props> = ({ states, navigation }) => {
+const AppList: React.FC<Props> = ({ navigation }) => {
   const activityStatusActions = useActivityStatusStore(store => store.actions);
-  const [appState_] = states;
+  const {
+    purchasedApps,
+    availableApps,
+    setOSPStore
+  } = useOSPStore();
 
   React.useEffect(() => {
+    const fetchApps = async () => {
+      activityStatusActions.show('Loading');
+      try {
+        const [connections, spokes, apps, samples] = await Promise.all([
+          agent.company.connection.list(),
+          agent.user.spoke.get('mobile'),
+          agent.user.service.list(),
+          agent.misc.widget.sample(),
+        ]);
+        const fullApps = await Promise.all(
+          apps.map(app => agent.user.service.get(app.key))
+        );
+        setOSPStore({ connections, spokes, apps: fullApps, samples });
+      } catch (err) {
+        Alert.alert('please try again later');
+      } finally {
+        activityStatusActions.dismiss();
+      }
+    };
+
     fetchApps();
   }, []);
-  const fetchApps = async () => {
-    activityStatusActions.show('Loading');
-    try {
-      const [connections, spokes, apps, samples] = await Promise.all([
-        agent.company.connection.list(),
-        agent.user.spoke.get('mobile'),
-        agent.user.service.list(),
-        agent.misc.widget.sample(),
-      ]);
-      const fullApps = await Promise.all(
-        apps.map(app => agent.user.service.get(app.key))
-      );
-      appState_.setState({ connections, spokes, apps: fullApps, samples });
-    } catch (err) {
-      Alert.alert('please try again later');
-    } finally {
-      activityStatusActions.dismiss();
-    }
-  };
+
 
   const onPress = (app: App) => {
     navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
@@ -117,7 +122,7 @@ const AppList: React.FC<Props> = ({ states, navigation }) => {
   return (
     <P.Container>
       <ScrollView>
-        {appState_.purchasedApps.length > 0 && [
+        {purchasedApps.length > 0 && [
           <P.Container key="connected-app-title" hasPadding>
             <View>
               <Title>My Connected Apps</Title>
@@ -128,7 +133,7 @@ const AppList: React.FC<Props> = ({ states, navigation }) => {
             horizontal={true}
             style={{ backgroundColor: '#fff' }}
           >
-            {appState_.purchasedApps.map((app: App) => (
+            {purchasedApps.map((app: App) => (
               <ConnectedApp key={app.key} onPress={() => onPress(app)}>
                 <ConnectedAppImg source={{ uri: app.squareLogo }} />
                 <ConnectedAppLabel>
@@ -145,7 +150,7 @@ const AppList: React.FC<Props> = ({ states, navigation }) => {
           </View>
         </P.Container>
         <AvaibleAppContainer>
-          {appState_.availableApps.map((app: App) => (
+          {availableApps.map((app: App) => (
             <AvaibleApp key={app.key} onPress={() => onPress(app)}>
               <AvaibleAppImg source={{ uri: app.squareLogo }} />
               <AvaibleAppTextView>
@@ -165,4 +170,4 @@ const AppList: React.FC<Props> = ({ states, navigation }) => {
   );
 };
 
-export default SubscribeHOC([appState])(AppList);
+export default (AppList);
