@@ -6,8 +6,7 @@ import WidgetComp from '../components/widget';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import appState, { AppState } from '../states/Apps';
-import { SubscribeHOC } from '../states/helper';
+import { useOSPStore } from '../stores/osp';
 import styled from '../styled';
 import { App, WidgetSample } from '../types';
 import { ConnectedApp, ConnectedAppImg, ConnectedAppLabel } from './AppList';
@@ -20,13 +19,14 @@ const Desc = styled(P.Text)`
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState];
 }
 
-const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
+const WidgetInfo: React.FC<Props> = ({ navigation }) => {
+  const { getApp, getSample } = useOSPStore();
+
   const key = navigation.getParam('key');
-  const [appState] = states;
-  const sample = appState.getSample(key) as WidgetSample;
+  const sample = getSample(key) as WidgetSample;
+
   log(sample);
   return (
     <ScrollView>
@@ -42,7 +42,7 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
           <P.H3>Available using these Apps</P.H3>
           <ScrollView horizontal={true} style={{ backgroundColor: '#fff' }}>
             {sample.services.map(s => {
-              const app = appState.getApp(s) as App;
+              const app = getApp(s) as App;
               return (
                 <ConnectedApp
                   key={app.key}
@@ -51,7 +51,9 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
                   }}
                 >
                   <ConnectedAppImg source={{ uri: app.squareLogo }} />
-                  <ConnectedAppLabel>{app.shortName || app.name}</ConnectedAppLabel>
+                  <ConnectedAppLabel>
+                    {app.shortName || app.name}
+                  </ConnectedAppLabel>
                 </ConnectedApp>
               );
             })}
@@ -61,4 +63,4 @@ const WidgetInfo: React.FC<Props> = ({ navigation, states }) => {
     </ScrollView>
   );
 };
-export default SubscribeHOC([appState])(WidgetInfo);
+export default WidgetInfo;

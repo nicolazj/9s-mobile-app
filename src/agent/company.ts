@@ -2,24 +2,24 @@ import axios from 'axios';
 import qs from 'qs';
 
 import log from '../logging';
-import { AuthState } from '../states/Auth';
+import { authStoreAPI, hasCompany, isCompanyTokenValid } from '../stores/auth';
 import { ClientConfig, Connection, Widget, Workflow } from '../types';
 import token from './token';
 
-export default (cconfig: ClientConfig, auth: AuthState) => {
+export default (cconfig: ClientConfig) => {
   const { baseURL, tenantId } = cconfig;
-  const { userId, companyUuid } = auth.state;
+  const { userId, companyUuid } = authStoreAPI.getState();
 
   const instance = axios.create({
     baseURL,
   });
   instance.interceptors.request.use(
     async config => {
-      if (auth.hasCompany() && !auth.isCompanyTokenValid()) {
-        await token(cconfig, auth).refreshCompanyToken();
+      if (hasCompany() && !isCompanyTokenValid()) {
+        await token(cconfig).refreshCompanyToken();
       }
       config.headers.Authorization = `Bearer ${
-        auth.state.companyAuth.access_token
+        authStoreAPI.getState().companyAuth!.access_token
       }`;
       return config;
     },

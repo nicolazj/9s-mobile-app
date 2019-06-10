@@ -3,22 +3,19 @@ import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import { SCREENS } from '../routes/constants';
-import authState, { AuthState } from '../states/Auth';
-import { SubscribeHOC } from '../states/helper';
+import { useAuthStore } from '../stores/auth';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AuthState, ];
 }
 
-const Logout: React.FC<Props> = ({ states, navigation }) => {
-  const [authState_, ] = states;
-
+const Logout: React.FC<Props> = ({ navigation }) => {
+  const authStoreActions = useAuthStore(store => store.actions);
   React.useEffect(() => {
     bootstrapAsync();
   }, []);
   const bootstrapAsync = async () => {
-    authState_.clear();
+    authStoreActions.clear();
     AsyncStorage.clear();
     navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
   };
@@ -30,4 +27,4 @@ const Logout: React.FC<Props> = ({ states, navigation }) => {
   );
 };
 
-export default SubscribeHOC([authState, ])(Logout);
+export default Logout;

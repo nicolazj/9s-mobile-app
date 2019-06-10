@@ -6,12 +6,9 @@ export function logger<TState extends State>(fn: K<TState>): K<TState> {
   return (set, get, api) =>
     fn(
       (...args) => {
-        console.log(
-          'applying',
-          args.map(arg => JSON.stringify(arg, null, 2))
-        );
+        console.log('before========================================', get());
         set(...args);
-        console.log('new state', get());
+        console.log('after ========================================', get());
       },
       get,
       api
@@ -29,3 +26,19 @@ export function compose(...funcs) {
 
   return funcs.reduce((a, b) => (...args) => a(b(...args)));
 }
+
+
+export const persist = key => fn => (set, get) => {
+  let r = JSON.parse(localStorage.getItem(key));
+  Promise.resolve(r).then(() => {
+    console.log("123", r);
+    set(r);
+  });
+
+  let set_ = (...args) => {
+    set(...args);
+    localStorage.setItem(key, JSON.stringify(get()));
+  };
+  console.log("retur");
+  return fn(set_, get);
+};

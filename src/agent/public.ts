@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 import log from '../logging';
-import { AuthState } from '../states/Auth';
+import { authStoreAPI, isPublicTokenValid } from '../stores/auth';
 import { ClientConfig, Industry, SignUpPayload } from '../types';
 import token from './token';
 
-export default (cconfig: ClientConfig, auth: AuthState) => {
+export default (cconfig: ClientConfig) => {
   const { tenantId } = cconfig;
 
   const instance = axios.create({
@@ -13,11 +13,11 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
   });
   instance.interceptors.request.use(
     async config => {
-      if (!auth.isPublicTokenValid()) {
-        await token(cconfig, auth).public();
+      if (!isPublicTokenValid()) {
+        await token(cconfig, ).public();
       }
       config.headers.Authorization = `Bearer ${
-        auth.state.publicAuth.access_token
+        authStoreAPI.getState().publicAuth!.access_token
       }`;
       return config;
     },

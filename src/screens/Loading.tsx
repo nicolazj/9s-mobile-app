@@ -7,24 +7,20 @@ import { NavigationScreenProp } from 'react-navigation';
 import agent from '../agent';
 import log from '../logging';
 import { SCREENS } from '../routes/constants';
-import authState, { AuthState } from '../states/Auth';
-import { SubscribeHOC } from '../states/helper';
 import { useAppStore } from '../stores/app';
+import { hasUserId } from '../stores/auth';
 import { useUserStore } from '../stores/user';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AuthState];
 }
 
-const AuthLoadingScreen: React.FC<Props> = ({ states, navigation }) => {
+const AuthLoadingScreen: React.FC<Props> = ({ navigation }) => {
   const userActions = useUserStore(store => store.actions);
   const { onboarded } = useAppStore(({ onboarded }) => ({ onboarded }));
   React.useEffect(() => {
     bootstrapAsync();
   }, []);
-
-  let [authState_] = states;
 
   const bootstrapAsync = async () => {
     try {
@@ -45,9 +41,7 @@ const AuthLoadingScreen: React.FC<Props> = ({ states, navigation }) => {
   };
 
   const checkingLogin = async () => {
-    const hasUserId = authState_.hasUserId();
-
-    if (!hasUserId) {
+    if (!hasUserId()) {
       return false;
     }
     try {
@@ -70,4 +64,4 @@ const AuthLoadingScreen: React.FC<Props> = ({ states, navigation }) => {
   );
 };
 
-export default SubscribeHOC([authState])(AuthLoadingScreen);
+export default AuthLoadingScreen;

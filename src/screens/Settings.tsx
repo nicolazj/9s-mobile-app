@@ -15,15 +15,13 @@ import { currencyMaps } from '../currency';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import authState, { AuthState } from '../states/Auth';
-import { SubscribeHOC } from '../states/helper';
 import { useAppStore } from '../stores/app';
+import { useAuthStore } from '../stores/auth';
 import { useUserStore } from '../stores/user';
 import styled, { scale, th } from '../styled';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AuthState, ];
 }
 const Title = styled(P.H1)`
   font-size: ${scale(24)}px;
@@ -40,19 +38,22 @@ const SwitchCompanyBtn = styled(Link)`
   padding: 5px;
 `;
 
-const Settings: React.FC<Props> = ({ states, navigation }) => {
+const Settings: React.FC<Props> = ({  navigation }) => {
   const debug = () => {};
 
-  const [ authState_, cookieState_] = states;
   const { me, companies } = useUserStore(({ me, companies }) => ({
     me,
     companies,
   }));
 
-  const { currency, actions:appActions } = useAppStore(({ currency, actions }) => ({
-    currency, actions 
-  }));
-  const { companyUuid } = authState_.state;
+  const companyUuid = useAuthStore(store => store.companyUuid);
+
+  const { currency, actions: appActions } = useAppStore(
+    ({ currency, actions }) => ({
+      currency,
+      actions,
+    })
+  );
   const reportProblem = () => {
     const company = companies.find(c => c.companyUuid === companyUuid);
 
@@ -86,7 +87,7 @@ const Settings: React.FC<Props> = ({ states, navigation }) => {
     navigation.navigate(SCREENS[SCREENS.LOGOUT]);
   };
   const company = companies
-    ? companies.find(c => c.companyUuid === authState_.state.companyUuid)
+    ? companies.find(c => c.companyUuid === companyUuid)
     : null;
   return (
     <P.Container>
@@ -137,9 +138,7 @@ const Settings: React.FC<Props> = ({ states, navigation }) => {
             </Left>
             <Body>
               <Switch
-                cur={currencyMaps.findIndex(
-                  c => c.currency === currency
-                )}
+                cur={currencyMaps.findIndex(c => c.currency === currency)}
                 options={currencyMaps.map((c, i) => ({
                   label: c.currency,
                   value: i,
@@ -231,4 +230,4 @@ const Settings: React.FC<Props> = ({ states, navigation }) => {
     </P.Container>
   );
 };
-export default SubscribeHOC([ authState, ])(Settings);
+export default Settings;

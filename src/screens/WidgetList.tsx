@@ -4,15 +4,13 @@ import { NavigationScreenProp } from 'react-navigation';
 
 import WidgetComp from '../components/widget';
 import * as P from '../primitives';
-import appState, { AppState } from '../states/Apps';
-import { SubscribeHOC } from '../states/helper';
+import { useOSPStore } from '../stores/osp';
 import { Widget, WidgetSample } from '../types';
 
 const { width } = Dimensions.get('window');
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState];
 }
 export function transform(sample: WidgetSample): Widget {
   const { extras, graph_data, data_sets, key, services, ...attrs } = sample;
@@ -22,9 +20,10 @@ export function transform(sample: WidgetSample): Widget {
     attributes: { ...attrs, origin: services[0] },
   };
 }
-const WidgetList :React.FC<Props>  = ({states}) => {
-  const [appState_] =states;
-  const groupedSamples = appState_.getGroupedSample();
+const WidgetList: React.FC<Props> = ({}) => {
+  const { getGroupedSample } = useOSPStore();
+
+  const groupedSamples = getGroupedSample();
   return (
     <P.Container>
       <ScrollView>
@@ -56,4 +55,4 @@ const WidgetList :React.FC<Props>  = ({states}) => {
   );
 };
 
-export default SubscribeHOC([appState])(WidgetList);
+export default WidgetList;

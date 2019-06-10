@@ -1,5 +1,5 @@
 {
-  "name": "empty-project-template",
+  "name": "ninespokes-dashboard",
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "version": "0.0.1",
@@ -47,7 +47,6 @@
     "styled-components": "^4.0.2",
     "tslint": "^5.11.0",
     "typescript": "^3.1.1",
-    "unstated": "^2.1.1",
     "yup": "^0.26.6",
     "zustand": "^0.2.1"
   },

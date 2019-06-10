@@ -2,31 +2,24 @@ import React from 'react';
 import { Linking, View } from 'react-native';
 
 import Link from '../components/Link';
-import authState, { AuthState } from '../states/Auth';
-import { SubscribeHOC } from '../states/helper';
+import { useAuthStore } from '../stores/auth';
 import { useUserStore } from '../stores/user';
 import styled, { scale } from '../styled';
-
-interface Props {
-  states: [AuthState];
-}
 
 const SuggestAppLink_ = styled(View)`
   align-items: center;
   padding-top: ${scale(20)}px;
   padding-bottom: ${scale(50)}px;
 `;
-const SuggestAppLink: React.FC<Props> = ({ states }) => {
+const SuggestAppLink = ({}) => {
   const { companies, me } = useUserStore(({ companies, me }) => ({
     companies,
     me,
   }));
+  const companyUuid = useAuthStore(store => store.companyUuid);
 
   const suggestApp = () => {
-    const [authContainer] = states;
-    const company = companies.find(
-      c => c.companyUuid === authContainer.state.companyUuid
-    );
+    const company = companies.find(c => c.companyUuid === companyUuid);
     const texts = [
       'Hey 9Spokes team!',
       '',
@@ -58,4 +51,4 @@ const SuggestAppLink: React.FC<Props> = ({ states }) => {
   );
 };
 
-export default SubscribeHOC([authState])(SuggestAppLink);
+export default SuggestAppLink;

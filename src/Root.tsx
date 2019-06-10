@@ -1,5 +1,4 @@
 import React from 'react';
-import { Provider } from 'unstated';
 
 import ActivityIndicator from './components/ActivityIndicator';
 import * as P from './primitives';
@@ -13,13 +12,11 @@ const App = withTheme(({ theme }: { theme: IThemeInterface }) => (
 
 export default () => {
   return (
-    <Provider>
-      <ThemeProvider theme={tenant.theme}>
-        <P.Container>
-          <App />
-          <ActivityIndicator />
-        </P.Container>
-      </ThemeProvider>
-    </Provider>
+    <ThemeProvider theme={tenant.theme}>
+      <P.Container>
+        <App />
+        <ActivityIndicator />
+      </P.Container>
+    </ThemeProvider>
   );
 };

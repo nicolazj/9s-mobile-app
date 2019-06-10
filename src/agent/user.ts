@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 import log from '../logging';
-import { AuthState } from '../states/Auth';
+import { authStoreAPI, hasUserId, isUserTokenValid } from '../stores/auth';
 import { App, ClientConfig, Company, Spoke } from '../types';
 import token from './token';
 
-export default (cconfig: ClientConfig, auth: AuthState) => {
+export default (cconfig: ClientConfig) => {
   const { baseURL, tenantId } = cconfig;
 
   const instance = axios.create({
@@ -13,12 +13,12 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
   });
   instance.interceptors.request.use(
     async config => {
-      if (auth.hasUserId() && !auth.isUserTokenValid()) {
-        await token(cconfig, auth).refreshUserToken();
+      if (hasUserId() && !isUserTokenValid()) {
+        await token(cconfig).refreshUserToken();
         log('refresh token ok ======================================');
       }
       config.headers.Authorization = `Bearer ${
-        auth.state.userAuth.access_token
+        authStoreAPI.getState().userAuth!.access_token
       }`;
       return config;
     },
@@ -41,7 +41,9 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
     user: {
       me: async () => {
         const r = await instance.get(
-          `/customer/customer/tenants/${tenantId}/users/${auth.state.userId}`,
+          `/customer/customer/tenants/${tenantId}/users/${
+            authStoreAPI.getState().userId
+          }`,
           {
             data: null,
             headers: {
@@ -54,7 +56,9 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
       },
       update: async (data: Object) => {
         const r = await instance.put(
-          `/customer/customer/tenants/${tenantId}/users/${auth.state.userId}`,
+          `/customer/customer/tenants/${tenantId}/users/${
+            authStoreAPI.getState().userId
+          }`,
           data,
           {
             headers: {
@@ -183,7 +187,7 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
         return r.data;
       },
       list: async () => {
-        const { userId } = auth.state;
+        const userId = authStoreAPI.getState().userId;
         const r = await instance.get(
           `/customer/customer/tenants/${tenantId}/users/${userId}/companies`,
           {

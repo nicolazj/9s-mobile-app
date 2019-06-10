@@ -2,16 +2,13 @@ import _groupby from 'lodash.groupby';
 import create from 'zustand';
 
 import { App, AppDetail, Connection, Spoke, WidgetSample } from '../types';
-import { logger } from './middleware';
 
-const [useStore, { setState }] = create(
-  logger(set => ({
-    spokes: [] as Spoke[],
-    connections: [] as Connection[],
-    apps: [] as App[],
-    samples: [] as WidgetSample[],
-  }))
-);
+const [useStore, { setState }] = create(set => ({
+  spokes: [] as Spoke[],
+  connections: [] as Connection[],
+  apps: [] as App[],
+  samples: [] as WidgetSample[],
+}));
 
 export const useOSPStore = () => {
   const { spokes, connections, apps, samples } = useStore();

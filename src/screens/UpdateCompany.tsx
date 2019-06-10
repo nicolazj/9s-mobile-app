@@ -5,16 +5,11 @@ import { NavigationScreenProp } from 'react-navigation';
 
 import agent from '../agent';
 import * as P from '../primitives';
-import authState, { AuthState } from '../states/Auth';
-import { SubscribeHOC } from '../states/helper';
+import { useAuthStore } from '../stores/auth';
 import { useUserStore } from '../stores/user';
 import styled, { scale, th } from '../styled';
 import { Industry } from '../types';
 
-interface Props {
-  navigation: NavigationScreenProp<any, any>;
-  states: [AuthState];
-}
 const Title = styled(P.H1)`
   font-size: ${scale(24)}px;
   margin: ${scale(16)}px;
@@ -23,11 +18,13 @@ const BodyText = styled(Text)`
   color: ${th('color.grey')};
 `;
 
-const UpdateCompany: React.FC<Props> = ({ states }) => {
+const UpdateCompany = () => {
   const [industries, setIndustries] = React.useState<Industry[]>([]);
   const { companies } = useUserStore(({ companies }) => ({
     companies,
   }));
+  const companyUuid = useAuthStore(store => store.companyUuid);
+
   React.useEffect(() => {
     let current = true;
     const getIndustries = async () => {
@@ -43,9 +40,8 @@ const UpdateCompany: React.FC<Props> = ({ states }) => {
     };
   }, []);
 
-  const [authState_] = states;
   const company = companies
-    ? companies.find(c => c.companyUuid === authState_.state.companyUuid)
+    ? companies.find(c => c.companyUuid === companyUuid)
     : null;
 
   const industry =
@@ -76,4 +72,4 @@ const UpdateCompany: React.FC<Props> = ({ states }) => {
     </P.Container>
   );
 };
-export default SubscribeHOC([authState])(UpdateCompany);
+export default UpdateCompany;

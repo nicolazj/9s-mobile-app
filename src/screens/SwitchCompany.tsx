@@ -5,16 +5,14 @@ import agent from '../agent';
 import Select from '../components/Select';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import authState, { AuthState } from '../states/Auth';
-import { SubscribeHOC } from '../states/helper';
+import { authStoreAPI } from '../stores/auth';
 import { useUserStore } from '../stores/user';
 
 interface Props {
   navigation: NavigationScreenProp<any, { auto: boolean }>;
-  states: [AuthState];
 }
 
-const SwitchCompany: React.FC<Props> = ({ states, navigation }) => {
+const SwitchCompany: React.FC<Props> = ({ navigation }) => {
   const auto = navigation.getParam('auto');
   const [manual, setManual] = React.useState(false);
   const { companies } = useUserStore(({ companies }) => ({
@@ -30,14 +28,13 @@ const SwitchCompany: React.FC<Props> = ({ states, navigation }) => {
         return 0;
       }),
   }));
-  const [authState_] = states;
 
   React.useEffect(() => {
     bootstrapAsync();
   }, []);
   const bootstrapAsync = async () => {
     let companyUuid = null;
-    const existedcompanyUuid = authState_.state.companyUuid;
+    const existedcompanyUuid = authStoreAPI.getState().companyUuid;
     if (companies.length === 1) {
       companyUuid = companies[0].companyUuid;
     } else if (existedcompanyUuid && auto) {
@@ -52,7 +49,7 @@ const SwitchCompany: React.FC<Props> = ({ states, navigation }) => {
     }
   };
   const selectCompany = async (companyUuid: string) => {
-    await authState_.setState({ companyUuid });
+    authStoreAPI.setState({ companyUuid });
     await agent.token.exchange(companyUuid);
     let connections = await agent.company.connection.list();
     if (connections.filter(conn => conn.status === 'ACTIVE').length > 0) {
@@ -83,4 +80,4 @@ const SwitchCompany: React.FC<Props> = ({ states, navigation }) => {
   );
 };
 
-export default SubscribeHOC([authState])(SwitchCompany);
+export default SwitchCompany;

@@ -6,7 +6,6 @@ import agent from '../agent';
 import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import appState, { AppState } from '../states/Apps';
 import { useActivityStatusStore } from '../stores/activityStatus';
 import { useOSPStore } from '../stores/osp';
 import styled, { scale } from '../styled';
@@ -14,7 +13,6 @@ import { App } from '../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState];
 }
 
 const Title = styled(P.H1)`

@@ -8,8 +8,6 @@ import { Ionicons } from '@expo/vector-icons';
 import agent from '../agent';
 import SortableRow from '../components/SortableRow';
 import * as P from '../primitives';
-import appState, { AppState } from '../states/Apps';
-import { SubscribeHOC } from '../states/helper';
 import { useOSPStore } from '../stores/osp';
 import styled, { scale } from '../styled';
 import { Widget } from '../types';
