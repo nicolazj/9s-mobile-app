@@ -19,8 +19,8 @@ import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import { dismiss, show } from '../../stores/activityStatus';
+import { userStoreAPI } from '../../stores/user';
 import { Industry, SignUpPayload } from '../../types';
-import { userStoreAPI } from '../stores/user';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
@@ -65,7 +65,7 @@ const SignUpCompany: React.FC<Props> = ({ navigation }) => {
         password: signUpPayload.password,
       });
       const me = await agent.user.user.me();
-      userStoreAPi.setState({ me });
+      userStoreAPI.setState({ me });
 
       show('Creating Company');
       const company = await agent.user.company.create(values);
