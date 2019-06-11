@@ -6,7 +6,7 @@ import WidgetComp from '../components/widget';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import { useOSPStore } from '../stores/osp';
+import { getApp, getSample } from '../stores/osp';
 import styled from '../styled';
 import { App, WidgetSample } from '../types';
 import { ConnectedApp, ConnectedAppImg, ConnectedAppLabel } from './AppList';
@@ -22,7 +22,6 @@ interface Props {
 }
 
 const WidgetInfo: React.FC<Props> = ({ navigation }) => {
-  const { getApp, getSample } = useOSPStore();
 
   const key = navigation.getParam('key');
   const sample = getSample(key) as WidgetSample;

@@ -2,7 +2,7 @@ import axios from 'axios';
 import qs from 'qs';
 
 import log from '../logging';
-import { authStoreAPI } from '../stores/auth';
+import { authStoreAPI, setUser } from '../stores/auth';
 import { AuthResp, ClientConfig, SignInPayload, UserAuthResp } from '../types';
 
 function setExipresAt(data: AuthResp) {
@@ -40,16 +40,20 @@ export default (config: ClientConfig) => {
     refreshUserToken: async () => {
       const { data } = await instance.post<UserAuthResp>(
         `/token?grant_type=refresh_token`,
-        qs.stringify({ refresh_token:authStoreAPI.getState().userAuth!.refresh_token })
+        qs.stringify({
+          refresh_token: authStoreAPI.getState().userAuth!.refresh_token,
+        })
       );
       setExipresAt(data);
-      await authStoreAPI.getState().actions.setUser(data);
+      setUser(data);
       return data;
     },
     refreshCompanyToken: async () => {
       const { data } = await instance.post<AuthResp>(
         `/token?grant_type=refresh_token`,
-        qs.stringify({ refresh_token:authStoreAPI.getState().companyAuth!.refresh_token })
+        qs.stringify({
+          refresh_token: authStoreAPI.getState().companyAuth!.refresh_token,
+        })
       );
       setExipresAt(data);
       await authStoreAPI.setState({ companyAuth: data });
@@ -62,7 +66,7 @@ export default (config: ClientConfig) => {
       );
 
       setExipresAt(data);
-      authStoreAPI.getState().actions.setUser(data);
+      setUser(data);
       return data;
     },
     oauth: async (oauth_token: string) => {
@@ -75,7 +79,7 @@ export default (config: ClientConfig) => {
       );
 
       setExipresAt(data);
-      authStoreAPI.getState().actions.setUser(data);
+      setUser(data);
       return data;
     },
     public: async () => {

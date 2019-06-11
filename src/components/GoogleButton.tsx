@@ -8,7 +8,7 @@ import agent from '../agent';
 import { GOOGLE_CLIENT_ID } from '../agent/config';
 import log from '../logging';
 import { SCREENS } from '../routes/constants';
-import { useActivityStatusStore } from '../stores/activityStatus';
+import { dismiss, show } from '../stores/activityStatus';
 import { SocialButon } from './SocialButton';
 
 interface Props {
@@ -21,7 +21,6 @@ if (isInClient) {
 }
 
 const GoogleButton: React.FC<Props> = props => {
-  const activityStatusActions = useActivityStatusStore(store => store.actions);
 
   React.useEffect(() => {
     Google.initAsync({
@@ -38,7 +37,7 @@ const GoogleButton: React.FC<Props> = props => {
 
       if (result.type === 'success') {
         const { type, user } = result;
-        activityStatusActions.show('Logging in');
+       show('Logging in');
         if (type === 'success' && user) {
           await agent.token.oauth(user.auth!.accessToken!);
           props.navigation.navigate(SCREENS[SCREENS.LOADING]);
@@ -48,7 +47,7 @@ const GoogleButton: React.FC<Props> = props => {
       log('google login error', err);
       Alert.alert('try again later');
     } finally {
-      activityStatusActions.dismiss();
+     dismiss();
     }
   };
 

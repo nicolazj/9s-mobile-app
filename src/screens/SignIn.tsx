@@ -16,7 +16,7 @@ import { FormikTextInput, FormTitle } from '../formik';
 import log, { capture } from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import { useActivityStatusStore } from '../stores/activityStatus';
+import { dismiss, show } from '../stores/activityStatus';
 import { SignInPayload } from '../types';
 import { object, password, username } from '../validations';
 
@@ -26,7 +26,6 @@ interface Props {
 
 const SignIn: React.FC<Props> = ({ navigation }) => {
   const refPassword = React.createRef<TextInput>();
-  const activityStatusActions = useActivityStatusStore(store => store.actions);
   const focusPassword = () => {
     if (refPassword.current) {
       refPassword.current.focus();
@@ -34,7 +33,7 @@ const SignIn: React.FC<Props> = ({ navigation }) => {
   };
   const onPress = async (values: SignInPayload) => {
     try {
-      activityStatusActions.show('Logging in');
+      show('Logging in');
       await agent.token.login(values);
       navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
@@ -50,7 +49,7 @@ const SignIn: React.FC<Props> = ({ navigation }) => {
         Alert.alert('Log in failed', 'Unable to sign in, try again later');
       }
     } finally {
-      activityStatusActions.dismiss();
+      dismiss();
     }
   };
 

@@ -1,13 +1,10 @@
 import create from 'zustand';
 
-import { logger } from './middleware';
-
-const [useStore] = create(set => ({
+const [useStore,api] = create(set => ({
   onboarded: false,
   currency: 'GBP',
-  actions: {
-    set,
-  },
+ 
 }));
 
 export const useAppStore = useStore;
+export const appStoreAPI = api

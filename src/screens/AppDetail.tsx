@@ -9,7 +9,7 @@ import WidgetComp from '../components/widget';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import { useOSPStore } from '../stores/osp';
+import { getAppDetail, getSamplesByAppKey, OSPStoreAPI } from '../stores/osp';
 import styled, { scale } from '../styled';
 import { AppDetail, WidgetSample } from '../types';
 import { transform } from './WidgetList';
@@ -40,8 +40,6 @@ const DescText = styled(P.Text)`
 
 const AppDetailScreen: React.FC<Props> = ({ navigation }) => {
   const appKey = navigation.getParam('key');
-  const { getAppDetail, getSamplesByAppKey, setOSPStore } = useOSPStore();
-
   const appDetail = getAppDetail(appKey);
   const samples = getSamplesByAppKey(appKey);
   const { app } = appDetail;
@@ -78,10 +76,10 @@ const AppDetailScreen: React.FC<Props> = ({ navigation }) => {
   };
   const reloadConnections = async () => {
     const connections = await agent.company.connection.list();
-    setOSPStore({ connections });
+    OSPStoreAPI.setState({ connections });
   };
   const getTrial = async (appDetail: AppDetail) => {
-    WebBrowser.openBrowserAsync(appDetail.app.trial.tryUrl);
+    WebBrowser.openBrowserAsync(appDetail.app!.trial.tryUrl);
   };
   const renderButtons = () => {
     const appKey = navigation.getParam('key');

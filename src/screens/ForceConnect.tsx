@@ -6,8 +6,8 @@ import agent from '../agent';
 import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import { useActivityStatusStore } from '../stores/activityStatus';
-import { useOSPStore } from '../stores/osp';
+import { dismiss, show } from '../stores/activityStatus';
+import { OSPStoreAPI, useAvailableApps } from '../stores/osp';
 import styled, { scale } from '../styled';
 import { App } from '../types';
 
@@ -51,15 +51,14 @@ const AvaibleAppImg = styled(Image)`
 `;
 
 const ForceConnect: React.FC<Props> = ({ navigation }) => {
-  const activityStatusActions = useActivityStatusStore(store => store.actions);
 
-  const { setOSPStore, availableApps } = useOSPStore();
+  const availableApps = useAvailableApps();
 
   React.useEffect(() => {
     fetchApps();
   }, []);
   const fetchApps = async () => {
-    activityStatusActions.show('Loading');
+    show('Loading');
 
     const [connections, spokes, apps] = await Promise.all([
       agent.company.connection.list(),
@@ -69,8 +68,8 @@ const ForceConnect: React.FC<Props> = ({ navigation }) => {
     const fullApps = await Promise.all(
       apps.map(app => agent.user.service.get(app.key))
     );
-    setOSPStore({ connections, spokes, apps: fullApps });
-    activityStatusActions.dismiss();
+    OSPStoreAPI.setState({ connections, spokes, apps: fullApps });
+    dismiss();
   };
 
   const onPress = (app: App) => {

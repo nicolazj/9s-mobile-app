@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import agent from '../agent';
 import SortableRow from '../components/SortableRow';
 import * as P from '../primitives';
-import { useOSPStore } from '../stores/osp';
+import { getApp } from '../stores/osp';
 import styled, { scale } from '../styled';
 import { Widget } from '../types';
 
@@ -47,7 +47,6 @@ const ManageWidgets = () => {
   const ordersRef = React.useRef<string[]>([]);
   const [widgets, setWidgets] = React.useState<Widget[]>([]);
   const [scrollEnabled, setScrollEnabled] = React.useState(true);
-  const { getApp } = useOSPStore();
   React.useEffect(() => {
     let current = true;
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { Subscribe } from 'unstated';
 
 import { Text } from '../primitives';
 import { useActivityStatusStore } from '../stores/activityStatus';

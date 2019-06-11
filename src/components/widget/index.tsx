@@ -7,7 +7,7 @@ import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import { useAppStore } from '../../stores/app';
-import { useOSPStore } from '../../stores/osp';
+import { getSample, useApp } from '../../stores/osp';
 import styled, { scale } from '../../styled';
 import { Widget } from '../../types';
 import Link from '../Link';
@@ -59,10 +59,6 @@ const NoDataPromp = styled(P.Text)`
   color: #999;
 `;
 
-
-
-const HEIGHT_COLLAPSED = scale(60);
-
 class ErrorBoundary extends React.Component<any, { error: any }> {
   constructor(props: any) {
     super(props);
@@ -71,12 +67,9 @@ class ErrorBoundary extends React.Component<any, { error: any }> {
 
   componentDidCatch(error, errorInfo) {
     log(error, errorInfo);
-
-    // Catch errors in any components below and re-render with error message
     this.setState({
       error: error,
     });
-    // You can also log error messages to an error reporting service here
   }
 
   render() {
@@ -87,34 +80,27 @@ class ErrorBoundary extends React.Component<any, { error: any }> {
     return this.props.children;
   }
 }
+
+const HEIGHT_COLLAPSED = scale(60);
+
 interface Props {
   widget: Widget;
   sample?: boolean;
   navigation: NavigationScreenProp<any, any>;
 }
-const WidgetComp: React.FC<Props> = ({
-  widget,
-  sample,
-  navigation,
-}) => {
-
-  const { currency,  } = useAppStore(
-    ({ currency,  }) => ({
-      currency,
-    })
-  );
-
-  const {
-    getSample,
-    getApp
-  } = useOSPStore();
+const WidgetComp: React.FC<Props> = ({ widget, sample, navigation }) => {
+  const { currency } = useAppStore(({ currency }) => ({
+    currency,
+  }));
 
   const symbol = getSymbol(currency);
 
   const [collapsed, setCollapsed] = React.useState(() => !sample);
   const [maxHeight, setMaxHeight] = React.useState(300);
 
-  const heightValue = React.useRef( new Value(sample ? maxHeight : HEIGHT_COLLAPSED));
+  const heightValue = React.useRef(
+    new Value(sample ? maxHeight : HEIGHT_COLLAPSED)
+  );
 
   const onShowHidePress = () => {
     Animated.timing(heightValue.current, {
@@ -156,7 +142,9 @@ const WidgetComp: React.FC<Props> = ({
 
   const hasData = !!widget.data.extras || widget.data.dataSets;
   const Widget = getWidgetByKey(widget.key);
-  const app = getApp(widget.attributes.origin);
+  const app = useApp(widget.attributes.origin);
+
+
   if (!Widget || !app)
     return sample ? (
       <P.Text>
@@ -208,4 +196,4 @@ const WidgetComp: React.FC<Props> = ({
   );
 };
 
-export default (withNavigation(WidgetComp));
+export default withNavigation(WidgetComp);

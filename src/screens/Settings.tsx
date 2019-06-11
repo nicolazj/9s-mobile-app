@@ -12,17 +12,13 @@ import Button from '../components/Button';
 import Link from '../components/Link';
 import Switch from '../components/Switch';
 import { currencyMaps } from '../currency';
-import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import { useAppStore } from '../stores/app';
+import { appStoreAPI, useAppStore } from '../stores/app';
 import { useAuthStore } from '../stores/auth';
 import { useUserStore } from '../stores/user';
 import styled, { scale, th } from '../styled';
 
-interface Props {
-  navigation: NavigationScreenProp<any, any>;
-}
 const Title = styled(P.H1)`
   font-size: ${scale(24)}px;
   margin: ${scale(16)}px;
@@ -38,9 +34,10 @@ const SwitchCompanyBtn = styled(Link)`
   padding: 5px;
 `;
 
-const Settings: React.FC<Props> = ({  navigation }) => {
-  const debug = () => {};
-
+interface Props {
+  navigation: NavigationScreenProp<any, any>;
+}
+const Settings: React.FC<Props> = ({ navigation }) => {
   const { me, companies } = useUserStore(({ me, companies }) => ({
     me,
     companies,
@@ -48,12 +45,9 @@ const Settings: React.FC<Props> = ({  navigation }) => {
 
   const companyUuid = useAuthStore(store => store.companyUuid);
 
-  const { currency, actions: appActions } = useAppStore(
-    ({ currency, actions }) => ({
-      currency,
-      actions,
-    })
-  );
+  const { currency } = useAppStore(({ currency }) => ({
+    currency,
+  }));
   const reportProblem = () => {
     const company = companies.find(c => c.companyUuid === companyUuid);
 
@@ -144,7 +138,7 @@ const Settings: React.FC<Props> = ({  navigation }) => {
                   value: i,
                 }))}
                 onChange={(index: number) =>
-                  appActions.set({
+                  appStoreAPI.setState({
                     currency: currencyMaps[index].currency,
                   })
                 }
@@ -212,7 +206,7 @@ const Settings: React.FC<Props> = ({  navigation }) => {
         </List>
         <Title>About</Title>
         <List style={{ backgroundColor: '#fff' }}>
-          <ListItem onPress={debug}>
+          <ListItem>
             <Left>
               <Text>App version</Text>
             </Left>

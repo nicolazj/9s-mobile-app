@@ -3,88 +3,74 @@ import {
     Dimensions, FlatList, NativeScrollEvent, NativeSyntheticEvent, View
 } from 'react-native';
 
-import log from '../logging';
 import PaginationIndicator from './PaginationIndicator';
 
 const { width } = Dimensions.get('window');
-interface Props {
-  children: React.ReactNodeArray;
-}
-interface State {
-  index: number;
-}
+
 const interval = 5000;
-export default class Walkthrough extends React.Component<Props, State> {
-  private list: any;
-  private timer?: number;
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      index: 0,
-    };
-  }
-  extractItemKey = (item: React.ReactNode, index: number) => index.toString();
+const Walkthrough: React.FC = ({ children }) => {
+  const [index, setIndex] = React.useState(0);
+  const timer = React.useRef<number>();
+  const touched = React.useRef<boolean>(false);
+  const list = React.useRef<FlatList<any>>(null);
+  const len = React.Children.count(children);
 
-  onScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+  const extractItemKey = (_: any, index: number) => index.toString();
+
+  const onScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { contentOffset } = e.nativeEvent;
     const viewSize = e.nativeEvent.layoutMeasurement;
     const pageNum = Math.floor(contentOffset.x / viewSize.width);
-    this.setState({ index: pageNum });
+    setIndex(pageNum);
   };
 
-  renderItem = ({
+  const renderItem = ({
     item,
-    index,
+    index: index_,
   }: {
     item: React.ReactElement<any>;
     index: number;
   }) => (
     <View style={[{ flex: 1, width }]}>
-      {React.cloneElement(item, { current: index === this.state.index })}
+      {React.cloneElement(item, { current: index_ === index })}
     </View>
   );
 
-  componentDidMount() {
-    this.timer = (setInterval(() => {
-      let next = this.state.index + 1;
-
-      if (this.list) {
-        this.list.scrollToOffset({ offset: width * next });
-        this.setState({ index: next });
-      }
-
-      if (next === this.props.children.length - 1) {
-        clearInterval(this.timer!);
-      }
-    }, interval) as unknown) as number;
-  }
-  cancelTimer = () => {
-    clearTimeout(this.timer!);
+  const onScrollBeginDrag = () => {
+    clearTimeout(timer.current!);
+    touched.current = true;
   };
 
-  render = () => (
+  React.useEffect(() => {
+    if (index < len - 1 && !touched.current) {
+      timer.current = (setTimeout(() => {
+        if (list.current) {
+          list.current.scrollToOffset({ offset: width * (index + 1) });
+          setIndex(index + 1);
+        }
+      }, interval) as unknown) as number;
+    }
+  }, [index]);
+
+  return (
     <View style={{ flex: 1, alignItems: 'center' }}>
       <FlatList
-        ref={ref => {
-          this.list = ref;
-        }}
-        onScrollBeginDrag={this.cancelTimer}
+        ref={list}
+        onScrollBeginDrag={onScrollBeginDrag}
         style={{ flex: 1, backgroundColor: '#fff' }}
-        data={this.props.children}
-        onMomentumScrollEnd={this.onScrollEnd}
-        keyExtractor={this.extractItemKey}
+        data={React.Children.toArray(children)}
+        onMomentumScrollEnd={onScrollEnd}
+        keyExtractor={extractItemKey}
         pagingEnabled
         horizontal
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         directionalLockEnabled
-        renderItem={this.renderItem}
+        renderItem={renderItem}
       />
-      <PaginationIndicator
-        length={this.props.children.length}
-        current={this.state.index}
-      />
+      <PaginationIndicator length={len} current={index} />
     </View>
   );
-}
+};
+export default Walkthrough;

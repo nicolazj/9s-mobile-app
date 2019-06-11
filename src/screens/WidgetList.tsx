@@ -4,7 +4,7 @@ import { NavigationScreenProp } from 'react-navigation';
 
 import WidgetComp from '../components/widget';
 import * as P from '../primitives';
-import { useOSPStore } from '../stores/osp';
+import { getGroupedSample } from '../stores/osp';
 import { Widget, WidgetSample } from '../types';
 
 const { width } = Dimensions.get('window');
@@ -21,7 +21,6 @@ export function transform(sample: WidgetSample): Widget {
   };
 }
 const WidgetList: React.FC<Props> = ({}) => {
-  const { getGroupedSample } = useOSPStore();
 
   const groupedSamples = getGroupedSample();
   return (

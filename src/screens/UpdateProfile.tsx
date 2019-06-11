@@ -5,7 +5,7 @@ import { NavigationEvents, NavigationScreenProp } from 'react-navigation';
 
 import agent from '../agent';
 import * as P from '../primitives';
-import { useUserStore } from '../stores/user';
+import { userStoreAPI, useUserStore } from '../stores/user';
 import styled, { scale, th } from '../styled';
 
 const Title = styled(P.H1)`
@@ -16,9 +16,8 @@ const BodyText = styled(Text)`
   color: ${th('color.grey')};
 `;
 const Settings = () => {
-  const { me, actions: userActions } = useUserStore(({ me, actions }) => ({
-    me,
-    actions,
+  const { me } = useUserStore(({ me }) => ({
+    me: me!,
   }));
 
   const update = () => {
@@ -41,7 +40,7 @@ const Settings = () => {
                 placeholder="First name"
                 placeholderTextColor="#ccc"
                 onChangeText={text => {
-                  userActions.set({
+                  userStoreAPI.setState({
                     me: {
                       ...me,
                       firstName: text,
@@ -61,7 +60,7 @@ const Settings = () => {
                 placeholder="Last name"
                 placeholderTextColor="#ccc"
                 onChangeText={text => {
-                  userActions.set({
+                  userStoreAPI.setState({
                     me: {
                       ...me,
                       lastName: text,

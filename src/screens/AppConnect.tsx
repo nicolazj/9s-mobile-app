@@ -18,8 +18,8 @@ import Lock from '../Lock';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import { useActivityStatusStore } from '../stores/activityStatus';
-import { useOSPStore } from '../stores/osp';
+import { dismiss, show } from '../stores/activityStatus';
+import { getAppDetail } from '../stores/osp';
 import styled, { scale, th } from '../styled';
 import { ACTIVITY_TYPES, Entity, Workflow } from '../types';
 import { object, requiredString } from '../validations';
@@ -53,8 +53,6 @@ const entityLock = new Lock<Entity>();
 const accountLock = new Lock<{ account: string }>();
 
 const AppConnectScreen: React.FC<Props> = ({ navigation }) => {
-  const activityStatusActions = useActivityStatusStore(store => store.actions);
-  const { getAppDetail } = useOSPStore();
   const [entities, setEntities] = React.useState<Entity[]>([]);
   const [step, setStep] = React.useState<ACTIVITY_TYPES>(
     ACTIVITY_TYPES.CLIENT_INIT
@@ -142,10 +140,10 @@ const AppConnectScreen: React.FC<Props> = ({ navigation }) => {
 
             case ACTIVITY_TYPES.GET_AVAILABLE_ENTITIES:
               if (connection) {
-                activityStatusActions.show('Loading entities');
+                show('Loading entities');
                 const entities = await company.entities.list(connection.id);
                 setEntities(entities);
-                activityStatusActions.dismiss();
+                dismiss();
               }
               break;
             case ACTIVITY_TYPES.SUBMIT_ACCOUNT:
@@ -160,13 +158,13 @@ const AppConnectScreen: React.FC<Props> = ({ navigation }) => {
               break;
             case ACTIVITY_TYPES.SUBMIT_AUTHORIZATION:
               if (connection && authResult) {
-                activityStatusActions.show('Connecting');
+                show('Connecting');
                 await company.connection.sendAuth(connection.id, {
                   ...authResult.queryParams,
                   callback: step.id,
                   serviceID: appKey,
                 });
-                activityStatusActions.dismiss();
+                dismiss();
               } else throw 'no auth result';
               break;
           }
@@ -188,7 +186,12 @@ const AppConnectScreen: React.FC<Props> = ({ navigation }) => {
     <Container hasPadding>
       {step === ACTIVITY_TYPES.CLIENT_INIT && (
         <Container vcenter hcenter>
-          <P.Title>Connect to {appDetail.app!.name}</P.Title>
+          <P.SubTitle>Connect to {appDetail.app!.name}</P.SubTitle>
+        </Container>
+      )}
+      {step === ACTIVITY_TYPES.REDIRECT_USER_AGENT && (
+        <Container vcenter hcenter>
+          <P.SubTitle>Connecting to {appDetail.app!.name}</P.SubTitle>
         </Container>
       )}
       {step === ACTIVITY_TYPES.SUBMIT_ENTITY && (

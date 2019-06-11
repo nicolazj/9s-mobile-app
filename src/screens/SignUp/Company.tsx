@@ -18,21 +18,16 @@ import {
 import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
-import { SubscribeHOC } from '../../states/helper';
-import { useActivityStatusStore } from '../../stores/activityStatus';
-import { useUserStore } from '../../stores/user';
+import { dismiss, show } from '../../stores/activityStatus';
 import { Industry, SignUpPayload } from '../../types';
+import { userStoreAPI } from '../stores/user';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
-const SignUpCompany: React.FC<Props> = ({  navigation }) => {
+const SignUpCompany: React.FC<Props> = ({ navigation }) => {
   const [industries, setIndustries] = React.useState<Industry[]>([]);
-  const activityStatusActions = useActivityStatusStore(store => store.actions);
-  const {  actions: userActions } = useUserStore(
-    ({  actions }) => ({ actions })
-  );
 
   React.useEffect(() => {
     let isCurrent = true;
@@ -61,18 +56,18 @@ const SignUpCompany: React.FC<Props> = ({  navigation }) => {
   const onSubmit = async (values: object) => {
     const signUpPayload = navigation.state.params as SignUpPayload;
     try {
-      activityStatusActions.show('Creating account');
+      show('Creating account');
       await agent.public.user.create(signUpPayload);
 
-      activityStatusActions.show('Logging in');
+      show('Logging in');
       await agent.token.login({
         username: signUpPayload.userName,
         password: signUpPayload.password,
       });
       const me = await agent.user.user.me();
-      userActions.set({ me });
+      userStoreAPi.setState({ me });
 
-      activityStatusActions.show('Creating Company');
+      show('Creating Company');
       const company = await agent.user.company.create(values);
       log('create company:', company);
       navigation.navigate(SCREENS[SCREENS.LOADING]);
@@ -80,7 +75,7 @@ const SignUpCompany: React.FC<Props> = ({  navigation }) => {
       log(JSON.stringify(err, null, 2));
       Alert.alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
-      activityStatusActions.dismiss();
+      dismiss();
     }
   };
 

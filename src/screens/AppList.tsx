@@ -6,9 +6,8 @@ import agent from '../agent';
 import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import { SubscribeHOC } from '../states/helper';
-import { useActivityStatusStore } from '../stores/activityStatus';
-import { useOSPStore } from '../stores/osp';
+import { dismiss, show } from '../stores/activityStatus';
+import { OSPStoreAPI, useAvailableApps, usePurchasedApps } from '../stores/osp';
 import styled, { scale, th } from '../styled';
 import { App } from '../types';
 
@@ -83,16 +82,14 @@ const AvaibleAppOpText = styled(P.Text)`
 `;
 
 const AppList: React.FC<Props> = ({ navigation }) => {
-  const activityStatusActions = useActivityStatusStore(store => store.actions);
-  const {
-    purchasedApps,
-    availableApps,
-    setOSPStore
-  } = useOSPStore();
+ 
+
+  const purchasedApps = usePurchasedApps();
+  const availableApps = useAvailableApps()
 
   React.useEffect(() => {
     const fetchApps = async () => {
-      activityStatusActions.show('Loading');
+      show('Loading');
       try {
         const [connections, spokes, apps, samples] = await Promise.all([
           agent.company.connection.list(),
@@ -103,11 +100,11 @@ const AppList: React.FC<Props> = ({ navigation }) => {
         const fullApps = await Promise.all(
           apps.map(app => agent.user.service.get(app.key))
         );
-        setOSPStore({ connections, spokes, apps: fullApps, samples });
+        OSPStoreAPI.setState({ connections, spokes, apps: fullApps, samples });
       } catch (err) {
         Alert.alert('please try again later');
       } finally {
-        activityStatusActions.dismiss();
+        dismiss();
       }
     };
 

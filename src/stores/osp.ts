@@ -3,59 +3,72 @@ import create from 'zustand';
 
 import { App, AppDetail, Connection, Spoke, WidgetSample } from '../types';
 
-const [useStore, { setState }] = create(set => ({
+const [useStore, api] = create(set => ({
   spokes: [] as Spoke[],
   connections: [] as Connection[],
   apps: [] as App[],
   samples: [] as WidgetSample[],
 }));
 
-export const useOSPStore = () => {
-  const { spokes, connections, apps, samples } = useStore();
+export const OSPStoreAPI = api;
 
-  const activeConnections = connections.filter(c => c.status === 'ACTIVE');
+export const useActiveConnections = () => {
+  const connections = useStore(store => store.connections);
+  return connections.filter(c => c.status === 'ACTIVE');
+};
 
-  const connectedAppKeys = activeConnections.map(c => c.appKey);
+export const useConnectedAppKeys = () => {
+  const activeConnections = useActiveConnections();
+  return activeConnections.map(c => c.appKey);
+};
 
-  const purchasedApps = apps.filter(app => connectedAppKeys.includes(app.key));
+export const usePurchasedApps = () => {
+  const apps = useStore(store => store.apps);
+  const connectedAppKeys = useConnectedAppKeys();
+  return apps.filter(app => connectedAppKeys.includes(app.key));
+};
+export const useSupportedApps = () => {
+  const spokes = useStore(store => store.spokes);
+  return ([] as string[]).concat(...spokes.map(s => s.services));
+};
 
-  const supportedApps = ([] as string[]).concat(...spokes.map(s => s.services));
-
-  const availableApps = apps
+export const useAvailableApps = () => {
+  const apps = useStore(store => store.apps);
+  const supportedApps = useSupportedApps();
+  const connectedAppKeys = useConnectedAppKeys();
+  return apps
     .filter(app => supportedApps.includes(app.key))
     .filter(app => !connectedAppKeys.includes(app.key));
+};
+export const useApp = (appKey: string) => {
+  const { apps } = useStore(({ apps }) => ({ apps }));
+  return apps.find(app => app.key === appKey);
+};
+export const getApp = (appKey: string) => {
+  return api.getState().apps.find(app => app.key === appKey);
+};
+export const getSample = (widgetKey: string) => {
+  return api.getState().samples.find(sample => sample.key === widgetKey);
+};
 
-  const getApp = (appKey: string) => {
-    return apps.find(app => app.key === appKey);
-  };
-  const getSample = (widgetKey: string) => {
-    return samples.find(sample => sample.key === widgetKey);
-  };
+export const getSamplesByAppKey = (appKey: string) => {
+  return api
+    .getState()
+    .samples.filter(sample => sample.services.includes(appKey));
+};
 
-  const getSamplesByAppKey = (appKey: string) => {
-    return samples.filter(sample => sample.services.includes(appKey));
-  };
+export const getGroupedSample = () => {
+  return _groupby(api.getState().samples, s => s.category);
+};
 
-  const getGroupedSample = () => {
-    return _groupby(samples, s => s.category);
-  };
-
-  const getAppDetail = (appKey: string): AppDetail => {
-    return {
-      appKey,
-      app: apps.find(app => app.key === appKey),
-      connection: connections.find(app => app.appKey === appKey),
-    };
-  };
+export const getAppDetail = (appKey: string): AppDetail => {
+  const { apps, connections } = useStore(({ apps, connections }) => ({
+    apps,
+    connections,
+  }));
   return {
-    activeConnections,
-    purchasedApps,
-    availableApps,
-    getApp,
-    getSample,
-    getSamplesByAppKey,
-    getGroupedSample,
-    getAppDetail,
-    setOSPStore: setState,
+    appKey,
+    app: apps.find(app => app.key === appKey),
+    connection: connections.find(app => app.appKey === appKey),
   };
 };

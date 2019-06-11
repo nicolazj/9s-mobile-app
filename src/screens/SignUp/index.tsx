@@ -16,17 +16,12 @@ import { FormikTextInput, FormTitle } from '../../formik';
 import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
-import activityStatusState, {
-    ActivityStatusState
-} from '../../states/ActivityStatus';
-import { SubscribeHOC } from '../../states/helper';
-import { useActivityStatusStore } from '../../stores/activityStatus';
+import { dismiss, show } from '../../stores/activityStatus';
 import { SignUpPayload } from '../../types';
 import { name, object, password, username } from '../../validations';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [ActivityStatusState];
 }
 
 const SignUp: React.FC<Props> = ({ navigation }) => {
@@ -36,9 +31,7 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
 
   const refLastName = React.createRef<TextInput>();
 
-  const activityStatusActions = useActivityStatusStore(
-    store => store.actions
-  );
+
 
   const focusPassword = () => {
     if (refPassword.current) {
@@ -60,7 +53,7 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
   
 
     try {
-      activityStatusActions.show('Checking email');
+      show('Checking email');
       const userExisted = await agent.public.user.isExisted(values.userName);
       if (!userExisted) {
         navigation.navigate(SCREENS[SCREENS.SIGN_UP_COMPANY], values);
@@ -71,7 +64,7 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
       log('sign up err', err);
       Alert.alert('Log in failed', 'Unable to sign up, try again later');
     } finally {
-      activityStatusActions.dismiss();
+      dismiss();
     }
   };
 

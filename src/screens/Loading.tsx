@@ -9,14 +9,13 @@ import log from '../logging';
 import { SCREENS } from '../routes/constants';
 import { useAppStore } from '../stores/app';
 import { hasUserId } from '../stores/auth';
-import { useUserStore } from '../stores/user';
+import { userStoreAPI } from '../stores/user';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
 }
 
 const AuthLoadingScreen: React.FC<Props> = ({ navigation }) => {
-  const userActions = useUserStore(store => store.actions);
   const { onboarded } = useAppStore(({ onboarded }) => ({ onboarded }));
   React.useEffect(() => {
     bootstrapAsync();
@@ -49,7 +48,7 @@ const AuthLoadingScreen: React.FC<Props> = ({ navigation }) => {
         agent.user.user.me(),
         agent.user.company.list(),
       ]);
-      userActions.set({ me, companies });
+      userStoreAPI.setState({ me, companies });
       return true;
     } catch (err) {
       log(JSON.stringify(err, null, 2));
