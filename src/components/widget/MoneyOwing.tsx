@@ -4,15 +4,14 @@ import { View } from 'react-native';
 
 import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
-import { Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from "./base/Comps";
+import {
+    Header, IndexTitle, IndexTitles, IndexVal, IndexVals
+} from './base/Comps';
+import { Props } from './base/getData';
 
 const id = (t: any) => t;
 
-interface Props {
-  widget: Widget;
-  collapsed: boolean;
-  symbol: string;
-}
+
 
 const MoneyOwing: React.FC<Props> = ({ widget, collapsed, symbol }) => {
   function formatter(value: number) {

@@ -1,12 +1,12 @@
 import t from '../../../i18n/en';
 import { IThemeInterface } from '../../../styled';
-import { Widget } from '../../../types';
-import { ChartData } from '../../../types';
+import { ChartData, Widget } from '../../../types';
 
 export interface Props {
   widget: Widget;
   theme: IThemeInterface;
   symbol: string;
+  collapsed:boolean
 }
 
 export const getData = (props: Props): ChartData => {

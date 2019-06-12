@@ -3,7 +3,6 @@ import { Alert, Animated, Image, LayoutChangeEvent, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import { getSymbol } from '../../currency';
-import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
 import { useAppStore } from '../../stores/app';
@@ -11,6 +10,7 @@ import { getSample, useApp } from '../../stores/osp';
 import styled, { scale } from '../../styled';
 import { Widget } from '../../types';
 import Link from '../Link';
+import { ErrorBoundary } from './ErrorBoundary';
 import { getWidgetByKey } from './utils';
 
 const { Value } = Animated;
@@ -58,28 +58,6 @@ const NoDataPromp = styled(P.Text)`
   padding: 0 10px;
   color: #999;
 `;
-
-class ErrorBoundary extends React.Component<any, { error: any }> {
-  constructor(props: any) {
-    super(props);
-    this.state = { error: null };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    log(error, errorInfo);
-    this.setState({
-      error: error,
-    });
-  }
-
-  render() {
-    if (this.state.error) {
-      return <NoDataPromp>Oops, please try again later.</NoDataPromp>;
-    }
-
-    return this.props.children;
-  }
-}
 
 const HEIGHT_COLLAPSED = scale(60);
 
@@ -171,7 +149,7 @@ const WidgetComp: React.FC<Props> = ({ widget, sample, navigation }) => {
       <WidgetWrapper style={{ height: heightValue.current }}>
         <View onLayout={onLayout}>
           {hasData ? (
-            <ErrorBoundary>
+            <ErrorBoundary whenError={<NoDataPromp>Oops, please try again later.</NoDataPromp>}>
               <Widget widget={widget} {...{ collapsed, symbol }} />
             </ErrorBoundary>
           ) : (

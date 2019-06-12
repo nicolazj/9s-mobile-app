@@ -3,16 +3,12 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { withTheme } from '../../styled';
-import LineChart from '../charts/LineChart';
-import LineWidget from './base/LineWidget';
-import {
-  Header,
-  IndexTitle,
-  IndexTitles,
-  IndexVal,
-  IndexVals,
-} from './base/Comps';
 import { ChartData } from '../../types';
+import LineChart from '../charts/LineChart';
+import {
+    Header, IndexTitle, IndexTitles, IndexVal, IndexVals
+} from './base/Comps';
+import { getData, Props } from './base/getData';
 
 function formatXAxis(value: number, index: number, data: ChartData) {
   const item = data[0].data[index];
@@ -22,40 +18,41 @@ function formatYAxis(value: number, index: number) {
   return value > 1000 ? (value / 1000).toFixed(1) + 'K' : value.toString();
 }
 
-export class SalesByWeek extends LineWidget {
-  render() {
-    const { widget, symbol } = this.props;
-    const { curTick } = this.state;
-    const data = this.getData();
-    function formatter(value: number) {
-      return symbol + numeral(value).format(`0,0.0`);
-    }
-    return (
-      <View>
-        <Header>
-          <IndexTitles>
-            <IndexTitle>Week total</IndexTitle>
-            <IndexTitle>Week last year</IndexTitle>
-          </IndexTitles>
-          <IndexVals>
-            <IndexVal>
-              {formatter(widget.data.graphData[0].value[curTick])}
-            </IndexVal>
-            <IndexVal>
-              {formatter(widget.data.graphData[1].value[curTick])}
-            </IndexVal>
-          </IndexVals>
-        </Header>
-        <LineChart
-          data={data}
-          curTick={curTick}
-          onTickClick={this.onTickClick}
-          formatXAxis={formatXAxis}
-          formatYAxis={formatYAxis}
-        />
-      </View>
-    );
+const SalesByWeek: React.FC<Props> = props => {
+  const { widget, symbol } = props;
+  const [curTick, setCurTick] = React.useState(
+    () => widget.data.graphData[0].value.length - 1
+  );
+
+  const data = getData(props);
+  function formatter(value: number) {
+    return symbol + numeral(value).format(`0,0.0`);
   }
-}
+  return (
+    <View>
+      <Header>
+        <IndexTitles>
+          <IndexTitle>Week total</IndexTitle>
+          <IndexTitle>Week last year</IndexTitle>
+        </IndexTitles>
+        <IndexVals>
+          <IndexVal>
+            {formatter(widget.data.graphData[0].value[curTick])}
+          </IndexVal>
+          <IndexVal>
+            {formatter(widget.data.graphData[1].value[curTick])}
+          </IndexVal>
+        </IndexVals>
+      </Header>
+      <LineChart
+        data={data}
+        curTick={curTick}
+        onTickClick={setCurTick}
+        formatXAxis={formatXAxis}
+        formatYAxis={formatYAxis}
+      />
+    </View>
+  );
+};
 
 export default withTheme(SalesByWeek);

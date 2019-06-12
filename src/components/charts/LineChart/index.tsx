@@ -13,8 +13,8 @@ import Lines from './Lines';
 interface Props {
   data: ChartData;
   onTickClick: (index: number) => void;
-  formatXAxis: (value: number, index: number, data: ChartData) => string;
-  formatYAxis: (value: number, index: number) => string;
+  formatXAxis?: (value: number, index: number, data: ChartData) => string;
+  formatYAxis?: (value: number, index: number) => string;
   curTick: number;
 }
 

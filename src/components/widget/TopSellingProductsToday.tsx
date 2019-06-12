@@ -4,13 +4,10 @@ import React from 'react';
 import t from '../../i18n/en';
 import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
+import { Props } from './base/getData';
 
 function formatter(value: number) {
   return value + '%';
-}
-interface Props {
-  widget: Widget;
-  collapsed: boolean;
 }
 
 const id = (t: any) => t;

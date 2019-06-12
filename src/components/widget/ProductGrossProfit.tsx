@@ -3,16 +3,14 @@ import { View } from 'react-native';
 
 import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
+import { Props } from './base/getData';
 
 function formatter(value: number) {
   return value + '%';
 }
 const id = (t: any) => t;
 
-interface Props {
-  widget: Widget;
-  collapsed: boolean;
-}
+
 
 const ProductGrossProfit: React.FC<Props> = ({ widget, collapsed }) => {
   const data: DataTab[] = widget.data.dataSets.map((dataSet, dIndex) => {
