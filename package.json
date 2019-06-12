@@ -4,12 +4,10 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "precommit": "npm run lint",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "lint": "tslint  -c tslint.json 'src/**/*.{ts,tsx}'",
     "postinstall": "patch-package"
   },
   "dependencies": {
@@ -45,7 +43,6 @@
     "react-navigation": "^3.0.7",
     "sentry-expo": "^1.12.0",
     "styled-components": "^4.0.2",
-    "tslint": "^5.11.0",
     "typescript": "^3.1.1",
     "yup": "^0.26.6",
     "zustand": "^0.2.1"

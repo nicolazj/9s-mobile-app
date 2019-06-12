@@ -2,10 +2,10 @@ import * as scale from 'd3-scale';
 import React from 'react';
 import { G, Line } from 'react-native-svg';
 
-import { Data } from '../widget/base/LineWidget';
+import { ChartData } from '../../types';
 
 interface Props {
-  data: Data;
+  data: ChartData;
   curTick: number;
   ticks: number[];
   onTickClick: (tick: number) => void;
@@ -37,7 +37,7 @@ const Grid: React.FC<Props> = props => {
           y2={'100%'}
           x1={x(index)}
           x2={x(index)}
-          stroke={curTick === index ? svg.stroke : 'rgba(0,0,0,0.2)'}
+          stroke={curTick === index ? svg.color : 'rgba(0,0,0,0.2)'}
           strokeDasharray={[4, 4]}
           strokeWidth="1"
         />,

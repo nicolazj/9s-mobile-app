@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import { LayoutChangeEvent, View, ViewStyle } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
-import { Data } from '../../widget/base/LineWidget';
+import { ChartData } from '../../../types';
 import { getDomain, getTicks } from '../utils';
 
 export type MappedData = {
@@ -14,7 +14,7 @@ export type MappedData = {
 }[][];
 
 interface Props {
-  data: Data;
+  data: ChartData;
   contentInset: {
     top: number;
     bottom: number;
@@ -118,8 +118,9 @@ class Lines extends PureComponent<Props> {
                   <Path
                     key={index}
                     fill={'none'}
+                    strokeWidth={3}
+                    stroke={pathSvg.color}
                     {...svg}
-                    {...pathSvg}
                     d={path}
                   />
                 );

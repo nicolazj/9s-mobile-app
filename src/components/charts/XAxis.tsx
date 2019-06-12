@@ -4,10 +4,10 @@ import React, { PureComponent } from 'react';
 import { LayoutChangeEvent, Text, View, ViewStyle } from 'react-native';
 import Svg, { G, Text as SVGText } from 'react-native-svg';
 
-import { Data } from '../widget/base/LineWidget';
+import { ChartData } from '../../types';
 
 interface Props {
-  data: Data;
+  data: ChartData;
   numberOfTicks: number;
   contentInset: {
     top?: number;

@@ -185,3 +185,14 @@ export interface Workflow {
   activities: Activity[];
   id: string;
 }
+
+export type ChartData = {
+  legend: string;
+  svg: {
+    color: string;
+  };
+  data: {
+    value: number;
+    label_key: string;
+  }[];
+}[];

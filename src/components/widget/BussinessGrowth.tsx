@@ -4,9 +4,17 @@ import { View } from 'react-native';
 import t from '../../i18n/en';
 import { withTheme } from '../../styled';
 import LineChart from '../charts/LineChart';
-import LineWidget, { Data, Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from './base/LineWidget';
+import LineWidget from './base/LineWidget';
+import {
+  Header,
+  IndexTitle,
+  IndexTitles,
+  IndexVal,
+  IndexVals,
+} from './base/Comps';
+import { ChartData } from '../../types';
 
-function formatXAxis(value: number, index: number, data: Data) {
+function formatXAxis(value: number, index: number, data: ChartData) {
   const item = data[0].data[index];
   const label = item && t(item.label_key);
   return label[0];
@@ -29,7 +37,12 @@ export class BussinessGrowth extends LineWidget {
             <IndexVal>{widget.data.graphData[1].value[curTick]}%</IndexVal>
           </IndexVals>
         </Header>
-        <LineChart data={data} curTick={curTick} onTickClick={this.onTickClick} formatXAxis={formatXAxis} />
+        <LineChart
+          data={data}
+          curTick={curTick}
+          onTickClick={this.onTickClick}
+          formatXAxis={formatXAxis}
+        />
       </View>
     );
   }

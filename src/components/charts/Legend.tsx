@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { Data } from '../widget/base/LineWidget';
+import { ChartData } from '../../types';
 
 interface Props {
-  data: Data;
+  data: ChartData;
 }
 
 const Legend: React.FC<Props> = ({ data }) => {
@@ -21,7 +21,7 @@ const Legend: React.FC<Props> = ({ data }) => {
                 width: 10,
                 height: 10,
                 margin: 4,
-                backgroundColor: d.svg.stroke,
+                backgroundColor: d.svg.color,
               }}
             />
             <Text style={{ fontSize: 10 }}>{d.legend}</Text>

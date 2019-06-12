@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
-import { Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from './base/LineWidget';
+import { Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from "./base/Comps";
 
 function formatter(value: string) {
   const t = Date.parse(value);
