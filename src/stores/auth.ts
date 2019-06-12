@@ -2,16 +2,18 @@ import jwt from 'jwt-decode';
 import create from 'zustand';
 
 import { AuthResp, UserAuthResp } from '../types';
-import { logger } from './middleware';
+import { logger, persist } from './middleware';
 
 const [useStore, api] = create(
-  logger(set => ({
-    publicAuth: null as AuthResp | null,
-    userAuth: null as UserAuthResp | null,
-    companyAuth: null as AuthResp | null,
-    userId: '',
-    companyUuid: '',
-  }))
+  logger(
+    persist('auth')(set => ({
+      publicAuth: null as AuthResp | null,
+      userAuth: null as UserAuthResp | null,
+      companyAuth: null as AuthResp | null,
+      userId: '',
+      companyUuid: '',
+    }))
+  )
 );
 
 export const useAuthStore = useStore;

@@ -144,7 +144,6 @@ const WidgetComp: React.FC<Props> = ({ widget, sample, navigation }) => {
   const Widget = getWidgetByKey(widget.key);
   const app = useApp(widget.attributes.origin);
 
-
   if (!Widget || !app)
     return sample ? (
       <P.Text>

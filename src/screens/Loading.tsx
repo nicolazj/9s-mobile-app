@@ -1,6 +1,10 @@
 import React from 'react';
 import {
-    ActivityIndicator, Alert, AsyncStorage, StatusBar, View
+  ActivityIndicator,
+  Alert,
+  AsyncStorage,
+  StatusBar,
+  View,
 } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
@@ -40,6 +44,7 @@ const AuthLoadingScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const checkingLogin = async () => {
+    console.log(await AsyncStorage.getItem('auth'));
     if (!hasUserId()) {
       return false;
     }
