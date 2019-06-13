@@ -35,9 +35,7 @@ export default {
   user: {
     me: async () => {
       const r = await instance.get(
-        `/customer/customer/tenants/#{tenantId}/users/${
-          authStoreAPI.getState().userId
-        }`,
+        `/customer/customer/tenants/#{tenantId}/users/#{userId}`,
         {
           data: null,
           headers: {
@@ -50,9 +48,7 @@ export default {
     },
     update: async (data: Object) => {
       const r = await instance.put(
-        `/customer/customer/tenants/#{tenantId}/users/${
-          authStoreAPI.getState().userId
-        }`,
+        `/customer/customer/tenants/#{tenantId}/users/#{userId}`,
         data,
         {
           headers: {
@@ -181,9 +177,8 @@ export default {
       return r.data;
     },
     list: async () => {
-      const userId = authStoreAPI.getState().userId;
       const r = await instance.get(
-        `/customer/customer/tenants/#{tenantId}/users/${userId}/companies`,
+        `/customer/customer/tenants/#{tenantId}/users/#{userId}/companies`,
         {
           data: null, // needed for this endpoint
           headers: {
