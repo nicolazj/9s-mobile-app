@@ -3,16 +3,12 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { withTheme } from '../../styled';
-import BarChart from '../charts/BarChart';
-import { Props, getData } from './base/getData';
-import {
-  Header,
-  IndexTitle,
-  IndexTitles,
-  IndexVal,
-  IndexVals,
-} from './base/Comps';
 import { ChartData } from '../../types';
+import BarChart from '../charts/BarChart';
+import {
+    Header, IndexTitle, IndexTitles, IndexVal, IndexVals
+} from './base/Comps';
+import { getData, Props } from './base/getData';
 
 function formatXAxis(value: number, index: number, data: ChartData) {
   const item = data[0].data[index];
