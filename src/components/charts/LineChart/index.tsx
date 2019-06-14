@@ -38,7 +38,7 @@ class LineChartWrapper extends React.PureComponent<Props> {
           <View style={{ flex: 1, marginLeft: 10 }}>
             <Lines
               data={data}
-              style={{ flex: 1 }}
+              style={{ flex: 1, marginLeft: -10 }}
               yAccessor={({ item: { value } }) => value}
               onTickClick={onTickClick}
               curTick={curTick}
@@ -54,7 +54,7 @@ class LineChartWrapper extends React.PureComponent<Props> {
                 paddingTop: 10,
               }}
               data={data}
-              contentInset={{ left: 20, right: 20 }}
+              contentInset={{ left: 20, right: 30 }}
               formatLabel={(value, index) => {
                 return formatXAxis(value, index, data);
               }}

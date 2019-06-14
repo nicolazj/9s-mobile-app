@@ -93,7 +93,7 @@ class YAxis extends PureComponent<Props, State> {
     return (
       <View style={[style]}>
         <View style={{ flexGrow: 1 }} onLayout={event => this._onLayout(event)}>
-          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>
+          <Text style={{ opacity: 0, fontSize: 10 }}>
             {longestValue}
           </Text>
           <Svg
