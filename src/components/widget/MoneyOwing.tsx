@@ -11,8 +11,6 @@ import { Props } from './base/getData';
 
 const id = (t: any) => t;
 
-
-
 const MoneyOwing: React.FC<Props> = ({ widget, collapsed, symbol }) => {
   function formatter(value: number) {
     return symbol + numeral(value).format(`0,0.00`);
@@ -40,7 +38,7 @@ const MoneyOwing: React.FC<Props> = ({ widget, collapsed, symbol }) => {
           <IndexTitle />
         </IndexTitles>
         <IndexVals>
-          <IndexVal>-</IndexVal>
+          <IndexVal>{formatter(widget.data.extras[0].value_2)}</IndexVal>
           <IndexVal />
         </IndexVals>
       </Header>
