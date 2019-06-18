@@ -4,12 +4,7 @@ import React from 'react';
 import t from '../../i18n/en';
 import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
-
-interface Props {
-  widget: Widget;
-  collapsed: boolean;
-  symbol: string;
-}
+import { Props } from './base/getData';
 
 const CashCommitments: React.FC<Props> = ({ widget, collapsed, symbol }) => {
   function formatter(value: number) {

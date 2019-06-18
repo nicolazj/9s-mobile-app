@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import { LayoutChangeEvent, View, ViewStyle } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
-import { Data } from '../../widget/base/LineWidget';
+import { ChartData } from '../../../types';
 import { getDomain, getTicks } from '../utils';
 
 export type MappedData = {
@@ -14,7 +14,7 @@ export type MappedData = {
 }[][];
 
 interface Props {
-  data: Data;
+  data: ChartData;
   contentInset: {
     top: number;
     bottom: number;
@@ -76,16 +76,18 @@ class Lines extends PureComponent<Props> {
 
     const [xMin, xMax] = xExtent;
 
+    const padding = 6;
+
     const y = scale
       .scaleLinear()
       .domain([yMin, yMax])
-      .range([height - bottom, top])
+      .range([height - bottom - padding, top + padding])
       .clamp(false);
 
     const x = scale
       .scaleLinear()
       .domain([xMin, xMax])
-      .range([left, width - right])
+      .range([left + padding, width - right - padding])
       .clamp(false);
 
     const paths = this.createPaths({
@@ -106,11 +108,12 @@ class Lines extends PureComponent<Props> {
       paths,
       curTick,
       onTickClick,
+      padding
     };
     return (
       <View style={style}>
         <View style={{ flex: 1 }} onLayout={event => this._onLayout(event)}>
-          <Svg height={height} width={width}>
+          <Svg height={height} width={width} viewBox={`0 0 ${width} ${height}`} >
             {paths
               .map((path, index) => {
                 const { svg: pathSvg } = data[index];
@@ -118,8 +121,9 @@ class Lines extends PureComponent<Props> {
                   <Path
                     key={index}
                     fill={'none'}
+                    strokeWidth={3}
+                    stroke={pathSvg.color}
                     {...svg}
-                    {...pathSvg}
                     d={path}
                   />
                 );

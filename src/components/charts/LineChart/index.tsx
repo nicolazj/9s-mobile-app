@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 import styled from '../../../styled';
-import { Data } from '../../widget/base/LineWidget';
+import { ChartData } from '../../../types';
 import Grid from '../Grid';
 import Legend from '../Legend';
 import XAxis from '../XAxis';
@@ -11,10 +11,10 @@ import Indicator from './Indicator';
 import Lines from './Lines';
 
 interface Props {
-  data: Data;
+  data: ChartData;
   onTickClick: (index: number) => void;
-  formatXAxis: (value: number, index: number, data: Data) => string;
-  formatYAxis: (value: number, index: number) => string;
+  formatXAxis?: (value: number, index: number, data: ChartData) => string;
+  formatYAxis?: (value: number, index: number) => string;
   curTick: number;
 }
 
@@ -38,7 +38,7 @@ class LineChartWrapper extends React.PureComponent<Props> {
           <View style={{ flex: 1, marginLeft: 10 }}>
             <Lines
               data={data}
-              style={{ flex: 1 }}
+              style={{ flex: 1, marginLeft: -10 }}
               yAccessor={({ item: { value } }) => value}
               onTickClick={onTickClick}
               curTick={curTick}
@@ -54,7 +54,7 @@ class LineChartWrapper extends React.PureComponent<Props> {
                 paddingTop: 10,
               }}
               data={data}
-              contentInset={{ left: 20, right: 20 }}
+              contentInset={{ left: 20, right: 30 }}
               formatLabel={(value, index) => {
                 return formatXAxis(value, index, data);
               }}

@@ -3,15 +3,14 @@ import { Alert, Animated, Image, LayoutChangeEvent, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import { getSymbol } from '../../currency';
-import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
-import appState, { AppState } from '../../states/Apps';
-import cookieState, { CookieState } from '../../states/Cookie';
-import { SubscribeHOC } from '../../states/helper';
+import { useAppStore } from '../../stores/app';
+import { getSample, useApp } from '../../stores/osp';
 import styled, { scale } from '../../styled';
 import { Widget } from '../../types';
 import Link from '../Link';
+import { ErrorBoundary } from './ErrorBoundary';
 import { getWidgetByKey } from './utils';
 
 const { Value } = Animated;
@@ -59,89 +58,54 @@ const NoDataPromp = styled(P.Text)`
   padding: 0 10px;
   color: #999;
 `;
+
+const HEIGHT_COLLAPSED = scale(60);
+
 interface Props {
   widget: Widget;
   sample?: boolean;
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState, CookieState];
 }
-interface State {
-  collapsed: boolean;
-  error: boolean;
-  maxHeight: number;
-}
+const WidgetComp: React.FC<Props> = ({ widget, sample, navigation }) => {
+  const { currency } = useAppStore(({ currency }) => ({
+    currency,
+  }));
 
-const HEIGHT_COLLAPSED = scale(60);
+  const symbol = getSymbol(currency);
 
-class ErrorBoundary extends React.Component<any, { error: any }> {
-  constructor(props: any) {
-    super(props);
-    this.state = { error: null };
-  }
+  const [collapsed, setCollapsed] = React.useState(() => !sample);
+  const [maxHeight, setMaxHeight] = React.useState(300);
 
-  componentDidCatch(error, errorInfo) {
-    log(error, errorInfo);
+  const heightValue = React.useRef(
+    new Value(sample ? maxHeight : HEIGHT_COLLAPSED)
+  );
 
-    // Catch errors in any components below and re-render with error message
-    this.setState({
-      error: error,
-    });
-    // You can also log error messages to an error reporting service here
-  }
-
-  render() {
-    if (this.state.error) {
-      return <NoDataPromp>Oops, please try again later.</NoDataPromp>;
-    }
-
-    return this.props.children;
-  }
-}
-
-class WidgetComp extends React.Component<Props, State> {
-  private height: Animated.Value;
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      collapsed: props.sample ? false : true,
-      error: false,
-      maxHeight: 300,
-    };
-    this.height = new Value(
-      props.sample ? this.state.maxHeight : HEIGHT_COLLAPSED
-    );
-  }
-
-  onShowHidePress = () => {
-    Animated.timing(this.height, {
-      toValue: this.state.collapsed ? this.state.maxHeight : HEIGHT_COLLAPSED,
+  const onShowHidePress = () => {
+    Animated.timing(heightValue.current, {
+      toValue: collapsed ? maxHeight : HEIGHT_COLLAPSED,
       duration: 300,
     }).start();
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
+
+    setCollapsed(!collapsed);
   };
 
-  setMaxHeight = (event: LayoutChangeEvent) => {
+  const onLayout = (event: LayoutChangeEvent) => {
     const { height } = event.nativeEvent.layout;
-    if (height > this.state.maxHeight) {
-      !this.state.collapsed &&
-        Animated.timing(this.height, {
+    if (height > maxHeight) {
+      !collapsed &&
+        Animated.timing(heightValue.current, {
           toValue: height,
           duration: 300,
         }).start();
     }
-    this.setState({
-      maxHeight: height,
-    });
+
+    setMaxHeight(height);
   };
-  gotoWidgetInfo = (widget: Widget) => {
+  const gotoWidgetInfo = (widget: Widget) => {
     const { key } = widget;
-    const [appState] = this.props.states;
-    const sample = appState.getSample(key);
+    const sample = getSample(key);
     if (sample) {
-      this.props.navigation.navigate(SCREENS[SCREENS.WIDGET_INFO], {
+      navigation.navigate(SCREENS[SCREENS.WIDGET_INFO], {
         key: widget.key,
       });
     } else {
@@ -153,67 +117,60 @@ class WidgetComp extends React.Component<Props, State> {
       );
     }
   };
-  render() {
-    const { widget, sample } = this.props;
-    const [appState, cookieState] = this.props.states;
-    const { collapsed } = this.state;
-    const symbol = getSymbol(cookieState.state.currency);
-    const hasData = !!widget.data.extras || widget.data.dataSets;
 
-    const Widget = getWidgetByKey(widget.key);
-    const app = appState.getApp(widget.attributes.origin);
-    if (!Widget || !app)
-      return sample ? (
-        <P.Text>
-          {widget.attributes.displayName + '|' + widget.key} not implemented
-        </P.Text>
-      ) : null;
-    return (
-      <WidgetContainer
-        onPress={() => {
-          sample && this.gotoWidgetInfo(widget);
-        }}
-      >
-        <WidgetHeader>
-          <WidgetTitleWrapper style={{ flexDirection: 'row' }}>
-            <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
-            {!sample && <WidgetAppIcon source={{ uri: app.squareLogo }} />}
-          </WidgetTitleWrapper>
-          {hasData && !sample && (
-            <WidgetOp
-              title={collapsed ? 'Show' : 'Hide'}
-              onPress={this.onShowHidePress}
-            />
+  const hasData = !!widget.data.extras || widget.data.dataSets;
+  const Widget = getWidgetByKey(widget.key);
+  const app = useApp(widget.attributes.origin);
+
+  if (!Widget || !app)
+    return sample ? (
+      <P.Text>
+        {widget.attributes.displayName + '|' + widget.key} not implemented
+      </P.Text>
+    ) : null;
+  return (
+    <WidgetContainer
+      onPress={() => {
+        sample && gotoWidgetInfo(widget);
+      }}
+    >
+      <WidgetHeader>
+        <WidgetTitleWrapper style={{ flexDirection: 'row' }}>
+          <WidgetTitle>{widget.attributes.displayName}</WidgetTitle>
+          {!sample && <WidgetAppIcon source={{ uri: app.squareLogo }} />}
+        </WidgetTitleWrapper>
+        {hasData && !sample && (
+          <WidgetOp
+            title={collapsed ? 'Show' : 'Hide'}
+            onPress={onShowHidePress}
+          />
+        )}
+      </WidgetHeader>
+      <WidgetWrapper style={{ height: heightValue.current }}>
+        <View onLayout={onLayout}>
+          {hasData ? (
+            <ErrorBoundary whenError={<NoDataPromp>Oops, please try again later.</NoDataPromp>}>
+              <Widget widget={widget} {...{ collapsed, symbol }} />
+            </ErrorBoundary>
+          ) : (
+            <NoDataPromp>
+              Sorry, we can't find your information. Check if your app contains
+              any data or start making use of it
+            </NoDataPromp>
           )}
-        </WidgetHeader>
-        <WidgetWrapper style={{ height: this.height }}>
-          <View onLayout={this.setMaxHeight}>
-            {hasData ? (
-              <ErrorBoundary>
-                <Widget widget={widget} {...{ collapsed, symbol }} />
-              </ErrorBoundary>
-            ) : (
-              <NoDataPromp>
-                Sorry, we can't find your information. Check if your app
-                contains any data or start making use of it
-              </NoDataPromp>
-            )}
 
-            {!collapsed && !sample && (
-              <WidgetFooter>
-                <Link
-                  title="what does this mean?"
-                  onPress={() => this.gotoWidgetInfo(widget)}
-                />
-              </WidgetFooter>
-            )}
-          </View>
-        </WidgetWrapper>
-      </WidgetContainer>
-    );
-  }
-}
+          {!collapsed && !sample && (
+            <WidgetFooter>
+              <Link
+                title="what does this mean?"
+                onPress={() => gotoWidgetInfo(widget)}
+              />
+            </WidgetFooter>
+          )}
+        </View>
+      </WidgetWrapper>
+    </WidgetContainer>
+  );
+};
 
-export default SubscribeHOC([appState, cookieState])(
-  withNavigation(WidgetComp)
-);
+export default withNavigation(WidgetComp);

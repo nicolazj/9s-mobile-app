@@ -16,6 +16,7 @@ import GrossProfit from './GrossProfit';
 import HighGrossingProductsToday from './HighGrossingProductsToday';
 import MoneyOwed from './MoneyOwed';
 import MoneyOwedMoneyOwing from './MoneyOwedMoneyOwing';
+import MoneyOwing from './MoneyOwing';
 import ProductGrossProfit from './ProductGrossProfit';
 import SalesByDay from './SalesByDay';
 import SalesByMonth from './SalesByMonth';
@@ -67,6 +68,7 @@ const widgetsMap: WidgetMap = {
   'booked-leave': BookedLeave,
   'working-today': WorkingToday,
   'days-to-pay': DaysToPay,
+  'money-owing': MoneyOwing,
 };
 
 export const getWidgetByKey = (key: string) => {

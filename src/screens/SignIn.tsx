@@ -1,4 +1,4 @@
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Alert, TextInput, View } from 'react-native';
@@ -16,33 +16,26 @@ import { FormikTextInput, FormTitle } from '../formik';
 import log, { capture } from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import activityStatusState, {
-    ActivityStatusState
-} from '../states/ActivityStatus';
-import { SubscribeHOC } from '../states/helper';
-import userState, { UserState } from '../states/User';
+import { dismiss, show } from '../stores/activityStatus';
 import { SignInPayload } from '../types';
 import { object, password, username } from '../validations';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [ActivityStatusState, UserState];
 }
-class SignIn extends React.Component<Props> {
-  refPassword = React.createRef<TextInput>();
 
-  focusPassword = () => {
-    if (this.refPassword.current) {
-      this.refPassword.current.focus();
+const SignIn: React.FC<Props> = ({ navigation }) => {
+  const refPassword = React.createRef<TextInput>();
+  const focusPassword = () => {
+    if (refPassword.current) {
+      refPassword.current.focus();
     }
   };
-  onPress = async (values: SignInPayload) => {
-    const [activityStatusState] = this.props.states;
-
+  const onPress = async (values: SignInPayload) => {
     try {
-      activityStatusState.show('Logging in');
+      show('Logging in');
       await agent.token.login(values);
-      this.props.navigation.navigate(SCREENS[SCREENS.LOADING]);
+      navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
       log('login error', err);
       capture(err);
@@ -56,89 +49,84 @@ class SignIn extends React.Component<Props> {
         Alert.alert('Log in failed', 'Unable to sign in, try again later');
       }
     } finally {
-      activityStatusState.dismiss();
+      dismiss();
     }
   };
 
-  render() {
-    return (
-      <P.Container>
-        <P.SafeArea>
-          <KeyboardAwareScrollView
-            extraHeight={Constants.statusBarHeight}
-            extraScrollHeight={10}
-            enableOnAndroid
-          >
-            <P.Container hasMargin>
-              <Formik
-                initialValues={{
-                  username: __DEV__ ? 'anki566@mailinator.com' : '',
-                  password: __DEV__ ? 'Test1234' : '',
-                }}
-                validationSchema={object().shape({
-                  password,
-                  username,
-                })}
-                onSubmit={this.onPress}
-              >
-                {({ handleSubmit }) => (
-                  <View style={{ flex: 1 }}>
-                    <FormTitle style={{ marginBottom: 150 }}>Login</FormTitle>
-                    <Field
-                      name="username"
-                      component={FormikTextInput}
-                      placeholder="Email"
-                      returnKeyType="next"
-                      onSubmitEditing={this.focusPassword}
-                    />
-
-                    <Field
-                      name="password"
-                      component={FormikTextInput}
-                      placeholder="Password"
-                      secureTextEntry={true}
-                      innerRef={this.refPassword}
-                      onSubmitEditing={handleSubmit}
-                    />
-                    <View style={{ flexDirection: 'row', marginBottom: 15 }}>
-                      <P.Text>Can't Log In? </P.Text>
-                      <Link
-                        title="Reset Password"
-                        onPress={() => {
-                          this.props.navigation.navigate(
-                            SCREENS[SCREENS.RESET_PWD]
-                          );
-                        }}
-                      />
-                    </View>
-
-                    <Button title="Sign in" onPress={handleSubmit} />
-                  </View>
-                )}
-              </Formik>
-              <Delimiter />
-              <GoogleButton />
-            </P.Container>
-            <View
-              style={{
-                flexDirection: 'row',
-                marginBottom: 15,
-                justifyContent: 'center',
-                width: '100%',
+  return (
+    <P.Container>
+      <P.SafeArea>
+        <KeyboardAwareScrollView
+          extraHeight={Constants.statusBarHeight}
+          extraScrollHeight={10}
+          enableOnAndroid
+        >
+          <P.Container hasMargin>
+            <Formik
+              initialValues={{
+                username: __DEV__ ? 'anki566@mailinator.com' : '',
+                password: __DEV__ ? 'Test1234' : '',
               }}
+              validationSchema={object().shape({
+                password,
+                username,
+              })}
+              onSubmit={onPress}
             >
-              <P.Text>Don't have an account? </P.Text>
-              <Link
-                title="Signup"
-                onPress={() =>
-                  this.props.navigation.navigate(SCREENS[SCREENS.SIGN_UP])
-                }
-              />
-            </View>
-          </KeyboardAwareScrollView>
-        </P.SafeArea>
-      </P.Container>
-    );
-  }
-}
-export default SubscribeHOC([activityStatusState, userState])(SignIn);
+              {({ handleSubmit }) => (
+                <View style={{ flex: 1 }}>
+                  <FormTitle style={{ marginBottom: 150 }}>Login</FormTitle>
+                  <Field
+                    name="username"
+                    component={FormikTextInput}
+                    placeholder="Email"
+                    returnKeyType="next"
+                    onSubmitEditing={focusPassword}
+                  />
+
+                  <Field
+                    name="password"
+                    component={FormikTextInput}
+                    placeholder="Password"
+                    secureTextEntry={true}
+                    innerRef={refPassword}
+                    onSubmitEditing={handleSubmit}
+                  />
+                  <View style={{ flexDirection: 'row', marginBottom: 15 }}>
+                    <P.Text>Can't Log In? </P.Text>
+                    <Link
+                      title="Reset Password"
+                      onPress={() => {
+                        navigation.navigate(SCREENS[SCREENS.RESET_PWD]);
+                      }}
+                    />
+                  </View>
+
+                  <Button title="Sign in" onPress={handleSubmit} />
+                </View>
+              )}
+            </Formik>
+            <Delimiter />
+            <GoogleButton />
+          </P.Container>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginBottom: 15,
+              justifyContent: 'center',
+              width: '100%',
+            }}
+          >
+            <P.Text>Don't have an account? </P.Text>
+            <Link
+              title="Signup"
+              onPress={() => navigation.navigate(SCREENS[SCREENS.SIGN_UP])}
+            />
+          </View>
+        </KeyboardAwareScrollView>
+      </P.SafeArea>
+    </P.Container>
+  );
+};
+
+export default SignIn;

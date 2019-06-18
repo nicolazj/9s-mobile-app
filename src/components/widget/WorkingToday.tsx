@@ -3,7 +3,10 @@ import { View } from 'react-native';
 
 import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
-import { Header, IndexTitle, IndexTitles, IndexVal, IndexVals } from './base/LineWidget';
+import {
+    Header, IndexTitle, IndexTitles, IndexVal, IndexVals
+} from './base/Comps';
+import { Props } from './base/getData';
 
 function formatter(value: string) {
   const t = Date.parse(value);
@@ -11,10 +14,7 @@ function formatter(value: string) {
   return d.toLocaleTimeString();
 }
 
-interface Props {
-  widget: Widget;
-  collapsed: boolean;
-}
+
 const id = (t: any) => t;
 
 const WorkingToday: React.FC<Props> = ({ widget, collapsed }) => {

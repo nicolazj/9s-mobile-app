@@ -6,19 +6,13 @@ import agent from '../agent';
 import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
-import activityStatusState, {
-    ActivityStatusState
-} from '../states/ActivityStatus';
-import appState, { AppState } from '../states/Apps';
-import authContainer, { AuthState } from '../states/Auth';
-import { SubscribeHOC } from '../states/helper';
-import userState, { UserState } from '../states/User';
+import { dismiss, show } from '../stores/activityStatus';
+import { OSPStoreAPI, useAvailableApps } from '../stores/osp';
 import styled, { scale } from '../styled';
 import { App } from '../types';
 
 interface Props {
   navigation: NavigationScreenProp<any, any>;
-  states: [AppState, UserState, AuthState, ActivityStatusState];
 }
 
 const Title = styled(P.H1)`
@@ -56,13 +50,15 @@ const AvaibleAppImg = styled(Image)`
   width: ${scale(40)}px;
 `;
 
-class ForceConnect extends React.Component<Props> {
-  componentDidMount() {
-    this.fetchApps();
-  }
-  fetchApps = async () => {
-    const [appState, , , activityStatusState] = this.props.states;
-    activityStatusState.show('Loading');
+const ForceConnect: React.FC<Props> = ({ navigation }) => {
+
+  const availableApps = useAvailableApps();
+
+  React.useEffect(() => {
+    fetchApps();
+  }, []);
+  const fetchApps = async () => {
+    show('Loading');
 
     const [connections, spokes, apps] = await Promise.all([
       agent.company.connection.list(),
@@ -72,43 +68,35 @@ class ForceConnect extends React.Component<Props> {
     const fullApps = await Promise.all(
       apps.map(app => agent.user.service.get(app.key))
     );
-    appState.setState({ connections, spokes, apps: fullApps });
-    activityStatusState.dismiss();
+    OSPStoreAPI.setState({ connections, spokes, apps: fullApps });
+    dismiss();
   };
 
-  onPress = (app: App) => {
-    this.props.navigation.navigate(SCREENS[SCREENS.APP_DETAIL], app);
+  const onPress = (app: App) => {
+    navigation.navigate(SCREENS[SCREENS.APP_DETAIL], app);
   };
 
-  render() {
-    const [appState] = this.props.states;
-    return (
-      <P.Container hasPadding style={{ backgroundColor: '#fff' }}>
-        <ScrollView>
-          <Title style={{ textAlign: 'center' }}>Connect your apps</Title>
-          <SubTitle style={{ textAlign: 'center', color: '#999' }}>
-            Choose from our supported apps to connect to your dashboard
-          </SubTitle>
-          <AvaibleAppContainer>
-            {appState.availableApps.map((app: App) => (
-              <AvaibleApp key={app.key} onPress={() => this.onPress(app)}>
-                <AvaibleAppImg source={{ uri: app.squareLogo }} />
-                <AvaibleAppTextView>
-                  <AvaibleAppLabel>{app.name}</AvaibleAppLabel>
-                </AvaibleAppTextView>
-              </AvaibleApp>
-            ))}
-          </AvaibleAppContainer>
-          <SuggestAppLink />
-        </ScrollView>
-      </P.Container>
-    );
-  }
-}
+  return (
+    <P.Container hasPadding style={{ backgroundColor: '#fff' }}>
+      <ScrollView>
+        <Title style={{ textAlign: 'center' }}>Connect your apps</Title>
+        <SubTitle style={{ textAlign: 'center', color: '#999' }}>
+          Choose from our supported apps to connect to your dashboard
+        </SubTitle>
+        <AvaibleAppContainer>
+          {availableApps.map((app: App) => (
+            <AvaibleApp key={app.key} onPress={() => onPress(app)}>
+              <AvaibleAppImg source={{ uri: app.squareLogo }} />
+              <AvaibleAppTextView>
+                <AvaibleAppLabel>{app.name}</AvaibleAppLabel>
+              </AvaibleAppTextView>
+            </AvaibleApp>
+          ))}
+        </AvaibleAppContainer>
+        <SuggestAppLink />
+      </ScrollView>
+    </P.Container>
+  );
+};
 
-export default SubscribeHOC([
-  appState,
-  userState,
-  authContainer,
-  activityStatusState,
-])(withNavigation(ForceConnect));
+export default withNavigation(ForceConnect);

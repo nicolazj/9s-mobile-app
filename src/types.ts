@@ -72,6 +72,12 @@ export interface Spoke {
   type: string;
 }
 
+export interface AppDetail {
+  appKey: string;
+  connection?: Connection;
+  app?: App;
+}
+
 interface TableRowFormatter {
   (value: any): string;
 }
@@ -179,3 +185,14 @@ export interface Workflow {
   activities: Activity[];
   id: string;
 }
+
+export type ChartData = {
+  legend: string;
+  svg: {
+    color: string;
+  };
+  data: {
+    value: number;
+    label_key: string;
+  }[];
+}[];

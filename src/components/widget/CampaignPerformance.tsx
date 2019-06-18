@@ -4,21 +4,15 @@ import { View } from 'react-native';
 import { DataTab, Widget } from '../../types';
 import TableChart from '../charts/TableChart';
 import {
-  Header,
-  IndexTitle,
-  IndexTitles,
-  IndexVal,
-  IndexVals,
-} from './base/LineWidget';
+    Header, IndexTitle, IndexTitles, IndexVal, IndexVals
+} from './base/Comps';
+import { Props } from './base/getData';
 
 function formatter(value: number) {
   return value + '0%';
 }
 
-interface Props {
-  widget: Widget;
-  collapsed: boolean;
-}
+
 const id = (t: any) => t;
 
 const CampaignPerformance: React.FC<Props> = ({ widget, collapsed }) => {

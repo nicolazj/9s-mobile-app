@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 import styled from '../../../styled';
-import { Data } from '../../widget/base/LineWidget';
+import { ChartData } from '../../../types';
 import Grid from '../Grid';
 import Legend from '../Legend';
 import XAxis from '../XAxis';
@@ -10,9 +10,9 @@ import YAxis from '../YAxis';
 import Bar from './Bar';
 
 interface Props {
-  data: Data;
+  data: ChartData;
   onTickClick: (index: number) => void;
-  formatXAxis: (value: number, index: number, data: Data) => string;
+  formatXAxis: (value: number, index: number, data: ChartData) => string;
   formatYAxis: (value: number, index: number) => string;
   curTick: number;
 }

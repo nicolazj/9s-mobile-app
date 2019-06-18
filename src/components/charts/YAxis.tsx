@@ -4,11 +4,11 @@ import React, { PureComponent } from 'react';
 import { LayoutChangeEvent, Text, View, ViewStyle } from 'react-native';
 import { G, Svg, Text as SVGText } from 'react-native-svg';
 
-import { Data } from '../widget/base/LineWidget';
+import { ChartData } from '../../types';
 import { getDomain, getTicks } from './utils';
 
 interface Props {
-  data: Data;
+  data: ChartData;
   numberOfTicks: number;
   contentInset: {
     top?: number;
@@ -93,7 +93,7 @@ class YAxis extends PureComponent<Props, State> {
     return (
       <View style={[style]}>
         <View style={{ flexGrow: 1 }} onLayout={event => this._onLayout(event)}>
-          <Text style={{ opacity: 0, fontSize: svg.fontSize }}>
+          <Text style={{ opacity: 0, fontSize: 10 }}>
             {longestValue}
           </Text>
           <Svg

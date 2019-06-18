@@ -1,4 +1,4 @@
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
 import { ClientConfig } from '../types';
@@ -11,16 +11,14 @@ const config: ClientConfig = {
   device_id: '9B0C6B82-6C80-4452-A600-A68E156AE88B',
 };
 
-// bundle id com.9spokes.dashboard
 export const GOOGLE_CLIENT_ID =
   Platform.OS === 'ios'
     ? Constants.manifest
         .ios!.config!.googleSignIn!.reservedClientId!.split('.')
         .reverse()
         .join('.')
-    : JSON.parse(Constants.manifest.android!.googleServicesFile!).client[0].oauth_client[0].client_id;
-export const GOOGLE_CLIENT_ID_REVERSED = GOOGLE_CLIENT_ID.split('.')
-  .reverse()
-  .join('.');
+    : JSON.parse(Constants.manifest.android!.googleServicesFile!).client[0]
+        .oauth_client[0].client_id;
+
 
 export default config;

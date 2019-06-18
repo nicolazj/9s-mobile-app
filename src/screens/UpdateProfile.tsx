@@ -5,15 +5,9 @@ import { NavigationEvents, NavigationScreenProp } from 'react-navigation';
 
 import agent from '../agent';
 import * as P from '../primitives';
-import authState, { AuthState } from '../states/Auth';
-import { SubscribeHOC } from '../states/helper';
-import userState, { UserState } from '../states/User';
+import { userStoreAPI, useUserStore } from '../stores/user';
 import styled, { scale, th } from '../styled';
 
-interface Props {
-  navigation: NavigationScreenProp<any, any>;
-  states: [UserState, AuthState];
-}
 const Title = styled(P.H1)`
   font-size: ${scale(24)}px;
   margin: ${scale(16)}px;
@@ -21,75 +15,74 @@ const Title = styled(P.H1)`
 const BodyText = styled(Text)`
   color: ${th('color.grey')};
 `;
-export class Settings extends React.Component<Props> {
-  update = () => {
-    const [userState] = this.props.states;
-    const { me } = userState.state;
-    const { firstName, lastName } = me;
+const Settings = () => {
+  const { me } = useUserStore(({ me }) => ({
+    me: me!,
+  }));
+
+  const update = () => {
+    const { firstName, lastName } = me!;
     agent.user.user.update({ firstName, lastName });
   };
-  render() {
-    const [userState] = this.props.states;
-    const { me } = userState.state;
-    return (
-      <P.Container>
-        <NavigationEvents onWillBlur={this.update} />
-        <ScrollView>
-          <Title>User profile</Title>
-          <List style={{ backgroundColor: '#fff' }}>
-            <ListItem>
-              <Left>
-                <Text>First name</Text>
-              </Left>
-              <Body>
-                <TextInput
-                  placeholder="First name"
-                  placeholderTextColor="#ccc"
-                  onChangeText={text => {
-                    userState.setState({
-                      me: {
-                        ...me,
-                        firstName: text,
-                      },
-                    });
-                  }}
-                  value={me.firstName}
-                />
-              </Body>
-            </ListItem>
-            <ListItem>
-              <Left>
-                <Text>Last name</Text>
-              </Left>
-              <Body>
-                <TextInput
-                  placeholder="Last name"
-                  placeholderTextColor="#ccc"
-                  onChangeText={text => {
-                    userState.setState({
-                      me: {
-                        ...me,
-                        lastName: text,
-                      },
-                    });
-                  }}
-                  value={me.lastName}
-                />
-              </Body>
-            </ListItem>
 
-            <ListItem>
-              <Left>
-                <Text>Email address</Text>
-              </Left>
-              <Body>
-                <BodyText>{me.emailAddress}</BodyText>
-              </Body>
-            </ListItem>
-          </List>
-        </ScrollView>
-      </P.Container>
-    );
-  }
-}
-export default SubscribeHOC([userState, authState])(Settings);
+  return (
+    <P.Container>
+      <NavigationEvents onWillBlur={update} />
+      <ScrollView>
+        <Title>User profile</Title>
+        <List style={{ backgroundColor: '#fff' }}>
+          <ListItem>
+            <Left>
+              <Text>First name</Text>
+            </Left>
+            <Body>
+              <TextInput
+                placeholder="First name"
+                placeholderTextColor="#ccc"
+                onChangeText={text => {
+                  userStoreAPI.setState({
+                    me: {
+                      ...me,
+                      firstName: text,
+                    },
+                  });
+                }}
+                value={me!.firstName}
+              />
+            </Body>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Last name</Text>
+            </Left>
+            <Body>
+              <TextInput
+                placeholder="Last name"
+                placeholderTextColor="#ccc"
+                onChangeText={text => {
+                  userStoreAPI.setState({
+                    me: {
+                      ...me,
+                      lastName: text,
+                    },
+                  });
+                }}
+                value={me!.lastName}
+              />
+            </Body>
+          </ListItem>
+
+          <ListItem>
+            <Left>
+              <Text>Email address</Text>
+            </Left>
+            <Body>
+              <BodyText>{me!.emailAddress}</BodyText>
+            </Body>
+          </ListItem>
+        </List>
+      </ScrollView>
+    </P.Container>
+  );
+};
+export default Settings;

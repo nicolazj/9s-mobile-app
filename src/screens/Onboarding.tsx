@@ -1,4 +1,4 @@
-import { Video } from 'expo';
+import { Video } from 'expo-av';
 import React from 'react';
 import { Dimensions, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
@@ -27,12 +27,19 @@ const assetsMap = [
 
 const WalkthroughSlide = ({ index = 0, current = false }) => {
   const { height, width } = Dimensions.get('window');
+  const video = React.useRef<Video>(null);
+  React.useEffect(() => {
+    if (current && video.current) {
+      video.current.playAsync();
+    }
+  }, [current]);
   return (
     <Video
+      ref={video}
       source={assetsMap[index]}
       rate={1.0}
       isMuted={true}
-      shouldPlay={current}
+      shouldPlay={false}
       resizeMode="contain"
       style={{
         width,

@@ -1,25 +1,22 @@
-import axios from 'axios';
-
 import log from '../logging';
-import { AuthState } from '../states/Auth';
-import { ClientConfig, Industry, SignUpPayload } from '../types';
+import { authStoreAPI, isPublicTokenValid } from '../stores/auth';
+import { Industry, SignUpPayload } from '../types';
+import axios from './axios';
+import config from './config';
 import token from './token';
 
-export default (cconfig: ClientConfig, auth: AuthState) => {
-  const { tenantId } = cconfig;
+  const { tenantId } = config;
 
-  const instance = axios.create({
-    baseURL: `${cconfig.baseURL}`,
-  });
+  const instance = axios();
   instance.interceptors.request.use(
-    async config => {
-      if (!auth.isPublicTokenValid()) {
-        await token(cconfig, auth).public();
+    async cfg => {
+      if (!isPublicTokenValid()) {
+        await token.public();
       }
-      config.headers.Authorization = `Bearer ${
-        auth.state.publicAuth.access_token
+      cfg.headers.Authorization = `Bearer ${
+        authStoreAPI.getState().publicAuth!.access_token
       }`;
-      return config;
+      return cfg;
     },
     error => {
       return Promise.reject(error);
@@ -36,7 +33,7 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
     }
   );
 
-  return {
+  export default {
     user: {
       isExisted: async (emailAddress: string) => {
         try {
@@ -97,4 +94,3 @@ export default (cconfig: ClientConfig, auth: AuthState) => {
       },
     },
   };
-};
