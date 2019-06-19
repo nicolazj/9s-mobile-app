@@ -21,7 +21,6 @@ if (isInClient) {
 }
 
 const GoogleButton: React.FC<Props> = props => {
-
   React.useEffect(() => {
     Google.initAsync({
       clientId: GOOGLE_CLIENT_ID,
@@ -37,7 +36,7 @@ const GoogleButton: React.FC<Props> = props => {
 
       if (result.type === 'success') {
         const { type, user } = result;
-       show('Logging in');
+        show('Logging in');
         if (type === 'success' && user) {
           await agent.token.oauth(user.auth!.accessToken!);
           props.navigation.navigate(SCREENS[SCREENS.LOADING]);
@@ -47,7 +46,7 @@ const GoogleButton: React.FC<Props> = props => {
       log('google login error', err);
       Alert.alert('try again later');
     } finally {
-     dismiss();
+      dismiss();
     }
   };
 

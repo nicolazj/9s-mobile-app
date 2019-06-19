@@ -27,6 +27,7 @@ const assetsMap = [
 
 const WalkthroughSlide = ({ index = 0, current = false }) => {
   const { height, width } = Dimensions.get('window');
+  console.log(height,width)
   const video = React.useRef<Video>(null);
   React.useEffect(() => {
     if (current && video.current) {
@@ -40,7 +41,7 @@ const WalkthroughSlide = ({ index = 0, current = false }) => {
       rate={1.0}
       isMuted={true}
       shouldPlay={false}
-      resizeMode="contain"
+      resizeMode="cover"
       style={{
         width,
         height,
