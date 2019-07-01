@@ -1,4 +1,3 @@
-import { Body, Left, List, ListItem, Text } from 'native-base';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
@@ -14,7 +13,7 @@ const Title = styled(P.H1)`
   font-size: ${scale(24)}px;
   margin: ${scale(16)}px;
 `;
-const BodyText = styled(Text)`
+const BodyText = styled(P.Text)`
   color: ${th('color.grey')};
 `;
 
@@ -50,24 +49,24 @@ const UpdateCompany = () => {
     <P.Container>
       <ScrollView>
         <Title>User profile</Title>
-        <List style={{ backgroundColor: '#fff' }}>
-          <ListItem>
-            <Left>
-              <Text>Company name</Text>
-            </Left>
-            <Body>
+        <P.List style={{ backgroundColor: '#fff' }}>
+          <P.ListItem>
+            <P.Left>
+              <P.Text>Company name</P.Text>
+            </P.Left>
+            <P.Body>
               <BodyText>{company && company.companyName}</BodyText>
-            </Body>
-          </ListItem>
-          <ListItem>
-            <Left>
-              <Text>Industry </Text>
-            </Left>
-            <Body>
+            </P.Body>
+          </P.ListItem>
+          <P.ListItem>
+            <P.Left>
+              <P.Text>Industry </P.Text>
+            </P.Left>
+            <P.Body>
               <BodyText>{company && industry && industry.displayName}</BodyText>
-            </Body>
-          </ListItem>
-        </List>
+            </P.Body>
+          </P.ListItem>
+        </P.List>
       </ScrollView>
     </P.Container>
   );

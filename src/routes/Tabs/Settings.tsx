@@ -28,7 +28,6 @@ const SettingsStack = createStackNavigator(
     },
   },
   {
-    initialRouteName: SCREENS[SCREENS.SETTINGS],
     defaultNavigationOptions: (props: any) => {
       return {
         headerTintColor: '#fff',

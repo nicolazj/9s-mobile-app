@@ -13,7 +13,7 @@ export default (extra?: any) => {
     async cfg => {
       const auth = authStoreAPI.getState();
       if (cfg.url) {
-        cfg.url = cfg.url.replace(/\#\{(\w*)\}/g, (_, key:string) => {
+        cfg.url = cfg.url.replace(/\#\{(\w*)\}/g, (_, key: string) => {
           return key in config ? config[key] : auth[key];
         });
       }

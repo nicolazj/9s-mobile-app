@@ -1,7 +1,5 @@
 import {
-  createBottomTabNavigator,
-  createStackNavigator,
-  NavigationScreenProps,
+    createBottomTabNavigator, createStackNavigator, NavigationScreenProps
 } from 'react-navigation';
 
 import AppConnect from '../../screens/AppConnect';

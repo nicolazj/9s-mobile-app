@@ -49,3 +49,33 @@ export const Container = styled(View)<ContainerProps>`
 export const SafeArea = styled(SafeAreaView)`
   flex: 1;
 `;
+
+export const ListItem = styled(Touchable)`
+  flex-direction: row;
+  flex: 1;
+  border-bottom-color: #eee;
+  border-bottom-width: 1px;
+  padding: 10px;
+  align-items: center;
+
+`;
+export const List = styled(Container)`
+  background-color: #fff;
+  border-top-color: #eee;
+  border-bottom-color: #eee;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+`;
+export const Body = styled(View)`
+  flex: 1;
+  align-items: center;
+  align-self: center;
+`;
+export const Left = styled(View)`
+  align-items: flex-end;
+  align-self: center;
+`;
+export const Right = styled(View)`
+  align-items: flex-start;
+  align-self: center;
+`;

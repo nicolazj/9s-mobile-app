@@ -1,7 +1,6 @@
 import { Linking } from 'expo';
 import Constants from 'expo-constants';
 import * as WebBrowser from 'expo-web-browser';
-import { Body, Left, List, ListItem, Right, Text } from 'native-base';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
@@ -23,7 +22,7 @@ const Title = styled(P.H1)`
   font-size: ${scale(24)}px;
   margin: ${scale(16)}px;
 `;
-const BodyText = styled(Text)`
+const BodyText = styled(P.Text)`
   color: ${th('color.grey')};
 `;
 
@@ -95,42 +94,42 @@ const Settings: React.FC<Props> = ({ navigation }) => {
             }}
           />
         )}
-        <List style={{ backgroundColor: '#fff' }}>
-          <ListItem
+        <P.List style={{ backgroundColor: '#fff' }}>
+          <P.ListItem
             onPress={() => {
               navigation.push(SCREENS[SCREENS.UPDATE_PROFILE]);
             }}
           >
-            <Left>
-              <Text>User profile</Text>
-            </Left>
-            <Body>
+            <P.Left>
+              <P.Text>User profile</P.Text>
+            </P.Left>
+            <P.Body>
               <BodyText>{`${me!.firstName} ${me!.lastName}`}</BodyText>
-            </Body>
-            <Right>
+            </P.Body>
+            <P.Right>
               <Ionicons name="ios-arrow-forward" />
-            </Right>
-          </ListItem>
-          <ListItem
+            </P.Right>
+          </P.ListItem>
+          <P.ListItem
             onPress={() => {
               navigation.push(SCREENS[SCREENS.UPDATE_COMPANY]);
             }}
           >
-            <Left>
-              <Text>Company profile</Text>
-            </Left>
-            <Body>
+            <P.Left>
+              <P.Text>Company profile</P.Text>
+            </P.Left>
+            <P.Body>
               <BodyText>{company && company.companyName}</BodyText>
-            </Body>
-            <Right>
+            </P.Body>
+            <P.Right>
               <Ionicons name="ios-arrow-forward" />
-            </Right>
-          </ListItem>
-          <ListItem>
-            <Left>
-              <Text>Currency </Text>
-            </Left>
-            <Body>
+            </P.Right>
+          </P.ListItem>
+          <P.ListItem>
+            <P.Left>
+              <P.Text>Currency </P.Text>
+            </P.Left>
+            <P.Body>
               <Switch
                 cur={currencyMaps.findIndex(c => c.currency === currency)}
                 options={currencyMaps.map((c, i) => ({
@@ -143,78 +142,82 @@ const Settings: React.FC<Props> = ({ navigation }) => {
                   })
                 }
               />
-            </Body>
-          </ListItem>
-        </List>
+            </P.Body>
+          </P.ListItem>
+        </P.List>
         <Title>Support</Title>
-        <List style={{ backgroundColor: '#fff' }}>
-          <ListItem onPress={reportProblem}>
-            <Left>
-              <Text>Report a problem</Text>
-            </Left>
-
-            <Right>
+        <P.List style={{ backgroundColor: '#fff' }}>
+          <P.ListItem onPress={reportProblem}>
+            <P.Left>
+              <P.Text>Report a problem</P.Text>
+            </P.Left>
+            <P.Body />
+            <P.Right>
               <Ionicons name="ios-arrow-forward" />
-            </Right>
-          </ListItem>
-          <ListItem
+            </P.Right>
+          </P.ListItem>
+          <P.ListItem
             onPress={() =>
               WebBrowser.openBrowserAsync(
                 'https://support.9spokes.com/hc/en-us'
               )
             }
           >
-            <Left>
-              <Text>Help center</Text>
-            </Left>
-            <Right>
+            <P.Left>
+              <P.Text>Help center</P.Text>
+            </P.Left>
+            <P.Body />
+            <P.Right>
               <Ionicons name="ios-arrow-forward" />
-            </Right>
-          </ListItem>
-        </List>
+            </P.Right>
+          </P.ListItem>
+        </P.List>
         <Title>Legal</Title>
 
-        <List style={{ backgroundColor: '#fff' }}>
-          <ListItem
+        <P.List style={{ backgroundColor: '#fff' }}>
+          <P.ListItem
             onPress={() =>
               WebBrowser.openBrowserAsync(
                 'https://www.9spokes.com/legal/terms-and-conditions/'
               )
             }
           >
-            <Left>
-              <Text>Terms and conditions</Text>
-            </Left>
-            <Right>
+            <P.Left>
+              <P.Text>Terms and conditions</P.Text>
+            </P.Left>
+            <P.Body />
+            <P.Right>
               <Ionicons name="ios-arrow-forward" />
-            </Right>
-          </ListItem>
-          <ListItem
+            </P.Right>
+          </P.ListItem>
+          <P.ListItem
             onPress={() =>
               WebBrowser.openBrowserAsync(
                 'https://www.9spokes.com/legal/privacy-notice/'
               )
             }
           >
-            <Left>
-              <Text>Privacy policy</Text>
-            </Left>
-            <Right>
+            <P.Left>
+              <P.Text>Privacy policy</P.Text>
+            </P.Left>
+            <P.Body />
+            <P.Right>
               <Ionicons name="ios-arrow-forward" />
-            </Right>
-          </ListItem>
-        </List>
+            </P.Right>
+          </P.ListItem>
+        </P.List>
         <Title>About</Title>
-        <List style={{ backgroundColor: '#fff' }}>
-          <ListItem>
-            <Left>
-              <Text>App version</Text>
-            </Left>
-            <Right>
-              <Text>1.0.0</Text>
-            </Right>
-          </ListItem>
-        </List>
+        <P.List style={{ backgroundColor: '#fff' }}>
+          <P.ListItem>
+            <P.Left>
+              <P.Text>App version</P.Text>
+            </P.Left>
+            <P.Body />
+            <P.Right>
+              <P.Text>1.0.0</P.Text>
+            </P.Right>
+          </P.ListItem>
+        </P.List>
         <Title />
 
         <P.Container hasMargin>

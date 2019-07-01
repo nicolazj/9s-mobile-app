@@ -82,10 +82,8 @@ const AvaibleAppOpText = styled(P.Text)`
 `;
 
 const AppList: React.FC<Props> = ({ navigation }) => {
- 
-
   const purchasedApps = usePurchasedApps();
-  const availableApps = useAvailableApps()
+  const availableApps = useAvailableApps();
 
   React.useEffect(() => {
     const fetchApps = async () => {
@@ -110,7 +108,6 @@ const AppList: React.FC<Props> = ({ navigation }) => {
 
     fetchApps();
   }, []);
-
 
   const onPress = (app: App) => {
     navigation.push(SCREENS[SCREENS.APP_DETAIL], app);
@@ -167,4 +164,4 @@ const AppList: React.FC<Props> = ({ navigation }) => {
   );
 };
 
-export default (AppList);
+export default AppList;

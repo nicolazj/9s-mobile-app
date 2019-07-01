@@ -1,4 +1,3 @@
-import { Body, Left, List, ListItem, Text } from 'native-base';
 import React from 'react';
 import { ScrollView, TextInput } from 'react-native';
 import { NavigationEvents, NavigationScreenProp } from 'react-navigation';
@@ -12,7 +11,7 @@ const Title = styled(P.H1)`
   font-size: ${scale(24)}px;
   margin: ${scale(16)}px;
 `;
-const BodyText = styled(Text)`
+const BodyText = styled(P.Text)`
   color: ${th('color.grey')};
 `;
 const Settings = () => {
@@ -30,12 +29,12 @@ const Settings = () => {
       <NavigationEvents onWillBlur={update} />
       <ScrollView>
         <Title>User profile</Title>
-        <List style={{ backgroundColor: '#fff' }}>
-          <ListItem>
-            <Left>
-              <Text>First name</Text>
-            </Left>
-            <Body>
+        <P.List style={{ backgroundColor: '#fff' }}>
+          <P.ListItem>
+            <P.Left>
+              <P.Text>First name</P.Text>
+            </P.Left>
+            <P.Body>
               <TextInput
                 placeholder="First name"
                 placeholderTextColor="#ccc"
@@ -49,13 +48,13 @@ const Settings = () => {
                 }}
                 value={me!.firstName}
               />
-            </Body>
-          </ListItem>
-          <ListItem>
-            <Left>
-              <Text>Last name</Text>
-            </Left>
-            <Body>
+            </P.Body>
+          </P.ListItem>
+          <P.ListItem>
+            <P.Left>
+              <P.Text>Last name</P.Text>
+            </P.Left>
+            <P.Body>
               <TextInput
                 placeholder="Last name"
                 placeholderTextColor="#ccc"
@@ -69,18 +68,18 @@ const Settings = () => {
                 }}
                 value={me!.lastName}
               />
-            </Body>
-          </ListItem>
+            </P.Body>
+          </P.ListItem>
 
-          <ListItem>
-            <Left>
-              <Text>Email address</Text>
-            </Left>
-            <Body>
+          <P.ListItem>
+            <P.Left>
+              <P.Text>Email address</P.Text>
+            </P.Left>
+            <P.Body>
               <BodyText>{me!.emailAddress}</BodyText>
-            </Body>
-          </ListItem>
-        </List>
+            </P.Body>
+          </P.ListItem>
+        </P.List>
       </ScrollView>
     </P.Container>
   );
