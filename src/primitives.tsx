@@ -50,15 +50,7 @@ export const SafeArea = styled(SafeAreaView)`
   flex: 1;
 `;
 
-export const ListItem = styled(Touchable)`
-  flex-direction: row;
-  flex: 1;
-  border-bottom-color: #eee;
-  border-bottom-width: 1px;
-  padding: 10px;
-  align-items: center;
 
-`;
 export const List = styled(Container)`
   background-color: #fff;
   border-top-color: #eee;
@@ -66,6 +58,16 @@ export const List = styled(Container)`
   border-top-width: 1px;
   border-bottom-width: 1px;
 `;
+export const ListItem = styled(Touchable)`
+  flex-direction: row;
+  flex: 1;
+  border-bottom-color: #eee;
+  border-bottom-width: 1px;
+  padding: 10px;
+  align-items: center;
+  
+`;
+
 export const Body = styled(View)`
   flex: 1;
   align-items: center;
