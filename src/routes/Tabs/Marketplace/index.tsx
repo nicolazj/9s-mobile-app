@@ -38,6 +38,7 @@ const MarketplaceStack = createStackNavigator(
     },
   },
   {
+    headerMode:'screen',
     defaultNavigationOptions: (props: any) => {
       return {
         headerTintColor: '#fff',

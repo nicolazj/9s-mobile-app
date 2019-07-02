@@ -8,6 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "d":"npm run start & npm run web & node proxy.js",
     "eject": "expo eject",
     "postinstall": "patch-package"
   },

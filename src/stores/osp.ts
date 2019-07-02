@@ -58,7 +58,8 @@ export const getSamplesByAppKey = (appKey: string) => {
 };
 
 export const getGroupedSample = () => {
-  return _groupby(api.getState().samples, s => s.category);
+  const samples = useStore(store => store.samples);
+  return _groupby(samples, s => s.category);
 };
 
 export const getAppDetail = (appKey: string): AppDetail => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, ScrollView, View } from 'react-native';
+import { Dimensions, ScrollView, Text, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import WidgetComp from '../components/widget';
@@ -23,6 +23,8 @@ export function transform(sample: WidgetSample): Widget {
 const WidgetList: React.FC<Props> = ({}) => {
 
   const groupedSamples = getGroupedSample();
+
+  console.log('groupedSamples',groupedSamples)
   return (
     <P.Container>
       <ScrollView>

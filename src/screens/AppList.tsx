@@ -116,48 +116,50 @@ const AppList: React.FC<Props> = ({ navigation }) => {
   return (
     <P.Container>
       <ScrollView>
-        {purchasedApps.length > 0 && [
-          <P.Container key="connected-app-title" hasPadding>
+        <View>
+          {purchasedApps.length > 0 && [
+            <P.Container key="connected-app-title" hasPadding>
+              <View>
+                <Title>My Connected Apps</Title>
+              </View>
+            </P.Container>,
+            <ScrollView
+              key="connected-app-view"
+              horizontal={true}
+              style={{ backgroundColor: '#fff' }}
+            >
+              {purchasedApps.map((app: App) => (
+                <ConnectedApp key={app.key} onPress={() => onPress(app)}>
+                  <ConnectedAppImg source={{ uri: app.squareLogo }} />
+                  <ConnectedAppLabel>
+                    {app.shortName || app.name}
+                  </ConnectedAppLabel>
+                </ConnectedApp>
+              ))}
+            </ScrollView>,
+          ]}
+        </View>
+        <View>
+          <P.Container hasPadding>
             <View>
-              <Title>My Connected Apps</Title>
+              <Title>Available Apps</Title>
             </View>
-          </P.Container>,
-          <ScrollView
-            key="connected-app-view"
-            horizontal={true}
-            style={{ backgroundColor: '#fff' }}
-          >
-            {purchasedApps.map((app: App) => (
-              <ConnectedApp key={app.key} onPress={() => onPress(app)}>
-                <ConnectedAppImg source={{ uri: app.squareLogo }} />
-                <ConnectedAppLabel>
-                  {app.shortName || app.name}
-                </ConnectedAppLabel>
-              </ConnectedApp>
+          </P.Container>
+          <AvaibleAppContainer>
+            {availableApps.map((app: App) => (
+              <AvaibleApp key={app.key} onPress={() => onPress(app)}>
+                <AvaibleAppImg source={{ uri: app.squareLogo }} />
+                <AvaibleAppTextView>
+                  <AvaibleAppLabel>{app.name}</AvaibleAppLabel>
+                  <AvaibleAppSum>{app.summary}</AvaibleAppSum>
+                </AvaibleAppTextView>
+                <AvaibleAppOp>
+                  <AvaibleAppOpText> › </AvaibleAppOpText>
+                </AvaibleAppOp>
+              </AvaibleApp>
             ))}
-          </ScrollView>,
-        ]}
-
-        <P.Container hasPadding>
-          <View>
-            <Title>Available Apps</Title>
-          </View>
-        </P.Container>
-        <AvaibleAppContainer>
-          {availableApps.map((app: App) => (
-            <AvaibleApp key={app.key} onPress={() => onPress(app)}>
-              <AvaibleAppImg source={{ uri: app.squareLogo }} />
-              <AvaibleAppTextView>
-                <AvaibleAppLabel>{app.name}</AvaibleAppLabel>
-                <AvaibleAppSum>{app.summary}</AvaibleAppSum>
-              </AvaibleAppTextView>
-              <AvaibleAppOp>
-                <AvaibleAppOpText> › </AvaibleAppOpText>
-              </AvaibleAppOp>
-            </AvaibleApp>
-          ))}
-        </AvaibleAppContainer>
-
+          </AvaibleAppContainer>
+        </View>
         <SuggestAppLink />
       </ScrollView>
     </P.Container>

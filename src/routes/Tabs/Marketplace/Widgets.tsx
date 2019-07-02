@@ -7,6 +7,7 @@ import { SCREENS } from '../../constants';
 export default createStackNavigator(
   { [SCREENS[SCREENS.WIDGET_LIST]]: WidgetList },
   {
+    headerMode:'screen',
     defaultNavigationOptions: {
       header: null,
     },

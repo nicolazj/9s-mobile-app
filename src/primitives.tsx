@@ -57,6 +57,7 @@ export const List = styled(Container)`
   border-bottom-color: #eee;
   border-top-width: 1px;
   border-bottom-width: 1px;
+  flex:1;
 `;
 export const ListItem = styled(Touchable)`
   flex-direction: row;

@@ -2,7 +2,7 @@ import { Linking } from 'expo';
 import Constants from 'expo-constants';
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -85,144 +85,151 @@ const Settings: React.FC<Props> = ({ navigation }) => {
   return (
     <P.Container>
       <ScrollView>
-        <Title>Account</Title>
-        {companies.length > 1 && (
-          <SwitchCompanyBtn
-            title="Change Company"
-            onPress={() => {
-              navigation.push(SCREENS[SCREENS.SWITCH_COMPANY]);
-            }}
-          />
-        )}
-        <P.List style={{ backgroundColor: '#fff' }}>
-          <P.ListItem
-            onPress={() => {
-              navigation.push(SCREENS[SCREENS.UPDATE_PROFILE]);
-            }}
-          >
-            <P.Left>
-              <P.Text>User profile</P.Text>
-            </P.Left>
-            <P.Body>
-              <BodyText>{`${me!.firstName} ${me!.lastName}`}</BodyText>
-            </P.Body>
-            <P.Right>
-              <Ionicons name="ios-arrow-forward" />
-            </P.Right>
-          </P.ListItem>
-          <P.ListItem
-            onPress={() => {
-              navigation.push(SCREENS[SCREENS.UPDATE_COMPANY]);
-            }}
-          >
-            <P.Left>
-              <P.Text>Company profile</P.Text>
-            </P.Left>
-            <P.Body>
-              <BodyText>{company && company.companyName}</BodyText>
-            </P.Body>
-            <P.Right>
-              <Ionicons name="ios-arrow-forward" />
-            </P.Right>
-          </P.ListItem>
-          <P.ListItem>
-            <P.Left>
-              <P.Text>Currency </P.Text>
-            </P.Left>
-            <P.Body>
-              <Switch
-                cur={currencyMaps.findIndex(c => c.currency === currency)}
-                options={currencyMaps.map((c, i) => ({
-                  label: c.currency,
-                  value: i,
-                }))}
-                onChange={(index: number) =>
-                  appStoreAPI.setState({
-                    currency: currencyMaps[index].currency,
-                  })
-                }
-              />
-            </P.Body>
-          </P.ListItem>
-        </P.List>
-        <Title>Support</Title>
-        <P.List style={{ backgroundColor: '#fff' }}>
-          <P.ListItem onPress={reportProblem}>
-            <P.Left>
-              <P.Text>Report a problem</P.Text>
-            </P.Left>
-            <P.Body />
-            <P.Right>
-              <Ionicons name="ios-arrow-forward" />
-            </P.Right>
-          </P.ListItem>
-          <P.ListItem
-            onPress={() =>
-              WebBrowser.openBrowserAsync(
-                'https://support.9spokes.com/hc/en-us'
-              )
-            }
-          >
-            <P.Left>
-              <P.Text>Help center</P.Text>
-            </P.Left>
-            <P.Body />
-            <P.Right>
-              <Ionicons name="ios-arrow-forward" />
-            </P.Right>
-          </P.ListItem>
-        </P.List>
-        <Title>Legal</Title>
+        <View>
+          <Title>Account</Title>
+          {companies.length > 1 && (
+            <SwitchCompanyBtn
+              title="Change Company"
+              onPress={() => {
+                navigation.push(SCREENS[SCREENS.SWITCH_COMPANY]);
+              }}
+            />
+          )}
+          <P.List style={{ backgroundColor: '#fff' }}>
+            <P.ListItem
+              onPress={() => {
+                navigation.push(SCREENS[SCREENS.UPDATE_PROFILE]);
+              }}
+            >
+              <P.Left>
+                <P.Text>User profile</P.Text>
+              </P.Left>
+              <P.Body>
+                <BodyText>{`${me!.firstName} ${me!.lastName}`}</BodyText>
+              </P.Body>
+              <P.Right>
+                <Ionicons name="ios-arrow-forward" />
+              </P.Right>
+            </P.ListItem>
+            <P.ListItem
+              onPress={() => {
+                navigation.push(SCREENS[SCREENS.UPDATE_COMPANY]);
+              }}
+            >
+              <P.Left>
+                <P.Text>Company profile</P.Text>
+              </P.Left>
+              <P.Body>
+                <BodyText>{company && company.companyName}</BodyText>
+              </P.Body>
+              <P.Right>
+                <Ionicons name="ios-arrow-forward" />
+              </P.Right>
+            </P.ListItem>
+            <P.ListItem>
+              <P.Left>
+                <P.Text>Currency </P.Text>
+              </P.Left>
+              <P.Body>
+                <Switch
+                  cur={currencyMaps.findIndex(c => c.currency === currency)}
+                  options={currencyMaps.map((c, i) => ({
+                    label: c.currency,
+                    value: i,
+                  }))}
+                  onChange={(index: number) =>
+                    appStoreAPI.setState({
+                      currency: currencyMaps[index].currency,
+                    })
+                  }
+                />
+              </P.Body>
+            </P.ListItem>
+          </P.List>
+        </View>
+        <View>
+          <Title>Support</Title>
+          <P.List style={{ backgroundColor: '#fff' }}>
+            <P.ListItem onPress={reportProblem}>
+              <P.Left>
+                <P.Text>Report a problem</P.Text>
+              </P.Left>
+              <P.Body />
+              <P.Right>
+                <Ionicons name="ios-arrow-forward" />
+              </P.Right>
+            </P.ListItem>
+            <P.ListItem
+              onPress={() =>
+                WebBrowser.openBrowserAsync(
+                  'https://support.9spokes.com/hc/en-us'
+                )
+              }
+            >
+              <P.Left>
+                <P.Text>Help center</P.Text>
+              </P.Left>
+              <P.Body />
+              <P.Right>
+                <Ionicons name="ios-arrow-forward" />
+              </P.Right>
+            </P.ListItem>
+          </P.List>
+        </View>
+        <View>
+          <Title>Legal</Title>
 
-        <P.List style={{ backgroundColor: '#fff' }}>
-          <P.ListItem
-            onPress={() =>
-              WebBrowser.openBrowserAsync(
-                'https://www.9spokes.com/legal/terms-and-conditions/'
-              )
-            }
-          >
-            <P.Left>
-              <P.Text>Terms and conditions</P.Text>
-            </P.Left>
-            <P.Body />
-            <P.Right>
-              <Ionicons name="ios-arrow-forward" />
-            </P.Right>
-          </P.ListItem>
-          <P.ListItem
-            onPress={() =>
-              WebBrowser.openBrowserAsync(
-                'https://www.9spokes.com/legal/privacy-notice/'
-              )
-            }
-          >
-            <P.Left>
-              <P.Text>Privacy policy</P.Text>
-            </P.Left>
-            <P.Body />
-            <P.Right>
-              <Ionicons name="ios-arrow-forward" />
-            </P.Right>
-          </P.ListItem>
-        </P.List>
-        <Title>About</Title>
-        <P.List style={{ backgroundColor: '#fff' }}>
-          <P.ListItem>
-            <P.Left>
-              <P.Text>App version</P.Text>
-            </P.Left>
-            <P.Body />
-            <P.Right>
-              <P.Text>1.0.0</P.Text>
-            </P.Right>
-          </P.ListItem>
-        </P.List>
-        <Title />
-
-        <P.Container hasMargin>
-          <Button title="Log out" onPress={handleLogout} />
-        </P.Container>
+          <P.List style={{ backgroundColor: '#fff' }}>
+            <P.ListItem
+              onPress={() =>
+                WebBrowser.openBrowserAsync(
+                  'https://www.9spokes.com/legal/terms-and-conditions/'
+                )
+              }
+            >
+              <P.Left>
+                <P.Text>Terms and conditions</P.Text>
+              </P.Left>
+              <P.Body />
+              <P.Right>
+                <Ionicons name="ios-arrow-forward" />
+              </P.Right>
+            </P.ListItem>
+            <P.ListItem
+              onPress={() =>
+                WebBrowser.openBrowserAsync(
+                  'https://www.9spokes.com/legal/privacy-notice/'
+                )
+              }
+            >
+              <P.Left>
+                <P.Text>Privacy policy</P.Text>
+              </P.Left>
+              <P.Body />
+              <P.Right>
+                <Ionicons name="ios-arrow-forward" />
+              </P.Right>
+            </P.ListItem>
+          </P.List>
+        </View>
+        <View>
+          <Title>About</Title>
+          <P.List style={{ backgroundColor: '#fff' }}>
+            <P.ListItem>
+              <P.Left>
+                <P.Text>App version</P.Text>
+              </P.Left>
+              <P.Body />
+              <P.Right>
+                <P.Text>1.0.0</P.Text>
+              </P.Right>
+            </P.ListItem>
+          </P.List>
+          <Title />
+          <P.Container hasMargin>
+            <Button title="Log out" onPress={handleLogout} />
+          </P.Container>
+        </View>
       </ScrollView>
     </P.Container>
   );

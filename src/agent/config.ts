@@ -14,13 +14,15 @@ const config: ClientConfig = {
   device_id: '9B0C6B82-6C80-4452-A600-A68E156AE88B',
 };
 export const GOOGLE_CLIENT_ID = Platform.select({
-  ios: Constants.manifest
-    .ios!.config!.googleSignIn!.reservedClientId!.split('.')
-    .reverse()
-    .join('.'),
-  android: JSON.parse(Constants.manifest.android!.googleServicesFile!).client[0]
-    .oauth_client[0].client_id,
-  web: '',
+  ios: () =>
+    Constants.manifest
+      .ios!.config!.googleSignIn!.reservedClientId!.split('.')
+      .reverse()
+      .join('.'),
+  android: () =>
+    JSON.parse(Constants.manifest.android!.googleServicesFile!).client[0]
+      .oauth_client[0].client_id,
+  web: () => '',
 });
 
 export default config;

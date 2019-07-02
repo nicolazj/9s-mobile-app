@@ -8,6 +8,7 @@ export default createStackNavigator(
     [SCREENS[SCREENS.APP_LIST]]: AppList,
   },
   {
+    headerMode:'screen',
     defaultNavigationOptions: {
       header: null,
     },
