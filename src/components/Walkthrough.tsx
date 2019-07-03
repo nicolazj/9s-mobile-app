@@ -1,8 +1,12 @@
 import React from 'react';
 import {
-    Dimensions, FlatList, NativeScrollEvent, NativeSyntheticEvent, View
+  Dimensions,
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  View,
 } from 'react-native';
-
+import _debounce from 'lodash.debounce';
 import PaginationIndicator from './PaginationIndicator';
 
 const { width } = Dimensions.get('window');
@@ -18,13 +22,6 @@ const Walkthrough: React.FC = ({ children }) => {
 
   const extractItemKey = (_: any, index: number) => index.toString();
 
-  const onScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const { contentOffset } = e.nativeEvent;
-    const viewSize = e.nativeEvent.layoutMeasurement;
-    const pageNum = Math.floor(contentOffset.x / viewSize.width);
-    setIndex(pageNum);
-  };
-
   const renderItem = ({
     item,
     index: index_,
@@ -37,11 +34,26 @@ const Walkthrough: React.FC = ({ children }) => {
     </View>
   );
 
-  const onScrollBeginDrag = () => {
+  const onScroll = React.useCallback(
+    (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const { contentOffset, layoutMeasurement } = e.nativeEvent;
+      const pageNum = Math.floor(contentOffset.x / layoutMeasurement.width);
+      debouncedSetIndex(pageNum);
+    },
+    []
+  );
+
+  const debouncedSetIndex = React.useCallback(
+    _debounce((pageNum: number) => {
+      setIndex(pageNum);
+    }, 500),
+    []
+  );
+
+  const onTouchStart = () => {
     clearTimeout(timer.current!);
     touched.current = true;
   };
-
   React.useEffect(() => {
     if (index < len - 1 && !touched.current) {
       timer.current = (setTimeout(() => {
@@ -57,10 +69,10 @@ const Walkthrough: React.FC = ({ children }) => {
     <View style={{ flex: 1, alignItems: 'center' }}>
       <FlatList
         ref={list}
-        onScrollBeginDrag={onScrollBeginDrag}
-        style={{ flex: 1, backgroundColor: '#fff' }}
+        style={{ flex: 1, backgroundColor: '#fff', width: '100%' }}
         data={React.Children.toArray(children)}
-        onMomentumScrollEnd={onScrollEnd}
+        onScroll={onScroll}
+        onTouchStart={onTouchStart}
         keyExtractor={extractItemKey}
         pagingEnabled
         horizontal

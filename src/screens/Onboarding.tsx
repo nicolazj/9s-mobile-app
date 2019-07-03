@@ -17,7 +17,7 @@ const BottomView = styled(View)`
 `;
 const WalkthroughView = styled(P.Container)`
   flex: 1;
-  background-color: yellow;
+  position: relative;
 `;
 const assetsMap = [
   require('../../assets/ob1.mp4'),
@@ -27,7 +27,6 @@ const assetsMap = [
 
 const WalkthroughSlide = ({ index = 0, current = false }) => {
   const { height, width } = Dimensions.get('window');
-  console.log(height,width)
   const video = React.useRef<Video>(null);
   React.useEffect(() => {
     if (current && video.current) {
