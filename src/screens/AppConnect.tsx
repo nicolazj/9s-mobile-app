@@ -18,6 +18,7 @@ import Lock from '../Lock';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
+import * as Browser from '../services/browser';
 import { dismiss, show } from '../stores/activityStatus';
 import { getAppDetail } from '../stores/osp';
 import styled, { scale, th } from '../styled';
@@ -112,9 +113,8 @@ const AppConnectScreen: React.FC<Props> = ({ navigation }) => {
 
             case ACTIVITY_TYPES.REDIRECT_USER_AGENT:
               log('redirecting user to ...', step.href);
-              const r = (await WebBrowser.openAuthSessionAsync(
+              const r = (await Browser.open(
                 step.href,
-                Constants.linkingUri
               )) as {
                 type: string;
                 url: string;

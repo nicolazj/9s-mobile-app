@@ -5,7 +5,6 @@ import { Alert } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import agent from '../agent';
-import { GOOGLE_CLIENT_ID } from '../agent/config';
 import log from '../logging';
 import { SCREENS } from '../routes/constants';
 import * as GoogleService from '../services/googleLogin';
@@ -33,10 +32,10 @@ const GoogleButton: React.FC<Props> = props => {
       log('google auth result:', result);
 
       if (result.type === 'success') {
-        const { type, user } = result;
+        const { type, accessToken } = result;
         show('Logging in');
-        if (type === 'success' && user) {
-          await agent.token.oauth(user.auth!.accessToken!);
+        if (type === 'success') {
+          await agent.token.oauth(accessToken);
           props.navigation.navigate(SCREENS[SCREENS.LOADING]);
         } else throw new Error('no user');
       }

@@ -22,7 +22,7 @@ export const GOOGLE_CLIENT_ID = Platform.select({
   android: () =>
     JSON.parse(Constants.manifest.android!.googleServicesFile!).client[0]
       .oauth_client[0].client_id,
-  web: () => '',
+  web: () => '11165695686-sr0hokb3intgj1jslhjujve7hcbn7b7c.apps.googleusercontent.com',
 });
 
 export default config;

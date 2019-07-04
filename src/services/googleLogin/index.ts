@@ -11,5 +11,14 @@ export const init = () => {
 export const signIn = async () => {
   await Google.askForPlayServicesAsync();
   const result = await Google.signInAsync();
-  return result;
+
+  if(result.type === "success"){
+    return {
+        type:result.type, 
+        accessToken:  result!.user!.auth!.accessToken!
+    }; 
+  }else return {
+      type:result.type
+  }
+  
 };
