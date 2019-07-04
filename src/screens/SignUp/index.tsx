@@ -31,8 +31,6 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
 
   const refLastName = React.createRef<TextInput>();
 
-
-
   const focusPassword = () => {
     if (refPassword.current) {
       refPassword.current.focus();
@@ -50,8 +48,6 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
   };
 
   const onSubmit = async (values: SignUpPayload) => {
-  
-
     try {
       show('Checking email');
       const userExisted = await agent.public.user.isExisted(values.userName);
@@ -77,91 +73,93 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
           enableOnAndroid
         >
           <P.Container hasMargin>
-            <Formik
-              initialValues={
-                __DEV__
-                  ? {
-                      userName:
-                        Math.random()
-                          .toString(36)
-                          .substring(7) + '@gmail.com',
-                      password: 'Qwer1234',
-                      firstName: 'n',
-                      lastName: 'j',
-                    }
-                  : {
-                      userName: '',
-                      password: '',
-                      firstName: '',
-                      lastName: '',
-                    }
-              }
-              validationSchema={object().shape({
-                firstName: name,
-                lastName: name,
-                password,
-                userName: username,
-              })}
-              onSubmit={onSubmit}
-            >
-              {({ handleSubmit }) => (
-                <View style={{ flex: 1 }}>
-                  <FormTitle style={{ marginBottom: 20 }}>
-                    Create an account
-                  </FormTitle>
-                  <Field
-                    name="firstName"
-                    component={FormikTextInput}
-                    placeholder="First name"
-                    returnKeyType="next"
-                    onSubmitEditing={focusLastName}
-                  />
-                  <Field
-                    name="lastName"
-                    component={FormikTextInput}
-                    placeholder="Last name"
-                    innerRef={refLastName}
-                    returnKeyType="next"
-                    onSubmitEditing={focusEmail}
-                  />
-                  <Field
-                    name="userName"
-                    component={FormikTextInput}
-                    placeholder="Email"
-                    innerRef={refEmail}
-                    returnKeyType="next"
-                    onSubmitEditing={focusPassword}
-                  />
-                  <Field
-                    name="password"
-                    component={FormikTextInput}
-                    placeholder="Password"
-                    innerRef={refPassword}
-                    secureTextEntry={true}
-                    returnKeyType="next"
-                    onSubmitEditing={handleSubmit}
-                  />
-                  <Button title="Proceed" onPress={handleSubmit} />
-                </View>
-              )}
-            </Formik>
+            <View>
+              <Formik
+                initialValues={
+                  __DEV__
+                    ? {
+                        userName:
+                          Math.random()
+                            .toString(36)
+                            .substring(7) + '@gmail.com',
+                        password: 'Qwer1234',
+                        firstName: 'n',
+                        lastName: 'j',
+                      }
+                    : {
+                        userName: '',
+                        password: '',
+                        firstName: '',
+                        lastName: '',
+                      }
+                }
+                validationSchema={object().shape({
+                  firstName: name,
+                  lastName: name,
+                  password,
+                  userName: username,
+                })}
+                onSubmit={onSubmit}
+              >
+                {({ handleSubmit }) => (
+                  <View style={{ flex: 1 }}>
+                    <FormTitle style={{ marginBottom: 20 }}>
+                      Create an account
+                    </FormTitle>
+                    <Field
+                      name="firstName"
+                      component={FormikTextInput}
+                      placeholder="First name"
+                      returnKeyType="next"
+                      onSubmitEditing={focusLastName}
+                    />
+                    <Field
+                      name="lastName"
+                      component={FormikTextInput}
+                      placeholder="Last name"
+                      innerRef={refLastName}
+                      returnKeyType="next"
+                      onSubmitEditing={focusEmail}
+                    />
+                    <Field
+                      name="userName"
+                      component={FormikTextInput}
+                      placeholder="Email"
+                      innerRef={refEmail}
+                      returnKeyType="next"
+                      onSubmitEditing={focusPassword}
+                    />
+                    <Field
+                      name="password"
+                      component={FormikTextInput}
+                      placeholder="Password"
+                      innerRef={refPassword}
+                      secureTextEntry={true}
+                      returnKeyType="next"
+                      onSubmitEditing={handleSubmit}
+                    />
+                    <Button title="Proceed" onPress={handleSubmit} />
+                  </View>
+                )}
+              </Formik>
+            </View>
             <Delimiter />
             <GoogleButton />
+            <View
+              style={{
+                flexDirection: 'row',
+                marginBottom: 15,
+                justifyContent: 'center',
+                width: '100%',
+              }}
+            >
+              <P.Text>Already have an account? </P.Text>
+              <Link
+                title="Log in"
+                onPress={() => navigation.navigate(SCREENS[SCREENS.SIGN_IN])}
+              />
+            </View>
           </P.Container>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginBottom: 15,
-              justifyContent: 'center',
-              width: '100%',
-            }}
-          >
-            <P.Text>Already have an account? </P.Text>
-            <Link
-              title="Log in"
-              onPress={() => navigation.navigate(SCREENS[SCREENS.SIGN_IN])}
-            />
-          </View>
         </KeyboardAwareScrollView>
       </P.SafeArea>
     </P.Container>

@@ -62,6 +62,10 @@ const SignIn: React.FC<Props> = ({ navigation }) => {
           enableOnAndroid
         >
           <P.Container hasMargin>
+            <View>
+
+
+
             <Formik
               initialValues={{
                 username: __DEV__ ? 'anki566@mailinator.com' : '',
@@ -106,23 +110,25 @@ const SignIn: React.FC<Props> = ({ navigation }) => {
                 </View>
               )}
             </Formik>
+            </View>
+
             <Delimiter />
             <GoogleButton />
+            <View
+              style={{
+                flexDirection: 'row',
+                marginBottom: 15,
+                justifyContent: 'center',
+                width: '100%',
+              }}
+            >
+              <P.Text>Don't have an account? </P.Text>
+              <Link
+                title="Signup"
+                onPress={() => navigation.navigate(SCREENS[SCREENS.SIGN_UP])}
+              />
+            </View>
           </P.Container>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginBottom: 15,
-              justifyContent: 'center',
-              width: '100%',
-            }}
-          >
-            <P.Text>Don't have an account? </P.Text>
-            <Link
-              title="Signup"
-              onPress={() => navigation.navigate(SCREENS[SCREENS.SIGN_UP])}
-            />
-          </View>
         </KeyboardAwareScrollView>
       </P.SafeArea>
     </P.Container>

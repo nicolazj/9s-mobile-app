@@ -8,6 +8,7 @@ import agent from '../agent';
 import { GOOGLE_CLIENT_ID } from '../agent/config';
 import log from '../logging';
 import { SCREENS } from '../routes/constants';
+import * as GoogleService from '../services/googleLogin';
 import { dismiss, show } from '../stores/activityStatus';
 import { SocialButon } from './SocialButton';
 
@@ -22,15 +23,12 @@ if (isInClient) {
 
 const GoogleButton: React.FC<Props> = props => {
   React.useEffect(() => {
-    Google.initAsync({
-      clientId: GOOGLE_CLIENT_ID,
-    });
+    GoogleService.init()
   }, []);
 
   const googleLogin = async () => {
     try {
-      await Google.askForPlayServicesAsync();
-      const result = await Google.signInAsync();
+      const result = await GoogleService.signIn();
 
       log('google auth result:', result);
 

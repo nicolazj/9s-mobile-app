@@ -1,6 +1,6 @@
 import { Video } from 'expo-av';
 import React from 'react';
-import { Dimensions, View } from 'react-native';
+import { Dimensions, Platform, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import Button from '../components/Button';
@@ -36,7 +36,9 @@ const WalkthroughSlide = ({ index = 0, current = false }) => {
   return (
     <Video
       ref={video}
-      source={assetsMap[index]}
+      source={
+        Platform.OS === 'web' ? { uri: assetsMap[index] } : assetsMap[index]
+      }
       rate={1.0}
       isMuted={true}
       shouldPlay={false}
@@ -73,7 +75,7 @@ const WalkthroughScreen: React.FC<{
           </View>
           <View style={{ flex: 1, margin: 20 }}>
             <Button
-              invert
+              inverted={true}
               title="Sign up"
               onPress={() => {
                 navigation.navigate(SCREENS[SCREENS.SIGN_UP]);

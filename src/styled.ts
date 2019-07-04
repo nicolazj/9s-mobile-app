@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 import { Dimensions, PixelRatio } from 'react-native';
-import * as styledComponents from 'styled-components';
+import * as styledComponents from 'styled-components/native';
 
 export interface IThemeInterface {
   color: {
