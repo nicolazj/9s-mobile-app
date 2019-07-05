@@ -62,6 +62,9 @@ const Grid: React.FC<Props> = props => {
           x2={x(index)}
           stroke={'rgba(0,0,0,0)'}
           strokeWidth={delta}
+          onClick={() => {
+            onTickClick(index);
+          }}
           onPressIn={() => {
             onTickClick(index);
           }}

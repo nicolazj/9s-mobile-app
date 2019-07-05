@@ -1,8 +1,10 @@
 import { ScaleLinear } from 'd3-scale';
 import React from 'react';
 import { Circle, G } from 'react-native-svg';
+
 import { ChartData } from '../../../types';
 import { MappedData } from './Lines';
+
 interface Props {
   x: ScaleLinear<number, number>;
   y: ScaleLinear<number, number>;
@@ -23,7 +25,7 @@ class Indicator extends React.PureComponent<Props> {
               <Circle
                 key={i}
                 cx={x(dot.x)}
-                y={y(dot.y)}
+                cy={y(dot.y)}
                 r={5}
                 fill={data[i].svg.color}
               />
