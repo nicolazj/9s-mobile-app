@@ -2,6 +2,8 @@ import React from 'react';
 import { Alert, Image, ScrollView, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
+import { Ionicons } from '@expo/vector-icons';
+
 import agent from '../agent';
 import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
@@ -39,23 +41,8 @@ export const ConnectedAppLabel = styled(P.Text)`
   flex-wrap: wrap;
   text-align: center;
 `;
-const AvaibleAppContainer = styled(P.Container)`
-  background-color: #fff;
-  border-top-color: #eee;
-  border-bottom-color: #eee;
-  border-top-width: 1px;
-  border-bottom-width: 1px;
-`;
-const AvaibleApp = styled(P.Touchable)<{
-  children: React.ReactNode;
-}>`
-  flex-direction: row;
-  flex: 1;
-  border-bottom-color: #eee;
-  border-bottom-width: 1px;
-`;
+
 const AvaibleAppTextView = styled(View)`
-  flex: 1;
   margin: ${scale(10)}px;
   margin-left: 0;
 `;
@@ -71,14 +58,6 @@ const AvaibleAppImg = styled(Image)`
   margin: ${scale(10)}px;
   height: ${scale(40)}px;
   width: ${scale(40)}px;
-`;
-const AvaibleAppOp = styled(View)`
-  justify-content: center;
-  padding: 4px;
-`;
-const AvaibleAppOpText = styled(P.Text)`
-  color: ${th('color.grey')};
-  font-size: ${scale(24)}px;
 `;
 
 const AppList: React.FC<Props> = ({ navigation }) => {
@@ -118,10 +97,8 @@ const AppList: React.FC<Props> = ({ navigation }) => {
       <ScrollView>
         <View>
           {purchasedApps.length > 0 && [
-            <P.Container key="connected-app-title" hasPadding>
-              <View>
-                <Title>My Connected Apps</Title>
-              </View>
+            <P.Container key="connected-app-title" hasPadding noFlex>
+              <Title>My Connected Apps</Title>
             </P.Container>,
             <ScrollView
               key="connected-app-view"
@@ -140,25 +117,27 @@ const AppList: React.FC<Props> = ({ navigation }) => {
           ]}
         </View>
         <View>
-          <P.Container hasPadding>
-            <View>
-              <Title>Available Apps</Title>
-            </View>
+          <P.Container hasPadding noFlex>
+            <Title>Available Apps</Title>
           </P.Container>
-          <AvaibleAppContainer>
+          <P.List>
             {availableApps.map((app: App) => (
-              <AvaibleApp key={app.key} onPress={() => onPress(app)}>
-                <AvaibleAppImg source={{ uri: app.squareLogo }} />
-                <AvaibleAppTextView>
-                  <AvaibleAppLabel>{app.name}</AvaibleAppLabel>
-                  <AvaibleAppSum>{app.summary}</AvaibleAppSum>
-                </AvaibleAppTextView>
-                <AvaibleAppOp>
-                  <AvaibleAppOpText> › </AvaibleAppOpText>
-                </AvaibleAppOp>
-              </AvaibleApp>
+              <P.ListItem key={app.key} onPress={() => onPress(app)}>
+                <P.Left>
+                  <AvaibleAppImg source={{ uri: app.squareLogo }} />
+                </P.Left>
+                <P.Body>
+                  <AvaibleAppTextView>
+                    <AvaibleAppLabel>{app.name}</AvaibleAppLabel>
+                    <AvaibleAppSum>{app.summary}</AvaibleAppSum>
+                  </AvaibleAppTextView>
+                </P.Body>
+                <P.Right>
+                  <Ionicons name="ios-arrow-forward" />
+                </P.Right>
+              </P.ListItem>
             ))}
-          </AvaibleAppContainer>
+          </P.List>
         </View>
         <SuggestAppLink />
       </ScrollView>

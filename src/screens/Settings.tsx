@@ -95,7 +95,7 @@ const Settings: React.FC<Props> = ({ navigation }) => {
               }}
             />
           )}
-          <P.List style={{ backgroundColor: '#fff' }}>
+          <P.List>
             <P.ListItem
               onPress={() => {
                 navigation.push(SCREENS[SCREENS.UPDATE_PROFILE]);
@@ -149,7 +149,7 @@ const Settings: React.FC<Props> = ({ navigation }) => {
         </View>
         <View>
           <Title>Support</Title>
-          <P.List style={{ backgroundColor: '#fff' }}>
+          <P.List>
             <P.ListItem onPress={reportProblem}>
               <P.Left>
                 <P.Text>Report a problem</P.Text>
@@ -179,7 +179,7 @@ const Settings: React.FC<Props> = ({ navigation }) => {
         <View>
           <Title>Legal</Title>
 
-          <P.List style={{ backgroundColor: '#fff' }}>
+          <P.List>
             <P.ListItem
               onPress={() =>
                 WebBrowser.openBrowserAsync(
@@ -214,7 +214,7 @@ const Settings: React.FC<Props> = ({ navigation }) => {
         </View>
         <View>
           <Title>About</Title>
-          <P.List style={{ backgroundColor: '#fff' }}>
+          <P.List>
             <P.ListItem>
               <P.Left>
                 <P.Text>App version</P.Text>

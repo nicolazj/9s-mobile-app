@@ -6,7 +6,7 @@ var proxy = httpProxy.createServer({
     key: fs.readFileSync('./key.pem', 'utf8'),
     cert: fs.readFileSync('./cert.pem', 'utf8'),
   },
-  target: 'https://9spokes.io/api/v1',
+  target: 'https://dashboard.9spokes.com/api/v1',
   secure: false, // Depends on your needs, could be false.
 });
 

@@ -1,5 +1,5 @@
 import {
-    SafeAreaView, Text as Text_, TouchableOpacity, View
+    Platform, SafeAreaView, Text as Text_, TouchableOpacity, View
 } from 'react-native';
 
 import styled, { scale, th } from './styled';
@@ -35,11 +35,12 @@ interface ContainerProps {
   hasMargin?: boolean;
   vcenter?: boolean;
   hcenter?: boolean;
+  noFlex?:boolean;
 }
 export const Container = styled(View)<ContainerProps>`
-  flex: 1;
   width: 100%;
   background-color: ${th('color.view.bg')};
+  ${p => (p.noFlex !==true ? `flex:1;` : '')};
   ${p => (p.hasPadding ? `padding: 0 ${scale(10)}px` : '')};
   ${p => (p.hasMargin ? `padding:  ${scale(20)}px` : '')};
   ${p => (p.vcenter ? 'justify-content: center' : '')};
@@ -51,22 +52,20 @@ export const SafeArea = styled(SafeAreaView)`
 `;
 
 
-export const List = styled(Container)`
+export const List = styled(View)`
   background-color: #fff;
   border-top-color: #eee;
   border-bottom-color: #eee;
   border-top-width: 1px;
   border-bottom-width: 1px;
-  flex:1;
 `;
 export const ListItem = styled(Touchable)`
   flex-direction: row;
-  flex: 1;
   border-bottom-color: #eee;
   border-bottom-width: 1px;
   padding: 10px;
   align-items: center;
-  
+  display:flex
 `;
 
 export const Body = styled(View)`

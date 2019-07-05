@@ -31,7 +31,7 @@ const WidgetList: React.FC<Props> = ({}) => {
         {Object.keys(groupedSamples).map(cat => {
           return (
             <View key={cat}>
-              <P.Container hasPadding>
+              <P.Container hasPadding noFlex>
                 <P.H2>{cat}</P.H2>
               </P.Container>
               <ScrollView horizontal={true}>
