@@ -32,7 +32,17 @@ export default class Row extends Component<Props> {
             outputRange: [2, 10],
           }),
         },
-
+        web: {
+          transform: [
+            {
+              scale: this._active.interpolate({
+                inputRange: [0, 1],
+                outputRange: [1, 1.1],
+              }),
+            },
+          ],
+          
+        },
         android: {
           transform: [
             {
@@ -64,7 +74,11 @@ export default class Row extends Component<Props> {
   render() {
     const { active, children } = this.props;
 
-    return <Animated.View style={[styles.row, this._style, active && styles.active]}>{children}</Animated.View>;
+    return (
+      <Animated.View style={[styles.row, this._style, active && styles.active]}>
+        {children}
+      </Animated.View>
+    );
   }
 }
 
@@ -81,6 +95,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         shadowOffset: { height: 2, width: 2 },
         shadowRadius: 2,
+      },
+      web: {
+        marginHorizontal: 30,
+       
       },
 
       android: {

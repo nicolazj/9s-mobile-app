@@ -12,14 +12,11 @@ import { getApp } from '../stores/osp';
 import styled, { scale } from '../styled';
 import { Widget } from '../types';
 
-interface withChildren {
-  children: React.ReactNode;
-}
 const Title = styled(P.Text)`
   color: #999;
   padding: 0 ${scale(10)}px;
 `;
-const Group = styled(View)<withChildren>`
+const Group = styled(View)`
   margin-bottom: 20px;
   padding-top: 10px;
 `;
@@ -32,14 +29,15 @@ const List = styled(View)`
   background-color: #fff;
   padding: 10px 0;
 `;
-const ListItem = styled(View)<withChildren>`
+const ListItem = styled(View)`
   padding: 10px;
   flex-direction: row;
   border-bottom-color: #ddd;
   border-bottom-width: 1px;
   align-items: center;
+  width: 100%;
 `;
-const Cell = styled(View)<withChildren>`
+const Cell = styled(View)`
   padding: 0 10px;
 `;
 
@@ -97,7 +95,7 @@ const ManageWidgets = () => {
     activeWidgets.filter(w => !w.attributes.showOnMobile),
     'attributes.origin'
   );
-
+  console.log('activeWidgets', activeWidgets, activeWidgetsNotShowedGrouped);
   const getIcon = (appKey: string) => getApp(appKey)!.squareLogo;
   return (
     <ScrollView scrollEnabled={scrollEnabled}>
