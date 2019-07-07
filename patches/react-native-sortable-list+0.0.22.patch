@@ -1,0 +1,41 @@
+diff --git a/node_modules/react-native-sortable-list/README.md b/node_modules/react-native-sortable-list/README.md
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-sortable-list/index.js b/node_modules/react-native-sortable-list/index.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-sortable-list/src/Row.js b/node_modules/react-native-sortable-list/src/Row.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-sortable-list/src/SortableList.js b/node_modules/react-native-sortable-list/src/SortableList.js
+old mode 100644
+new mode 100755
+index be7d2d0..cd9fd1a
+--- a/node_modules/react-native-sortable-list/src/SortableList.js
++++ b/node_modules/react-native-sortable-list/src/SortableList.js
+@@ -200,6 +200,7 @@ export default class SortableList extends Component {
+       });
+     }
+ 
++
+     return (
+       <View style={containerStyle} ref={this._onRefContainer}>
+         <ScrollView
+@@ -636,7 +637,7 @@ const styles = StyleSheet.create({
+   },
+ 
+   rowsContainer: {
+-    flex: 1,
++    // flex: 1,
+     zIndex: 1,
+   },
+ });
+diff --git a/node_modules/react-native-sortable-list/src/utils/index.js b/node_modules/react-native-sortable-list/src/utils/index.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-sortable-list/src/utils/shallowEqual.js b/node_modules/react-native-sortable-list/src/utils/shallowEqual.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-sortable-list/src/utils/swapArrayElements.js b/node_modules/react-native-sortable-list/src/utils/swapArrayElements.js
+old mode 100644
+new mode 100755

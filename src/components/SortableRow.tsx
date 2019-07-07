@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
       },
       web: {
         marginHorizontal: 30,
-       
       },
 
       android: {
