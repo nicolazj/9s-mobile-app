@@ -2,6 +2,8 @@ import get from 'lodash.get';
 import { Dimensions, PixelRatio } from 'react-native';
 import * as styledComponents from 'styled-components/native';
 
+import useDimension from './hooks/useDimension';
+
 export interface IThemeInterface {
   color: {
     main: string;
@@ -19,9 +21,15 @@ const {
   keyframes,
   ThemeProvider,
   withTheme,
-} = styledComponents as styledComponents.ThemedStyledComponentsModule<IThemeInterface>;
+} = styledComponents as styledComponents.ThemedStyledComponentsModule<
+  IThemeInterface
+>;
 
-export const th = (...props: string[]) => ({ theme }: { theme: IThemeInterface }) => {
+export const th = (...props: string[]) => ({
+  theme,
+}: {
+  theme: IThemeInterface;
+}) => {
   for (const prop of props) {
     const res = get(theme, prop);
     if (res) {
@@ -33,10 +41,12 @@ export const th = (...props: string[]) => ({ theme }: { theme: IThemeInterface }
 export default styled;
 export { css, keyframes, ThemeProvider, withTheme };
 
-const { width, height } = Dimensions.get('window');
+export const scale = (size: number) => {
+  const { width, height } = Dimensions.get('window');
 
-const length = width > height ? height : width;
+  const length = width > height ? height : width;
 
-const guidelineBaseWidth = 375;
+  const guidelineBaseWidth = 375;
 
-export const scale = (size: number) => PixelRatio.roundToNearestPixel((length / guidelineBaseWidth) * size);
+  return PixelRatio.roundToNearestPixel((length / guidelineBaseWidth) * size);
+};
