@@ -2,8 +2,6 @@ import get from 'lodash.get';
 import { Dimensions, PixelRatio } from 'react-native';
 import * as styledComponents from 'styled-components/native';
 
-import useDimension from './hooks/useDimension';
-
 export interface IThemeInterface {
   color: {
     main: string;
@@ -18,10 +16,9 @@ export interface IThemeInterface {
 const {
   default: styled,
   css,
-  keyframes,
   ThemeProvider,
   withTheme,
-} = styledComponents as styledComponents.ThemedStyledComponentsModule<
+} = styledComponents as styledComponents.ReactNativeThemedStyledComponentsModule<
   IThemeInterface
 >;
 
@@ -39,7 +36,7 @@ export const th = (...props: string[]) => ({
 };
 
 export default styled;
-export { css, keyframes, ThemeProvider, withTheme };
+export { css, ThemeProvider, withTheme };
 
 export const scale = (size: number) => {
   const { width, height } = Dimensions.get('window');

@@ -16,6 +16,7 @@ import { FormikTextInput, FormTitle } from '../../formik';
 import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
+import { alert } from '../../services/Alert';
 import { dismiss, show } from '../../stores/activityStatus';
 import { SignUpPayload } from '../../types';
 import { name, object, password, username } from '../../validations';
@@ -54,11 +55,11 @@ const SignUp: React.FC<Props> = ({ navigation }) => {
       if (!userExisted) {
         navigation.navigate(SCREENS[SCREENS.SIGN_UP_COMPANY], values);
       } else {
-        Alert.alert('Error', 'Username existed');
+        alert('Error', 'Username existed');
       }
     } catch (err) {
       log('sign up err', err);
-      Alert.alert('Log in failed', 'Unable to sign up, try again later');
+      alert('Log in failed', 'Unable to sign up, try again later');
     } finally {
       dismiss();
     }

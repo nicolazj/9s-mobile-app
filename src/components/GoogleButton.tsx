@@ -7,6 +7,7 @@ import { NavigationScreenProp, withNavigation } from 'react-navigation';
 import agent from '../agent';
 import log from '../logging';
 import { SCREENS } from '../routes/constants';
+import { alert } from '../services/Alert';
 import * as GoogleService from '../services/googleLogin';
 import { dismiss, show } from '../stores/activityStatus';
 import { SocialButon } from './SocialButton';
@@ -41,7 +42,7 @@ const GoogleButton: React.FC<Props> = props => {
       }
     } catch (err) {
       log('google login error', err);
-      Alert.alert('try again later');
+      alert('try again later');
     } finally {
       dismiss();
     }

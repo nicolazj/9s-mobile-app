@@ -1,5 +1,5 @@
 import {
-    Platform, SafeAreaView, Text as Text_, TouchableOpacity, View
+    SafeAreaView, Text as Text_, TouchableOpacity, View
 } from 'react-native';
 
 import styled, { scale, th } from './styled';

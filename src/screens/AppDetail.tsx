@@ -9,6 +9,7 @@ import WidgetComp from '../components/widget';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
+import { alert } from '../services/Alert';
 import { getAppDetail, getSamplesByAppKey, OSPStoreAPI } from '../stores/osp';
 import styled, { scale } from '../styled';
 import { AppDetail, WidgetSample } from '../types';
@@ -50,7 +51,7 @@ const AppDetailScreen: React.FC<Props> = ({ navigation }) => {
     });
   };
   const onRemoveConnection = async (connectionId: string, appKey: string) => {
-    Alert.alert(
+    alert(
       'Remove connection?',
       'Are you sure you want to remove your connection ',
       [

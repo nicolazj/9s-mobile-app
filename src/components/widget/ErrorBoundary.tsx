@@ -6,7 +6,6 @@ interface State {
   error: boolean;
 }
 interface Props {
-  error: any;
   whenError: React.ReactNode;
 }
 export class ErrorBoundary extends React.Component<Props, State> {

@@ -8,6 +8,7 @@ import agent from '../agent';
 import SuggestAppLink from '../components/SuggestAppLink';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
+import { alert } from '../services/Alert';
 import { dismiss, show } from '../stores/activityStatus';
 import { OSPStoreAPI, useAvailableApps, usePurchasedApps } from '../stores/osp';
 import styled, { scale, th } from '../styled';
@@ -79,7 +80,7 @@ const AppList: React.FC<Props> = ({ navigation }) => {
         );
         OSPStoreAPI.setState({ connections, spokes, apps: fullApps, samples });
       } catch (err) {
-        Alert.alert('please try again later');
+        alert('please try again later');
       } finally {
         dismiss();
       }

@@ -1,16 +1,13 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  AsyncStorage,
-  StatusBar,
-  View,
+    ActivityIndicator, Alert, AsyncStorage, StatusBar, View
 } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 import agent from '../agent';
 import log from '../logging';
 import { SCREENS } from '../routes/constants';
+import { alert } from '../services/Alert';
 import { useAppStore } from '../stores/app';
 import { hasUserId } from '../stores/auth';
 import { userStoreAPI } from '../stores/user';
@@ -38,7 +35,7 @@ const AuthLoadingScreen: React.FC<Props> = ({ navigation }) => {
       } else navigation.navigate(SCREENS[SCREENS.SIGN_IN]);
     } catch (err) {
       log('loading error', err);
-      Alert.alert('please try again later');
+      alert('please try again later');
       AsyncStorage.clear();
     }
   };

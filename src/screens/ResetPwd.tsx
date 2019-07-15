@@ -10,6 +10,7 @@ import { FormDesc, FormikTextInput, FormTitle } from '../formik';
 import log from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
+import { alert } from '../services/Alert';
 import { object, username } from '../validations';
 
 interface Props {
@@ -26,7 +27,7 @@ export default class ResetPwd extends React.Component<Props> {
       this.setState({ done: true });
     } catch (err) {
       log('reset error', err);
-      Alert.alert('Reset password failed', 'try again later');
+      alert('Reset password failed', 'try again later');
     }
   };
 

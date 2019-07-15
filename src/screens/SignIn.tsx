@@ -16,6 +16,7 @@ import { FormikTextInput, FormTitle } from '../formik';
 import log, { capture } from '../logging';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
+import { alert } from '../services/Alert';
 import { dismiss, show } from '../stores/activityStatus';
 import { SignInPayload } from '../types';
 import { object, password, username } from '../validations';
@@ -43,10 +44,10 @@ const SignIn: React.FC<Props> = ({ navigation }) => {
         if (
           err.response.data.error_description === 'INVALID_USERNAME_OR_PASSWORD'
         ) {
-          Alert.alert('Log in failed', 'Invalid username or password');
+          alert('Log in failed', 'Invalid username or password');
         }
       } else {
-        Alert.alert('Log in failed', 'Unable to sign in, try again later');
+        alert('Log in failed', 'Unable to sign in, try again later');
       }
     } finally {
       dismiss();

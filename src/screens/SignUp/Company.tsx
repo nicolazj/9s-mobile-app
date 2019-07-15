@@ -18,6 +18,7 @@ import {
 import log from '../../logging';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
+import { alert } from '../../services/Alert';
 import { dismiss, show } from '../../stores/activityStatus';
 import { userStoreAPI } from '../../stores/user';
 import { Industry, SignUpPayload } from '../../types';
@@ -73,7 +74,7 @@ const SignUpCompany: React.FC<Props> = ({ navigation }) => {
       navigation.navigate(SCREENS[SCREENS.LOADING]);
     } catch (err) {
       log(JSON.stringify(err, null, 2));
-      Alert.alert('Log in failed', 'Unable to sign in, try again later');
+      alert('Log in failed', 'Unable to sign in, try again later');
     } finally {
       dismiss();
     }

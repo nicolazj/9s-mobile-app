@@ -1,10 +1,11 @@
 import React from 'react';
-import { Alert, Animated, Image, LayoutChangeEvent, View } from 'react-native';
+import { Animated, Image, LayoutChangeEvent, View } from 'react-native';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import { getSymbol } from '../../currency';
 import * as P from '../../primitives';
 import { SCREENS } from '../../routes/constants';
+import { alert } from '../../services/Alert';
 import { useAppStore } from '../../stores/app';
 import { getSample, useApp } from '../../stores/osp';
 import styled, { scale } from '../../styled';
@@ -109,7 +110,7 @@ const WidgetComp: React.FC<Props> = ({ widget, sample, navigation }) => {
         key: widget.key,
       });
     } else {
-      Alert.alert(
+      alert(
         'No information found',
         `Unable to find information for ${
           widget.attributes.displayName
