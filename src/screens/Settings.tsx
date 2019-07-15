@@ -1,6 +1,5 @@
 import { Linking } from 'expo';
 import Constants from 'expo-constants';
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
@@ -13,6 +12,7 @@ import Switch from '../components/Switch';
 import { currencyMaps } from '../currency';
 import * as P from '../primitives';
 import { SCREENS } from '../routes/constants';
+import * as Browser from '../services/browser';
 import { appStoreAPI, useAppStore } from '../stores/app';
 import { useAuthStore } from '../stores/auth';
 import { useUserStore } from '../stores/user';
@@ -161,7 +161,7 @@ const Settings: React.FC<Props> = ({ navigation }) => {
             </P.ListItem>
             <P.ListItem
               onPress={() =>
-                WebBrowser.openBrowserAsync(
+                Browser.openBrowserAsync(
                   'https://support.9spokes.com/hc/en-us'
                 )
               }
@@ -182,7 +182,7 @@ const Settings: React.FC<Props> = ({ navigation }) => {
           <P.List>
             <P.ListItem
               onPress={() =>
-                WebBrowser.openBrowserAsync(
+                Browser.openBrowserAsync(
                   'https://www.9spokes.com/legal/terms-and-conditions/'
                 )
               }
@@ -197,7 +197,7 @@ const Settings: React.FC<Props> = ({ navigation }) => {
             </P.ListItem>
             <P.ListItem
               onPress={() =>
-                WebBrowser.openBrowserAsync(
+                Browser.openBrowserAsync(
                   'https://www.9spokes.com/legal/privacy-notice/'
                 )
               }

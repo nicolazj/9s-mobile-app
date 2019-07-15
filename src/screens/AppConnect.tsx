@@ -1,6 +1,4 @@
 import { Linking } from 'expo';
-import Constants from 'expo-constants';
-import * as WebBrowser from 'expo-web-browser';
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { Image, View } from 'react-native';
@@ -113,7 +111,7 @@ const AppConnectScreen: React.FC<Props> = ({ navigation }) => {
 
             case ACTIVITY_TYPES.REDIRECT_USER_AGENT:
               log('redirecting user to ...', step.href);
-              const r = (await Browser.open(
+              const r = (await Browser.openAuthSessionAsync(
                 step.href,
               )) as {
                 type: string;
